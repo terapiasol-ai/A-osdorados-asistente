@@ -258,7 +258,7 @@
             font-weight: bold;
         }
 
-        /* MODAL DE PERFIL SENCILLO */
+        /* MODAL DE BIENVENIDA / PERSONALIZACIÓN GENÉRICO */
         #modal-perfil {
             display: none;
             position: fixed;
@@ -273,31 +273,48 @@
         .perfil-card {
             background: #141C28;
             border: 2px solid var(--gold);
-            border-radius: 18px;
-            padding: 22px;
-            max-width: 360px;
+            border-radius: 20px;
+            padding: 24px 20px;
+            max-width: 380px;
             width: 100%;
             text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
         }
 
-        .perfil-card h3 { color: var(--gold-light); margin-bottom: 12px; font-family: 'Cinzel', serif; }
+        .perfil-card h3 { color: var(--gold-light); margin-bottom: 10px; font-family: 'Cinzel', serif; font-size: 1.3rem; }
+        .perfil-card p { font-size: 0.95rem; color: #CBD5E1; margin-bottom: 14px; line-height: 1.4; }
+        
         .perfil-input {
             width: 100%;
             background: #0D131F;
             border: 1px solid var(--gold);
             border-radius: 12px;
-            padding: 10px 14px;
+            padding: 12px 14px;
             color: #FFF;
-            font-size: 1rem;
-            margin-bottom: 12px;
+            font-size: 1.05rem;
+            margin-bottom: 14px;
             outline: none;
+            text-align: center;
         }
+
         .genero-selector {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 18px;
+            gap: 16px;
+            margin-bottom: 20px;
             font-size: 0.95rem;
+        }
+
+        .btn-comenzar-perfil {
+            background: linear-gradient(135deg, #D4AF37, #AA7C11);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #0A0E14;
+            width: 100%;
         }
 
         footer {
@@ -309,7 +326,7 @@
             border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* ASISTENCIA TÉCNICA Y FAMILIAR (SIN PRECIOS NI COBROS) */
+        /* ASISTENCIA TÉCNICA FAMILIAR (SIN PRECIOS) */
         #sol-ai-widget { position: fixed; bottom: 20px; right: 15px; z-index: 99999; }
         .sol-bubble {
             background: #151D28;
@@ -350,7 +367,7 @@
 <body>
 
     <header>
-        <button class="btn-perfil-top" onclick="abrirPerfil()">⚙️ <span id="labelNombreTop">Sol</span></button>
+        <button class="btn-perfil-top" onclick="abrirPerfil()">⚙️ <span id="labelNombreTop">Mi Perfil</span></button>
         <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" 
              onerror="this.onerror=null; this.src='https://files.manuscdn.com/user_upload_by_module/session_file/310519663295304532/SXAbPHcoYQWtVFRu.jpg';" 
              alt="Logo Cuidador" 
@@ -370,12 +387,11 @@
 
             <div class="chat-display" id="chatDisplay">
                 <div class="msg-cuidador" id="msgBienvenida">
-                    Hola, <span id="saludoNombre">Sol</span>. Estoy aquí a tu lado. ¿Tienes ganas de que conversemos un ratito, o prefieres descansar en silencio?
+                    Hola. Estoy aquí a tu lado. ¿Tienes ganas de que conversemos un ratito, o prefieres descansar en silencio?
                     <button class="btn-repetir-voz" onclick="hablarSaludoInicial()" title="Escuchar">🔊</button>
                 </div>
             </div>
 
-            <!-- BOTONES RÁPIDOS DE PANORAMA Y SILENCIO -->
             <div class="sugerencias-box">
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Tengo ganas de conversar un ratito')">💬 Sí, conversemos</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero dormir siesta, quédate en silencio')">😴 Dormir siesta</button>
@@ -397,23 +413,23 @@
         </div>
     </div>
 
-    <!-- MODAL DE CONFIGURACIÓN DE NOMBRE Y GÉNERO -->
+    <!-- MODAL DE AUTOCONFIGURACIÓN PARA CUALQUIER COMPRADOR NUEVO -->
     <div id="modal-perfil">
         <div class="perfil-card">
-            <h3>Tu Nombre y Trato</h3>
-            <p style="font-size:0.85rem; color:#CBD5E1; margin-bottom:12px;">¿Cómo te gusta que te llamen?</p>
-            <input type="text" id="inputNombreSenior" class="perfil-input" value="Sol" placeholder="Escribe tu nombre">
+            <h3>¡Bienvenida/o!</h3>
+            <p>Para acompañarte con cariño y respeto en tu día a día:<br><strong>¿Cómo te gusta que te llamen?</strong></p>
+            <input type="text" id="inputNombreSenior" class="perfil-input" placeholder="Escribe tu nombre aquí">
             
             <div class="genero-selector">
                 <label style="cursor:pointer;"><input type="radio" name="gen" value="femenino" id="genF" checked> 🌸 Juntas (Femenino)</label>
                 <label style="cursor:pointer;"><input type="radio" name="gen" value="masculino" id="genM"> 🌿 Juntos (Masculino)</label>
             </div>
 
-            <button onclick="guardarPerfil()" style="background:var(--gold); border:none; padding:10px 24px; border-radius:20px; font-weight:bold; cursor:pointer; color:#0A0E14;">Guardar</button>
+            <button onclick="guardarPerfil()" class="btn-comenzar-perfil">Comenzar</button>
         </div>
     </div>
 
-    <!-- CONTACTO DE ASISTENCIA Y FAMILIA (SIN PRECIOS) -->
+    <!-- ASISTENCIA FAMILIAR -->
     <div id="sol-ai-widget">
         <div class="sol-bubble" onclick="toggleModalSolAI()">
             <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" alt="Sol-AI" class="sol-avatar-img">
@@ -454,14 +470,24 @@
         let recognition = null;
         let listaVoces = [];
 
-        let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
+        // ONBOARDING UNIVERSAL GENÉRICO
+        let nombreUsuario = localStorage.getItem("senior_nombre") || "";
         let generoUsuario = localStorage.getItem("senior_genero") || "femenino";
 
+        window.addEventListener("DOMContentLoaded", () => {
+            // Si el cliente entra por primera vez, se abre la bienvenida para autoconfigurarse
+            if (!nombreUsuario) {
+                document.getElementById("modal-perfil").style.display = "flex";
+            } else {
+                actualizarTextosPerfil();
+            }
+        });
+
         function actualizarTextosPerfil() {
-            document.getElementById("labelNombreTop").innerText = nombreUsuario;
-            document.getElementById("saludoNombre").innerText = nombreUsuario;
+            const nombreFinal = nombreUsuario || (generoUsuario === "femenino" ? "amiga" : "amigo");
+            document.getElementById("labelNombreTop").innerText = nombreUsuario || "Mi Perfil";
+            document.getElementById("msgBienvenida").innerHTML = `Hola, ${nombreFinal}. Estoy aquí a tu lado. ¿Tienes ganas de que conversemos un ratito, o prefieres descansar en silencio? <button class="btn-repetir-voz" onclick="hablarSaludoInicial()" title="Escuchar">🔊</button>`;
         }
-        actualizarTextosPerfil();
 
         function abrirPerfil() {
             document.getElementById("inputNombreSenior").value = nombreUsuario;
@@ -471,12 +497,20 @@
         }
 
         function guardarPerfil() {
-            nombreUsuario = document.getElementById("inputNombreSenior").value.trim() || "Sol";
+            nombreUsuario = document.getElementById("inputNombreSenior").value.trim();
             generoUsuario = document.getElementById("genF").checked ? "femenino" : "masculino";
+            
+            if (!nombreUsuario) {
+                nombreUsuario = (generoUsuario === "femenino") ? "amiga" : "amigo";
+            }
+
             localStorage.setItem("senior_nombre", nombreUsuario);
             localStorage.setItem("senior_genero", generoUsuario);
             actualizarTextosPerfil();
             document.getElementById("modal-perfil").style.display = "none";
+
+            // Saluda por voz apenas se guarda el perfil
+            hablarSaludoInicial();
         }
 
         function cargarVoces() {
@@ -489,7 +523,6 @@
             window.speechSynthesis.onvoiceschanged = cargarVoces;
         }
 
-        // DESBLOQUEO INMEDIATO DE AUDIO PARA CELULARES
         function desbloquearAudioCelular() {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -533,10 +566,10 @@
         }
 
         function hablarSaludoInicial() {
-            hablarPorParlante(`Hola, ${nombreUsuario}. Estoy aquí a tu lado. ¿Tienes ganas de que conversemos un ratito, o prefieres descansar en silencio?`);
+            const nombreFinal = nombreUsuario || (generoUsuario === "femenino" ? "amiga" : "amigo");
+            hablarPorParlante(`Hola, ${nombreFinal}. Estoy aquí a tu lado. ¿Tienes ganas de que conversemos un ratito, o prefieres descansar en silencio?`);
         }
 
-        // MICRÓFONO CON AUTO-ENVÍO
         const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRec) {
             recognition = new SpeechRec();
@@ -609,11 +642,11 @@
             chat.scrollTop = chat.scrollHeight;
 
             try {
+                const nombreActual = nombreUsuario || (generoUsuario === "femenino" ? "amiga" : "amigo");
                 const tratoGenero = (generoUsuario === "femenino") ? "Usa complicidad femenina ('juntas', 'amiga', 'nosotras')" : "Usa complicidad masculina ('juntos', 'amigo')";
 
-                // CANDADO ESTRICTO DE BREVEDAD, SILENCIO Y SUPERVISIÓN
                 const reglaEstricta = `[ORDEN SUPREMA DE SOL SÁNCHEZ CONTRERAS - EL CUIDADOR]:
-1. Hablas con ${nombreUsuario}. ${tratoGenero}.
+1. Hablas con ${nombreActual}. ${tratoGenero}.
 2. Habla en segunda persona con total naturalidad ('¿Cómo amaneciste hoy?'). NO pegues el pronombre 'tú' al final de la frase.
 3. PROHIBIDO absolutamente decir "mi querido/a", "mi estimado/a" o halagos falsos como "¡Qué bonita pregunta!".
 4. PROHIBIDO usar listas con asteriscos, viñetas o párrafos largos.
@@ -627,10 +660,10 @@
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        mensaje: `${reglaEstricta} Mensaje de ${nombreUsuario}: "${mensaje}"`,
+                        mensaje: `${reglaEstricta} Mensaje de ${nombreActual}: "${mensaje}"`,
                         faceta: "cuidador",
                         pais: "Chile",
-                        alumno: nombreUsuario,
+                        alumno: nombreActual,
                         clave: "cuidador777"
                     })
                 });
@@ -656,7 +689,6 @@
             }
         }
 
-        // CONTROL ASISTENCIA FAMILIAR (SIN VENTAS)
         function toggleModalSolAI() {
             const m = document.getElementById("sol-ai-modal");
             m.style.display = (m.style.display === "flex") ? "none" : "flex";

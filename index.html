@@ -28,49 +28,64 @@
         header {
             background: linear-gradient(180deg, #182232 0%, var(--bg-dark) 100%);
             border-bottom: 2px solid var(--gold);
-            padding: 30px 15px 20px;
+            padding: 20px 15px 14px;
             text-align: center;
+            position: relative;
         }
 
         .header-logo {
-            width: 85px;
-            height: 85px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             border: 2px solid var(--gold);
             object-fit: cover;
-            margin-bottom: 10px;
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+            margin-bottom: 8px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
         }
 
         .badge-senior {
             background: linear-gradient(135deg, #D4AF37, #AA7C11);
             color: #0A0E14;
-            padding: 6px 20px;
-            border-radius: 25px;
+            padding: 4px 16px;
+            border-radius: 20px;
             font-weight: 700;
             display: inline-block;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
         }
 
         header h1 { 
             font-family: 'Cinzel', serif; 
-            font-size: 2.2rem; 
+            font-size: 1.85rem; 
             color: var(--gold-light); 
-            margin-bottom: 8px; 
+            margin-bottom: 4px; 
         }
 
         header p { 
-            font-size: 1.15rem; 
+            font-size: 0.98rem; 
             max-width: 650px; 
             margin: 0 auto; 
             color: #CBD5E1; 
         }
 
+        .btn-perfil-top {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #182333;
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
         .main-container {
             max-width: 800px;
             width: 100%;
-            margin: 20px auto 40px;
+            margin: 10px auto 25px;
             padding: 0 15px;
             flex: 1;
         }
@@ -79,11 +94,11 @@
             background: var(--card-bg);
             border: 2px solid var(--gold);
             border-radius: 22px;
-            padding: 25px 20px;
+            padding: 18px 14px;
             box-shadow: 0 12px 40px rgba(0,0,0,0.7);
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
         .top-bar-cuidador {
@@ -91,12 +106,12 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-            padding-bottom: 12px;
+            padding-bottom: 8px;
         }
 
         .estado-conexion {
             color: var(--accent-green);
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             font-weight: 600;
         }
 
@@ -105,9 +120,9 @@
             border: 1px solid var(--gold);
             color: var(--gold-light);
             border-radius: 20px;
-            padding: 6px 14px;
+            padding: 4px 10px;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 600;
         }
 
@@ -115,45 +130,73 @@
             background: #0D131F;
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 18px;
-            padding: 20px;
-            min-height: 360px;
-            max-height: 480px;
+            padding: 16px;
+            min-height: 320px;
+            max-height: 440px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
         }
 
         .msg-cuidador {
             background: #182333;
             border: 1.5px solid rgba(212, 175, 55, 0.35);
             color: #FFFDF7;
-            padding: 16px 20px;
+            padding: 14px 18px;
             border-radius: 18px 18px 18px 4px;
             max-width: 90%;
             font-size: 1.15rem;
-            line-height: 1.6;
+            line-height: 1.5;
             align-self: flex-start;
+        }
+
+        .btn-repetir-voz {
+            background: none;
+            border: none;
+            color: var(--gold);
+            cursor: pointer;
+            font-size: 1.15rem;
+            margin-left: 8px;
+            vertical-align: middle;
         }
 
         .msg-usuario {
             background: linear-gradient(135deg, #D4AF37, #AA7C11);
             color: #0A0E14;
-            padding: 14px 20px;
+            padding: 12px 18px;
             border-radius: 18px 18px 4px 18px;
             max-width: 85%;
             font-size: 1.15rem;
             font-weight: 600;
-            line-height: 1.5;
+            line-height: 1.4;
             align-self: flex-end;
         }
+
+        .sugerencias-box {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .btn-sugerencia {
+            background: #182232;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--gold-light);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-sugerencia:hover { background: rgba(212, 175, 55, 0.2); }
 
         .controls-panel {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
-            margin-top: 10px;
+            gap: 10px;
         }
 
         .big-mic-btn {
@@ -161,18 +204,17 @@
             color: #0A0E14;
             border: none;
             border-radius: 50px;
-            padding: 18px 40px;
-            font-size: 1.35rem;
+            padding: 16px 36px;
+            font-size: 1.3rem;
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.45);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.45);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
-            max-width: 420px;
+            max-width: 380px;
             justify-content: center;
-            transition: all 0.2s;
         }
 
         .big-mic-btn.recording {
@@ -209,55 +251,80 @@
             border: none;
             color: #0A0E14;
             border-radius: 50%;
-            width: 48px;
-            height: 48px;
+            width: 46px;
+            height: 46px;
             cursor: pointer;
             font-size: 18px;
             font-weight: bold;
         }
 
-        .sugerencias-box {
-            display: flex;
+        /* MODAL DE PERFIL SENCILLO */
+        #modal-perfil {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 999999;
+            align-items: center;
             justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
+            padding: 15px;
         }
 
-        .btn-sugerencia {
-            background: #182232;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: var(--gold-light);
-            padding: 8px 16px;
-            border-radius: 20px;
+        .perfil-card {
+            background: #141C28;
+            border: 2px solid var(--gold);
+            border-radius: 18px;
+            padding: 22px;
+            max-width: 360px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .perfil-card h3 { color: var(--gold-light); margin-bottom: 12px; font-family: 'Cinzel', serif; }
+        .perfil-input {
+            width: 100%;
+            background: #0D131F;
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 10px 14px;
+            color: #FFF;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            outline: none;
+        }
+        .genero-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 18px;
             font-size: 0.95rem;
-            cursor: pointer;
         }
 
         footer {
             text-align: center;
-            padding: 25px 15px;
+            padding: 18px 15px;
             background: #06090E;
             color: #94A3B8;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* SECRETARIA FLOTANTE (LUCERO) */
-        #secretaria-widget { position: fixed; bottom: 20px; right: 15px; z-index: 999999; }
+        /* SECRETARIA FLOTANTE: ATENCIÓN FAMILIAR & PLAN $99 USD */
+        #secretaria-widget { position: fixed; bottom: 20px; right: 15px; z-index: 99999; }
         .sec-bubble {
             background: #151D28;
             border: 2px solid var(--gold);
             border-radius: 40px;
-            padding: 8px 16px;
+            padding: 6px 14px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             cursor: pointer;
             box-shadow: 0 6px 25px rgba(0,0,0,0.6);
         }
-        .sec-avatar { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--gold); object-fit: cover; }
-        .sec-name { color: var(--gold-light); font-size: 12.5px; font-weight: 700; text-align: left; }
-        .sec-desc { color: #25D366; font-size: 10px; font-weight: 600; text-align: left; }
+        .sec-avatar { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--gold); object-fit: cover; }
+        .sec-name { color: var(--gold-light); font-size: 12px; font-weight: 700; text-align: left; }
+        .sec-desc { color: #25D366; font-size: 9.5px; font-weight: 600; text-align: left; }
 
         #sec-chat-modal {
             display: none;
@@ -273,7 +340,7 @@
             box-shadow: 0 12px 40px rgba(0,0,0,0.85);
             flex-direction: column;
             overflow: hidden;
-            z-index: 999999;
+            z-index: 99999;
         }
         .sec-header { background: #1C2736; border-bottom: 1.5px solid var(--gold); padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; }
         .sec-messages { flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
@@ -282,34 +349,38 @@
 <body>
 
     <header>
+        <button class="btn-perfil-top" onclick="abrirPerfil()">⚙️ <span id="labelNombreTop">Sol</span></button>
         <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" 
              onerror="this.onerror=null; this.src='https://files.manuscdn.com/user_upload_by_module/session_file/310519663295304532/SXAbPHcoYQWtVFRu.jpg';" 
              alt="Logo Cuidador" 
              class="header-logo">
         <br>
-        <span class="badge-senior">🤲 Acompañamiento Humano con Respeto y Calma</span>
+        <span class="badge-senior">🤲 Acompañamiento Humano con Respeto y Paz</span>
         <h1>EL CUIDADOR</h1>
-        <p>Tu compañía de cada día para conversar con calma, recordar momentos alegres y compartir en paz.</p>
+        <p>Tu compañía serena para conversar, ver una película o simplemente descansar en calma.</p>
     </header>
 
     <div class="main-container">
         <div class="cuidador-box">
             <div class="top-bar-cuidador">
-                <span class="estado-conexion">🟢 En línea • Listo para escucharte</span>
+                <span class="estado-conexion">🟢 En línea • Contigo</span>
                 <button class="btn-audio-toggle" id="btnAudioToggle" onclick="toggleAudio()">🔊 Voz Activa</button>
             </div>
 
             <div class="chat-display" id="chatDisplay">
                 <div class="msg-cuidador" id="msgBienvenida">
-                    ¡Hola! Qué alegría saludarte hoy.<br><br>
-                    Estoy aquí contigo para hacerte compañía. Toca el botón amarillo de abajo que dice <strong>«Tocar para Hablar»</strong> y cuéntame cómo estás hoy.
+                    Hola, <span id="saludoNombre">Sol</span>. Estoy aquí a tu lado. ¿Tienes ganas de que conversemos un ratito, o prefieres descansar en silencio?
+                    <button class="btn-repetir-voz" onclick="hablarSaludoInicial()" title="Escuchar">🔊</button>
                 </div>
             </div>
 
+            <!-- BOTONES RÁPIDOS DE PANORAMA Y SILENCIO -->
             <div class="sugerencias-box">
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Cuéntame una linda historia del recuerdo')">📻 Una historia del recuerdo</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('¿Qué consejo me das para tener un día en paz?')">☕ Un consejo de calma</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Hoy tengo ganas de conversar un ratito')">💬 Solo conversar</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Tengo ganas de conversar un ratito')">💬 Sí, conversemos</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero dormir siesta, quédate en silencio')">😴 Dormir siesta</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Prefiero estar en silencio descansando')">🤫 Solo silencio</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('¿Qué película o programa me recomiendas ver?')">🎬 Ver una película</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Hagamos un poquito de Tai Chi suave en la silla')">🧘 Tai Chi en Silla</button>
             </div>
 
             <div class="controls-panel">
@@ -325,17 +396,29 @@
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 AURION &bull; Dirección y Creación: Sol Sánchez Contreras | Chile</p>
-    </footer>
+    <!-- MODAL DE CONFIGURACIÓN DE NOMBRE Y GÉNERO -->
+    <div id="modal-perfil">
+        <div class="perfil-card">
+            <h3>Tu Nombre y Trato</h3>
+            <p style="font-size:0.85rem; color:#CBD5E1; margin-bottom:12px;">¿Cómo te gusta que te llamen?</p>
+            <input type="text" id="inputNombreSenior" class="perfil-input" value="Sol" placeholder="Escribe tu nombre">
+            
+            <div class="genero-selector">
+                <label style="cursor:pointer;"><input type="radio" name="gen" value="femenino" id="genF" checked> 🌸 Juntas (Femenino)</label>
+                <label style="cursor:pointer;"><input type="radio" name="gen" value="masculino" id="genM"> 🌿 Juntos (Masculino)</label>
+            </div>
 
-    <!-- CASETA DE LA SECRETARIA LUCERO (PARA FAMILIAS Y PAGOS) -->
+            <button onclick="guardarPerfil()" style="background:var(--gold); border:none; padding:10px 24px; border-radius:20px; font-weight:bold; cursor:pointer; color:#0A0E14;">Guardar</button>
+        </div>
+    </div>
+
+    <!-- SECRETARIA LUCERO (PLAN FAMILIAR $99 USD Y WHATSAPP) -->
     <div id="secretaria-widget">
         <div class="sec-bubble" onclick="toggleModalSecretaria()">
             <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" alt="Lucero" class="sec-avatar">
             <div class="sec-info">
                 <div class="sec-name">Lucero • Secretaria Familiar</div>
-                <div class="sec-desc">Atención & Pagos</div>
+                <div class="sec-desc">Atención & Plan $99 USD</div>
             </div>
         </div>
 
@@ -347,15 +430,19 @@
             <div class="sec-messages" id="secMessages">
                 <div style="background:#1B2636; border:1px solid rgba(212,175,55,0.3); padding:10px; border-radius:10px; font-size:0.88rem;">
                     ¡Hola! Soy <strong>Lucero</strong>.<br><br>
-                    Si necesitas consultar sobre membresías, coordinar pagos o asistencia por WhatsApp para la familia, escríbeme aquí.
+                    Si deseas coordinar la activación del <strong>Pase VIP de Implementación ($99 USD)</strong> o necesitas asistencia directa por WhatsApp para tu familia, escríbeme aquí.
                 </div>
             </div>
             <div style="padding:8px; background:#101620; border-top:1px solid rgba(212,175,55,0.2); display:flex; gap:6px;">
-                <input type="text" id="secInput" placeholder="Consulta sobre pagos o membresía..." onkeypress="if(event.key==='Enter') enviarMensajeLucero()" style="flex:1; background:#182230; border:1px solid rgba(212,175,55,0.2); border-radius:18px; color:#fff; padding:8px 12px; outline:none;">
+                <input type="text" id="secInput" placeholder="Consulta sobre pagos o activación..." onkeypress="if(event.key==='Enter') enviarMensajeLucero()" style="flex:1; background:#182230; border:1px solid rgba(212,175,55,0.3); border-radius:15px; padding:8px 12px; color:#FFF; font-size:0.85rem; outline:none;">
                 <button onclick="enviarMensajeLucero()" style="background:var(--gold); border:none; color:#0A0E14; border-radius:50%; width:34px; height:34px; cursor:pointer; font-weight:bold;">➤</button>
             </div>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2026 AURION &bull; Dirección y Creación: Sol Sánchez Contreras | Chile</p>
+    </footer>
 
     <script>
         const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
@@ -366,6 +453,31 @@
         let recognition = null;
         let listaVoces = [];
 
+        let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
+        let generoUsuario = localStorage.getItem("senior_genero") || "femenino";
+
+        function actualizarTextosPerfil() {
+            document.getElementById("labelNombreTop").innerText = nombreUsuario;
+            document.getElementById("saludoNombre").innerText = nombreUsuario;
+        }
+        actualizarTextosPerfil();
+
+        function abrirPerfil() {
+            document.getElementById("inputNombreSenior").value = nombreUsuario;
+            if(generoUsuario === "masculino") document.getElementById("genM").checked = true;
+            else document.getElementById("genF").checked = true;
+            document.getElementById("modal-perfil").style.display = "flex";
+        }
+
+        function guardarPerfil() {
+            nombreUsuario = document.getElementById("inputNombreSenior").value.trim() || "Amiga";
+            generoUsuario = document.getElementById("genF").checked ? "femenino" : "masculino";
+            localStorage.setItem("senior_nombre", nombreUsuario);
+            localStorage.setItem("senior_genero", generoUsuario);
+            actualizarTextosPerfil();
+            document.getElementById("modal-perfil").style.display = "none";
+        }
+
         function cargarVoces() {
             if ('speechSynthesis' in window) {
                 listaVoces = window.speechSynthesis.getVoices();
@@ -374,6 +486,16 @@
         cargarVoces();
         if ('speechSynthesis' in window && window.speechSynthesis.onvoiceschanged !== undefined) {
             window.speechSynthesis.onvoiceschanged = cargarVoces;
+        }
+
+        // DESBLOQUEO INMEDIATO DE AUDIO PARA CELULARES
+        function desbloquearAudioCelular() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const silencio = new SpeechSynthesisUtterance(' ');
+                silencio.volume = 0.01;
+                window.speechSynthesis.speak(silencio);
+            }
         }
 
         function toggleAudio() {
@@ -386,23 +508,34 @@
             if (!vozActiva || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
 
-            const limpio = texto.replace(/https?:\/\/\S+/g, "").replace(/[*#_~`$]/g, "");
+            const limpio = texto.replace(/[*#_~`$]/g, "").replace(/https?:\/\/\S+/g, "").trim();
             const utter = new SpeechSynthesisUtterance(limpio);
             if (listaVoces.length === 0) listaVoces = window.speechSynthesis.getVoices();
 
-            const vozPreferida = listaVoces.find(v => 
-                (v.lang.startsWith("es") || v.lang.includes("CL") || v.lang.includes("ES")) && 
-                (v.name.includes("Natural") || v.name.includes("Google") || v.name.includes("Paulina") || v.name.includes("Sabina"))
-            ) || listaVoces.find(v => v.lang.startsWith("es"));
+            const esIngles = /^[a-zA-Z\s,.'?!]+$/.test(texto) && (texto.toLowerCase().includes("hello") || texto.toLowerCase().includes("how are"));
+            if (esIngles) {
+                utter.lang = "en-US";
+                const vEn = listaVoces.find(v => v.lang.startsWith("en"));
+                if (vEn) utter.voice = vEn;
+            } else {
+                utter.lang = "es-CL";
+                const vozPreferida = listaVoces.find(v => 
+                    (v.lang.startsWith("es") || v.lang.includes("CL") || v.lang.includes("ES")) && 
+                    (v.name.includes("Natural") || v.name.includes("Google") || v.name.includes("Paulina") || v.name.includes("Sabina"))
+                ) || listaVoces.find(v => v.lang.startsWith("es"));
+                if (vozPreferida) utter.voice = vozPreferida;
+            }
 
-            if (vozPreferida) utter.voice = vozPreferida;
-            utter.lang = "es-CL";
             utter.rate = 0.92;
             utter.pitch = 1.0;
             window.speechSynthesis.speak(utter);
         }
 
-        // MICRÓFONO CON AUTO-ENVÍO (MANOS LIBRES)
+        function hablarSaludoInicial() {
+            hablarPorParlante(`Hola, ${nombreUsuario}. Estoy aquí a tu lado. ¿Tienes ganas de que conversemos un ratito, o prefieres descansar en silencio?`);
+        }
+
+        // MICRÓFONO CON AUTO-ENVÍO
         const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRec) {
             recognition = new SpeechRec();
@@ -421,7 +554,7 @@
                 if (e.results && e.results[0]) {
                     document.getElementById("inputSenior").value = e.results[0][0].transcript;
                     detenerMic();
-                    enviarMensajeSenior(); // Se envía solo al callar
+                    enviarMensajeSenior();
                 }
             };
 
@@ -430,6 +563,7 @@
         }
 
         function toggleMicrofonoSenior() {
+            desbloquearAudioCelular();
             if (!recognition) return;
             if (grabacionActiva) {
                 recognition.stop();
@@ -447,6 +581,7 @@
         }
 
         function enviarSugerencia(texto) {
+            desbloquearAudioCelular();
             document.getElementById("inputSenior").value = texto;
             enviarMensajeSenior();
         }
@@ -473,27 +608,41 @@
             chat.scrollTop = chat.scrollHeight;
 
             try {
+                const tratoGenero = (generoUsuario === "femenino") ? "Usa complicidad femenina ('juntas', 'amiga', 'nosotras')" : "Usa complicidad masculina ('juntos', 'amigo')";
+
+                // CANDADO ESTRICTO DE BREVEDAD, SILENCIO Y SUPERVISIÓN
+                const reglaEstricta = `[ORDEN SUPREMA DE SOL SÁNCHEZ CONTRERAS - EL CUIDADOR]:
+1. Hablas con ${nombreUsuario}. ${tratoGenero}.
+2. NO repitas su nombre en cada frase. PROHIBIDO decir "mi querido/a" o halagos falsos.
+3. PROHIBIDO usar listas con asteriscos o viñetas.
+4. LÍMITE INQUEBRANTABLE: MÁXIMO 2 oraciones (menos de 25 palabras en total).
+5. RESPETO AL SILENCIO Y SIESTA: Si dice que quiere dormir siesta o estar en silencio, dile con dulzura: "Descansa rico, me quedo en silencio acompañándote" y no digas nada más.
+6. Si quiere ver una película o tele, celebra el panorama en 1 sola frase agradable.
+7. SUPERVISIÓN EN CASA: Si manifiesta malestar, queja o tristeza sobre el trato de cuidadores o personal de casa, dale contención amorosa en 1 frase y dile que no está sola.
+8. Detecta el idioma del usuario y responde en ese mismo idioma.`;
+
                 const resp = await fetch(LEO_ENDPOINT, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        mensaje: mensaje,
+                        mensaje: `${reglaEstricta} Mensaje de ${nombreUsuario}: "${mensaje}"`,
                         faceta: "cuidador",
                         pais: "Chile",
-                        alumno: "Amigo/a",
+                        alumno: nombreUsuario,
                         clave: "cuidador777"
                     })
                 });
 
                 const data = await resp.json();
-                const respuesta = data.respuesta || "Estoy aquí contigo.";
+                let respuesta = data.respuesta || "Estoy aquí contigo.";
+                respuesta = respuesta.replace(/[*#_~`]/g, "").trim();
 
                 const loader = document.getElementById("cargando-cuidador");
                 if (loader) loader.remove();
 
                 const cuidadorDiv = document.createElement("div");
                 cuidadorDiv.className = "msg-cuidador";
-                cuidadorDiv.innerHTML = respuesta.replace(/\n/g, "<br>");
+                cuidadorDiv.innerHTML = `${respuesta} <button class="btn-repetir-voz" onclick="hablarPorParlante('${respuesta.replace(/'/g, "\\'")}')" title="Volver a escuchar">🔊</button>`;
                 chat.appendChild(cuidadorDiv);
                 chat.scrollTop = chat.scrollHeight;
 
@@ -505,6 +654,7 @@
             }
         }
 
+        // CONTROL SECRETARIA LUCERO
         function toggleModalSecretaria() {
             const m = document.getElementById("sec-chat-modal");
             m.style.display = (m.style.display === "flex") ? "none" : "flex";
@@ -527,10 +677,10 @@
                 const res = await fetch(SOL_ENDPOINT, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ mensaje: txt, origen: "Recepción Cuidador Senior", clave: "unigen" })
+                    body: JSON.stringify({ mensaje: txt, origen: "Recepción Cuidador Senior ($99 USD)", clave: "unigen" })
                 });
                 const d = await res.json();
-                const r = d.respuesta || "Con gusto le oriento sobre el servicio del Cuidador.";
+                const r = d.respuesta || "Con gusto le oriento sobre el Pase VIP de $99 USD.";
 
                 const lDiv = document.createElement("div");
                 lDiv.style.cssText = "background:#1B2636; border:1px solid rgba(212,175,55,0.3); color:#E2E8F0; padding:10px 12px; border-radius:10px; font-size:0.85rem;";

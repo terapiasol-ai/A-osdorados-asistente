@@ -309,9 +309,9 @@
             border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* SECRETARIA FLOTANTE: ATENCIÓN FAMILIAR & PLAN $99 USD */
-        #secretaria-widget { position: fixed; bottom: 20px; right: 15px; z-index: 99999; }
-        .sec-bubble {
+        /* ASISTENCIA TÉCNICA Y FAMILIAR (SIN PRECIOS NI COBROS) */
+        #sol-ai-widget { position: fixed; bottom: 20px; right: 15px; z-index: 99999; }
+        .sol-bubble {
             background: #151D28;
             border: 2px solid var(--gold);
             border-radius: 40px;
@@ -322,18 +322,19 @@
             cursor: pointer;
             box-shadow: 0 6px 25px rgba(0,0,0,0.6);
         }
-        .sec-avatar { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--gold); object-fit: cover; }
-        .sec-name { color: var(--gold-light); font-size: 12px; font-weight: 700; text-align: left; }
-        .sec-desc { color: #25D366; font-size: 9.5px; font-weight: 600; text-align: left; }
+        .sol-avatar-img { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--gold); object-fit: cover; }
+        .sol-info { text-align: left; line-height: 1.2; }
+        .sol-name { color: var(--gold-light); font-size: 11.5px; font-weight: 700; }
+        .sol-desc { color: #25D366; font-size: 9px; font-weight: 600; }
 
-        #sec-chat-modal {
+        #sol-ai-modal {
             display: none;
             position: fixed;
             bottom: 80px;
             right: 15px;
-            width: 340px;
+            width: 320px;
             max-width: 90vw;
-            height: 420px;
+            height: 380px;
             background: #141C26;
             border: 2px solid var(--gold);
             border-radius: 18px;
@@ -342,8 +343,8 @@
             overflow: hidden;
             z-index: 99999;
         }
-        .sec-header { background: #1C2736; border-bottom: 1.5px solid var(--gold); padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; }
-        .sec-messages { flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
+        .sol-header { background: #1C2736; border-bottom: 1.5px solid var(--gold); padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; }
+        .sol-messages { flex: 1; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -357,7 +358,7 @@
         <br>
         <span class="badge-senior">🤲 Acompañamiento Humano con Respeto y Paz</span>
         <h1>EL CUIDADOR</h1>
-        <p>Tu compañía serena para conversar, ver una película o simplemente descansar en calma.</p>
+        <p>Tu compañía serena para conversar, ver una película o descansar en calma.</p>
     </header>
 
     <div class="main-container">
@@ -379,7 +380,7 @@
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Tengo ganas de conversar un ratito')">💬 Sí, conversemos</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero dormir siesta, quédate en silencio')">😴 Dormir siesta</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Prefiero estar en silencio descansando')">🤫 Solo silencio</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('¿Qué película o programa me recomiendas ver?')">🎬 Ver una película</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('¿Qué película o programa me recomiendas ver hoy?')">🎬 Ver una película</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Hagamos un poquito de Tai Chi suave en la silla')">🧘 Tai Chi en Silla</button>
             </div>
 
@@ -412,30 +413,30 @@
         </div>
     </div>
 
-    <!-- SECRETARIA LUCERO (PLAN FAMILIAR $99 USD Y WHATSAPP) -->
-    <div id="secretaria-widget">
-        <div class="sec-bubble" onclick="toggleModalSecretaria()">
-            <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" alt="Lucero" class="sec-avatar">
-            <div class="sec-info">
-                <div class="sec-name">Lucero • Secretaria Familiar</div>
-                <div class="sec-desc">Atención & Plan $99 USD</div>
+    <!-- CONTACTO DE ASISTENCIA Y FAMILIA (SIN PRECIOS) -->
+    <div id="sol-ai-widget">
+        <div class="sol-bubble" onclick="toggleModalSolAI()">
+            <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" alt="Sol-AI" class="sol-avatar-img">
+            <div class="sol-info">
+                <div class="sol-name">Sol-AI</div>
+                <div class="sol-desc">Soporte Familiar</div>
             </div>
         </div>
 
-        <div id="sec-chat-modal">
-            <div class="sec-header">
-                <div style="color:var(--gold-light); font-weight:700; font-size:13px;">Lucero • Soporte Familiar</div>
-                <button onclick="toggleModalSecretaria()" style="background:none; border:none; color:#CBD5E1; font-size:18px; cursor:pointer;">✕</button>
+        <div id="sol-ai-modal">
+            <div class="sol-header">
+                <div style="color:var(--gold-light); font-weight:700; font-size:13px;">Asistencia y Familia</div>
+                <button onclick="toggleModalSolAI()" style="background:none; border:none; color:#CBD5E1; font-size:18px; cursor:pointer;">✕</button>
             </div>
-            <div class="sec-messages" id="secMessages">
+            <div class="sol-messages" id="solMessages">
                 <div style="background:#1B2636; border:1px solid rgba(212,175,55,0.3); padding:10px; border-radius:10px; font-size:0.88rem;">
-                    ¡Hola! Soy <strong>Lucero</strong>.<br><br>
-                    Si deseas coordinar la activación del <strong>Pase VIP de Implementación ($99 USD)</strong> o necesitas asistencia directa por WhatsApp para tu familia, escríbeme aquí.
+                    ¡Hola! Soy <strong>Sol-AI</strong>.<br><br>
+                    Si la familia necesita asistencia técnica, reportar alguna consulta o comunicarse con nosotros por WhatsApp, puedes escribir aquí con confianza.
                 </div>
             </div>
             <div style="padding:8px; background:#101620; border-top:1px solid rgba(212,175,55,0.2); display:flex; gap:6px;">
-                <input type="text" id="secInput" placeholder="Consulta sobre pagos o activación..." onkeypress="if(event.key==='Enter') enviarMensajeLucero()" style="flex:1; background:#182230; border:1px solid rgba(212,175,55,0.3); border-radius:15px; padding:8px 12px; color:#FFF; font-size:0.85rem; outline:none;">
-                <button onclick="enviarMensajeLucero()" style="background:var(--gold); border:none; color:#0A0E14; border-radius:50%; width:34px; height:34px; cursor:pointer; font-weight:bold;">➤</button>
+                <input type="text" id="solInput" placeholder="Mensaje de asistencia para la familia..." onkeypress="if(event.key==='Enter') enviarMensajeSolAI()" style="flex:1; background:#182230; border:1px solid rgba(212,175,55,0.3); border-radius:15px; padding:8px 12px; color:#FFF; font-size:0.85rem; outline:none;">
+                <button onclick="enviarMensajeSolAI()" style="background:var(--gold); border:none; color:#0A0E14; border-radius:50%; width:34px; height:34px; cursor:pointer; font-weight:bold;">➤</button>
             </div>
         </div>
     </div>
@@ -470,7 +471,7 @@
         }
 
         function guardarPerfil() {
-            nombreUsuario = document.getElementById("inputNombreSenior").value.trim() || "Amiga";
+            nombreUsuario = document.getElementById("inputNombreSenior").value.trim() || "Sol";
             generoUsuario = document.getElementById("genF").checked ? "femenino" : "masculino";
             localStorage.setItem("senior_nombre", nombreUsuario);
             localStorage.setItem("senior_genero", generoUsuario);
@@ -613,13 +614,14 @@
                 // CANDADO ESTRICTO DE BREVEDAD, SILENCIO Y SUPERVISIÓN
                 const reglaEstricta = `[ORDEN SUPREMA DE SOL SÁNCHEZ CONTRERAS - EL CUIDADOR]:
 1. Hablas con ${nombreUsuario}. ${tratoGenero}.
-2. NO repitas su nombre en cada frase. PROHIBIDO decir "mi querido/a" o halagos falsos.
-3. PROHIBIDO usar listas con asteriscos o viñetas.
-4. LÍMITE INQUEBRANTABLE: MÁXIMO 2 oraciones (menos de 25 palabras en total).
-5. RESPETO AL SILENCIO Y SIESTA: Si dice que quiere dormir siesta o estar en silencio, dile con dulzura: "Descansa rico, me quedo en silencio acompañándote" y no digas nada más.
-6. Si quiere ver una película o tele, celebra el panorama en 1 sola frase agradable.
-7. SUPERVISIÓN EN CASA: Si manifiesta malestar, queja o tristeza sobre el trato de cuidadores o personal de casa, dale contención amorosa en 1 frase y dile que no está sola.
-8. Detecta el idioma del usuario y responde en ese mismo idioma.`;
+2. Habla en segunda persona con total naturalidad ('¿Cómo amaneciste hoy?'). NO pegues el pronombre 'tú' al final de la frase.
+3. PROHIBIDO absolutamente decir "mi querido/a", "mi estimado/a" o halagos falsos como "¡Qué bonita pregunta!".
+4. PROHIBIDO usar listas con asteriscos, viñetas o párrafos largos.
+5. LÍMITE INQUEBRANTABLE: MÁXIMO 2 oraciones (menos de 25 palabras en total).
+6. RESPETO AL SILENCIO Y SIESTA: Si dice que quiere dormir siesta o estar en silencio, dile con dulzura: "Descansa rico, me quedo en silencio acompañándote" y no digas nada más.
+7. Si quiere ver una película o tele, celebra el panorama en 1 sola frase agradable.
+8. SUPERVISIÓN EN CASA: Si manifiesta malestar, queja o tristeza sobre el trato de cuidadores o personal de casa, dale contención amorosa en 1 frase y dile que no está sola.
+9. Detecta el idioma del usuario y responde en ese mismo idioma.`;
 
                 const resp = await fetch(LEO_ENDPOINT, {
                     method: "POST",
@@ -654,18 +656,18 @@
             }
         }
 
-        // CONTROL SECRETARIA LUCERO
-        function toggleModalSecretaria() {
-            const m = document.getElementById("sec-chat-modal");
+        // CONTROL ASISTENCIA FAMILIAR (SIN VENTAS)
+        function toggleModalSolAI() {
+            const m = document.getElementById("sol-ai-modal");
             m.style.display = (m.style.display === "flex") ? "none" : "flex";
         }
 
-        async function enviarMensajeLucero() {
-            const inp = document.getElementById("secInput");
+        async function enviarMensajeSolAI() {
+            const inp = document.getElementById("solInput");
             const txt = inp.value.trim();
             if (!txt) return;
 
-            const chat = document.getElementById("secMessages");
+            const chat = document.getElementById("solMessages");
             const u = document.createElement("div");
             u.style.cssText = "background:linear-gradient(135deg,#D4AF37,#AA7C11); color:#000; padding:8px 12px; border-radius:10px; align-self:flex-end; font-size:0.85rem; font-weight:600;";
             u.innerText = txt;
@@ -677,10 +679,10 @@
                 const res = await fetch(SOL_ENDPOINT, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ mensaje: txt, origen: "Recepción Cuidador Senior ($99 USD)", clave: "unigen" })
+                    body: JSON.stringify({ mensaje: txt, origen: "Soporte Familiar Cuidador", clave: "unigen" })
                 });
                 const d = await res.json();
-                const r = d.respuesta || "Con gusto le oriento sobre el Pase VIP de $99 USD.";
+                const r = d.respuesta || "Mensaje recibido. El equipo de soporte se comunicará con la familia.";
 
                 const lDiv = document.createElement("div");
                 lDiv.style.cssText = "background:#1B2636; border:1px solid rgba(212,175,55,0.3); color:#E2E8F0; padding:10px 12px; border-radius:10px; font-size:0.85rem;";

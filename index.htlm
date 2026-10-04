@@ -231,12 +231,6 @@
             border-radius: 20px;
             font-size: 0.95rem;
             cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .btn-sugerencia:hover {
-            background: rgba(212, 175, 55, 0.2);
-            border-color: var(--gold);
         }
 
         footer {
@@ -246,68 +240,6 @@
             color: #94A3B8;
             font-size: 0.9rem;
             border-top: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        /* MODAL DE BLOQUEO / ACCESO RESTRINGIDO */
-        #auth-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(11, 15, 23, 0.97);
-            z-index: 1000000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .auth-card {
-            background: #141C28;
-            border: 2px solid var(--gold);
-            border-radius: 22px;
-            padding: 35px 25px;
-            max-width: 420px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.85);
-        }
-
-        .auth-card h2 {
-            font-family: 'Cinzel', serif;
-            color: var(--gold-light);
-            font-size: 1.6rem;
-            margin-bottom: 12px;
-        }
-
-        .auth-card p {
-            color: #CBD5E1;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .auth-input {
-            width: 100%;
-            background: #0B0F17;
-            border: 1.5px solid var(--gold);
-            border-radius: 25px;
-            padding: 12px 18px;
-            color: #FFF;
-            font-size: 1rem;
-            text-align: center;
-            outline: none;
-            margin-bottom: 15px;
-        }
-
-        .auth-btn {
-            background: linear-gradient(135deg, #D4AF37, #AA7C11);
-            color: #0A0E14;
-            border: none;
-            border-radius: 25px;
-            padding: 12px 30px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            width: 100%;
         }
 
         /* SECRETARIA FLOTANTE (LUCERO) */
@@ -349,18 +281,6 @@
 </head>
 <body>
 
-    <!-- PANTALLA DE ACCESO RESTRINGIDO (SI NO TIENE QR O CLAVE GUARDADA) -->
-    <div id="auth-overlay">
-        <div class="auth-card">
-            <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">🔒</span>
-            <h2>Acceso al Asistente</h2>
-            <p>Ingresa tu clave de suscriptor o escanea tu código QR para comenzar a usar El Cuidador.</p>
-            <input type="text" id="claveInputManual" class="auth-input" placeholder="Escribe tu clave aquí..." onkeypress="if(event.key==='Enter') validarClaveManual()">
-            <button class="auth-btn" onclick="validarClaveManual()">Ingresar</button>
-            <p id="error-auth" style="color: #FF6B6B; font-size: 0.85rem; margin-top: 12px; display: none;">Clave no válida. Consulta con Lucero.</p>
-        </div>
-    </div>
-
     <header>
         <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" 
              onerror="this.onerror=null; this.src='https://files.manuscdn.com/user_upload_by_module/session_file/310519663295304532/SXAbPHcoYQWtVFRu.jpg';" 
@@ -386,9 +306,7 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN DE ACTIVIDADES CON «IR AL SUPERMERCADO» -->
             <div class="sugerencias-box">
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Voy a ir al supermercado, ¿qué recomendaciones o lista de compras me das para no olvidar nada?')">🛒 Ir al supermercado</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Cuéntame una linda historia del recuerdo')">📻 Una historia del recuerdo</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('¿Qué consejo me das para tener un día en paz?')">☕ Un consejo de calma</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Hoy tengo ganas de conversar un ratito')">💬 Solo conversar</button>
@@ -440,50 +358,6 @@
     </div>
 
     <script>
-        // ==========================================
-        // SISTEMA DE ACCESO POR QR / SESIÓN GUARDADA
-        // ==========================================
-        // Aquí puedes agregar las claves que quieras para tus clientes
-        const CLAVES_PERMITIDAS = ["DORADOS2026", "CUIDADOR_VIP", "SOL2026", "CLIENTE1"];
-
-        function iniciarControlAcceso() {
-            const params = new URLSearchParams(window.location.search);
-            const claveQR = params.get('acceso');
-
-            // Si vino escaneando el QR con su clave válida
-            if (claveQR && CLAVES_PERMITIDAS.includes(claveQR)) {
-                localStorage.setItem('cuidador_sesion_activa', 'true');
-                // Limpia la barra del navegador para ocultar la clave
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-
-            // Comprueba si el teléfono ya tiene la sesión guardada
-            const tieneSesion = localStorage.getItem('cuidador_sesion_activa') === 'true';
-
-            if (!tieneSesion) {
-                document.getElementById("auth-overlay").style.display = "flex";
-            }
-        }
-
-        function validarClaveManual() {
-            const input = document.getElementById("claveInputManual");
-            const clave = input.value.trim();
-            const err = document.getElementById("error-auth");
-
-            if (CLAVES_PERMITIDAS.includes(clave)) {
-                localStorage.setItem('cuidador_sesion_activa', 'true');
-                document.getElementById("auth-overlay").style.display = "none";
-            } else {
-                err.style.display = "block";
-            }
-        }
-
-        // Ejecutar verificación de acceso al abrir la página
-        iniciarControlAcceso();
-
-        // ==========================================
-        // LÓGICA DE ASISTENTE Y VOZ
-        // ==========================================
         const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
         const SOL_ENDPOINT = "https://solsanchez-ai-ulq2.onrender.com/api/chat";
 

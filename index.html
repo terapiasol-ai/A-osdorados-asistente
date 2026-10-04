@@ -258,7 +258,6 @@
             font-weight: bold;
         }
 
-        /* MODAL DE PERFIL SENCILLO */
         #modal-perfil {
             display: none;
             position: fixed;
@@ -309,7 +308,6 @@
             border-top: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* ASISTENCIA TÉCNICA Y FAMILIAR (SIN PRECIOS NI COBROS) */
         #sol-ai-widget { position: fixed; bottom: 20px; right: 15px; z-index: 99999; }
         .sol-bubble {
             background: #151D28;
@@ -375,7 +373,6 @@
                 </div>
             </div>
 
-            <!-- BOTONES RÁPIDOS DE PANORAMA Y SILENCIO -->
             <div class="sugerencias-box">
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Tengo ganas de conversar un ratito')">💬 Sí, conversemos</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero dormir siesta, quédate en silencio')">😴 Dormir siesta</button>
@@ -397,7 +394,6 @@
         </div>
     </div>
 
-    <!-- MODAL DE CONFIGURACIÓN DE NOMBRE Y GÉNERO -->
     <div id="modal-perfil">
         <div class="perfil-card">
             <h3>Tu Nombre y Trato</h3>
@@ -413,7 +409,6 @@
         </div>
     </div>
 
-    <!-- CONTACTO DE ASISTENCIA Y FAMILIA (SIN PRECIOS) -->
     <div id="sol-ai-widget">
         <div class="sol-bubble" onclick="toggleModalSolAI()">
             <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" alt="Sol-AI" class="sol-avatar-img">
@@ -489,7 +484,6 @@
             window.speechSynthesis.onvoiceschanged = cargarVoces;
         }
 
-        // DESBLOQUEO INMEDIATO DE AUDIO PARA CELULARES
         function desbloquearAudioCelular() {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -536,7 +530,6 @@
             hablarPorParlante(`Hola, ${nombreUsuario}. Estoy aquí a tu lado. ¿Tienes ganas de que conversemos un ratito, o prefieres descansar en silencio?`);
         }
 
-        // MICRÓFONO CON AUTO-ENVÍO
         const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRec) {
             recognition = new SpeechRec();
@@ -611,9 +604,8 @@
             try {
                 const tratoGenero = (generoUsuario === "femenino") ? "Usa complicidad femenina ('juntas', 'amiga', 'nosotras')" : "Usa complicidad masculina ('juntos', 'amigo')";
 
-                // CANDADO ESTRICTO DE BREVEDAD, SILENCIO Y SUPERVISIÓN
                 const reglaEstricta = `[ORDEN SUPREMA DE SOL SÁNCHEZ CONTRERAS - EL CUIDADOR]:
-1. Hablas con ${nombreUsuario}. ${tratoGenero}.
+1. Hablas con ${nombreUsuario}.${tratoGenero}.
 2. Habla en segunda persona con total naturalidad ('¿Cómo amaneciste hoy?'). NO pegues el pronombre 'tú' al final de la frase.
 3. PROHIBIDO absolutamente decir "mi querido/a", "mi estimado/a" o halagos falsos como "¡Qué bonita pregunta!".
 4. PROHIBIDO usar listas con asteriscos, viñetas o párrafos largos.
@@ -656,7 +648,6 @@
             }
         }
 
-        // CONTROL ASISTENCIA FAMILIAR (SIN VENTAS)
         function toggleModalSolAI() {
             const m = document.getElementById("sol-ai-modal");
             m.style.display = (m.style.display === "flex") ? "none" : "flex";

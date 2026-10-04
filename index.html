@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Cuidador | Acompañante de Vida & Memoria</title>
+    <title>El Cuidador | AurionCare - Años Dorados</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -58,11 +58,19 @@
             font-family: 'Cinzel', serif; 
             font-size: 1.85rem; 
             color: var(--gold-light); 
-            margin-bottom: 4px; 
+            margin-bottom: 2px; 
+        }
+
+        .sub-header-brand {
+            font-size: 0.95rem;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
         }
 
         header p { 
-            font-size: 0.98rem; 
+            font-size: 0.95rem; 
             max-width: 650px; 
             margin: 0 auto; 
             color: #CBD5E1; 
@@ -356,6 +364,7 @@
         <br>
         <span class="badge-senior">🤲 Acompañamiento Humano con Respeto y Paz</span>
         <h1>EL CUIDADOR</h1>
+        <div class="sub-header-brand">AURIONCARE &bull; AÑOS DORADOS</div>
         <p>Tu compañía serena para conversar, ver una película o descansar en calma.</p>
     </header>
 
@@ -396,16 +405,22 @@
 
     <div id="modal-perfil">
         <div class="perfil-card">
-            <h3>Tu Nombre y Trato</h3>
+            <h3>Tu Nombre y Preferencias</h3>
             <p style="font-size:0.85rem; color:#CBD5E1; margin-bottom:12px;">¿Cómo te gusta que te llamen?</p>
             <input type="text" id="inputNombreSenior" class="perfil-input" value="Sol" placeholder="Escribe tu nombre">
             
-            <div class="genero-selector">
-                <label style="cursor:pointer;"><input type="radio" name="gen" value="femenino" id="genF" checked> 🌸 Juntas (Femenino)</label>
-                <label style="cursor:pointer;"><input type="radio" name="gen" value="masculino" id="genM"> 🌿 Juntos (Masculino)</label>
+            <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:6px; text-align:left;">Voz del Cuidador (Hombre / Mujer):</div>
+            <select id="selectVozTipo" class="perfil-input">
+                <option value="femenino">🌸 Femenina (Catalina Neural)</option>
+                <option value="masculino">🌿 Masculina (Álvaro Neural)</option>
+            </select>
+
+            <div class="genero-selector" style="margin-top:10px;">
+                <label style="cursor:pointer;"><input type="radio" name="gen" value="femenino" id="genF" checked> 🌸 Trato Femenino</label>
+                <label style="cursor:pointer;"><input type="radio" name="gen" value="masculino" id="genM"> 🌿 Trato Masculino</label>
             </div>
 
-            <button onclick="guardarPerfil()" style="background:var(--gold); border:none; padding:10px 24px; border-radius:20px; font-weight:bold; cursor:pointer; color:#0A0E14;">Guardar</button>
+            <button onclick="guardarPerfil()" style="background:var(--gold); border:none; padding:10px 24px; border-radius:20px; font-weight:bold; cursor:pointer; color:#0A0E14;">Guardar Cambios</button>
         </div>
     </div>
 
@@ -437,7 +452,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 AURION &bull; Dirección y Creación: Sol Sánchez Contreras | Chile</p>
+        <p>&copy; 2026 AURIONCARE &bull; Años Dorados &bull; Dirección y Creación: Sol Sánchez Contreras | Chile</p>
     </footer>
 
     <script>
@@ -451,6 +466,7 @@
 
         let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
         let generoUsuario = localStorage.getItem("senior_genero") || "femenino";
+        let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "femenino";
 
         function actualizarTextosPerfil() {
             document.getElementById("labelNombreTop").innerText = nombreUsuario;
@@ -460,6 +476,7 @@
 
         function abrirPerfil() {
             document.getElementById("inputNombreSenior").value = nombreUsuario;
+            document.getElementById("selectVozTipo").value = tipoVozCuidador;
             if(generoUsuario === "masculino") document.getElementById("genM").checked = true;
             else document.getElementById("genF").checked = true;
             document.getElementById("modal-perfil").style.display = "flex";
@@ -467,9 +484,13 @@
 
         function guardarPerfil() {
             nombreUsuario = document.getElementById("inputNombreSenior").value.trim() || "Sol";
+            tipoVozCuidador = document.getElementById("selectVozTipo").value;
             generoUsuario = document.getElementById("genF").checked ? "femenino" : "masculino";
+            
             localStorage.setItem("senior_nombre", nombreUsuario);
+            localStorage.setItem("senior_voz_tipo", tipoVozCuidador);
             localStorage.setItem("senior_genero", generoUsuario);
+            
             actualizarTextosPerfil();
             document.getElementById("modal-perfil").style.display = "none";
         }
@@ -507,22 +528,27 @@
             const utter = new SpeechSynthesisUtterance(limpio);
             if (listaVoces.length === 0) listaVoces = window.speechSynthesis.getVoices();
 
-            const esIngles = /^[a-zA-Z\s,.'?!]+$/.test(texto) && (texto.toLowerCase().includes("hello") || texto.toLowerCase().includes("how are"));
-            if (esIngles) {
-                utter.lang = "en-US";
-                const vEn = listaVoces.find(v => v.lang.startsWith("en"));
-                if (vEn) utter.voice = vEn;
-            } else {
-                utter.lang = "es-CL";
-                const vozPreferida = listaVoces.find(v => 
-                    (v.lang.startsWith("es") || v.lang.includes("CL") || v.lang.includes("ES")) && 
-                    (v.name.includes("Natural") || v.name.includes("Google") || v.name.includes("Paulina") || v.name.includes("Sabina"))
+            utter.lang = "es-CL";
+            
+            // Búsqueda inteligente de voz humana (Femenina tipo Catalina o Masculina tipo Álvaro)
+            let vozSeleccionada = null;
+            if (tipoVozCuidador === "masculino") {
+                vozSeleccionada = listaVoces.find(v => 
+                    (v.lang.startsWith("es")) && 
+                    (v.name.toLowerCase().includes("alvaro") || v.name.toLowerCase().includes("pablo") || v.name.toLowerCase().includes("carlos") || v.name.toLowerCase().includes("male") || v.name.toLowerCase().includes("es-es") || v.name.toLowerCase().includes("es-mx"))
                 ) || listaVoces.find(v => v.lang.startsWith("es"));
-                if (vozPreferida) utter.voice = vozPreferida;
+            } else {
+                vozSeleccionada = listaVoces.find(v => 
+                    (v.lang.startsWith("es")) && 
+                    (v.name.toLowerCase().includes("catalina") || v.name.toLowerCase().includes("paulina") || v.name.toLowerCase().includes("sabina") || v.name.toLowerCase().includes("female") || v.name.toLowerCase().includes("elena"))
+                ) || listaVoces.find(v => v.lang.startsWith("es"));
             }
 
-            utter.rate = 0.92;
-            utter.pitch = 1.0;
+            if (vozSeleccionada) utter.voice = vozSeleccionada;
+
+            // Cadencia pausada en 0.5 tal como lo solicitaste para máxima naturalidad humana
+            utter.rate = 0.5;
+            utter.pitch = 0.95;
             window.speechSynthesis.speak(utter);
         }
 

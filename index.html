@@ -159,6 +159,16 @@
             align-self: flex-start;
         }
 
+        .img-taichi-guia {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 14px;
+            border: 1.5px solid var(--gold);
+            margin: 10px 0;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
         .btn-repetir-voz {
             background: none;
             border: none;
@@ -416,8 +426,8 @@
             
             <div style="font-size:0.82rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Voz del Asistente:</div>
             <select id="actVozTipo" class="perfil-input">
-                <option value="femenino">🌸 Femenina (Catalina Natural)</option>
-                <option value="masculino">🌿 Masculina (Álvaro Natural)</option>
+                <option value="femenino">🌸 Femenina (Voz Neutra Natural)</option>
+                <option value="masculino">🌿 Masculina (Voz Neutra Natural)</option>
             </select>
 
             <div class="genero-selector" style="margin-bottom:10px;">
@@ -425,7 +435,6 @@
                 <label style="cursor:pointer;"><input type="radio" name="actGen" value="masculino" id="actGenM"> 🌿 Trato Masculino</label>
             </div>
 
-            <!-- CUADRO DE CONDICIONES CLARAS -->
             <div class="transparencia-box">
                 💳 <strong>Condiciones Claras del Servicio:</strong><br>
                 &bull; <strong>Derecho de Entrada:</strong> Tu pago inicial cubre la habilitación del sistema e incluye tu <strong>primer mes (30 días) de servicio</strong>.<br>
@@ -460,19 +469,18 @@
 
             <div class="chat-display" id="chatDisplay">
                 <div class="msg-cuidador" id="msgBienvenida">
-                    Hola, <span id="saludoNombre">Sol</span>. Estoy aquí a tu lado. ¿Tienes ganas de que conversemos un ratito, o prefieres descansar en silencio?
+                    Hola, <span id="saludoNombre">Sol</span>. Estoy aquí a tu lado. ¿Deseas que conversemos un momento, o prefieres descansar en tranquilidad?
                     <button class="btn-repetir-voz" onclick="hablarSaludoInicial()" title="Escuchar">🔊</button>
                 </div>
             </div>
 
-            <!-- ACTIVIDADES SUGERIDAS (CON IR DE COMPRAS) -->
             <div class="sugerencias-box">
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Tengo ganas de conversar un ratito')">💬 Sí, conversemos</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Deseo conversar un momento')">💬 Sí, conversemos</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Voy a ir de compras al supermercado, ¿qué me recomiendas?')">🛒 Ir de compras</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero dormir siesta, quédate en silencio')">😴 Dormir siesta</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Prefiero estar en silencio descansando')">🤫 Solo silencio</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero dormir una siesta, quédate en silencio')">😴 Dormir siesta</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Prefiero descansar en silencio')">🤫 Solo silencio</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('¿Qué película o programa me recomiendas ver hoy?')">🎬 Ver una película</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Hagamos un poquito de Tai Chi suave en la silla')">🧘 Tai Chi en Silla</button>
+                <button class="btn-sugerencia" onclick="iniciarTaiChiConImagen()">🧘 Tai Chi en Silla</button>
             </div>
 
             <div class="controls-panel">
@@ -496,8 +504,8 @@
             
             <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:6px; text-align:left;">Voz del Cuidador (Hombre / Mujer):</div>
             <select id="selectVozTipo" class="perfil-input">
-                <option value="femenino">🌸 Femenina (Catalina Natural)</option>
-                <option value="masculino">🌿 Masculina (Álvaro Natural)</option>
+                <option value="femenino">🌸 Femenina (Voz Neutra)</option>
+                <option value="masculino">🌿 Masculina (Voz Neutra)</option>
             </select>
 
             <div class="genero-selector" style="margin-top:10px;">
@@ -509,7 +517,6 @@
         </div>
     </div>
 
-    <!-- ASISTENCIA FAMILIAR SOL-AI -->
     <div id="sol-ai-widget">
         <div class="sol-bubble" onclick="toggleModalSolAI()">
             <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" alt="Sol-AI" class="sol-avatar-img">
@@ -538,13 +545,15 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 AURIONCARE &bull; Años Dorados &bull; Dirección y Creación: Sol Sánchez Contreras | Chile</p>
+        <p>&copy; 2026 AURIONCARE &bull; Años Dorados &bull; Dirección y Creación: Sol Sánchez Contreras</p>
     </footer>
 
     <script>
         let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
         let generoUsuario = localStorage.getItem("senior_genero") || "femenino";
         let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "femenino";
+        
+        let historialMemoria = [];
 
         function verificarSeguridadYAcceso() {
             if (localStorage.getItem('es_duena_sol') === 'true') return;
@@ -565,7 +574,7 @@
             if (fechaVence && tieneNombre) {
                 const ahora = new Date().getTime();
                 if (ahora < parseInt(fechaVence)) {
-                    return; // Al día
+                    return;
                 } else {
                     mostrarModalActivacion(
                         "🔒 Período Mensual Finalizado", 
@@ -656,7 +665,7 @@
         verificarSeguridadYAcceso();
 
         // ==========================================
-        // SISTEMA DE VOZ NATURAL (VELOCIDAD FLUIDA 1.0)
+        // SISTEMA DE VOZ NEUTRA INTERNACIONAL
         // ==========================================
         const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
         const SOL_ENDPOINT = "https://solsanchez-ai-ulq2.onrender.com/api/chat";
@@ -693,20 +702,22 @@
             }
         }
 
-        function obtenerMejorVoz(tipo) {
+        function obtenerMejorVozNeutra(tipo) {
             if (listaVoces.length === 0) listaVoces = window.speechSynthesis.getVoices();
             const espanol = listaVoces.filter(v => v.lang.startsWith("es"));
 
             if (tipo === "masculino") {
                 return espanol.find(v => {
                     const n = v.name.toLowerCase();
-                    return n.includes("alvaro") || n.includes("jorge") || n.includes("diego") || n.includes("male") || n.includes("hombre") || n.includes("carlos");
-                }) || espanol.find(v => !v.name.toLowerCase().includes("female") && !v.name.toLowerCase().includes("paulina") && !v.name.toLowerCase().includes("sabina")) || espanol[0];
+                    return (n.includes("natural") || n.includes("google") || n.includes("online")) && 
+                           (n.includes("jorge") || n.includes("alvaro") || n.includes("male") || n.includes("carlos"));
+                }) || espanol.find(v => !v.name.toLowerCase().includes("female")) || espanol[0];
             } else {
                 return espanol.find(v => {
                     const n = v.name.toLowerCase();
-                    return n.includes("catalina") || n.includes("paulina") || n.includes("sabina") || n.includes("monica") || n.includes("elena") || n.includes("female") || n.includes("mujer") || n.includes("natural");
-                }) || espanol[0];
+                    return (n.includes("natural") || n.includes("google") || n.includes("online")) && 
+                           (n.includes("dalia") || n.includes("sabina") || n.includes("paulina") || n.includes("elena") || n.includes("monica") || n.includes("female"));
+                }) || espanol.find(v => v.name.toLowerCase().includes("female") || v.name.toLowerCase().includes("google")) || espanol[0];
             }
         }
 
@@ -716,21 +727,25 @@
             window.speechSynthesis.cancel();
             window.speechSynthesis.resume();
 
-            const limpio = texto.replace(/[*#_~`$]/g, "").replace(/https?:\/\/\S+/g, "").trim();
+            const limpio = texto
+                .replace(/[*#_~`$]/g, "")
+                .replace(/https?:\/\/\S+/g, "")
+                .replace(/\s+/g, " ")
+                .trim();
+                
             if (!limpio) return;
 
             const utter = new SpeechSynthesisUtterance(limpio);
-            const vozSeleccionada = obtenerMejorVoz(tipoVozCuidador);
+            const vozSeleccionada = obtenerMejorVozNeutra(tipoVozCuidador);
 
             if (vozSeleccionada) {
                 utter.voice = vozSeleccionada;
-                utter.lang = vozSeleccionada.lang || "es-CL";
+                utter.lang = "es-419";
             } else {
-                utter.lang = "es-CL";
+                utter.lang = "es-US";
             }
 
-            // VELOCIDAD NORMAL Y FLUIDA HUMANA (1.0 = Natural y lúcida)
-            utter.rate = 1.0;
+            utter.rate = 0.98;
             utter.pitch = 1.0;
 
             utter.onstart = function() {
@@ -749,16 +764,16 @@
         }
 
         function hablarSaludoInicial() {
-            hablarPorParlante(`Hola, ${nombreUsuario}. Estoy aquí a tu lado. ¿Tienes ganas de que conversemos un ratito, o prefieres descansar en silencio?`);
+            hablarPorParlante(`Hola, ${nombreUsuario}. Estoy aquí a tu lado. ¿Deseas que conversemos un momento, o prefieres descansar en tranquilidad?`);
         }
 
         // ==========================================
-        // MICRÓFONO CON RESET LIMPIO (SIN PEGARSE)
+        // MICRÓFONO
         // ==========================================
         const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRec) {
             recognition = new SpeechRec();
-            recognition.lang = 'es-CL';
+            recognition.lang = 'es-419';
             recognition.continuous = false;
             recognition.interimResults = false;
 
@@ -778,13 +793,8 @@
                 }
             };
 
-            recognition.onerror = function() {
-                detenerMic();
-            };
-
-            recognition.onend = function() {
-                detenerMic();
-            };
+            recognition.onerror = function() { detenerMic(); };
+            recognition.onend = function() { detenerMic(); };
         }
 
         function toggleMicrofonoSenior() {
@@ -825,7 +835,18 @@
             enviarMensajeSenior();
         }
 
-        async function enviarMensajeSenior() {
+        // ACTIVIDAD: TAI CHI EN SILLA CON IMAGEN REAL Y VOZ DE IA
+        function iniciarTaiChiConImagen() {
+            desbloquearAudioCelular();
+            const input = document.getElementById("inputSenior");
+            input.value = "Hagamos un poco de Tai Chi suave en la silla";
+            enviarMensajeSenior(true);
+        }
+
+        // ==========================================
+        // COMUNICACIÓN CON MEMORIA Y VOZ PROPIA DE LA IA
+        // ==========================================
+        async function enviarMensajeSenior(esTaiChi = false) {
             desbloquearAudioCelular();
             const input = document.getElementById("inputSenior");
             const mensaje = input.value.trim();
@@ -847,28 +868,35 @@
             chat.appendChild(loading);
             chat.scrollTop = chat.scrollHeight;
 
+            historialMemoria.push({ rol: "usuario", texto: mensaje });
+            if (historialMemoria.length > 8) historialMemoria.shift();
+
             try {
-                const tratoGenero = (generoUsuario === "femenino") ? "Trato femenino respetuoso y cercano" : "Trato masculino respetuoso y cercano";
+                const tratoGenero = (generoUsuario === "femenino") ? "Trato femenino respetuoso y cálido ('amiga', 'juntas')" : "Trato masculino respetuoso y cálido ('amigo', 'juntos')";
+
+                const contextoHilo = historialMemoria.map(h => `${h.rol === 'usuario' ? nombreUsuario : 'Cuidador'}: "${h.texto}"`).join("\n");
 
                 const reglaEstricta = `[ORDEN SUPREMA DE SOL SÁNCHEZ CONTRERAS - EL CUIDADOR]:
 1. Hablas con ${nombreUsuario}. ${tratoGenero}.
-2. Habla en segunda persona con total naturalidad y lucidez humana ('¿Cómo amaneciste hoy?').
-3. PROHIBIDO absolutamente decir "¡Ay, ${nombreUsuario}!", "amiga mía", "corazón contento", "mi querido/a", "mi estimado/a" o halagos falsos y cursis. Habla con sobriedad, respeto y calidez real de persona adulta e inteligente.
-4. PROHIBIDO usar listas con asteriscos, viñetas o párrafos largos.
-5. LÍMITE INQUEBRANTABLE: MÁXIMO 2 oraciones (menos de 25 palabras en total).
-6. RESPETO AL SILENCIO Y SIESTA: Si dice que quiere dormir siesta o estar en silencio, dile con serenidad: "Descansa rico, me quedo en silencio acompañándote" y no digas nada más.
-7. COMPRAS Y SALIDAS: Si menciona ir de compras o al supermercado, dale 1 recomendación práctica en tono natural.
-8. Si quiere ver una película o tele, celebra el panorama en 1 sola frase agradable.
-9. SUPERVISIÓN EN CASA: Si manifiesta malestar, queja o tristeza sobre el trato de cuidadores o personal de casa, dale contención amorosa en 1 frase y dile que no está sola.
-10. Detecta el idioma del usuario y responde en ese mismo idioma.`;
+2. IDIOMA: ESPAÑOL NEUTRO INTERNACIONAL. PROHIBIDO terminantemente usar modismos o acentos regionales (cero modismos chilenos, mexicanos o españoles). Dicción limpia, culta, respetuosa y serena.
+3. MEMORIA Y CONTINUIDAD OBLIGATORIA: Mantén el hilo estricto de la conversación. Si el usuario responde sobre el tema actual, continúa ese tema de inmediato. Jamás reinicies la charla ni vuelvas a saludar.
+4. TAI CHI EN SILLA: Si están haciendo Tai Chi en la silla, dile con tu propia voz de forma tranquila que observe la imagen en pantalla, que mantenga la espalda derecha y guíale el primer movimiento respirando despacio.
+5. PROHIBIDO decir "¡Ay, ${nombreUsuario}!", "corazón contento", "mi querido/a", "mi estimado/a" o halagos falsos y cursis.
+6. LÍMITE: MÁXIMO 2 oraciones (menos de 25 palabras en total).
+7. SILENCIO: Si dice que quiere descansar o silencio, dile: "Descansa en paz, permanezco en silencio acompañándote" y no digas nada más.
+
+[HISTORIAL RECIENTE]:
+${contextoHilo}
+
+[RESPONDE CON TU VOZ PROPIA CONTINUANDO EL HILO]:`;
 
                 const resp = await fetch(LEO_ENDPOINT, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        mensaje: `${reglaEstricta} Mensaje de ${nombreUsuario}: "${mensaje}"`,
+                        mensaje: reglaEstricta,
                         faceta: "cuidador",
-                        pais: "Chile",
+                        pais: "Internacional",
                         alumno: nombreUsuario,
                         clave: "cuidador777"
                     })
@@ -878,12 +906,25 @@
                 let respuesta = data.respuesta || "Estoy aquí contigo.";
                 respuesta = respuesta.replace(/[*#_~`]/g, "").trim();
 
+                historialMemoria.push({ rol: "cuidador", texto: respuesta });
+
                 const loader = document.getElementById("cargando-cuidador");
                 if (loader) loader.remove();
 
                 const cuidadorDiv = document.createElement("div");
                 cuidadorDiv.className = "msg-cuidador";
-                cuidadorDiv.innerHTML = `${respuesta} <button class="btn-repetir-voz" onclick="hablarPorParlante('${respuesta.replace(/'/g, "\\'")}')" title="Volver a escuchar">🔊</button>`;
+                
+                // Si es la actividad de Tai Chi, mostramos la imagen visual ilustrada
+                if (esTaiChi || mensaje.toLowerCase().includes("tai chi") || mensaje.toLowerCase().includes("silla")) {
+                    cuidadorDiv.innerHTML = `
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663295304532/SXAbPHcoYQWtVFRu.jpg" alt="Guía Visual Tai Chi en Silla" class="img-taichi-guia" onerror="this.style.display='none'">
+                        ${respuesta} 
+                        <button class="btn-repetir-voz" onclick="hablarPorParlante('${respuesta.replace(/'/g, "\\'")}')" title="Volver a escuchar">🔊</button>
+                    `;
+                } else {
+                    cuidadorDiv.innerHTML = `${respuesta} <button class="btn-repetir-voz" onclick="hablarPorParlante('${respuesta.replace(/'/g, "\\'")}')" title="Volver a escuchar">🔊</button>`;
+                }
+
                 chat.appendChild(cuidadorDiv);
                 chat.scrollTop = chat.scrollHeight;
 

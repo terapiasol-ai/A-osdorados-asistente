@@ -266,6 +266,7 @@
             font-weight: bold;
         }
 
+        /* MODAL DE PERFIL */
         #modal-perfil {
             display: none;
             position: fixed;
@@ -282,7 +283,7 @@
             border: 2px solid var(--gold);
             border-radius: 18px;
             padding: 22px;
-            max-width: 360px;
+            max-width: 380px;
             width: 100%;
             text-align: center;
         }
@@ -305,6 +306,53 @@
             gap: 15px;
             margin-bottom: 18px;
             font-size: 0.95rem;
+        }
+
+        /* MODAL DE ACTIVACIÓN Y TRANSPARENCIA COMERCIAL */
+        #modal-activacion {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(11, 15, 23, 0.98);
+            z-index: 1000000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .activacion-card {
+            background: #141C28;
+            border: 2px solid var(--gold);
+            border-radius: 22px;
+            padding: 24px 18px;
+            max-width: 440px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.95);
+        }
+
+        .activacion-card h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-light);
+            font-size: 1.45rem;
+            margin-bottom: 6px;
+        }
+
+        .transparencia-box {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.82rem;
+            color: #E2E8F0;
+            text-align: left;
+            margin: 14px 0 10px;
+            line-height: 1.45;
+        }
+
+        .transparencia-box strong {
+            color: var(--gold-light);
         }
 
         footer {
@@ -355,6 +403,41 @@
 </head>
 <body>
 
+    <!-- MODAL DE ACTIVACIÓN INICIAL Y CONDICIONES CLARAS -->
+    <div id="modal-activacion">
+        <div class="activacion-card">
+            <span style="font-size: 2.2rem; display: block; margin-bottom: 4px;">✨</span>
+            <h2 id="act-titulo">Habilitación de tu Asistente</h2>
+            <p id="act-desc" style="font-size:0.86rem; color:#CBD5E1; margin-bottom:12px;">Ingresa tus datos para personalizar tu asistente y activar tu servicio.</p>
+            
+            <input type="text" id="actNombre" class="perfil-input" placeholder="Tu Nombre (Ej: María, Pedro)">
+            
+            <div style="font-size:0.82rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Voz del Asistente:</div>
+            <select id="actVozTipo" class="perfil-input">
+                <option value="femenino">🌸 Femenina (Catalina Neural)</option>
+                <option value="masculino">🌿 Masculina (Álvaro Neural)</option>
+            </select>
+
+            <div class="genero-selector" style="margin-bottom:10px;">
+                <label style="cursor:pointer;"><input type="radio" name="actGen" value="femenino" id="actGenF" checked> 🌸 Trato Femenino</label>
+                <label style="cursor:pointer;"><input type="radio" name="actGen" value="masculino" id="actGenM"> 🌿 Trato Masculino</label>
+            </div>
+
+            <input type="text" id="actClave" class="perfil-input" placeholder="Código de Activación (de tu compra)">
+
+            <!-- CUADRO DE TRANSPARENCIA: DERECHO DE ENTRADA Y SERVICIO MENSUAL -->
+            <div class="transparencia-box">
+                💳 <strong>Condiciones Claras del Servicio:</strong><br>
+                &bull; <strong>Derecho de Entrada:</strong> Tu pago inicial cubre la habilitación del sistema y otorga tu <strong>primer mes (30 días) de servicio incluido</strong>.<br>
+                &bull; <strong>Servicio Mensual Continuo:</strong> A partir del segundo mes, tal como cualquier servicio esencial (telefonía o luz), la mantención activa del asistente tiene un costo de <strong>$99 USD mensuales</strong>.<br>
+                ⚖️ <em>Licencia de uso exclusivo para este dispositivo. Servicio personal e intransferible.</em>
+            </div>
+
+            <button onclick="activarLicenciaCliente()" style="background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; padding:12px 24px; border-radius:25px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; font-size:1rem; margin-top:6px;">Activar mi Acompañamiento</button>
+            <p id="error-act" style="color: #FF6B6B; font-size: 0.82rem; margin-top: 8px; display: none;">Código no válido o membresía no vigente.</p>
+        </div>
+    </div>
+
     <header>
         <button class="btn-perfil-top" onclick="abrirPerfil()">⚙️ <span id="labelNombreTop">Sol</span></button>
         <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" 
@@ -382,8 +465,10 @@
                 </div>
             </div>
 
+            <!-- ACTIVIDADES SUGERIDAS (CON IR DE COMPRAS) -->
             <div class="sugerencias-box">
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Tengo ganas de conversar un ratito')">💬 Sí, conversemos</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Voy a ir de compras al supermercado, ¿qué me recomiendas?')">🛒 Ir de compras</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero dormir siesta, quédate en silencio')">😴 Dormir siesta</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Prefiero estar en silencio descansando')">🤫 Solo silencio</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('¿Qué película o programa me recomiendas ver hoy?')">🎬 Ver una película</button>
@@ -424,6 +509,7 @@
         </div>
     </div>
 
+    <!-- ASISTENCIA FAMILIAR SOL-AI -->
     <div id="sol-ai-widget">
         <div class="sol-bubble" onclick="toggleModalSolAI()">
             <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" alt="Sol-AI" class="sol-avatar-img">
@@ -441,11 +527,11 @@
             <div class="sol-messages" id="solMessages">
                 <div style="background:#1B2636; border:1px solid rgba(212,175,55,0.3); padding:10px; border-radius:10px; font-size:0.88rem;">
                     ¡Hola! Soy <strong>Sol-AI</strong>.<br><br>
-                    Si la familia necesita asistencia técnica, reportar alguna consulta o comunicarse con nosotros por WhatsApp, puedes escribir aquí con confianza.
+                    Si la familia necesita asistencia con el pago de la mensualidad de servicio ($99 USD), renovaciones o soporte por WhatsApp, puedes escribir aquí con confianza.
                 </div>
             </div>
             <div style="padding:8px; background:#101620; border-top:1px solid rgba(212,175,55,0.2); display:flex; gap:6px;">
-                <input type="text" id="solInput" placeholder="Mensaje de asistencia para la familia..." onkeypress="if(event.key==='Enter') enviarMensajeSolAI()" style="flex:1; background:#182230; border:1px solid rgba(212,175,55,0.3); border-radius:15px; padding:8px 12px; color:#FFF; font-size:0.85rem; outline:none;">
+                <input type="text" id="solInput" placeholder="Mensaje para soporte de membresía..." onkeypress="if(event.key==='Enter') enviarMensajeSolAI()" style="flex:1; background:#182230; border:1px solid rgba(212,175,55,0.3); border-radius:15px; padding:8px 12px; color:#FFF; font-size:0.85rem; outline:none;">
                 <button onclick="enviarMensajeSolAI()" style="background:var(--gold); border:none; color:#0A0E14; border-radius:50%; width:34px; height:34px; cursor:pointer; font-weight:bold;">➤</button>
             </div>
         </div>
@@ -456,23 +542,96 @@
     </footer>
 
     <script>
-        const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
-        const SOL_ENDPOINT = "https://solsanchez-ai-ulq2.onrender.com/api/chat";
-
-        let vozActiva = true;
-        let grabacionActiva = false;
-        let recognition = null;
-        let listaVoces = [];
+        const CLAVE_DUENA = "SOL2026";
+        const CLAVES_VALIDAS = ["DORADOS2026", "CUIDADOR_VIP", "MES_ACTIVO"];
 
         let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
         let generoUsuario = localStorage.getItem("senior_genero") || "femenino";
         let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "femenino";
 
+        function verificarSeguridadYAcceso() {
+            if (localStorage.getItem('es_duena_sol') === 'true') return;
+
+            const params = new URLSearchParams(window.location.search);
+            const claveURL = params.get('acceso');
+
+            if (claveURL === CLAVE_DUENA) {
+                localStorage.setItem('es_duena_sol', 'true');
+                localStorage.setItem("senior_nombre", "Sol");
+                window.history.replaceState({}, document.title, window.location.pathname);
+                return;
+            }
+
+            const fechaVence = localStorage.getItem('suscripcion_vence_el');
+            const tieneNombre = localStorage.getItem("senior_nombre");
+
+            if (fechaVence && tieneNombre) {
+                const ahora = new Date().getTime();
+                if (ahora < parseInt(fechaVence)) {
+                    return; // Membresía al día
+                } else {
+                    mostrarModalActivacion(
+                        "🔒 Ciclo Mensual Finalizado", 
+                        "Tus 30 días incluidos con tu derecho de entrada han finalizado. Para mantener activa tu línea de acompañamiento por $99 USD mensuales (como tu servicio de luz o telefonía), ingresa tu clave de renovación o contacta a Sol-AI."
+                    );
+                    return;
+                }
+            }
+
+            mostrarModalActivacion("✨ Habilitación de tu Asistente", "Ingresa tus datos para personalizar tu experiencia y activar tu primer mes de servicio.");
+        }
+
+        function mostrarModalActivacion(titulo, desc) {
+            document.getElementById("act-titulo").innerText = titulo;
+            document.getElementById("act-desc").innerText = desc;
+            document.getElementById("modal-activacion").style.display = "flex";
+        }
+
+        function activarLicenciaCliente() {
+            const nom = document.getElementById("actNombre").value.trim();
+            const clave = document.getElementById("actClave").value.trim();
+            const voz = document.getElementById("actVozTipo").value;
+            const gen = document.getElementById("actGenF").checked ? "femenino" : "masculino";
+            const err = document.getElementById("error-act");
+
+            if (!nom) {
+                alert("Por favor escribe tu nombre.");
+                return;
+            }
+
+            if (clave === CLAVE_DUENA) {
+                localStorage.setItem('es_duena_sol', 'true');
+                guardarDatosUsuario(nom, voz, gen);
+                document.getElementById("modal-activacion").style.display = "none";
+                desbloquearAudioCelular();
+                return;
+            }
+
+            if (CLAVES_VALIDAS.includes(clave)) {
+                const treintaDias = 30 * 24 * 60 * 60 * 1000;
+                localStorage.setItem('suscripcion_vence_el', (new Date().getTime() + treintaDias).toString());
+                guardarDatosUsuario(nom, voz, gen);
+                document.getElementById("modal-activacion").style.display = "none";
+                desbloquearAudioCelular();
+            } else {
+                err.style.display = "block";
+            }
+        }
+
+        function guardarDatosUsuario(nom, voz, gen) {
+            nombreUsuario = nom;
+            tipoVozCuidador = voz;
+            generoUsuario = gen;
+            localStorage.setItem("senior_nombre", nom);
+            localStorage.setItem("senior_voz_tipo", voz);
+            localStorage.setItem("senior_genero", gen);
+            actualizarTextosPerfil();
+        }
+
         function actualizarTextosPerfil() {
             document.getElementById("labelNombreTop").innerText = nombreUsuario;
             document.getElementById("saludoNombre").innerText = nombreUsuario;
         }
-        actualizarTextosPerfil();
 
         function abrirPerfil() {
             document.getElementById("inputNombreSenior").value = nombreUsuario;
@@ -493,7 +652,22 @@
             
             actualizarTextosPerfil();
             document.getElementById("modal-perfil").style.display = "none";
+            desbloquearAudioCelular();
         }
+
+        actualizarTextosPerfil();
+        verificarSeguridadYAcceso();
+
+        // ==========================================
+        // SISTEMA DE VOZ NEURAL Y PARLANTE
+        // ==========================================
+        const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
+        const SOL_ENDPOINT = "https://solsanchez-ai-ulq2.onrender.com/api/chat";
+
+        let vozActiva = true;
+        let grabacionActiva = false;
+        let recognition = null;
+        let listaVoces = [];
 
         function cargarVoces() {
             if ('speechSynthesis' in window) {
@@ -530,7 +704,6 @@
 
             utter.lang = "es-CL";
             
-            // Búsqueda inteligente de voz humana (Femenina tipo Catalina o Masculina tipo Álvaro)
             let vozSeleccionada = null;
             if (tipoVozCuidador === "masculino") {
                 vozSeleccionada = listaVoces.find(v => 
@@ -546,7 +719,6 @@
 
             if (vozSeleccionada) utter.voice = vozSeleccionada;
 
-            // Cadencia pausada en 0.5 tal como lo solicitaste para máxima naturalidad humana
             utter.rate = 0.5;
             utter.pitch = 0.95;
             window.speechSynthesis.speak(utter);
@@ -607,6 +779,7 @@
         }
 
         async function enviarMensajeSenior() {
+            desbloquearAudioCelular();
             const input = document.getElementById("inputSenior");
             const mensaje = input.value.trim();
             if (!mensaje) return;
@@ -628,18 +801,19 @@
             chat.scrollTop = chat.scrollHeight;
 
             try {
-                const tratoGenero = (generoUsuario === "femenino") ? "Usa complicidad femenina ('juntas', 'amiga', 'nosotras')" : "Usa complicidad masculina ('juntos', 'amigo')";
+                const tratoGenero = (generoUsuario === "femenino") ? "Trato femenino respetuoso y cercano" : "Trato masculino respetuoso y cercano";
 
                 const reglaEstricta = `[ORDEN SUPREMA DE SOL SÁNCHEZ CONTRERAS - EL CUIDADOR]:
-1. Hablas con ${nombreUsuario}.${tratoGenero}.
-2. Habla en segunda persona con total naturalidad ('¿Cómo amaneciste hoy?'). NO pegues el pronombre 'tú' al final de la frase.
-3. PROHIBIDO absolutamente decir "mi querido/a", "mi estimado/a" o halagos falsos como "¡Qué bonita pregunta!".
+1. Hablas con ${nombreUsuario}. ${tratoGenero}.
+2. Habla en segunda persona con total naturalidad humana ('¿Cómo amaneciste hoy?').
+3. PROHIBIDO absolutamente decir "¡Ay, ${nombreUsuario}!", "amiga mía", "corazón contento", "mi querido/a", "mi estimado/a" o halagos falsos y cursis. Habla con sobriedad, respeto y calidez real de persona adulta.
 4. PROHIBIDO usar listas con asteriscos, viñetas o párrafos largos.
 5. LÍMITE INQUEBRANTABLE: MÁXIMO 2 oraciones (menos de 25 palabras en total).
 6. RESPETO AL SILENCIO Y SIESTA: Si dice que quiere dormir siesta o estar en silencio, dile con dulzura: "Descansa rico, me quedo en silencio acompañándote" y no digas nada más.
-7. Si quiere ver una película o tele, celebra el panorama en 1 sola frase agradable.
-8. SUPERVISIÓN EN CASA: Si manifiesta malestar, queja o tristeza sobre el trato de cuidadores o personal de casa, dale contención amorosa en 1 frase y dile que no está sola.
-9. Detecta el idioma del usuario y responde en ese mismo idioma.`;
+7. COMPRAS Y SALIDAS: Si menciona ir de compras o al supermercado, dale 1 recomendación práctica en tono sereno.
+8. Si quiere ver una película o tele, celebra el panorama en 1 sola frase agradable.
+9. SUPERVISIÓN EN CASA: Si manifiesta malestar, queja o tristeza sobre el trato de cuidadores o personal de casa, dale contención amorosa en 1 frase y dile que no está sola.
+10. Detecta el idioma del usuario y responde en ese mismo idioma.`;
 
                 const resp = await fetch(LEO_ENDPOINT, {
                     method: "POST",

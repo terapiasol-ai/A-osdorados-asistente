@@ -223,7 +223,7 @@
             width: 100%;
             max-width: 380px;
             justify-content: center;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
         }
 
         .big-mic-btn.recording {
@@ -233,8 +233,8 @@
         }
 
         .big-mic-btn.hablando {
-            background: #2563EB;
-            color: #FFF;
+            background: #1E3A8A;
+            color: #93C5FD;
         }
 
         @keyframes pulseRecord {
@@ -357,10 +357,6 @@
             line-height: 1.45;
         }
 
-        .transparencia-box strong {
-            color: var(--gold-light);
-        }
-
         footer {
             text-align: center;
             padding: 18px 15px;
@@ -420,8 +416,8 @@
             
             <div style="font-size:0.82rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Voz del Asistente:</div>
             <select id="actVozTipo" class="perfil-input">
-                <option value="femenino">🌸 Femenina (Catalina Neural)</option>
-                <option value="masculino">🌿 Masculina (Álvaro Neural)</option>
+                <option value="femenino">🌸 Femenina (Catalina Natural)</option>
+                <option value="masculino">🌿 Masculina (Álvaro Natural)</option>
             </select>
 
             <div class="genero-selector" style="margin-bottom:10px;">
@@ -481,7 +477,7 @@
 
             <div class="controls-panel">
                 <button class="big-mic-btn" id="btnMicSenior" onclick="toggleMicrofonoSenior()">
-                    <span>🎙️ Tocar para Hablar (Manos Libres)</span>
+                    <span>🎙️ Tocar para Hablar</span>
                 </button>
 
                 <div class="sub-input-row">
@@ -500,8 +496,8 @@
             
             <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:6px; text-align:left;">Voz del Cuidador (Hombre / Mujer):</div>
             <select id="selectVozTipo" class="perfil-input">
-                <option value="femenino">🌸 Femenina (Catalina Neural)</option>
-                <option value="masculino">🌿 Masculina (Álvaro Neural)</option>
+                <option value="femenino">🌸 Femenina (Catalina Natural)</option>
+                <option value="masculino">🌿 Masculina (Álvaro Natural)</option>
             </select>
 
             <div class="genero-selector" style="margin-top:10px;">
@@ -549,8 +545,6 @@
         let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
         let generoUsuario = localStorage.getItem("senior_genero") || "femenino";
         let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "femenino";
-        
-        let conversacionContinuaActiva = false; // Control de diálogo de ida y vuelta
 
         function verificarSeguridadYAcceso() {
             if (localStorage.getItem('es_duena_sol') === 'true') return;
@@ -571,7 +565,7 @@
             if (fechaVence && tieneNombre) {
                 const ahora = new Date().getTime();
                 if (ahora < parseInt(fechaVence)) {
-                    return; // Membresía al día
+                    return; // Al día
                 } else {
                     mostrarModalActivacion(
                         "🔒 Período Mensual Finalizado", 
@@ -662,7 +656,7 @@
         verificarSeguridadYAcceso();
 
         // ==========================================
-        // SISTEMA DE VOZ NEURAL Y PARLANTE
+        // SISTEMA DE VOZ NATURAL (VELOCIDAD FLUIDA 1.0)
         // ==========================================
         const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
         const SOL_ENDPOINT = "https://solsanchez-ai-ulq2.onrender.com/api/chat";
@@ -684,9 +678,9 @@
 
         function desbloquearAudioCelular() {
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const silencio = new SpeechSynthesisUtterance(' ');
-                silencio.volume = 0.01;
+                window.speechSynthesis.resume();
+                const silencio = new SpeechSynthesisUtterance('');
+                silencio.volume = 0;
                 window.speechSynthesis.speak(silencio);
             }
         }
@@ -694,75 +688,72 @@
         function toggleAudio() {
             vozActiva = !vozActiva;
             document.getElementById("btnAudioToggle").innerText = vozActiva ? "🔊 Voz Activa" : "🔇 Silencio";
-            if (!vozActiva) {
-                conversacionContinuaActiva = false;
-                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-                detenerMic();
+            if (!vozActiva && 'speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
             }
         }
 
-        function hablarPorParlante(texto, esRespuestaConversacion = false) {
+        function obtenerMejorVoz(tipo) {
+            if (listaVoces.length === 0) listaVoces = window.speechSynthesis.getVoices();
+            const espanol = listaVoces.filter(v => v.lang.startsWith("es"));
+
+            if (tipo === "masculino") {
+                return espanol.find(v => {
+                    const n = v.name.toLowerCase();
+                    return n.includes("alvaro") || n.includes("jorge") || n.includes("diego") || n.includes("male") || n.includes("hombre") || n.includes("carlos");
+                }) || espanol.find(v => !v.name.toLowerCase().includes("female") && !v.name.toLowerCase().includes("paulina") && !v.name.toLowerCase().includes("sabina")) || espanol[0];
+            } else {
+                return espanol.find(v => {
+                    const n = v.name.toLowerCase();
+                    return n.includes("catalina") || n.includes("paulina") || n.includes("sabina") || n.includes("monica") || n.includes("elena") || n.includes("female") || n.includes("mujer") || n.includes("natural");
+                }) || espanol[0];
+            }
+        }
+
+        function hablarPorParlante(texto) {
             if (!vozActiva || !('speechSynthesis' in window)) return;
+            
             window.speechSynthesis.cancel();
+            window.speechSynthesis.resume();
 
             const limpio = texto.replace(/[*#_~`$]/g, "").replace(/https?:\/\/\S+/g, "").trim();
-            const utter = new SpeechSynthesisUtterance(limpio);
-            if (listaVoces.length === 0) listaVoces = window.speechSynthesis.getVoices();
+            if (!limpio) return;
 
-            utter.lang = "es-CL";
-            
-            let vozSeleccionada = null;
-            if (tipoVozCuidador === "masculino") {
-                vozSeleccionada = listaVoces.find(v => 
-                    (v.lang.startsWith("es")) && 
-                    (v.name.toLowerCase().includes("alvaro") || v.name.toLowerCase().includes("pablo") || v.name.toLowerCase().includes("carlos") || v.name.toLowerCase().includes("male") || v.name.toLowerCase().includes("es-es") || v.name.toLowerCase().includes("es-mx"))
-                ) || listaVoces.find(v => v.lang.startsWith("es"));
+            const utter = new SpeechSynthesisUtterance(limpio);
+            const vozSeleccionada = obtenerMejorVoz(tipoVozCuidador);
+
+            if (vozSeleccionada) {
+                utter.voice = vozSeleccionada;
+                utter.lang = vozSeleccionada.lang || "es-CL";
             } else {
-                vozSeleccionada = listaVoces.find(v => 
-                    (v.lang.startsWith("es")) && 
-                    (v.name.toLowerCase().includes("catalina") || v.name.toLowerCase().includes("paulina") || v.name.toLowerCase().includes("sabina") || v.name.toLowerCase().includes("female") || v.name.toLowerCase().includes("elena"))
-                ) || listaVoces.find(v => v.lang.startsWith("es"));
+                utter.lang = "es-CL";
             }
 
-            if (vozSeleccionada) utter.voice = vozSeleccionada;
+            // VELOCIDAD NORMAL Y FLUIDA HUMANA (1.0 = Natural y lúcida)
+            utter.rate = 1.0;
+            utter.pitch = 1.0;
 
-            utter.rate = 0.5;
-            utter.pitch = 0.95;
-
-            // Al terminar de hablar el asistente, si la conversación sigue viva, vuelve a escuchar automáticamente (Manos Libres)
-            utter.onend = function() {
+            utter.onstart = function() {
                 const btn = document.getElementById("btnMicSenior");
-                btn.classList.remove("hablando");
-                
-                // Si dijo descansar o silencio, detenemos la escucha continua
-                const textoMinuscula = limpio.toLowerCase();
-                if (textoMinuscula.includes("descansa") || textoMinuscula.includes("silencio")) {
-                    conversacionContinuaActiva = false;
-                    detenerMic();
-                    return;
-                }
-
-                if (conversacionContinuaActiva && vozActiva) {
-                    setTimeout(() => {
-                        iniciarMicrofonoAutomatico();
-                    }, 500);
-                }
+                btn.className = "big-mic-btn hablando";
+                btn.innerHTML = "<span>🔊 Hablando...</span>";
             };
 
-            const btn = document.getElementById("btnMicSenior");
-            btn.classList.add("hablando");
-            btn.innerHTML = "<span>🔊 Hablando...</span>";
+            utter.onend = function() {
+                detenerMic();
+            };
 
-            window.speechSynthesis.speak(utter);
+            setTimeout(() => {
+                window.speechSynthesis.speak(utter);
+            }, 60);
         }
 
         function hablarSaludoInicial() {
-            conversacionContinuaActiva = true;
-            hablarPorParlante(`Hola, ${nombreUsuario}. Estoy aquí a tu lado. ¿Tienes ganas de que conversemos un ratito, o prefieres descansar en silencio?`, true);
+            hablarPorParlante(`Hola, ${nombreUsuario}. Estoy aquí a tu lado. ¿Tienes ganas de que conversemos un ratito, o prefieres descansar en silencio?`);
         }
 
         // ==========================================
-        // MICRÓFONO CON INTERCAMBIO DE VOZ
+        // MICRÓFONO CON RESET LIMPIO (SIN PEGARSE)
         // ==========================================
         const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRec) {
@@ -774,9 +765,8 @@
             recognition.onstart = function() {
                 grabacionActiva = true;
                 const btn = document.getElementById("btnMicSenior");
-                btn.classList.remove("hablando");
-                btn.classList.add("recording");
-                btn.innerHTML = "<span>🔴 Te escucho... (Habla tranquilo)</span>";
+                btn.className = "big-mic-btn recording";
+                btn.innerHTML = "<span>🔴 Te escucho... (Habla ahora)</span>";
                 document.getElementById("estadoTexto").innerText = "🎙️ Escuchándote...";
             };
 
@@ -788,55 +778,49 @@
                 }
             };
 
-            recognition.onerror = function() { 
-                detenerMic(); 
+            recognition.onerror = function() {
+                detenerMic();
             };
-            
-            recognition.onend = function() { 
-                grabacionActiva = false;
-                if (!window.speechSynthesis.speaking && !conversacionContinuaActiva) {
-                    detenerMic();
-                }
-            };
-        }
 
-        function iniciarMicrofonoAutomatico() {
-            if (!recognition || grabacionActiva || window.speechSynthesis.speaking) return;
-            try {
-                document.getElementById("inputSenior").value = "";
-                recognition.start();
-            } catch (err) {}
+            recognition.onend = function() {
+                detenerMic();
+            };
         }
 
         function toggleMicrofonoSenior() {
             desbloquearAudioCelular();
             if (!recognition) return;
-            
+
+            if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+            }
+
             if (grabacionActiva) {
-                conversacionContinuaActiva = false;
-                recognition.stop();
+                try { recognition.stop(); } catch(e){}
                 detenerMic();
             } else {
-                conversacionContinuaActiva = true; // Activa el modo conversación continua
-                document.getElementById("inputSenior").value = "";
-                try {
-                    recognition.start();
-                } catch(e){}
+                try { recognition.abort(); } catch(e){}
+                setTimeout(() => {
+                    try {
+                        document.getElementById("inputSenior").value = "";
+                        recognition.start();
+                    } catch(e) {
+                        detenerMic();
+                    }
+                }, 100);
             }
         }
 
         function detenerMic() {
             grabacionActiva = false;
             const btn = document.getElementById("btnMicSenior");
-            btn.classList.remove("recording");
-            btn.classList.remove("hablando");
-            btn.innerHTML = "<span>🎙️ Tocar para Hablar (Manos Libres)</span>";
+            btn.className = "big-mic-btn";
+            btn.innerHTML = "<span>🎙️ Tocar para Hablar</span>";
             document.getElementById("estadoTexto").innerText = "🟢 En línea • Contigo";
         }
 
         function enviarSugerencia(texto) {
             desbloquearAudioCelular();
-            conversacionContinuaActiva = true;
             document.getElementById("inputSenior").value = texto;
             enviarMensajeSenior();
         }
@@ -868,12 +852,12 @@
 
                 const reglaEstricta = `[ORDEN SUPREMA DE SOL SÁNCHEZ CONTRERAS - EL CUIDADOR]:
 1. Hablas con ${nombreUsuario}. ${tratoGenero}.
-2. Habla en segunda persona con total naturalidad humana ('¿Cómo amaneciste hoy?').
-3. PROHIBIDO absolutamente decir "¡Ay, ${nombreUsuario}!", "amiga mía", "corazón contento", "mi querido/a", "mi estimado/a" o halagos falsos y cursis. Habla con sobriedad, respeto y calidez real de persona adulta.
+2. Habla en segunda persona con total naturalidad y lucidez humana ('¿Cómo amaneciste hoy?').
+3. PROHIBIDO absolutamente decir "¡Ay, ${nombreUsuario}!", "amiga mía", "corazón contento", "mi querido/a", "mi estimado/a" o halagos falsos y cursis. Habla con sobriedad, respeto y calidez real de persona adulta e inteligente.
 4. PROHIBIDO usar listas con asteriscos, viñetas o párrafos largos.
 5. LÍMITE INQUEBRANTABLE: MÁXIMO 2 oraciones (menos de 25 palabras en total).
-6. RESPETO AL SILENCIO Y SIESTA: Si dice que quiere dormir siesta o estar en silencio, dile con dulzura: "Descansa rico, me quedo en silencio acompañándote" y no digas nada más.
-7. COMPRAS Y SALIDAS: Si menciona ir de compras o al supermercado, dale 1 recomendación práctica en tono sereno.
+6. RESPETO AL SILENCIO Y SIESTA: Si dice que quiere dormir siesta o estar en silencio, dile con serenidad: "Descansa rico, me quedo en silencio acompañándote" y no digas nada más.
+7. COMPRAS Y SALIDAS: Si menciona ir de compras o al supermercado, dale 1 recomendación práctica en tono natural.
 8. Si quiere ver una película o tele, celebra el panorama en 1 sola frase agradable.
 9. SUPERVISIÓN EN CASA: Si manifiesta malestar, queja o tristeza sobre el trato de cuidadores o personal de casa, dale contención amorosa en 1 frase y dile que no está sola.
 10. Detecta el idioma del usuario y responde en ese mismo idioma.`;
@@ -903,7 +887,7 @@
                 chat.appendChild(cuidadorDiv);
                 chat.scrollTop = chat.scrollHeight;
 
-                hablarPorParlante(respuesta, true);
+                hablarPorParlante(respuesta);
 
             } catch(e) {
                 const loader = document.getElementById("cargando-cuidador");

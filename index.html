@@ -223,12 +223,18 @@
             width: 100%;
             max-width: 380px;
             justify-content: center;
+            transition: all 0.3s;
         }
 
         .big-mic-btn.recording {
             background: #E53E3E;
             color: #FFF;
             animation: pulseRecord 1.2s infinite;
+        }
+
+        .big-mic-btn.hablando {
+            background: #2563EB;
+            color: #FFF;
         }
 
         @keyframes pulseRecord {
@@ -308,7 +314,7 @@
             font-size: 0.95rem;
         }
 
-        /* MODAL DE ACTIVACIÓN Y TRANSPARENCIA COMERCIAL */
+        /* MODAL DE HABILITACIÓN INICIAL */
         #modal-activacion {
             display: none;
             position: fixed;
@@ -403,12 +409,12 @@
 </head>
 <body>
 
-    <!-- MODAL DE ACTIVACIÓN INICIAL Y CONDICIONES CLARAS -->
+    <!-- MODAL DE HABILITACIÓN INICIAL -->
     <div id="modal-activacion">
         <div class="activacion-card">
             <span style="font-size: 2.2rem; display: block; margin-bottom: 4px;">✨</span>
             <h2 id="act-titulo">Habilitación de tu Asistente</h2>
-            <p id="act-desc" style="font-size:0.86rem; color:#CBD5E1; margin-bottom:12px;">Ingresa tus datos para personalizar tu asistente y activar tu servicio.</p>
+            <p id="act-desc" style="font-size:0.86rem; color:#CBD5E1; margin-bottom:12px;">Ingresa tus datos para personalizar tu asistente y activar tu primer mes de servicio.</p>
             
             <input type="text" id="actNombre" class="perfil-input" placeholder="Tu Nombre (Ej: María, Pedro)">
             
@@ -423,18 +429,16 @@
                 <label style="cursor:pointer;"><input type="radio" name="actGen" value="masculino" id="actGenM"> 🌿 Trato Masculino</label>
             </div>
 
-            <input type="text" id="actClave" class="perfil-input" placeholder="Código de Activación (de tu compra)">
-
-            <!-- CUADRO DE TRANSPARENCIA: DERECHO DE ENTRADA Y SERVICIO MENSUAL -->
+            <!-- CUADRO DE CONDICIONES CLARAS -->
             <div class="transparencia-box">
                 💳 <strong>Condiciones Claras del Servicio:</strong><br>
-                &bull; <strong>Derecho de Entrada:</strong> Tu pago inicial cubre la habilitación del sistema y otorga tu <strong>primer mes (30 días) de servicio incluido</strong>.<br>
-                &bull; <strong>Servicio Mensual Continuo:</strong> A partir del segundo mes, tal como cualquier servicio esencial (telefonía o luz), la mantención activa del asistente tiene un costo de <strong>$99 USD mensuales</strong>.<br>
+                &bull; <strong>Derecho de Entrada:</strong> Tu pago inicial cubre la habilitación del sistema e incluye tu <strong>primer mes (30 días) de servicio</strong>.<br>
+                &bull; <strong>Mensualidad por Anticipado:</strong> Al finalizar cada período de 30 días, se debe <strong>pagar por anticipado</strong> la mensualidad de <strong>$99 USD</strong> para habilitar y continuar con el servicio del mes siguiente.<br>
+                &bull; <strong>Compatibilidad:</strong> Puedes usar este servicio directamente desde tu celular o conectarlo a cualquier parlante o audífono Bluetooth.<br>
                 ⚖️ <em>Licencia de uso exclusivo para este dispositivo. Servicio personal e intransferible.</em>
             </div>
 
             <button onclick="activarLicenciaCliente()" style="background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; padding:12px 24px; border-radius:25px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; font-size:1rem; margin-top:6px;">Activar mi Acompañamiento</button>
-            <p id="error-act" style="color: #FF6B6B; font-size: 0.82rem; margin-top: 8px; display: none;">Código no válido o membresía no vigente.</p>
         </div>
     </div>
 
@@ -454,7 +458,7 @@
     <div class="main-container">
         <div class="cuidador-box">
             <div class="top-bar-cuidador">
-                <span class="estado-conexion">🟢 En línea • Contigo</span>
+                <span class="estado-conexion" id="estadoTexto">🟢 En línea • Contigo</span>
                 <button class="btn-audio-toggle" id="btnAudioToggle" onclick="toggleAudio()">🔊 Voz Activa</button>
             </div>
 
@@ -477,7 +481,7 @@
 
             <div class="controls-panel">
                 <button class="big-mic-btn" id="btnMicSenior" onclick="toggleMicrofonoSenior()">
-                    <span>🎙️ Tocar para Hablar</span>
+                    <span>🎙️ Tocar para Hablar (Manos Libres)</span>
                 </button>
 
                 <div class="sub-input-row">
@@ -527,11 +531,11 @@
             <div class="sol-messages" id="solMessages">
                 <div style="background:#1B2636; border:1px solid rgba(212,175,55,0.3); padding:10px; border-radius:10px; font-size:0.88rem;">
                     ¡Hola! Soy <strong>Sol-AI</strong>.<br><br>
-                    Si la familia necesita asistencia con el pago de la mensualidad de servicio ($99 USD), renovaciones o soporte por WhatsApp, puedes escribir aquí con confianza.
+                    Si la familia necesita asistencia para pagar la mensualidad anticipada del servicio ($99 USD), renovaciones o consultas por WhatsApp, puedes escribir aquí con confianza.
                 </div>
             </div>
             <div style="padding:8px; background:#101620; border-top:1px solid rgba(212,175,55,0.2); display:flex; gap:6px;">
-                <input type="text" id="solInput" placeholder="Mensaje para soporte de membresía..." onkeypress="if(event.key==='Enter') enviarMensajeSolAI()" style="flex:1; background:#182230; border:1px solid rgba(212,175,55,0.3); border-radius:15px; padding:8px 12px; color:#FFF; font-size:0.85rem; outline:none;">
+                <input type="text" id="solInput" placeholder="Mensaje para pago de mensualidad..." onkeypress="if(event.key==='Enter') enviarMensajeSolAI()" style="flex:1; background:#182230; border:1px solid rgba(212,175,55,0.3); border-radius:15px; padding:8px 12px; color:#FFF; font-size:0.85rem; outline:none;">
                 <button onclick="enviarMensajeSolAI()" style="background:var(--gold); border:none; color:#0A0E14; border-radius:50%; width:34px; height:34px; cursor:pointer; font-weight:bold;">➤</button>
             </div>
         </div>
@@ -542,12 +546,11 @@
     </footer>
 
     <script>
-        const CLAVE_DUENA = "SOL2026";
-        const CLAVES_VALIDAS = ["DORADOS2026", "CUIDADOR_VIP", "MES_ACTIVO"];
-
         let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
         let generoUsuario = localStorage.getItem("senior_genero") || "femenino";
         let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "femenino";
+        
+        let conversacionContinuaActiva = false; // Control de diálogo de ida y vuelta
 
         function verificarSeguridadYAcceso() {
             if (localStorage.getItem('es_duena_sol') === 'true') return;
@@ -555,7 +558,7 @@
             const params = new URLSearchParams(window.location.search);
             const claveURL = params.get('acceso');
 
-            if (claveURL === CLAVE_DUENA) {
+            if (claveURL === "SOL2026") {
                 localStorage.setItem('es_duena_sol', 'true');
                 localStorage.setItem("senior_nombre", "Sol");
                 window.history.replaceState({}, document.title, window.location.pathname);
@@ -571,14 +574,14 @@
                     return; // Membresía al día
                 } else {
                     mostrarModalActivacion(
-                        "🔒 Ciclo Mensual Finalizado", 
-                        "Tus 30 días incluidos con tu derecho de entrada han finalizado. Para mantener activa tu línea de acompañamiento por $99 USD mensuales (como tu servicio de luz o telefonía), ingresa tu clave de renovación o contacta a Sol-AI."
+                        "🔒 Período Mensual Finalizado", 
+                        "Tus 30 días incluidos con tu derecho de entrada han finalizado. Para continuar disfrutando del servicio, debes pagar tu próximo mes por anticipado ($99 USD). Contacta a Sol-AI para realizar tu pago."
                     );
                     return;
                 }
             }
 
-            mostrarModalActivacion("✨ Habilitación de tu Asistente", "Ingresa tus datos para personalizar tu experiencia y activar tu primer mes de servicio.");
+            mostrarModalActivacion("✨ Habilitación de tu Asistente", "Ingresa tus datos para personalizar tu asistente y activar tu primer mes de servicio.");
         }
 
         function mostrarModalActivacion(titulo, desc) {
@@ -589,33 +592,33 @@
 
         function activarLicenciaCliente() {
             const nom = document.getElementById("actNombre").value.trim();
-            const clave = document.getElementById("actClave").value.trim();
             const voz = document.getElementById("actVozTipo").value;
             const gen = document.getElementById("actGenF").checked ? "femenino" : "masculino";
-            const err = document.getElementById("error-act");
 
             if (!nom) {
-                alert("Por favor escribe tu nombre.");
+                alert("Por favor escribe tu nombre para comenzar.");
                 return;
             }
 
-            if (clave === CLAVE_DUENA) {
+            if (nom.toLowerCase() === "sol") {
                 localStorage.setItem('es_duena_sol', 'true');
-                guardarDatosUsuario(nom, voz, gen);
+                guardarDatosUsuario("Sol", voz, gen);
                 document.getElementById("modal-activacion").style.display = "none";
                 desbloquearAudioCelular();
                 return;
             }
 
-            if (CLAVES_VALIDAS.includes(clave)) {
-                const treintaDias = 30 * 24 * 60 * 60 * 1000;
-                localStorage.setItem('suscripcion_vence_el', (new Date().getTime() + treintaDias).toString());
-                guardarDatosUsuario(nom, voz, gen);
-                document.getElementById("modal-activacion").style.display = "none";
-                desbloquearAudioCelular();
-            } else {
-                err.style.display = "block";
-            }
+            const codigoGenerado = "VIP-" + nom.toUpperCase().replace(/\s+/g, '') + "-" + Math.floor(1000 + Math.random() * 9000);
+            const treintaDias = 30 * 24 * 60 * 60 * 1000;
+            
+            localStorage.setItem('suscripcion_vence_el', (new Date().getTime() + treintaDias).toString());
+            localStorage.setItem('licencia_dispositivo', codigoGenerado);
+            
+            guardarDatosUsuario(nom, voz, gen);
+            document.getElementById("modal-activacion").style.display = "none";
+            desbloquearAudioCelular();
+
+            alert(`¡Bienvenido/a ${nom}! Tu asistente ha sido habilitado con éxito en este dispositivo.\n\nTu clave de licencia es: ${codigoGenerado}\nTu primer mes (30 días) ya está activo.`);
         }
 
         function guardarDatosUsuario(nom, voz, gen) {
@@ -691,10 +694,14 @@
         function toggleAudio() {
             vozActiva = !vozActiva;
             document.getElementById("btnAudioToggle").innerText = vozActiva ? "🔊 Voz Activa" : "🔇 Silencio";
-            if (!vozActiva && 'speechSynthesis' in window) window.speechSynthesis.cancel();
+            if (!vozActiva) {
+                conversacionContinuaActiva = false;
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                detenerMic();
+            }
         }
 
-        function hablarPorParlante(texto) {
+        function hablarPorParlante(texto, esRespuestaConversacion = false) {
             if (!vozActiva || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
 
@@ -721,13 +728,42 @@
 
             utter.rate = 0.5;
             utter.pitch = 0.95;
+
+            // Al terminar de hablar el asistente, si la conversación sigue viva, vuelve a escuchar automáticamente (Manos Libres)
+            utter.onend = function() {
+                const btn = document.getElementById("btnMicSenior");
+                btn.classList.remove("hablando");
+                
+                // Si dijo descansar o silencio, detenemos la escucha continua
+                const textoMinuscula = limpio.toLowerCase();
+                if (textoMinuscula.includes("descansa") || textoMinuscula.includes("silencio")) {
+                    conversacionContinuaActiva = false;
+                    detenerMic();
+                    return;
+                }
+
+                if (conversacionContinuaActiva && vozActiva) {
+                    setTimeout(() => {
+                        iniciarMicrofonoAutomatico();
+                    }, 500);
+                }
+            };
+
+            const btn = document.getElementById("btnMicSenior");
+            btn.classList.add("hablando");
+            btn.innerHTML = "<span>🔊 Hablando...</span>";
+
             window.speechSynthesis.speak(utter);
         }
 
         function hablarSaludoInicial() {
-            hablarPorParlante(`Hola, ${nombreUsuario}. Estoy aquí a tu lado. ¿Tienes ganas de que conversemos un ratito, o prefieres descansar en silencio?`);
+            conversacionContinuaActiva = true;
+            hablarPorParlante(`Hola, ${nombreUsuario}. Estoy aquí a tu lado. ¿Tienes ganas de que conversemos un ratito, o prefieres descansar en silencio?`, true);
         }
 
+        // ==========================================
+        // MICRÓFONO CON INTERCAMBIO DE VOZ
+        // ==========================================
         const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRec) {
             recognition = new SpeechRec();
@@ -738,8 +774,10 @@
             recognition.onstart = function() {
                 grabacionActiva = true;
                 const btn = document.getElementById("btnMicSenior");
+                btn.classList.remove("hablando");
                 btn.classList.add("recording");
-                btn.innerHTML = "<span>🔴 Te escucho...</span>";
+                btn.innerHTML = "<span>🔴 Te escucho... (Habla tranquilo)</span>";
+                document.getElementById("estadoTexto").innerText = "🎙️ Escuchándote...";
             };
 
             recognition.onresult = function(e) {
@@ -750,18 +788,40 @@
                 }
             };
 
-            recognition.onerror = function() { detenerMic(); };
-            recognition.onend = function() { detenerMic(); };
+            recognition.onerror = function() { 
+                detenerMic(); 
+            };
+            
+            recognition.onend = function() { 
+                grabacionActiva = false;
+                if (!window.speechSynthesis.speaking && !conversacionContinuaActiva) {
+                    detenerMic();
+                }
+            };
+        }
+
+        function iniciarMicrofonoAutomatico() {
+            if (!recognition || grabacionActiva || window.speechSynthesis.speaking) return;
+            try {
+                document.getElementById("inputSenior").value = "";
+                recognition.start();
+            } catch (err) {}
         }
 
         function toggleMicrofonoSenior() {
             desbloquearAudioCelular();
             if (!recognition) return;
+            
             if (grabacionActiva) {
+                conversacionContinuaActiva = false;
                 recognition.stop();
+                detenerMic();
             } else {
+                conversacionContinuaActiva = true; // Activa el modo conversación continua
                 document.getElementById("inputSenior").value = "";
-                recognition.start();
+                try {
+                    recognition.start();
+                } catch(e){}
             }
         }
 
@@ -769,11 +829,14 @@
             grabacionActiva = false;
             const btn = document.getElementById("btnMicSenior");
             btn.classList.remove("recording");
-            btn.innerHTML = "<span>🎙️ Tocar para Hablar</span>";
+            btn.classList.remove("hablando");
+            btn.innerHTML = "<span>🎙️ Tocar para Hablar (Manos Libres)</span>";
+            document.getElementById("estadoTexto").innerText = "🟢 En línea • Contigo";
         }
 
         function enviarSugerencia(texto) {
             desbloquearAudioCelular();
+            conversacionContinuaActiva = true;
             document.getElementById("inputSenior").value = texto;
             enviarMensajeSenior();
         }
@@ -840,7 +903,7 @@
                 chat.appendChild(cuidadorDiv);
                 chat.scrollTop = chat.scrollHeight;
 
-                hablarPorParlante(respuesta);
+                hablarPorParlante(respuesta, true);
 
             } catch(e) {
                 const loader = document.getElementById("cargando-cuidador");

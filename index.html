@@ -711,7 +711,7 @@
             }
         }
 
-        function obtenerMejorVoz catalinaneural Neutra(tipo) {
+        function obtenerMejorVozNeutra(tipo) {
             if (listaVoces.length === 0) listaVoces = window.speechSynthesis.getVoices();
             const espanol = listaVoces.filter(v => v.lang.startsWith("es"));
 
@@ -725,7 +725,7 @@
                 return espanol.find(v => {
                     const n = v.name.toLowerCase();
                     return (n.includes("natural") || n.includes("google") || n.includes("online")) && 
-                           (n.includes("dalia") || n.includes("catalinaneural") || n.includes("paulina") || n.includes("elena") || n.includes("monica") || n.includes("female"));
+                           (n.includes("dalia") || n.includes("sabina") || n.includes("paulina") || n.includes("elena") || n.includes("monica") || n.includes("female"));
                 }) || espanol.find(v => v.name.toLowerCase().includes("female") || v.name.toLowerCase().includes("google")) || espanol[0];
             }
         }
@@ -980,4 +980,4 @@ ${contextoHilo}
         }
     </script>
 </body>
-</html>
+                </html>

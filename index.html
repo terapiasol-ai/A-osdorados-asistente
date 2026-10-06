@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Cuidador | AurionCare - Años Dorados</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --bg-dark: #0B0F17;
@@ -163,10 +164,11 @@
             width: 100%;
             max-width: 320px;
             border-radius: 14px;
-            border: 1.5px solid var(--gold);
+            border: 2px solid var(--gold);
             margin: 10px 0;
             display: block;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            background: #fff;
         }
 
         .btn-repetir-voz {
@@ -438,8 +440,8 @@
             <div class="transparencia-box">
                 💳 <strong>Condiciones Claras del Servicio:</strong><br>
                 &bull; <strong>Derecho de Entrada:</strong> Tu pago inicial cubre la habilitación del sistema e incluye tu <strong>primer mes (30 días) de servicio</strong>.<br>
-                &bull; <strong>Mensualidad por Anticipado:</strong> Al finalizar cada período de 30 días, se debe <strong>pagar por anticipado</strong> la mensualidad de <strong>$99 USD</strong> para habilitar y continuar con el servicio del mes siguiente.<br>
-                &bull; <strong>Compatibilidad:</strong> Puedes usar este servicio directamente desde tu celular o conectarlo a cualquier parlante o audífono Bluetooth.<br>
+                &bull; <strong>Mensualidad por Anticipado:</strong> Al finalizar cada período de 30 días, se debe <strong>pagar por anticipado</strong> la mensualidad de <strong>$99 USD</strong> para continuar con el servicio activo en la nube.<br>
+                &bull; <strong>Compatibilidad:</strong> Puedes usar este servicio directamente desde tu celular, tablet o conectarlo a cualquier parlante Bluetooth o Alexa.<br>
                 ⚖️ <em>Licencia de uso exclusivo para este dispositivo. Servicio personal e intransferible.</em>
             </div>
 
@@ -457,7 +459,7 @@
         <span class="badge-senior">🤲 Acompañamiento Humano con Respeto y Paz</span>
         <h1>EL CUIDADOR</h1>
         <div class="sub-header-brand">AURIONCARE &bull; AÑOS DORADOS</div>
-        <p>Tu compañía serena para conversar, ver una película o descansar en calma.</p>
+        <p>Tu compañía serena para conversar, recordar anécdotas o descansar en calma.</p>
     </header>
 
     <div class="main-container">
@@ -469,18 +471,16 @@
 
             <div class="chat-display" id="chatDisplay">
                 <div class="msg-cuidador" id="msgBienvenida">
-                    Hola, <span id="saludoNombre">Sol</span>. Estoy aquí a tu lado. ¿Deseas que conversemos un momento, o prefieres descansar en tranquilidad?
+                    Hola, <span id="saludoNombre">Sol</span>. Estoy aquí para acompañarte hoy. ¿Cómo te sientes en este momento?
                     <button class="btn-repetir-voz" onclick="hablarSaludoInicial()" title="Escuchar">🔊</button>
                 </div>
             </div>
 
             <div class="sugerencias-box">
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Deseo conversar un momento')">💬 Sí, conversemos</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Voy a ir de compras al supermercado, ¿qué me recomiendas?')">🛒 Ir de compras</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero dormir una siesta, quédate en silencio')">😴 Dormir siesta</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Prefiero descansar en silencio')">🤫 Solo silencio</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('¿Qué película o programa me recomiendas ver hoy?')">🎬 Ver una película</button>
-                <button class="btn-sugerencia" onclick="iniciarTaiChiConImagen()">🧘 Tai Chi en Silla</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Deseo conversar un momento')">💬 Conversemos</button>
+                <button class="btn-sugerencia" onclick="iniciarTaiChiConImagen()">🧘 Tai Chi en Silla (7 a 10 min)</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Cuéntame una historia interesante o del recuerdo')">📖 Una historia</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero descansar un rato en silencio')">🤫 Silencio y descanso</button>
             </div>
 
             <div class="controls-panel">
@@ -502,10 +502,10 @@
             <p style="font-size:0.85rem; color:#CBD5E1; margin-bottom:12px;">¿Cómo te gusta que te llamen?</p>
             <input type="text" id="inputNombreSenior" class="perfil-input" value="Sol" placeholder="Escribe tu nombre">
             
-            <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:6px; text-align:left;">Voz del Cuidador (Hombre / Mujer):</div>
+            <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:6px; text-align:left;">Voz del Cuidador:</div>
             <select id="selectVozTipo" class="perfil-input">
-                <option value="femenino">🌸 Femenina (Voz Neutra)</option>
-                <option value="masculino">🌿 Masculina (Voz Neutra)</option>
+                <option value="femenino">🌸 Femenina (Voz Neutra Natural)</option>
+                <option value="masculino">🌿 Masculina (Voz Neutra Natural)</option>
             </select>
 
             <div class="genero-selector" style="margin-top:10px;">
@@ -534,7 +534,7 @@
             <div class="sol-messages" id="solMessages">
                 <div style="background:#1B2636; border:1px solid rgba(212,175,55,0.3); padding:10px; border-radius:10px; font-size:0.88rem;">
                     ¡Hola! Soy <strong>Sol-AI</strong>.<br><br>
-                    Si la familia necesita asistencia para pagar la mensualidad anticipada del servicio ($99 USD), renovaciones o consultas por WhatsApp, puedes escribir aquí con confianza.
+                    Si la familia necesita asistencia para pagar la mensualidad del servicio ($99 USD), renovaciones o consultas por WhatsApp, puedes escribir aquí con confianza.
                 </div>
             </div>
             <div style="padding:8px; background:#101620; border-top:1px solid rgba(212,175,55,0.2); display:flex; gap:6px;">
@@ -552,8 +552,17 @@
         let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
         let generoUsuario = localStorage.getItem("senior_genero") || "femenino";
         let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "femenino";
-        
         let historialMemoria = [];
+        let indexFotoTaiChi = 0;
+
+        // LAS 5 IMÁGENES REALES DE TAICHI EN SILLA EN GITHUB
+        const fotosTaiChi = [
+            "https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/1791246597214.jpg",
+            "https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/1791246556359.jpg",
+            "https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/1791246523341.jpg",
+            "https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/1791246496795.jpg",
+            "https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/1791246436360.jpg"
+        ];
 
         function verificarSeguridadYAcceso() {
             if (localStorage.getItem('es_duena_sol') === 'true') return;
@@ -578,7 +587,7 @@
                 } else {
                     mostrarModalActivacion(
                         "🔒 Período Mensual Finalizado", 
-                        "Tus 30 días incluidos con tu derecho de entrada han finalizado. Para continuar disfrutando del servicio, debes pagar tu próximo mes por anticipado ($99 USD). Contacta a Sol-AI para realizar tu pago."
+                        "Tus 30 días incluidos han finalizado. Para continuar disfrutando del servicio activo, se debe pagar la mensualidad por anticipado ($99 USD). Contacta a Sol-AI para coordinar."
                     );
                     return;
                 }
@@ -745,7 +754,7 @@
                 utter.lang = "es-US";
             }
 
-            utter.rate = 0.98;
+            utter.rate = 0.95;
             utter.pitch = 1.0;
 
             utter.onstart = function() {
@@ -764,11 +773,11 @@
         }
 
         function hablarSaludoInicial() {
-            hablarPorParlante(`Hola, ${nombreUsuario}. Estoy aquí a tu lado. ¿Deseas que conversemos un momento, o prefieres descansar en tranquilidad?`);
+            hablarPorParlante(`Hola, ${nombreUsuario}. Estoy aquí a tu lado. ¿Cómo te sientes en este momento?`);
         }
 
         // ==========================================
-        // MICRÓFONO
+        // MICRÓFONO DIRECTO SIN CORTES
         // ==========================================
         const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRec) {
@@ -781,7 +790,7 @@
                 grabacionActiva = true;
                 const btn = document.getElementById("btnMicSenior");
                 btn.className = "big-mic-btn recording";
-                btn.innerHTML = "<span>🔴 Te escucho... (Habla ahora)</span>";
+                btn.innerHTML = "<span>🔴 Te escucho... (Habla con calma)</span>";
                 document.getElementById("estadoTexto").innerText = "🎙️ Escuchándote...";
             };
 
@@ -835,16 +844,15 @@
             enviarMensajeSenior();
         }
 
-        // ACTIVIDAD: TAI CHI EN SILLA CON IMAGEN REAL Y VOZ DE IA
         function iniciarTaiChiConImagen() {
             desbloquearAudioCelular();
             const input = document.getElementById("inputSenior");
-            input.value = "Hagamos un poco de Tai Chi suave en la silla";
+            input.value = "Quiero hacer mi rutina de Tai Chi en silla de 7 a 10 minutos";
             enviarMensajeSenior(true);
         }
 
         // ==========================================
-        // COMUNICACIÓN CON MEMORIA Y VOZ PROPIA DE LA IA
+        // COMUNICACIÓN CON MEMORIA Y VOZ NATURAL
         // ==========================================
         async function enviarMensajeSenior(esTaiChi = false) {
             desbloquearAudioCelular();
@@ -872,23 +880,20 @@
             if (historialMemoria.length > 8) historialMemoria.shift();
 
             try {
-                const tratoGenero = (generoUsuario === "femenino") ? "Trato femenino respetuoso y cálido ('amiga', 'juntas')" : "Trato masculino respetuoso y cálido ('amigo', 'juntos')";
-
                 const contextoHilo = historialMemoria.map(h => `${h.rol === 'usuario' ? nombreUsuario : 'Cuidador'}: "${h.texto}"`).join("\n");
 
                 const reglaEstricta = `[ORDEN SUPREMA DE SOL SÁNCHEZ CONTRERAS - EL CUIDADOR]:
-1. Hablas con ${nombreUsuario}. ${tratoGenero}.
-2. IDIOMA: ESPAÑOL NEUTRO INTERNACIONAL. PROHIBIDO terminantemente usar modismos o acentos regionales (cero modismos chilenos, mexicanos o españoles). Dicción limpia, culta, respetuosa y serena.
-3. MEMORIA Y CONTINUIDAD OBLIGATORIA: Mantén el hilo estricto de la conversación. Si el usuario responde sobre el tema actual, continúa ese tema de inmediato. Jamás reinicies la charla ni vuelvas a saludar.
-4. TAI CHI EN SILLA: Si están haciendo Tai Chi en la silla, dile con tu propia voz de forma tranquila que observe la imagen en pantalla, que mantenga la espalda derecha y guíale el primer movimiento respirando despacio.
-5. PROHIBIDO decir "¡Ay, ${nombreUsuario}!", "corazón contento", "mi querido/a", "mi estimado/a" o halagos falsos y cursis.
-6. LÍMITE: MÁXIMO 2 oraciones (menos de 25 palabras en total).
-7. SILENCIO: Si dice que quiere descansar o silencio, dile: "Descansa en paz, permanezco en silencio acompañándote" y no digas nada más.
+1. Hablas con ${nombreUsuario}. Trato respetuoso, sereno, digno y cálido.
+2. PROHIBIDO TOTALMENTE repetir muletillas mecánicas como "amiga ${nombreUsuario}", "¡Qué lindo!", "con todo mi cariño" o "¡Claro que sí!" en cada frase. Habla como una persona real en una conversación espontánea. Usa su nombre con moderación natural.
+3. IDIOMA: Español neutro internacional, dicción limpia, pausada y elegante.
+4. TAI CHI EN SILLA: Si el usuario desea hacer Tai Chi o ejercicios suaves, explícale que es una sesión corta y segura de 7 a 10 minutos diarios, 100% sentados en la silla y respirando profundo. Guíale el movimiento que ve en la lámina con calma.
+5. CONTINUIDAD DE CHARLA: Responde con sentido común a lo que la persona acaba de decir, sin discursos largos (máximo 2 oraciones breves).
+6. SILENCIO: Si dice que quiere descansar o dormir, dile: "Que descanses con tranquilidad, me quedo aquí a tu lado en silencio."
 
 [HISTORIAL RECIENTE]:
 ${contextoHilo}
 
-[RESPONDE CON TU VOZ PROPIA CONTINUANDO EL HILO]:`;
+[RESPONDE DE FORMA NATURAL Y HUMANA]:`;
 
                 const resp = await fetch(LEO_ENDPOINT, {
                     method: "POST",
@@ -914,10 +919,13 @@ ${contextoHilo}
                 const cuidadorDiv = document.createElement("div");
                 cuidadorDiv.className = "msg-cuidador";
                 
-                // Si es la actividad de Tai Chi, mostramos la imagen visual ilustrada
-                if (esTaiChi || mensaje.toLowerCase().includes("tai chi") || mensaje.toLowerCase().includes("silla")) {
+                // Si es Tai Chi, mostramos una de las 5 láminas reales en rotación
+                if (esTaiChi || mensaje.toLowerCase().includes("tai chi") || mensaje.toLowerCase().includes("ejercicio")) {
+                    const fotoActual = fotosTaiChi[indexFotoTaiChi % fotosTaiChi.length];
+                    indexFotoTaiChi++;
+                    
                     cuidadorDiv.innerHTML = `
-                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663295304532/SXAbPHcoYQWtVFRu.jpg" alt="Guía Visual Tai Chi en Silla" class="img-taichi-guia" onerror="this.style.display='none'">
+                        <img src="${fotoActual}" alt="Lámina de Tai Chi en Silla" class="img-taichi-guia">
                         ${respuesta} 
                         <button class="btn-repetir-voz" onclick="hablarPorParlante('${respuesta.replace(/'/g, "\\'")}')" title="Volver a escuchar">🔊</button>
                     `;

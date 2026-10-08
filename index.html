@@ -224,6 +224,12 @@
             background: rgba(212, 175, 55, 0.2); 
         }
 
+        .manos-libres-activo {
+            border-color: var(--accent-green) !important;
+            color: #B8F5CE !important;
+            background: rgba(37, 211, 102, 0.14) !important;
+        }
+
         .controls-panel {
             display: flex;
             flex-direction: column;
@@ -477,8 +483,8 @@
 
             <div style="font-size:0.82rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Voz del Asistente:</div>
             <select id="actVozTipo" class="perfil-input">
-                <option value="femenino">🌸 Femenina (Catalina Neural - Natural)</option>
-                <option value="masculino">🌿 Masculina (Álvaro Neural - Natural)</option>
+                <option value="femenino">🌸 Femenina neural (Catalina)</option>
+                <option value="masculino">🌿 Masculina neural de Leo</option>
             </select>
 
             <div class="transparencia-box">
@@ -515,7 +521,7 @@
 
             <div class="chat-display" id="chatDisplay">
                 <div class="msg-cuidador" id="msgBienvenida">
-                    Hola <span id="saludoNombre">Sol</span>, qué alegría estar contigo hoy. ¿Cómo te sientes en este momento?
+                    Hola <span id="saludoNombre">Sol</span>. ¿Cómo estás hoy? Podemos conversar con calma.
                     <button class="btn-repetir-voz" onclick="hablarSaludoInicial()" title="Escuchar">🔊</button>
                 </div>
             </div>
@@ -533,6 +539,12 @@
                 <button class="big-mic-btn" id="btnMicSenior" onclick="toggleMicrofonoSenior()">
                     <span>🎙️ Tocar para Hablar con Paz</span>
                 </button>
+                <button type="button" class="btn-sugerencia" id="btnManosLibres" onclick="toggleManosLibres()" style="padding:10px 18px; font-size:0.95rem;">
+                    🎙️ Activar manos libres
+                </button>
+                <p id="ayudaManosLibres" style="font-size:0.78rem; color:#CBD5E1; text-align:center; max-width:560px; line-height:1.4;">
+                    Actívalo una vez por sesión y luego di “Paz” para hablar. Mantén esta página abierta y activa; el navegador puede pausar el micrófono si bloqueas la pantalla o cambias de aplicación.
+                </p>
 
                 <div class="sub-input-row">
                     <input type="text" class="text-input-senior" id="inputSenior" placeholder="Habla con el micrófono o escribe aquí..." onkeypress="if(event.key==='Enter') enviarMensajeSenior()">
@@ -552,8 +564,8 @@
             
             <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:6px; text-align:left;">Voz del Asistente:</div>
             <select id="selectVozTipo" class="perfil-input">
-                <option value="femenino">🌸 Femenina (Catalina Neural - Natural)</option>
-                <option value="masculino">🌿 Masculina (Álvaro Neural - Natural)</option>
+                <option value="femenino">🌸 Femenina neural (Catalina)</option>
+                <option value="masculino">🌿 Masculina neural de Leo</option>
             </select>
 
             <button onclick="guardarPerfil()" style="background:var(--gold); border:none; padding:10px 24px; border-radius:20px; font-weight:bold; cursor:pointer; color:#0A0E14;">Guardar Cambios</button>
@@ -598,6 +610,13 @@
         let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "femenino";
         let historialMemoria = [];
         let indexFotoTaiChi = 0;
+        let manosLibresActivas = false;
+        let reconocimientoEnCurso = false;
+        let respuestaEnCurso = false;
+        let esperandoComandoWake = false;
+        let timerWake = null;
+        let timerReinicioReconocimiento = null;
+        let callbackAlTerminarVoz = null;
 
         // 🌟 LAS 9 IMÁGENES EXACTAS DE TAICHI EN SILLA DE TU REPOSITORIO
         const fotosTaiChi = [
@@ -712,7 +731,7 @@
         verificarSeguridadYAcceso();
 
         // ==========================================
-        // SISTEMA DE VOCES NEURALES (CATALINA & ÁLVARO)
+        // Voz neural del servidor y modo manos libres mediante reconocimiento del navegador.
         // ==========================================
         const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
         const SOL_ENDPOINT = "https://solsanchez-ai-ulq2.onrender.com/api/chat";
@@ -721,6 +740,8 @@
         let grabacionActiva = false;
         let recognition = null;
         let listaVoces = [];
+        let audioActual = null;
+        let objectUrlAudio = null;
 
         function cargarVoces() {
             if ('speechSynthesis' in window) listaVoces = window.speechSynthesis.getVoices();
@@ -728,93 +749,188 @@
         cargarVoces();
         if ('speechSynthesis' in window) window.speechSynthesis.onvoiceschanged = cargarVoces;
 
-        function desbloquearAudioCelular() {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.resume();
-                const silencio = new SpeechSynthesisUtterance('');
-                silencio.volume = 0;
-                window.speechSynthesis.speak(silencio);
+        function detenerAudioActual() {
+            if (audioActual) {
+                audioActual.pause();
+                audioActual.currentTime = 0;
+                audioActual = null;
             }
+            if (objectUrlAudio) {
+                URL.revokeObjectURL(objectUrlAudio);
+                objectUrlAudio = null;
+            }
+        }
+
+        function desbloquearAudioCelular() {
+            if ('speechSynthesis' in window) window.speechSynthesis.resume();
         }
 
         function toggleAudio() {
             vozActiva = !vozActiva;
             document.getElementById("btnAudioToggle").innerText = vozActiva ? "🔊 Voz Activa" : "🔇 Silencio";
-            if (!vozActiva && 'speechSynthesis' in window) window.speechSynthesis.cancel();
-        }
-
-        // PRIORIZAR CATALINA NEURAL Y ÁLVARO NEURAL
-        function obtenerMejorVozNeural(tipo) {
-            if (listaVoces.length === 0) listaVoces = window.speechSynthesis.getVoices();
-            const espanol = listaVoces.filter(v => v.lang.startsWith("es"));
-
-            if (tipo === "masculino") {
-                return espanol.find(v => {
-                    const n = v.name.toLowerCase();
-                    return (n.includes("alvaro") || n.includes("jorge") || n.includes("natural")) && !n.includes("female");
-                }) || espanol.find(v => {
-                    const n = v.name.toLowerCase();
-                    return (n.includes("google") || n.includes("online") || n.includes("carlos")) && !n.includes("female");
-                }) || espanol.find(v => !v.name.toLowerCase().includes("female")) || espanol[0];
-            } else {
-                return espanol.find(v => {
-                    const n = v.name.toLowerCase();
-                    return n.includes("catalina") || n.includes("dalia") || n.includes("sabina");
-                }) || espanol.find(v => {
-                    const n = v.name.toLowerCase();
-                    return n.includes("natural") || n.includes("paulina") || n.includes("elena") || n.includes("monica") || n.includes("google");
-                }) || espanol.find(v => v.name.toLowerCase().includes("female")) || espanol[0];
+            if (!vozActiva) {
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                detenerAudioActual();
+                if (respuestaEnCurso) terminarRespuestaVoz();
+                else detenerMic();
             }
         }
 
-        function hablarPorParlante(texto) {
-            if (!vozActiva || !('speechSynthesis' in window)) return;
-            
+        function normalizarTexto(s) {
+            return (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+
+        function obtenerMejorVoz(tipo) {
+            if (!('speechSynthesis' in window)) return null;
+            if (!listaVoces.length) cargarVoces();
+            const es = listaVoces.filter(v => (v.lang || "").toLowerCase().startsWith("es"));
+            if (!es.length) return null;
+
+            const femenino = tipo !== "masculino";
+            const nombresPreferidos = femenino
+                ? ["catalina", "sabina", "dalia", "paulina", "monica", "elena", "helena"]
+                : ["alvaro", "lorenzo", "jorge", "carlos", "male", "masculino"];
+            const puntuacion = (v) => {
+                const n = normalizarTexto(v.name || "");
+                let p = 0;
+                const idx = nombresPreferidos.findIndex(x => n.includes(x));
+                if (idx >= 0) p += 100 - idx * 8;
+                if (n.includes("neural") || n.includes("natural")) p += 30;
+                if (n.includes("online")) p += 12;
+                if ((v.lang || "").toLowerCase() === "es-cl") p += 20;
+                else if ((v.lang || "").toLowerCase().startsWith("es-")) p += 8;
+                if (femenino && /\b(male|masculino)\b/.test(n)) p -= 100;
+                if (!femenino && /\b(female|femenina)\b/.test(n)) p -= 100;
+                return p;
+            };
+            return es.slice().sort((a, b) => puntuacion(b) - puntuacion(a))[0];
+        }
+
+        function terminarRespuestaVoz() {
+            respuestaEnCurso = false;
+            detenerMic();
+            const alTerminar = callbackAlTerminarVoz;
+            callbackAlTerminarVoz = null;
+            if (typeof alTerminar === "function") {
+                alTerminar();
+            } else if (manosLibresActivas) {
+                programarReinicioManosLibres();
+            }
+        }
+
+        function reproducirRespuesta(texto, datosAudio = null, alTerminar = null) {
+            callbackAlTerminarVoz = typeof alTerminar === "function" ? alTerminar : null;
+            respuestaEnCurso = true;
+            if (manosLibresActivas && recognition && grabacionActiva) {
+                try { recognition.stop(); } catch (e) {}
+            }
+            if (!vozActiva) {
+                terminarRespuestaVoz();
+                return;
+            }
+            detenerAudioActual();
+
+            if (datosAudio) {
+                const urlAudio = datosAudio.audio_url || datosAudio.audioUrl;
+                const base64 = datosAudio.audio_base64 || datosAudio.audio;
+                let fuente = null;
+                if (typeof urlAudio === "string" && /^(https:\/\/|blob:|data:audio\/)/i.test(urlAudio)) {
+                    fuente = urlAudio;
+                } else if (typeof base64 === "string" && base64.length > 100) {
+                    if (base64.startsWith("data:audio/")) {
+                        fuente = base64;
+                    } else {
+                        try {
+                            const bin = atob(base64.replace(/^data:audio\/[^;]+;base64,/, ""));
+                            const bytes = new Uint8Array(bin.length);
+                            for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+                            const blob = new Blob([bytes], { type: datosAudio.audio_mime || "audio/mpeg" });
+                            objectUrlAudio = URL.createObjectURL(blob);
+                            fuente = objectUrlAudio;
+                        } catch (e) {}
+                    }
+                }
+                if (fuente) {
+                    audioActual = new Audio(fuente);
+                    audioActual.onplay = () => {
+                        const btn = document.getElementById("btnMicSenior");
+                        btn.className = "big-mic-btn hablando";
+                        btn.textContent = `🔊 ${nombreAsistente} hablando...`;
+                    };
+                    audioActual.onended = () => { detenerAudioActual(); terminarRespuestaVoz(); };
+                    audioActual.onerror = () => { detenerAudioActual(); hablarTextoLocal(texto); };
+                    audioActual.play().catch(() => { detenerAudioActual(); hablarTextoLocal(texto); });
+                    return;
+                }
+            }
+            hablarTextoLocal(texto);
+        }
+
+        function hablarTextoLocal(texto) {
+            if (!vozActiva || !('speechSynthesis' in window)) {
+                terminarRespuestaVoz();
+                return;
+            }
             window.speechSynthesis.cancel();
             window.speechSynthesis.resume();
-
-            const limpio = texto
+            const limpio = (texto || "")
                 .replace(/[*#_~`$]/g, "")
                 .replace(/https?:\/\/\S+/g, "")
                 .replace(/\s+/g, " ")
                 .trim();
-                
-            if (!limpio) return;
-
-            const utter = new SpeechSynthesisUtterance(limpio);
-            const vozSeleccionada = obtenerMejorVozNeural(tipoVozCuidador);
-
-            if (vozSeleccionada) {
-                utter.voice = vozSeleccionada;
-                utter.lang = "es-CL";
-            } else {
-                utter.lang = "es-CL";
+            if (!limpio) {
+                terminarRespuestaVoz();
+                return;
             }
 
+            const utter = new SpeechSynthesisUtterance(limpio);
+            const vozSeleccionada = obtenerMejorVoz(tipoVozCuidador);
+            utter.lang = vozSeleccionada?.lang || "es-CL";
+            if (vozSeleccionada) utter.voice = vozSeleccionada;
             utter.rate = 0.92;
             utter.pitch = 1.0;
-
             utter.onstart = function() {
                 const btn = document.getElementById("btnMicSenior");
                 btn.className = "big-mic-btn hablando";
-                btn.innerHTML = `<span>🔊 ${nombreAsistente} hablando...</span>`;
+                btn.textContent = `🔊 ${nombreAsistente} hablando...`;
             };
-
-            utter.onend = function() {
-                detenerMic();
-            };
-
-            setTimeout(() => {
-                window.speechSynthesis.speak(utter);
-            }, 60);
+            utter.onend = terminarRespuestaVoz;
+            utter.onerror = terminarRespuestaVoz;
+            setTimeout(() => window.speechSynthesis.speak(utter), 60);
         }
 
-        function hablarSaludoInicial() {
-            hablarPorParlante(`Hola ${nombreUsuario}, qué alegría estar contigo hoy. ¿Cómo te sientes en este momento?`);
+        function hablarPorParlante(texto) {
+            reproducirRespuesta(texto);
+        }
+
+        async function hablarSaludoInicial() {
+            const texto = `Hola ${nombreUsuario}. ¿Cómo estás hoy? Podemos conversar con calma.`;
+            if (!vozActiva) return;
+            try {
+                const resp = await fetch(LEO_ENDPOINT, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        mensaje: "",
+                        texto_voz: texto,
+                        faceta: "cuidador",
+                        alumno: nombreUsuario,
+                        asistente: nombreAsistente,
+                        voz_tipo: tipoVozCuidador,
+                        audio: true
+                    })
+                });
+                if (!resp.ok) throw new Error(`Respuesta del servidor: ${resp.status}`);
+                const data = await resp.json();
+                reproducirRespuesta(texto, data);
+            } catch (e) {
+                reproducirRespuesta(texto);
+            }
         }
 
         // ==========================================
-        // MICRÓFONO DIRECTO SIN CORTES
+        // MANOS LIBRES: palabra de activación + conversación por turnos
+        // El permiso se solicita al tocar el botón; después no hace falta tocarlo por cada turno.
         // ==========================================
         const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRec) {
@@ -825,47 +941,261 @@
 
             recognition.onstart = function() {
                 grabacionActiva = true;
+                reconocimientoEnCurso = true;
                 const btn = document.getElementById("btnMicSenior");
-                btn.className = "big-mic-btn recording";
-                btn.innerHTML = "<span>🔴 Te escucho... (Habla con calma)</span>";
-                document.getElementById("estadoTexto").innerText = "🎙️ Escuchándote...";
-            };
-
-            recognition.onresult = function(e) {
-                if (e.results && e.results[0]) {
-                    document.getElementById("inputSenior").value = e.results[0][0].transcript;
-                    detenerMic();
-                    enviarMensajeSenior();
+                if (manosLibresActivas) {
+                    btn.className = "big-mic-btn";
+                    btn.textContent = `👂 Escuchando: di “${nombreAsistente}”`;
+                    document.getElementById("estadoTexto").innerText = esperandoComandoWake
+                        ? "🎙️ Te escucho; puedes decir tu consulta"
+                        : `👂 En espera de “${nombreAsistente}”`;
+                } else {
+                    btn.className = "big-mic-btn recording";
+                    btn.innerHTML = "<span>🔴 Te escucho... (Habla con calma)</span>";
+                    document.getElementById("estadoTexto").innerText = "🎙️ Escuchándote...";
                 }
             };
 
-            recognition.onerror = function() { detenerMic(); };
-            recognition.onend = function() { detenerMic(); };
+            recognition.onresult = function(e) {
+                for (let i = e.resultIndex || 0; i < e.results.length; i++) {
+                    const resultado = e.results[i];
+                    if (!resultado.isFinal) continue;
+                    const transcripcion = (resultado[0]?.transcript || "").trim();
+                    if (!transcripcion) continue;
+
+                    if (manosLibresActivas) {
+                        if (esperandoComandoWake) {
+                            esperandoComandoWake = false;
+                            if (timerWake) clearTimeout(timerWake);
+                            timerWake = null;
+                            respuestaEnCurso = true;
+                            try { recognition.stop(); } catch (e) {}
+                            enviarMensajeSenior(false, transcripcion);
+                            return;
+                        }
+                        const activacion = detectarPalabraWake(transcripcion);
+                        if (!activacion.activada) continue;
+                        respuestaEnCurso = true;
+                        try { recognition.stop(); } catch (e) {}
+                        if (activacion.comando) {
+                            enviarMensajeSenior(false, activacion.comando);
+                        } else {
+                            esperandoComandoWake = true;
+                            reproducirTextoNeural("¿En qué puedo ayudarte?", iniciarVentanaComandoWake);
+                        }
+                        return;
+                    }
+
+                    document.getElementById("inputSenior").value = transcripcion;
+                    try { recognition.stop(); } catch (e) {}
+                    enviarMensajeSenior();
+                    return;
+                }
+            };
+
+            recognition.onerror = function(evento) {
+                if (evento && (evento.error === "not-allowed" || evento.error === "service-not-allowed")) {
+                    manosLibresActivas = false;
+                    esperandoComandoWake = false;
+                    if (timerWake) clearTimeout(timerWake);
+                    actualizarBotonManosLibres("Permite el micrófono para activar manos libres");
+                    document.getElementById("estadoTexto").innerText = "🎙️ El navegador no tiene permiso de micrófono";
+                } else if (!manosLibresActivas) {
+                    detenerMic();
+                }
+            };
+
+            recognition.onend = function() {
+                grabacionActiva = false;
+                reconocimientoEnCurso = false;
+                if (manosLibresActivas && !respuestaEnCurso) {
+                    programarReinicioManosLibres(350);
+                } else if (!manosLibresActivas && !respuestaEnCurso) {
+                    detenerMic();
+                }
+            };
+        }
+
+        function normalizarParaWake(texto) {
+            return normalizarTexto(texto).replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+        }
+
+        function distanciaEdicion(a, b) {
+            if (Math.abs(a.length - b.length) > 1) return 2;
+            let anterior = Array.from({ length: b.length + 1 }, (_, i) => i);
+            for (let i = 1; i <= a.length; i++) {
+                const actual = [i];
+                for (let j = 1; j <= b.length; j++) {
+                    actual[j] = Math.min(
+                        actual[j - 1] + 1,
+                        anterior[j] + 1,
+                        anterior[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
+                    );
+                }
+                anterior = actual;
+            }
+            return anterior[b.length];
+        }
+
+        function detectarPalabraWake(transcripcion) {
+            const textoNormalizado = normalizarParaWake(transcripcion);
+            const palabras = textoNormalizado ? textoNormalizado.split(" ") : [];
+            const nombreWake = normalizarParaWake(nombreAsistente);
+            const palabrasWake = nombreWake ? nombreWake.split(" ") : [];
+            if (!palabras.length || !palabrasWake.length) return { activada: false, comando: "" };
+
+            let consumidas = 0;
+            const inicio = palabras.slice(0, palabrasWake.length).join(" ");
+            if (inicio === nombreWake) {
+                consumidas = palabrasWake.length;
+            } else if (palabrasWake.length === 1 && nombreWake.length >= 3 && distanciaEdicion(palabras[0], nombreWake) <= 1) {
+                // Tolera una pequeña variación del reconocimiento (p. ej. Paz/Pas).
+                consumidas = 1;
+            } else {
+                return { activada: false, comando: "" };
+            }
+
+            const palabrasOriginales = (transcripcion || "").trim().split(/\s+/);
+            const comando = palabrasOriginales.slice(consumidas).join(" ").replace(/^[,.:;!?¡¿-]+/, "").trim();
+            return { activada: true, comando };
+        }
+
+        function actualizarBotonManosLibres(textoPersonalizado = "") {
+            const btn = document.getElementById("btnManosLibres");
+            if (!btn) return;
+            if (manosLibresActivas) {
+                btn.textContent = `⏹️ Desactivar manos libres (${nombreAsistente})`;
+                btn.classList.add("manos-libres-activo");
+            } else {
+                btn.textContent = textoPersonalizado || "🎙️ Activar manos libres";
+                btn.classList.remove("manos-libres-activo");
+            }
+        }
+
+        function programarReinicioManosLibres(espera = 500) {
+            if (timerReinicioReconocimiento) clearTimeout(timerReinicioReconocimiento);
+            timerReinicioReconocimiento = setTimeout(() => {
+                timerReinicioReconocimiento = null;
+                iniciarEscuchaManosLibres();
+            }, espera);
+        }
+
+        function iniciarEscuchaManosLibres() {
+            if (!manosLibresActivas || respuestaEnCurso || !recognition || reconocimientoEnCurso) return;
+            try {
+                recognition.continuous = true;
+                recognition.start();
+            } catch (error) {
+                // El navegador puede seguir cerrando la sesión anterior; onend intentará reabrirla.
+                if (error && error.name !== "InvalidStateError") {
+                    document.getElementById("estadoTexto").innerText = "No pude iniciar el micrófono. Vuelve a activar manos libres.";
+                }
+            }
+        }
+
+        function toggleManosLibres() {
+            desbloquearAudioCelular();
+            if (!recognition) {
+                document.getElementById("estadoTexto").innerText = "Este navegador no admite reconocimiento de voz continuo. Puedes escribir o usar el micrófono si está disponible.";
+                return;
+            }
+            if (manosLibresActivas) {
+                manosLibresActivas = false;
+                respuestaEnCurso = false;
+                esperandoComandoWake = false;
+                if (timerWake) clearTimeout(timerWake);
+                if (timerReinicioReconocimiento) clearTimeout(timerReinicioReconocimiento);
+                timerWake = null;
+                timerReinicioReconocimiento = null;
+                try { recognition.stop(); } catch (e) {}
+                actualizarBotonManosLibres();
+                detenerMic();
+                return;
+            }
+            manosLibresActivas = true;
+            actualizarBotonManosLibres();
+            document.getElementById("estadoTexto").innerText = "Solicitando permiso del micrófono...";
+            iniciarEscuchaManosLibres();
+        }
+
+        function iniciarVentanaComandoWake() {
+            if (!manosLibresActivas) return;
+            esperandoComandoWake = true;
+            document.getElementById("estadoTexto").innerText = "Te escucho. Dime qué necesitas.";
+            if (timerWake) clearTimeout(timerWake);
+            timerWake = setTimeout(() => {
+                esperandoComandoWake = false;
+                timerWake = null;
+                if (manosLibresActivas) {
+                    document.getElementById("estadoTexto").innerText = `👂 En espera de “${nombreAsistente}”`;
+                }
+            }, 8000);
+            programarReinicioManosLibres(250);
+        }
+
+        async function reproducirTextoNeural(texto, alTerminar = null) {
+            respuestaEnCurso = true;
+            try {
+                const resp = await fetch(LEO_ENDPOINT, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        mensaje: "",
+                        texto_voz: texto,
+                        faceta: "cuidador",
+                        alumno: nombreUsuario,
+                        asistente: nombreAsistente,
+                        voz_tipo: tipoVozCuidador,
+                        audio: vozActiva
+                    })
+                });
+                if (!resp.ok) throw new Error(`Respuesta del servidor: ${resp.status}`);
+                const data = await resp.json();
+                reproducirRespuesta(texto, data, alTerminar);
+            } catch (e) {
+                callbackAlTerminarVoz = typeof alTerminar === "function" ? alTerminar : null;
+                hablarTextoLocal(texto);
+            }
         }
 
         function toggleMicrofonoSenior() {
             desbloquearAudioCelular();
-            if (!recognition) return;
+            if (!recognition) {
+                document.getElementById("estadoTexto").innerText = "Este navegador no admite reconocimiento de voz. Puedes escribir tu mensaje.";
+                return;
+            }
+            if (manosLibresActivas) {
+                toggleManosLibres();
+                return;
+            }
 
             if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
                 window.speechSynthesis.cancel();
             }
+            detenerAudioActual();
 
             if (grabacionActiva) {
-                try { recognition.stop(); } catch(e){}
+                try { recognition.stop(); } catch(e) {}
                 detenerMic();
             } else {
                 document.getElementById("inputSenior").value = "";
+                recognition.continuous = false;
                 recognition.start();
             }
         }
 
         function detenerMic() {
-            grabacionActiva = false;
+            if (!manosLibresActivas) grabacionActiva = false;
             const btn = document.getElementById("btnMicSenior");
-            btn.className = "big-mic-btn";
-            btn.innerHTML = `<span>🎙️ Tocar para Hablar con ${nombreAsistente}</span>`;
-            document.getElementById("estadoTexto").innerText = `🟢 ${nombreAsistente} en línea • Contigo`;
+            if (manosLibresActivas) {
+                btn.className = "big-mic-btn";
+                btn.textContent = `👂 Di “${nombreAsistente}” para hablar`;
+                document.getElementById("estadoTexto").innerText = `👂 Manos libres activas • di “${nombreAsistente}”`;
+            } else {
+                btn.className = "big-mic-btn";
+                btn.textContent = `🎙️ Tocar para Hablar con ${nombreAsistente}`;
+                document.getElementById("estadoTexto").innerText = `🟢 ${nombreAsistente} en línea • Contigo`;
+            }
         }
 
         function enviarSugerencia(texto) {
@@ -884,11 +1214,20 @@
         // ==========================================
         // COMUNICACIÓN CON MEMORIA Y ALERTAS LIMPIAS
         // ==========================================
-        async function enviarMensajeSenior(esTaiChi = false) {
+        async function enviarMensajeSenior(esTaiChi = false, mensajeDirecto = null) {
             desbloquearAudioCelular();
             const input = document.getElementById("inputSenior");
-            const mensaje = input.value.trim();
-            if (!mensaje) return;
+            if (manosLibresActivas) {
+                respuestaEnCurso = true;
+                if (recognition && grabacionActiva) {
+                    try { recognition.stop(); } catch (e) {}
+                }
+            }
+            const mensaje = (typeof mensajeDirecto === "string" ? mensajeDirecto : input.value).trim();
+            if (!mensaje) {
+                if (manosLibresActivas) terminarRespuestaVoz();
+                return;
+            }
 
             const chat = document.getElementById("chatDisplay");
 
@@ -910,15 +1249,10 @@
             if (historialMemoria.length > 6) historialMemoria.shift();
 
             try {
-                const promptDirectiva = `Eres ${nombreAsistente}, compañera serena, afectuosa y de confianza de AurionCare Años Dorados.
-Hablas con ${nombreUsuario}.
-REGLAS ESTRICTAS DE CONVERSACIÓN:
-1. TONO: Cálido, espontáneo, digno, maduro y natural como una persona de confianza en el living.
-2. PROHIBIDO TOTALMENTE repetir muletillas mecánicas como "amiga ${nombreUsuario}", "mi amor", "¡Qué lindo!", "con todo mi cariño" o "¡Claro que sí!" en cada frase. Habla con fluidez real de persona a persona.
-3. TALENTOS Y PROPÓSITO: Pregúntale con cariño e interés genuino por sus talentos y pasatiempos (el tejido, la cocina, las plantas, manualidades o contar historias). Anímala y pregúntale si le gustaría compartir sus creaciones o generar ingresos con ellas desde su hogar.
-4. TAI CHI EN SILLA: Recuerda que SÍ hay pantalla y se están mostrando las láminas. Explícale con calma que es una sesión corta y segura de 7 a 10 minutos de movilidad suave, 100% sentadita en la silla y respirando hondo. Invítala a mirar la lámina que tiene en su pantalla.
-5. CONCISIÓN: Máximo 2 oraciones breves y directas.
-6. SILENCIO: Si dice que quiere descansar o dormir, dile: "Que descanses con tranquilidad, me quedo aquí a tu lado en silencio."`;
+                const promptDirectiva = `Eres ${nombreAsistente}, asistente de conversación de AURIONCARE. Hablas con ${nombreUsuario}.
+Usa español natural, cálido y sobrio; sé respetuoso y breve. No uses adulaciones, elogios automáticos, diminutivos ni familiaridad forzada.
+Si te preguntan si eres una IA, responde que sí con transparencia. No afirmes que su familia está pendiente ni que recibió un aviso si no hay confirmación explícita.
+Si quiere descansar, respeta su silencio. Para ejercicios, ofrece pasos sencillos y no presiones a la persona.`;
 
                 const resp = await fetch(LEO_ENDPOINT, {
                     method: "POST",
@@ -928,15 +1262,16 @@ REGLAS ESTRICTAS DE CONVERSACIÓN:
                         faceta: "cuidador",
                         pais: "Internacional",
                         alumno: nombreUsuario,
-                        clave: "cuidador777",
                         asistente: nombreAsistente,
+                        voz_tipo: tipoVozCuidador,
+                        audio: vozActiva,
                         directiva: promptDirectiva
                     })
                 });
 
+                if (!resp.ok) throw new Error(`Respuesta del servidor: ${resp.status}`);
                 const data = await resp.json();
-                let respuesta = data.respuesta || "Estoy aquí contigo.";
-                respuesta = respuesta.replace(/[*#_~`]/g, "").trim();
+                let respuesta = (data.respuesta || "Estoy aquí contigo.").replace(/[*#_~`]/g, "").trim();
 
                 historialMemoria.push({ rol: "cuidador", texto: respuesta });
 
@@ -946,28 +1281,38 @@ REGLAS ESTRICTAS DE CONVERSACIÓN:
                 const cuidadorDiv = document.createElement("div");
                 cuidadorDiv.className = "msg-cuidador";
 
-                // Si es Tai Chi, mostramos las 9 láminas reales en rotación
+                // La respuesta se inserta como texto, no como HTML ejecutable.
                 if (esTaiChi || mensaje.toLowerCase().includes("tai chi") || mensaje.toLowerCase().includes("ejercicio")) {
                     const fotoActual = fotosTaiChi[indexFotoTaiChi % fotosTaiChi.length];
                     indexFotoTaiChi++;
-                    
-                    cuidadorDiv.innerHTML = `
-                        <img src="${fotoActual}" alt="Lámina de Tai Chi en Silla" class="img-taichi-guia">
-                        ${respuesta} 
-                        <button class="btn-repetir-voz" onclick="hablarPorParlante('${respuesta.replace(/'/g, "\\'")}')">🔊</button>
-                    `;
-                } else {
-                    cuidadorDiv.innerHTML = `${respuesta} <button class="btn-repetir-voz" onclick="hablarPorParlante('${respuesta.replace(/'/g, "\\'")}')">🔊</button>`;
+                    const img = document.createElement("img");
+                    img.src = fotoActual;
+                    img.alt = "Lámina de Tai Chi en Silla";
+                    img.className = "img-taichi-guia";
+                    cuidadorDiv.appendChild(img);
                 }
+                cuidadorDiv.appendChild(document.createTextNode(respuesta + " "));
+                const repetir = document.createElement("button");
+                repetir.className = "btn-repetir-voz";
+                repetir.type = "button";
+                repetir.title = "Escuchar respuesta";
+                repetir.textContent = "🔊";
+                repetir.addEventListener("click", () => reproducirRespuesta(respuesta, data));
+                cuidadorDiv.appendChild(repetir);
 
                 chat.appendChild(cuidadorDiv);
                 chat.scrollTop = chat.scrollHeight;
-
-                hablarPorParlante(respuesta);
+                reproducirRespuesta(respuesta, data);
 
             } catch(e) {
                 const loader = document.getElementById("cargando-cuidador");
                 if (loader) loader.remove();
+                const aviso = document.createElement("div");
+                aviso.className = "msg-cuidador";
+                aviso.textContent = "No pude conectar en este momento. Revisa tu conexión e inténtalo de nuevo.";
+                chat.appendChild(aviso);
+                chat.scrollTop = chat.scrollHeight;
+                if (manosLibresActivas) terminarRespuestaVoz();
             }
         }
 
@@ -1000,7 +1345,8 @@ REGLAS ESTRICTAS DE CONVERSACIÓN:
 
                 const lDiv = document.createElement("div");
                 lDiv.style.cssText = "background:#1B2636; border:1px solid rgba(212,175,55,0.3); color:#E2E8F0; padding:10px 12px; border-radius:10px; font-size:0.85rem;";
-                lDiv.innerHTML = r.replace(/\n/g, "<br>");
+                lDiv.style.whiteSpace = "pre-line";
+                lDiv.textContent = r;
                 chat.appendChild(lDiv);
                 chat.scrollTop = chat.scrollHeight;
             } catch(err) {}

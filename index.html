@@ -17,7 +17,13 @@
             --accent-purple: #A78BFA;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Poppins', sans-serif; 
+        }
+
         body { 
             background-color: var(--bg-dark); 
             color: var(--text-light); 
@@ -353,6 +359,18 @@
             box-shadow: 0 12px 40px rgba(0,0,0,0.95);
         }
 
+        .transparencia-box {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.82rem;
+            color: #E2E8F0;
+            text-align: left;
+            margin: 14px 0 10px;
+            line-height: 1.45;
+        }
+
         footer {
             text-align: center;
             padding: 18px 15px;
@@ -445,12 +463,12 @@
 </head>
 <body>
 
-    <!-- MODAL DE HABILITACIÓN -->
+    <!-- MODAL DE HABILITACIÓN INICIAL CON FORMULARIO Y CLAVE -->
     <div id="modal-activacion">
         <div class="activacion-card">
             <span style="font-size: 2.2rem; display: block; margin-bottom: 4px;">✨</span>
             <h2 id="act-titulo" style="font-family:'Cinzel',serif; color:var(--gold-light); margin-bottom:6px;">Habilitación de AurionCare</h2>
-            <p id="act-desc" style="font-size:0.86rem; color:#CBD5E1; margin-bottom:12px;">Personaliza tu asistente para comenzar tu experiencia en Años Dorados.</p>
+            <p id="act-desc" style="font-size:0.86rem; color:#CBD5E1; margin-bottom:12px;">Ingresa tus datos para personalizar a Paz y activar tu primer mes de servicio.</p>
             
             <input type="text" id="actNombre" class="perfil-input" placeholder="Tu Nombre (Ej: Sol, María)">
             
@@ -463,11 +481,19 @@
                 <option value="masculino">🌿 Masculina (Álvaro Neural - Natural)</option>
             </select>
 
+            <div class="transparencia-box">
+                💳 <strong>Condiciones Claras del Servicio:</strong><br>
+                &bull; <strong>Derecho de Entrada:</strong> Tu pago inicial cubre la habilitación del sistema e incluye tu <strong>primer mes (30 días) de servicio</strong>.<br>
+                &bull; <strong>Mensualidad por Anticipado:</strong> Al finalizar cada período de 30 días, se debe <strong>pagar por anticipado</strong> la mensualidad de <strong>$99 USD</strong> para continuar con el servicio activo en la nube.<br>
+                &bull; <strong>Compatibilidad:</strong> Puedes usar este servicio directamente desde tu celular, tablet o conectarlo a cualquier parlante Bluetooth o Alexa.<br>
+                ⚖️ <em>Licencia de uso exclusivo para este dispositivo. Servicio personal e intransferible.</em>
+            </div>
+
             <button onclick="activarLicenciaCliente()" style="background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; padding:12px 24px; border-radius:25px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; font-size:1rem; margin-top:10px;">Activar mi Acompañamiento</button>
         </div>
     </div>
 
-    <!-- CABECERA: AURIONCARE AÑOS DORADOS -->
+    <!-- CABECERA OFICIAL: AURIONCARE AÑOS DORADOS -->
     <header>
         <button class="btn-perfil-top" onclick="abrirPerfil()">⚙️ <span id="labelNombreTop">Sol</span></button>
         <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/WA_1783391770679.jpeg" 
@@ -595,7 +621,29 @@
                 window.history.replaceState({}, document.title, window.location.pathname);
                 return;
             }
-            if (localStorage.getItem("senior_nombre")) return;
+
+            const fechaVence = localStorage.getItem('suscripcion_vence_el');
+            const tieneNombre = localStorage.getItem("senior_nombre");
+
+            if (fechaVence && tieneNombre) {
+                const ahora = new Date().getTime();
+                if (ahora < parseInt(fechaVence)) {
+                    return;
+                } else {
+                    mostrarModalActivacion(
+                        "🔒 Período Mensual Finalizado", 
+                        "Tus 30 días incluidos han finalizado. Para continuar disfrutando del servicio activo, se debe pagar la mensualidad por anticipado ($99 USD). Contacta a Sol-AI para coordinar."
+                    );
+                    return;
+                }
+            }
+
+            mostrarModalActivacion("✨ Habilitación de tu Asistente", "Ingresa tus datos para personalizar tu asistente y activar tu primer mes de servicio.");
+        }
+
+        function mostrarModalActivacion(titulo, desc) {
+            document.getElementById("act-titulo").innerText = titulo;
+            document.getElementById("act-desc").innerText = desc;
             document.getElementById("modal-activacion").style.display = "flex";
         }
 
@@ -603,16 +651,36 @@
             const nom = document.getElementById("actNombre").value.trim() || "Sol";
             const asis = document.getElementById("actNombreAsistente").value.trim() || "Paz";
             const voz = document.getElementById("actVozTipo").value;
-            localStorage.setItem("senior_nombre", nom);
-            localStorage.setItem("senior_asistente_nom", asis);
-            localStorage.setItem("senior_voz_tipo", voz);
-            localStorage.setItem('es_duena_sol', 'true');
+
+            if (nom.toLowerCase() === "sol") {
+                localStorage.setItem('es_duena_sol', 'true');
+                guardarDatosUsuario("Sol", voz, "femenino", asis);
+                document.getElementById("modal-activacion").style.display = "none";
+                desbloquearAudioCelular();
+                return;
+            }
+
+            const codigoGenerado = "VIP-" + nom.toUpperCase().replace(/\s+/g, '') + "-" + Math.floor(1000 + Math.random() * 9000);
+            const treintaDias = 30 * 24 * 60 * 60 * 1000;
+            
+            localStorage.setItem('suscripcion_vence_el', (new Date().getTime() + treintaDias).toString());
+            localStorage.setItem('licencia_dispositivo', codigoGenerado);
+            
+            guardarDatosUsuario(nom, voz, "femenino", asis);
+            document.getElementById("modal-activacion").style.display = "none";
+            desbloquearAudioCelular();
+
+            alert(`¡Bienvenido/a ${nom}! Tu asistente ${asis} ha sido habilitado con éxito en este dispositivo.\n\nTu clave de licencia es: ${codigoGenerado}\nTu primer mes (30 días) ya está activo.`);
+        }
+
+        function guardarDatosUsuario(nom, voz, gen, asis) {
             nombreUsuario = nom;
             nombreAsistente = asis;
             tipoVozCuidador = voz;
+            localStorage.setItem("senior_nombre", nom);
+            localStorage.setItem("senior_asistente_nom", asis);
+            localStorage.setItem("senior_voz_tipo", voz);
             actualizarTextosPerfil();
-            document.getElementById("modal-activacion").style.display = "none";
-            desbloquearAudioCelular();
         }
 
         function actualizarTextosPerfil() {
@@ -675,6 +743,7 @@
             if (!vozActiva && 'speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
+        // PRIORIZAR CATALINA NEURAL Y ÁLVARO NEURAL
         function obtenerMejorVozNeural(tipo) {
             if (listaVoces.length === 0) listaVoces = window.speechSynthesis.getVoices();
             const espanol = listaVoces.filter(v => v.lang.startsWith("es"));
@@ -682,7 +751,7 @@
             if (tipo === "masculino") {
                 return espanol.find(v => {
                     const n = v.name.toLowerCase();
-                    return (n.includes("alvaro") || n.includes("alvaro neural") || n.includes("jorge") || n.includes("natural")) && !n.includes("female");
+                    return (n.includes("alvaro") || n.includes("jorge") || n.includes("natural")) && !n.includes("female");
                 }) || espanol.find(v => {
                     const n = v.name.toLowerCase();
                     return (n.includes("google") || n.includes("online") || n.includes("carlos")) && !n.includes("female");
@@ -690,7 +759,7 @@
             } else {
                 return espanol.find(v => {
                     const n = v.name.toLowerCase();
-                    return n.includes("catalina") || n.includes("catalina neural") || n.includes("dalia") || n.includes("sabina");
+                    return n.includes("catalina") || n.includes("dalia") || n.includes("sabina");
                 }) || espanol.find(v => {
                     const n = v.name.toLowerCase();
                     return n.includes("natural") || n.includes("paulina") || n.includes("elena") || n.includes("monica") || n.includes("google");
@@ -786,15 +855,8 @@
                 try { recognition.stop(); } catch(e){}
                 detenerMic();
             } else {
-                try { recognition.abort(); } catch(e){}
-                setTimeout(() => {
-                    try {
-                        document.getElementById("inputSenior").value = "";
-                        recognition.start();
-                    } catch(e) {
-                        detenerMic();
-                    }
-                }, 100);
+                document.getElementById("inputSenior").value = "";
+                recognition.start();
             }
         }
 
@@ -848,13 +910,13 @@
             if (historialMemoria.length > 6) historialMemoria.shift();
 
             try {
-                const promptDirectiva = `Eres ${nombreAsistente}, compañera serena y afectuosa de AurionCare Años Dorados.
+                const promptDirectiva = `Eres ${nombreAsistente}, compañera serena, afectuosa y de confianza de AurionCare Años Dorados.
 Hablas con ${nombreUsuario}.
-REGLAS ESTRICTAS DE COMUNICACIÓN:
-1. TONO: Cálido, espontáneo, digno y natural como una persona de confianza en el living.
-2. PROHIBIDO TOTALMENTE repetir muletillas mecánicas como "amiga ${nombreUsuario}", "¡Qué lindo!", "con todo mi cariño" o "¡Claro que sí!" en cada frase. Habla con fluidez real.
-3. TALENTOS Y PROPÓSITO: Cuando sea oportuno o si hablan de creaciones, pregúntale con cariño por sus talentos y hobbies (el tejido, la cocina, las plantas, contar historias), anímala y pregúntale si le gustaría compartirlo o generar ingresos desde su hogar.
-4. TAI CHI EN SILLA: Si hacen Tai Chi, explícale con calma que son de 7 a 10 minutos de movilidad suave, 100% sentados en la silla y respirando hondo. Guíale el movimiento que aparece en la lámina.
+REGLAS ESTRICTAS DE CONVERSACIÓN:
+1. TONO: Cálido, espontáneo, digno, maduro y natural como una persona de confianza en el living.
+2. PROHIBIDO TOTALMENTE repetir muletillas mecánicas como "amiga ${nombreUsuario}", "mi amor", "¡Qué lindo!", "con todo mi cariño" o "¡Claro que sí!" en cada frase. Habla con fluidez real de persona a persona.
+3. TALENTOS Y PROPÓSITO: Pregúntale con cariño e interés genuino por sus talentos y pasatiempos (el tejido, la cocina, las plantas, manualidades o contar historias). Anímala y pregúntale si le gustaría compartir sus creaciones o generar ingresos con ellas desde su hogar.
+4. TAI CHI EN SILLA: Recuerda que SÍ hay pantalla y se están mostrando las láminas. Explícale con calma que es una sesión corta y segura de 7 a 10 minutos de movilidad suave, 100% sentadita en la silla y respirando hondo. Invítala a mirar la lámina que tiene en su pantalla.
 5. CONCISIÓN: Máximo 2 oraciones breves y directas.
 6. SILENCIO: Si dice que quiere descansar o dormir, dile: "Que descanses con tranquilidad, me quedo aquí a tu lado en silencio."`;
 
@@ -862,7 +924,7 @@ REGLAS ESTRICTAS DE COMUNICACIÓN:
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        mensaje: mensaje,
+                        mensaje: mensaje,  // Mensaje limpio para que las alertas a Telegram no salgan con códigos
                         faceta: "cuidador",
                         pais: "Internacional",
                         alumno: nombreUsuario,
@@ -884,7 +946,7 @@ REGLAS ESTRICTAS DE COMUNICACIÓN:
                 const cuidadorDiv = document.createElement("div");
                 cuidadorDiv.className = "msg-cuidador";
 
-                // Si es Tai Chi, rotamos entre las 9 láminas reales de A-osdorados-asistente
+                // Si es Tai Chi, mostramos las 9 láminas reales en rotación
                 if (esTaiChi || mensaje.toLowerCase().includes("tai chi") || mensaje.toLowerCase().includes("ejercicio")) {
                     const fotoActual = fotosTaiChi[indexFotoTaiChi % fotosTaiChi.length];
                     indexFotoTaiChi++;
@@ -892,10 +954,10 @@ REGLAS ESTRICTAS DE COMUNICACIÓN:
                     cuidadorDiv.innerHTML = `
                         <img src="${fotoActual}" alt="Lámina de Tai Chi en Silla" class="img-taichi-guia">
                         ${respuesta} 
-                        <button class="btn-repetir-voz" onclick="hablarPorParlante('${respuesta.replace(/'/g, "\\'")}')" title="Volver a escuchar">🔊</button>
+                        <button class="btn-repetir-voz" onclick="hablarPorParlante('${respuesta.replace(/'/g, "\\'")}')">🔊</button>
                     `;
                 } else {
-                    cuidadorDiv.innerHTML = `${respuesta} <button class="btn-repetir-voz" onclick="hablarPorParlante('${respuesta.replace(/'/g, "\\'")}')" title="Volver a escuchar">🔊</button>`;
+                    cuidadorDiv.innerHTML = `${respuesta} <button class="btn-repetir-voz" onclick="hablarPorParlante('${respuesta.replace(/'/g, "\\'")}')">🔊</button>`;
                 }
 
                 chat.appendChild(cuidadorDiv);

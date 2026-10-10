@@ -3,517 +3,1692 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asistente de Escolaridad Personalizado | Servicio y Beca VIP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>AURIONCARE | Años Dorados • Compañía con Alma</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #121820;
-            --card-bg: #1A222D;
+            --bg-dark: #0B0F17;
+            --card-bg: #141C28;
             --gold: #D4AF37;
-            --gold-light: #F3E5AB;
-            --text-light: #E0E6ED;
-            --text-muted: #A0AEC0;
-            --accent-red: #E53E3E;
-            --success-green: #25D366;
+            --gold-light: #F6E7B0;
+            --text-light: #F8FAFC;
+            --accent-green: #25D366;
+            --accent-purple: #A78BFA;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Poppins', sans-serif; 
         }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        h1, h2, h3, .brand-title {
-            font-family: 'Cinzel', serif;
-            letter-spacing: 1px;
+        body { 
+            background-color: var(--bg-dark); 
+            color: var(--text-light); 
+            min-height: 100vh; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         header {
-            background: linear-gradient(180deg, #1A2432 0%, var(--bg-dark) 100%);
+            background: linear-gradient(180deg, #182232 0%, var(--bg-dark) 100%);
             border-bottom: 2px solid var(--gold);
-            color: white;
-            padding: 70px 20px 50px;
+            padding: 22px 15px 16px;
             text-align: center;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            color: var(--gold-light);
-            margin-bottom: 15px;
-            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
-        }
-
-        header p {
-            font-size: 1.15rem;
-            max-width: 750px;
-            margin: 0 auto 25px;
-            color: var(--text-muted);
-        }
-
-        .badge {
-            background: linear-gradient(135deg, #D4AF37, #AA7C11);
-            color: #121820;
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 15px;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            text-align: center;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--gold);
-        }
-
-        .card h3 {
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-
-        .highlight-box {
-            background: rgba(26, 34, 45, 0.9);
-            border: 1px solid var(--gold);
-            padding: 30px;
-            border-radius: 12px;
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        .highlight-box h2 {
-            color: var(--gold-light);
-            margin-bottom: 15px;
-        }
-
-        /* Comparativa de Precio */
-        .comparison-box {
-            background: linear-gradient(135deg, #2A1A1A 0%, #1A222D 100%);
-            border: 1px solid var(--accent-red);
-            padding: 25px;
-            border-radius: 12px;
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        .comparison-box strong {
-            color: #FEB2B2;
-        }
-
-        /* Sección de Pasos */
-        .steps-box {
-            background: var(--card-bg);
-            border: 1px dashed var(--gold);
-            padding: 35px 25px;
-            border-radius: 15px;
-            margin-top: 40px;
-        }
-
-        .steps-list {
-            list-style: none;
-            margin-top: 25px;
-            text-align: left;
-            max-width: 750px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .steps-list li {
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            font-size: 1.05rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .steps-list li:last-child {
-            border-bottom: none;
-        }
-
-        .step-number {
-            background: var(--gold);
-            color: #121820;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
-
-        /* Sección de Planes y Precios */
-        .pricing-section {
-            margin-top: 50px;
-            background: var(--card-bg);
-            padding: 40px 20px;
-            border-radius: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .price-card {
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-            background: #121820;
             position: relative;
         }
 
-        .price-card.featured {
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
             border: 2px solid var(--gold);
-            background: #1E2836;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-        }
-
-        .price-card h4 {
-            font-size: 1.3rem;
-            color: var(--gold-light);
-            margin-bottom: 10px;
-        }
-
-        .price-tag {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 10px;
-        }
-
-        .old-price {
-            text-decoration: line-through;
-            color: var(--text-muted);
-            font-size: 1rem;
-            margin-right: 8px;
-        }
-
-        /* Formulario */
-        .form-section {
-            background: var(--card-bg);
-            padding: 40px 25px;
-            border-radius: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            margin-top: 50px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
+            object-fit: cover;
             margin-bottom: 8px;
-            color: var(--gold-light);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
         }
 
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 12px;
-            background: #121820;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 8px;
-            font-size: 1rem;
-            color: white;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
-        .btn {
-            display: block;
-            width: 100%;
-            background: linear-gradient(135deg, #25D366, #1EBE5D);
-            color: white;
-            padding: 16px;
-            text-align: center;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
+        .badge-senior {
+            background: linear-gradient(135deg, #D4AF37, #AA7C11);
+            color: #0A0E14;
+            padding: 4px 18px;
+            border-radius: 20px;
             font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-block;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
         }
 
-        .btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        header h1 { 
+            font-family: 'Cinzel', serif; 
+            font-size: 2.2rem; 
+            color: var(--gold-light); 
+            margin-bottom: 2px; 
+            letter-spacing: 2px;
+        }
+
+        .sub-header-brand {
+            font-size: 1.05rem;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+            font-family: 'Cinzel', serif;
+        }
+
+        header p { 
+            font-size: 0.95rem; 
+            max-width: 650px; 
+            margin: 0 auto; 
+            color: #CBD5E1; 
+        }
+
+        .btn-perfil-top {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #182333;
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .main-container {
+            max-width: 820px;
+            width: 100%;
+            margin: 10px auto 25px;
+            padding: 0 15px;
+            flex: 1;
+        }
+
+        .cuidador-box {
+            background: var(--card-bg);
+            border: 2px solid var(--gold);
+            border-radius: 22px;
+            padding: 20px 16px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .top-bar-cuidador {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+            padding-bottom: 8px;
+        }
+
+        .estado-conexion {
+            color: var(--accent-green);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .btn-audio-toggle {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            border-radius: 20px;
+            padding: 4px 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .chat-display {
+            background: #0D131F;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            padding: 18px 16px;
+            min-height: 320px;
+            max-height: 440px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .msg-cuidador {
+            background: #182333;
+            border: 1.5px solid rgba(212, 175, 55, 0.35);
+            color: #FFFDF7;
+            padding: 14px 18px;
+            border-radius: 18px 18px 18px 4px;
+            max-width: 90%;
+            font-size: 1.15rem;
+            line-height: 1.5;
+            align-self: flex-start;
+        }
+
+        .img-taichi-guia {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 14px;
+            border: 2px solid var(--gold);
+            margin: 10px 0;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            background: #fff;
+        }
+
+        .btn-repetir-voz {
+            background: none;
+            border: none;
+            color: var(--gold);
+            cursor: pointer;
+            font-size: 1.15rem;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .msg-usuario {
+            background: linear-gradient(135deg, #D4AF37, #AA7C11);
+            color: #0A0E14;
+            padding: 12px 18px;
+            border-radius: 18px 18px 4px 18px;
+            max-width: 85%;
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.4;
+            align-self: flex-end;
+        }
+
+        .sugerencias-box {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .btn-sugerencia {
+            background: #182232;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--gold-light);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-sugerencia:hover { 
+            background: rgba(212, 175, 55, 0.2); 
+        }
+
+        .manos-libres-activo {
+            border-color: var(--accent-green) !important;
+            color: #B8F5CE !important;
+            background: rgba(37, 211, 102, 0.14) !important;
+        }
+
+        .controls-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .big-mic-btn {
+            background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
+            color: #0A0E14;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 36px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.45);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 380px;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .big-mic-btn.recording {
+            background: #E53E3E;
+            color: #FFF;
+            animation: pulseRecord 1.2s infinite;
+        }
+
+        .big-mic-btn.hablando {
+            background: #1E3A8A;
+            color: #93C5FD;
+        }
+
+        @keyframes pulseRecord {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+            100% { transform: scale(1); }
+        }
+
+        .sub-input-row {
+            display: flex;
+            width: 100%;
+            gap: 8px;
+        }
+
+        .text-input-senior {
+            flex: 1;
+            background: #0E1420;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 25px;
+            padding: 12px 18px;
+            color: #FFF;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .btn-enviar-senior {
+            background: var(--gold);
+            border: none;
+            color: #0A0E14;
+            border-radius: 50%;
+            width: 46px;
+            height: 46px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* MODALES */
+        #modal-perfil {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 999999;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .perfil-card {
+            background: #141C28;
+            border: 2px solid var(--gold);
+            border-radius: 18px;
+            padding: 22px;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .perfil-card h3 { 
+            color: var(--gold-light); 
+            margin-bottom: 12px; 
+            font-family: 'Cinzel', serif; 
+        }
+
+        .perfil-input {
+            width: 100%;
+            background: #0D131F;
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 10px 14px;
+            color: #FFF;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            outline: none;
+        }
+
+        #modal-activacion {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(11, 15, 23, 0.98);
+            z-index: 1000000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .activacion-card {
+            background: #141C28;
+            border: 2px solid var(--gold);
+            border-radius: 22px;
+            padding: 24px 18px;
+            max-width: 440px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.95);
+        }
+
+        .transparencia-box {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.82rem;
+            color: #E2E8F0;
+            text-align: left;
+            margin: 14px 0 10px;
+            line-height: 1.45;
         }
 
         footer {
             text-align: center;
-            padding: 35px 20px;
-            background-color: #0A0D12;
-            color: var(--text-muted);
-            margin-top: 60px;
-            font-size: 0.9rem;
+            padding: 18px 15px;
+            background: #06090E;
+            color: #94A3B8;
+            font-size: 0.85rem;
             border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        #sol-ai-widget { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 15px; 
+            z-index: 99999; 
+        }
+
+        .sol-bubble {
+            background: #151D28;
+            border: 2px solid var(--gold);
+            border-radius: 40px;
+            padding: 6px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.6);
+        }
+
+        .sol-avatar-img { 
+            width: 34px; 
+            height: 34px; 
+            border-radius: 50%; 
+            border: 1.5px solid var(--gold); 
+            object-fit: cover; 
+        }
+
+        .sol-info { 
+            text-align: left; 
+            line-height: 1.2; 
+        }
+
+        .sol-name { 
+            color: var(--gold-light); 
+            font-size: 11.5px; 
+            font-weight: 700; 
+        }
+
+        .sol-desc { 
+            color: #25D366; 
+            font-size: 9px; 
+            font-weight: 600; 
+        }
+
+        #sol-ai-modal {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 15px;
+            width: 320px;
+            max-width: 90vw;
+            height: 380px;
+            background: #141C26;
+            border: 2px solid var(--gold);
+            border-radius: 18px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.85);
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 99999;
+        }
+
+        .sol-header { 
+            background: #1C2736; 
+            border-bottom: 1.5px solid var(--gold); 
+            padding: 12px 14px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+        }
+
+        .sol-messages { 
+            flex: 1; 
+            padding: 12px; 
+            overflow-y: auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 10px; 
+            font-size: 0.9rem; 
         }
     </style>
 </head>
 <body>
 
-    <!-- PORTADA PRINCIPAL -->
+    <!-- MODAL DE HABILITACIÓN INICIAL CON FORMULARIO Y CLAVE -->
+    <div id="modal-activacion">
+        <div class="activacion-card">
+            <span style="font-size: 2.2rem; display: block; margin-bottom: 4px;">✨</span>
+            <h2 id="act-titulo" style="font-family:'Cinzel',serif; color:var(--gold-light); margin-bottom:6px;">Habilitación de AurionCare</h2>
+            <p id="act-desc" style="font-size:0.86rem; color:#CBD5E1; margin-bottom:12px;">Ingresa tus datos para personalizar a Paz y activar tu primer mes de servicio.</p>
+            
+            <input type="text" id="actNombre" class="perfil-input" placeholder="Tu Nombre (Ej: Sol, María)">
+            
+            <div style="font-size:0.82rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Nombre de tu Asistente:</div>
+            <input type="text" id="actNombreAsistente" class="perfil-input" value="Paz" placeholder="Nombre (Ej: Paz)">
+
+            <div style="font-size:0.82rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Voz del Asistente:</div>
+            <select id="actVozTipo" class="perfil-input">
+                <option value="femenino">🌸 Femenina neural (Catalina)</option>
+                <option value="masculino">🌿 Masculina neural de Leo</option>
+            </select>
+
+            <div class="transparencia-box">
+                💳 <strong>Condiciones Claras del Servicio:</strong><br>
+                &bull; <strong>Derecho de Entrada:</strong> Tu pago inicial cubre la habilitación del sistema e incluye tu <strong>primer mes (30 días) de servicio</strong>.<br>
+                &bull; <strong>Mensualidad por Anticipado:</strong> Al finalizar cada período de 30 días, se debe <strong>pagar por anticipado</strong> la mensualidad de <strong>$99 USD</strong> para continuar con el servicio activo en la nube.<br>
+                &bull; <strong>Compatibilidad:</strong> Puedes usar este servicio directamente desde tu celular, tablet o conectarlo a cualquier parlante Bluetooth o Alexa.<br>
+                ⚖️ <em>Licencia de uso exclusivo para este dispositivo. Servicio personal e intransferible.</em>
+            </div>
+
+            <button onclick="activarLicenciaCliente()" style="background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; padding:12px 24px; border-radius:25px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; font-size:1rem; margin-top:10px;">Activar mi Acompañamiento</button>
+        </div>
+    </div>
+
+    <!-- CABECERA OFICIAL: AURIONCARE AÑOS DORADOS -->
     <header>
-        <span class="badge">✨ Tu Solución Escolar Diaria</span>
-        <h1>Asistente de Escolaridad Personalizado</h1>
-        <p>Acompañamiento paciente y constante para las tareas del colegio y la nivelación de tu hijo. Olvídate del estrés de las tardes y devuelve la paz a tu hogar.</p>
+        <button class="btn-perfil-top" onclick="abrirPerfil()">⚙️ <span id="labelNombreTop">Sol</span></button>
+        <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/WA_1783391770679.jpeg" 
+             alt="Logo AurionCare" 
+             class="header-logo">
+        <br>
+        <span class="badge-senior">✨ AÑOS DORADOS</span>
+        <h1>AURIONCARE</h1>
+        <div class="sub-header-brand">Compañía con Alma & Vitalidad</div>
+        <p>Tu espacio sereno con <strong id="headerNombreAsistente">Paz</strong> para conversar, despertar tus talentos o descansar en calma.</p>
     </header>
 
-    <div class="container">
-
-        <!-- MENSAJE DE VALOR -->
-        <div class="highlight-box">
-            <h2>¿Cansada de discutir a la hora de hacer las tareas?</h2>
-            <p>Enseñar a nuestros propios hijos suele ser agotador. Nuestro <strong>Asistente de Escolaridad</strong> actúa como un guía paciente de compañía que le ayuda a comprender sus materias día a día, adaptándose a su propio ritmo sin gritos ni presiones.</p>
-        </div>
-
-        <!-- COMPARATIVA CON PROFESOR PARTICULAR -->
-        <div class="comparison-box">
-            <h3 style="color: #FEB2B2; margin-bottom: 10px;">💡 ¿Sabías cuánto cuesta un profesor particular tradicional?</h3>
-            <p>En Chile, un profesor particular presencial cobra entre <strong>$25.000 y $30.000 CLP por solo 1 hora</strong> de clase.<br>
-            Con nuestro <strong>Asistente de Escolaridad</strong>, obtienes acompañamiento constante durante toda la semana por el mismo valor de 1 sola hora presencial.</p>
-        </div>
-
-        <!-- CARACTERÍSTICAS DEL SERVICIO -->
-        <h2 style="text-align: center; margin-top: 40px; color: var(--gold-light);">¿Qué resuelve nuestro Asistente?</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>📚 Deberes y Tareas Diarias</h3>
-                <p>Resuelve dudas de tareas escolares, explicando el paso a paso para que el niño entienda por sí mismo.</p>
+    <div class="main-container">
+        <div class="cuidador-box">
+            <div class="top-bar-cuidador">
+                <span class="estado-conexion" id="estadoTexto">🟢 Paz en línea • Contigo</span>
+                <button class="btn-audio-toggle" id="btnAudioToggle" onclick="toggleAudio()">🔊 Voz Activa</button>
             </div>
-            <div class="card">
-                <h3>🎯 Nivelación Académica</h3>
-                <p>Refuerza materias complejas (Matemáticas, Lenguaje, Ciencias) para ponerlo al día con su curso.</p>
-            </div>
-            <div class="card">
-                <h3>🌱 Paz para la Familia</h3>
-                <p>Tú dejas de ser la profesora y vuelves a disfrutar de tu tiempo libre con tu hijo.</p>
-            </div>
-        </div>
 
-        <!-- REQUISITOS PARA ACTIVAR LA BECA -->
-        <div class="steps-box">
-            <h2 style="text-align: center; color: var(--gold-light);">🎁 Requisitos para obtener tu Beca VIP (7 Días Gratis)</h2>
-            <p style="text-align: center; color: var(--text-muted); margin-top: 5px;">Para activar tu beneficio y formar parte de nuestra comunidad, completa estos 4 pasos sencillos:</p>
-
-            <ul class="steps-list">
-                <li>
-                    <span class="step-number">1</span>
-                    <span>Mira nuestro video en YouTube donde te explico el regalo de la Beca VIP.</span>
-                </li>
-                <li>
-                    <span class="step-number">2</span>
-                    <span>Dale <strong>'Me Gusta' (dedito arriba) 👍</strong>, déjanos un comentario y <strong>suscríbete al canal 🔔</strong>.</span>
-                </li>
-                <li>
-                    <span class="step-number">3</span>
-                    <span><strong>Comparte el video 📲</strong> en el grupo de WhatsApp de apoderados o colegio de tu hijo.</span>
-                </li>
-                <li>
-                    <span class="step-number">4</span>
-                    <span><strong>Envíanos la captura de pantalla (pantallazo) 📸</strong> demostrando que cumpliste los pasos al solicitar tu beca.</span>
-                </li>
-            </ul>
-
-            <!-- BOTONES DE YOUTUBE -->
-            <div style="text-align: center; margin-top: 30px; display: flex; flex-direction: column; gap: 15px; align-items: center;">
-                <a href="https://youtube.com/shorts/1p9vNyTixps?si=qTIU2FijAdr0YKa5" target="_blank" class="btn" style="background: linear-gradient(135deg, #FF0000, #CC0000); display: inline-block; width: auto; padding: 14px 30px; border-radius: 25px;">
-                    🎁 Ver Video del Regalo (YouTube Short)
-                </a>
-
-                <a href="https://youtu.be/pkYgFEQbkdU?si=hRbIpL5zkRdaqwvZ" target="_blank" style="color: var(--gold-light); text-decoration: underline; font-size: 0.95rem;">
-
-                </a>
-            </div>
-        </div>
-
-        <!-- PLANES Y PRECIOS -->
-        <div class="pricing-section">
-            <h2 style="text-align: center; color: var(--gold-light);">Planes de Suscripción (Pesos Chilenos - CLP)</h2>
-            <p style="text-align: center; color: var(--text-muted); max-width: 700px; margin: 10px auto 0;">
-                Comienza con tus <strong>7 Días Gratis de Beca VIP</strong>. Al finalizar la prueba, elige el plan ideal para tu familia:
-            </p>
-
-            <div class="pricing-grid">
-                <div class="price-card">
-                    <h4>Plan Ocasional</h4>
-                    <p class="price-tag">$10.000 CLP / día</p>
-                    <p style="font-size: 0.9rem; color: var(--text-muted);">Ideal para resolver dudas puntuales de tareas específicas o preparar pruebas sencillas.</p>
-                </div>
-
-                <div class="price-card featured">
-                    <span style="background: var(--gold); color: #121820; padding: 3px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: bold; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);">OFERTA RECOMENDADA</span>
-                    <h4>Plan 3 Días a la Semana</h4>
-                    <p class="price-tag"><span class="old-price">$30.000 CLP</span> $25.000 CLP / semana</p>
-                    <p style="font-size: 0.9rem; color: #CBD5E0;">¡Ahorras $5.000 CLP a la semana! Acompañamiento ideal para reforzamiento constante.</p>
-                </div>
-
-                <div class="price-card">
-                    <h4>Plan Full Diario VIP</h4>
-                    <p class="price-tag">$40.000 CLP / semana</p>
-                    <p style="font-size: 0.9rem; color: var(--text-muted);">Acompañamiento completo 5 días a la semana en todas las asignaturas escolares.</p>
+            <div class="chat-display" id="chatDisplay">
+                <div class="msg-cuidador" id="msgBienvenida">
+                    Hola <span id="saludoNombre">Sol</span>. ¿Cómo estás hoy? Podemos conversar con calma.
+                    <button class="btn-repetir-voz" onclick="hablarSaludoInicial()" title="Escuchar">🔊</button>
                 </div>
             </div>
 
-            <!-- MÉTODOS DE PAGO -->
-            <div style="margin-top: 35px; text-align: center; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 10px; border: 1px solid rgba(212, 175, 55, 0.2);">
-                <h4 style="color: var(--gold-light); margin-bottom: 8px;">💳 Métodos de Pago Seguros</h4>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">Aceptamos Tarjeta de Débito, Crédito y Transferencia mediante <strong>Mercado Pago</strong> o datos bancarios protegidos.</p>
-                <a href="https://wa.me/56927541231?text=Hola,%20quisiera%20solicitar%20el%20link%20de%20pago%20de%20Mercado%20Pago%20o%20los%20datos%20bancarios" target="_blank" style="color: var(--gold); text-decoration: underline; font-weight: 600;">
-                    📲 Solicitar Link de Pago de Mercado Pago por WhatsApp
-                </a>
+            <!-- BOTONES DE ACCIÓN RÁPIDA -->
+            <div class="sugerencias-box">
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Conversemos un momento con calma')">💬 Conversemos</button>
+                <button class="btn-sugerencia" onclick="iniciarTaiChiConImagen()">🧘 Tai Chi en silla · 7–9 min</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Hablemos de mis hobbies, talentos y creaciones')">🎨 Mis Talentos & Tejido</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Cuéntame una historia bonita o del recuerdo')">📖 Una historia</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero descansar en silencio')">🤫 Silencio y descanso</button>
+            </div>
+
+            <div class="controls-panel">
+                <button class="big-mic-btn" id="btnMicSenior" onclick="toggleMicrofonoSenior()">
+                    <span>🎙️ Tocar para Hablar con Paz</span>
+                </button>
+                <button type="button" class="btn-sugerencia" id="btnManosLibres" onclick="toggleManosLibres()" style="padding:10px 18px; font-size:0.95rem;">
+                    🎙️ Activar manos libres
+                </button>
+                <p id="ayudaManosLibres" style="font-size:0.78rem; color:#CBD5E1; text-align:center; max-width:560px; line-height:1.4;">
+                    Actívalo una vez por sesión y luego di el nombre de tu asistente. Durante Tai Chi puedes decir “pausa”, “reanudar”, “ayuda” o “detener rutina”. Mantén esta página abierta y activa; el navegador puede pausar el micrófono si bloqueas la pantalla o cambias de aplicación.
+                </p>
+
+                <div class="sub-input-row">
+                    <input type="text" class="text-input-senior" id="inputSenior" placeholder="Habla con el micrófono o escribe aquí..." onkeypress="if(event.key==='Enter') enviarMensajeSenior()">
+                    <button class="btn-enviar-senior" onclick="enviarMensajeSenior()">➤</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PERFIL -->
+    <div id="modal-perfil">
+        <div class="perfil-card">
+            <h3>Tu Nombre y Preferencias</h3>
+            <p style="font-size:0.85rem; color:#CBD5E1; margin-bottom:12px;">Configura tu experiencia con Paz:</p>
+            <input type="text" id="inputNombreSenior" class="perfil-input" value="Sol" placeholder="Tu nombre">
+            <input type="text" id="inputNombreAsistenteEdit" class="perfil-input" value="Paz" placeholder="Nombre de tu asistente">
+            
+            <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:6px; text-align:left;">Voz del Asistente:</div>
+            <select id="selectVozTipo" class="perfil-input">
+                <option value="femenino">🌸 Femenina neural (Catalina)</option>
+                <option value="masculino">🌿 Masculina neural de Leo</option>
+            </select>
+
+            <button onclick="guardarPerfil()" style="background:var(--gold); border:none; padding:10px 24px; border-radius:20px; font-weight:bold; cursor:pointer; color:#0A0E14;">Guardar Cambios</button>
+        </div>
+    </div>
+
+    <!-- WIDGET SOPORTE FAMILIAR -->
+    <div id="sol-ai-widget">
+        <div class="sol-bubble" onclick="toggleModalSolAI()">
+            <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" alt="Sol-AI" class="sol-avatar-img">
+            <div class="sol-info">
+                <div class="sol-name">Sol-AI</div>
+                <div class="sol-desc">Soporte Familiar</div>
             </div>
         </div>
 
-        <!-- FORMULARIO WHATSAPP -->
-        <div class="form-section" id="solicitud">
-            <h2 style="text-align: center; color: var(--gold-light);">📲 Completa tus Datos y Envía tu Pantallazo</h2>
-            <p style="text-align: center; color: var(--text-muted); margin-bottom: 25px;">Escribe tus datos abajo y se abrirá WhatsApp para que nos adjuntes tu captura de pantalla y activemos tus 7 días.</p>
-
-            <form id="becaForm">
-                <div class="form-group">
-                    <label>Tu Nombre Completo (Apoderado):</label>
-                    <input type="text" id="nombreApoderado" placeholder="Ej: María González" required>
+        <div id="sol-ai-modal">
+            <div class="sol-header">
+                <div style="color:var(--gold-light); font-weight:700; font-size:13px;">Asistencia y Familia</div>
+                <button onclick="toggleModalSolAI()" style="background:none; border:none; color:#CBD5E1; font-size:18px; cursor:pointer;">✕</button>
+            </div>
+            <div class="sol-messages" id="solMessages">
+                <div style="background:#1B2636; border:1px solid rgba(212,175,55,0.3); padding:10px; border-radius:10px; font-size:0.88rem;">
+                    ¡Hola! Soy <strong>Sol-AI</strong>.<br><br>
+                    Si la familia necesita asistencia con el servicio de AurionCare o renovaciones, puedes escribir aquí con confianza.
                 </div>
-
-                <div class="form-group">
-                    <label>Nombre de tu hijo/a:</label>
-                    <input type="text" id="nombreAlumno" placeholder="Ej: Lucas" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Curso o Nivel Escolar:</label>
-                    <input type="text" id="curso" placeholder="Ej: 5° Básico" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Asignatura principal a reforzar:</label>
-                    <select id="materia" required>
-                        <option value="">Selecciona una materia...</option>
-                        <option value="Matemáticas">Matemáticas</option>
-                        <option value="Lenguaje y Comunicación">Lenguaje y Comunicación</option>
-                        <option value="Ciencias">Ciencias</option>
-                        <option value="Historia">Historia</option>
-                        <option value="Varias materias / Tareas generales">Varias materias / Tareas generales</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn">📸 Solicitar Beca y Enviar Pantallazo por WhatsApp</button>
-            </form>
-        </div>
-
-        <!-- SECCIÓN DE ACTIVACIÓN EN TELEGRAM CON EL BOTÓN DORADO DE LUCERO -->
-        <div style="text-align: center; margin-top: 40px; background: #1A222D; padding: 35px 20px; border-radius: 15px; border: 1.5px solid #ffcc00; box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);">
-            <h3 style="color: #F3E5AB; font-size: 1.4rem; margin-bottom: 10px;">🎉 ¡Ingresa al Asistente en Telegram!</h3>
-            <p style="color: #A0AEC0; margin-bottom: 25px; font-size: 1rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Toca el botón de abajo para ingresar de inmediato con <strong>Lucero</strong> en Telegram e iniciar tu prueba gratuita de 7 días 24/7.
-            </p>
-
-            <!-- BOTÓN DORADO ELEGANTE A TELEGRAM (HABLAR CON LUCERO) -->
-            <a href="https://t.me/SoberanasNatureBot?start=beca_7dias" target="_blank" style="display: inline-flex; align-items: center; background: rgba(12, 12, 14, 0.96); border: 2px solid #ffcc00; border-radius: 50px; padding: 8px 22px 8px 8px; text-decoration: none; box-shadow: 0 4px 20px rgba(255, 204, 0, 0.45); transition: transform 0.2s ease;">
-              <div style="width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 2px solid #ffcc00; margin-right: 12px; flex-shrink: 0; box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);">
-                <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" onerror="this.onerror=null; this.src='image%20(4).jpg';" alt="Secretaria Lucero" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-              </div>
-              <div style="text-align: left; line-height: 1.25;">
-                <div style="color: #ffd700; font-size: 14px; font-weight: 700; font-family: sans-serif;">Hablar con Lucero</div>
-                <div style="color: #00ff88; font-size: 12px; font-weight: 600; font-family: sans-serif;">🚀 Activar Beca de 7 días aquí</div>
-              </div>
-            </a>
-
-            <!-- CÓDIGO QR PARA COMPUTADOR -->
-            <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
-                <p style="font-size: 0.85rem; color: #A0AEC0; margin-bottom: 10px;">¿Estás desde un computador? Escanea este código QR con tu celular:</p>
-                <img src="qr-beca.jpg" alt="Código QR Beca 7 Días" style="max-width: 170px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+            </div>
+            <div style="padding:8px; background:#101620; border-top:1px solid rgba(212,175,55,0.2); display:flex; gap:6px;">
+                <input type="text" id="solInput" placeholder="Mensaje de soporte familiar..." onkeypress="if(event.key==='Enter') enviarMensajeSolAI()" style="flex:1; background:#182230; border:1px solid rgba(212,175,55,0.3); border-radius:15px; padding:8px 12px; color:#FFF; font-size:0.85rem; outline:none;">
+                <button onclick="enviarMensajeSolAI()" style="background:var(--gold); border:none; color:#0A0E14; border-radius:50%; width:34px; height:34px; cursor:pointer; font-weight:bold;">➤</button>
             </div>
         </div>
-
     </div>
 
     <footer>
-        <p>&copy; 2026 Asistente de Escolaridad Personalizado | Servicio de Acompañamiento y Nivelación</p>
+        <p>&copy; 2026 AURIONCARE &bull; Años Dorados &bull; Dirección y Creación: Sol Sánchez Contreras</p>
     </footer>
 
-    <!-- JS FORMULARIO WHATSAPP -->
     <script>
-        document.getElementById('becaForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
+        let nombreAsistente = localStorage.getItem("senior_asistente_nom") || "Paz";
+        let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "femenino";
+        let historialMemoria = [];
+        let indexFotoTaiChi = 0;
+        let manosLibresActivas = false;
+        let reconocimientoEnCurso = false;
+        let respuestaEnCurso = false;
+        let esperandoComandoWake = false;
+        let timerWake = null;
+        let timerReinicioReconocimiento = null;
+        let callbackAlTerminarVoz = null;
+        let rutinaTaiChiActiva = false;
+        let rutinaTaiChiPausada = false;
+        let indicePasoTaiChi = -1;
+        let indiceRespiracionTaiChi = 0;
+        let faseRutinaTaiChi = "inactiva";
+        let timerRutinaTaiChi = null;
+        let vencimientoRutinaTaiChi = 0;
+        let tiempoRestanteRutinaTaiChi = 0;
 
-            const numeroWhatsApp = "56927541231"; 
+        // 🌟 LAS 9 IMÁGENES EXACTAS DE TAICHI EN SILLA DE TU REPOSITORIO
+        const fotosTaiChi = [
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246436360.jpg",
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246496795.jpg",
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246523341.jpg",
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246556359.jpg",
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246582786.jpg",
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246597214.jpg",
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246612799.jpg",
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246629311.jpg",
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246654353.jpg"
+        ];
 
-            const apoderado = document.getElementById('nombreApoderado').value;
-            const alumno = document.getElementById('nombreAlumno').value;
-            const curso = document.getElementById('curso').value;
-            const materia = document.getElementById('materia').value;
+        function verificarSeguridadYAcceso() {
+            if (localStorage.getItem('es_duena_sol') === 'true') return;
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('acceso') === "SOL2026") {
+                localStorage.setItem('es_duena_sol', 'true');
+                localStorage.setItem("senior_nombre", "Sol");
+                window.history.replaceState({}, document.title, window.location.pathname);
+                return;
+            }
 
-            const mensaje = `Hola! Ya cumplí los requisitos en YouTube.%0A` +
-                            `📌 *Adjunto mis datos para activar la Beca VIP de 7 Días:*%0A` +
-                            `👤 *Apoderado:* ${apoderado}%0A` +
-                            `👦 *Alumno:* ${alumno}%0A` +
-                            `🏫 *Curso:* ${curso}%0A` +
-                            `📚 *Materia:* ${materia}%0A%0A` +
-                            `📸 (Aquí te adjunto el pantallazo)`;
+            const fechaVence = localStorage.getItem('suscripcion_vence_el');
+            const tieneNombre = localStorage.getItem("senior_nombre");
 
-            window.open(`https://wa.me/${numeroWhatsApp}?text=${mensaje}`, '_blank');
-        });
+            if (fechaVence && tieneNombre) {
+                const ahora = new Date().getTime();
+                if (ahora < parseInt(fechaVence)) {
+                    return;
+                } else {
+                    mostrarModalActivacion(
+                        "🔒 Período Mensual Finalizado", 
+                        "Tus 30 días incluidos han finalizado. Para continuar disfrutando del servicio activo, se debe pagar la mensualidad por anticipado ($99 USD). Contacta a Sol-AI para coordinar."
+                    );
+                    return;
+                }
+            }
+
+            mostrarModalActivacion("✨ Habilitación de tu Asistente", "Ingresa tus datos para personalizar tu asistente y activar tu primer mes de servicio.");
+        }
+
+        function mostrarModalActivacion(titulo, desc) {
+            document.getElementById("act-titulo").innerText = titulo;
+            document.getElementById("act-desc").innerText = desc;
+            document.getElementById("modal-activacion").style.display = "flex";
+        }
+
+        function activarLicenciaCliente() {
+            const nom = document.getElementById("actNombre").value.trim() || "Sol";
+            const asis = document.getElementById("actNombreAsistente").value.trim() || "Paz";
+            const voz = document.getElementById("actVozTipo").value;
+
+            if (nom.toLowerCase() === "sol") {
+                localStorage.setItem('es_duena_sol', 'true');
+                guardarDatosUsuario("Sol", voz, "femenino", asis);
+                document.getElementById("modal-activacion").style.display = "none";
+                desbloquearAudioCelular();
+                return;
+            }
+
+            const codigoGenerado = "VIP-" + nom.toUpperCase().replace(/\s+/g, '') + "-" + Math.floor(1000 + Math.random() * 9000);
+            const treintaDias = 30 * 24 * 60 * 60 * 1000;
+            
+            localStorage.setItem('suscripcion_vence_el', (new Date().getTime() + treintaDias).toString());
+            localStorage.setItem('licencia_dispositivo', codigoGenerado);
+            
+            guardarDatosUsuario(nom, voz, "femenino", asis);
+            document.getElementById("modal-activacion").style.display = "none";
+            desbloquearAudioCelular();
+
+            alert(`¡Bienvenido/a ${nom}! Tu asistente ${asis} ha sido habilitado con éxito en este dispositivo.\n\nTu clave de licencia es: ${codigoGenerado}\nTu primer mes (30 días) ya está activo.`);
+        }
+
+        function guardarDatosUsuario(nom, voz, gen, asis) {
+            nombreUsuario = nom;
+            nombreAsistente = asis;
+            tipoVozCuidador = voz;
+            localStorage.setItem("senior_nombre", nom);
+            localStorage.setItem("senior_asistente_nom", asis);
+            localStorage.setItem("senior_voz_tipo", voz);
+            actualizarTextosPerfil();
+        }
+
+        function actualizarTextosPerfil() {
+            document.getElementById("labelNombreTop").innerText = nombreUsuario;
+            document.getElementById("saludoNombre").innerText = nombreUsuario;
+            document.getElementById("estadoTexto").innerText = `🟢 ${nombreAsistente} en línea • Contigo`;
+            const nombreCabecera = document.getElementById("headerNombreAsistente");
+            if (nombreCabecera) nombreCabecera.innerText = nombreAsistente;
+        }
+
+        function abrirPerfil() {
+            document.getElementById("inputNombreSenior").value = nombreUsuario;
+            document.getElementById("inputNombreAsistenteEdit").value = nombreAsistente;
+            document.getElementById("selectVozTipo").value = tipoVozCuidador;
+            document.getElementById("modal-perfil").style.display = "flex";
+        }
+
+        function guardarPerfil() {
+            nombreUsuario = document.getElementById("inputNombreSenior").value.trim() || "Sol";
+            nombreAsistente = document.getElementById("inputNombreAsistenteEdit").value.trim() || "Paz";
+            tipoVozCuidador = document.getElementById("selectVozTipo").value;
+            localStorage.setItem("senior_nombre", nombreUsuario);
+            localStorage.setItem("senior_asistente_nom", nombreAsistente);
+            localStorage.setItem("senior_voz_tipo", tipoVozCuidador);
+            actualizarTextosPerfil();
+            document.getElementById("modal-perfil").style.display = "none";
+            desbloquearAudioCelular();
+        }
+
+        actualizarTextosPerfil();
+        verificarSeguridadYAcceso();
+
+        // ==========================================
+        // Voz neural del servidor y modo manos libres mediante reconocimiento del navegador.
+        // ==========================================
+        const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
+        const SOL_ENDPOINT = "https://solsanchez-ai-ulq2.onrender.com/api/chat";
+
+        let vozActiva = true;
+        let grabacionActiva = false;
+        let recognition = null;
+        let listaVoces = [];
+        let audioActual = null;
+        let objectUrlAudio = null;
+
+        function cargarVoces() {
+            if ('speechSynthesis' in window) listaVoces = window.speechSynthesis.getVoices();
+        }
+        cargarVoces();
+        if ('speechSynthesis' in window) window.speechSynthesis.onvoiceschanged = cargarVoces;
+
+        function detenerAudioActual() {
+            if (audioActual) {
+                audioActual.pause();
+                audioActual.currentTime = 0;
+                audioActual = null;
+            }
+            if (objectUrlAudio) {
+                URL.revokeObjectURL(objectUrlAudio);
+                objectUrlAudio = null;
+            }
+        }
+
+        function desbloquearAudioCelular() {
+            if ('speechSynthesis' in window) window.speechSynthesis.resume();
+        }
+
+        function toggleAudio() {
+            vozActiva = !vozActiva;
+            document.getElementById("btnAudioToggle").innerText = vozActiva ? "🔊 Voz Activa" : "🔇 Silencio";
+            if (!vozActiva) {
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+                detenerAudioActual();
+                if (respuestaEnCurso) terminarRespuestaVoz();
+                else detenerMic();
+            }
+        }
+
+        function normalizarTexto(s) {
+            return (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+
+        function obtenerMejorVoz(tipo) {
+            if (!('speechSynthesis' in window)) return null;
+            if (!listaVoces.length) cargarVoces();
+            const es = listaVoces.filter(v => (v.lang || "").toLowerCase().startsWith("es"));
+            if (!es.length) return null;
+
+            const femenino = tipo !== "masculino";
+            const nombresPreferidos = femenino
+                ? ["catalina", "sabina", "dalia", "paulina", "monica", "elena", "helena"]
+                : ["alvaro", "lorenzo", "jorge", "carlos", "male", "masculino"];
+            const puntuacion = (v) => {
+                const n = normalizarTexto(v.name || "");
+                let p = 0;
+                const idx = nombresPreferidos.findIndex(x => n.includes(x));
+                if (idx >= 0) p += 100 - idx * 8;
+                if (n.includes("neural") || n.includes("natural")) p += 30;
+                if (n.includes("online")) p += 12;
+                if ((v.lang || "").toLowerCase() === "es-cl") p += 20;
+                else if ((v.lang || "").toLowerCase().startsWith("es-")) p += 8;
+                if (femenino && /\b(male|masculino)\b/.test(n)) p -= 100;
+                if (!femenino && /\b(female|femenina)\b/.test(n)) p -= 100;
+                return p;
+            };
+            return es.slice().sort((a, b) => puntuacion(b) - puntuacion(a))[0];
+        }
+
+        function terminarRespuestaVoz() {
+            respuestaEnCurso = false;
+            detenerMic();
+            const alTerminar = callbackAlTerminarVoz;
+            callbackAlTerminarVoz = null;
+            if (typeof alTerminar === "function") {
+                alTerminar();
+            } else if (manosLibresActivas) {
+                programarReinicioManosLibres();
+            }
+        }
+
+        function reproducirRespuesta(texto, datosAudio = null, alTerminar = null) {
+            callbackAlTerminarVoz = typeof alTerminar === "function" ? alTerminar : null;
+            respuestaEnCurso = true;
+            if (manosLibresActivas && recognition && grabacionActiva) {
+                try { recognition.stop(); } catch (e) {}
+            }
+            if (!vozActiva) {
+                terminarRespuestaVoz();
+                return;
+            }
+            detenerAudioActual();
+
+            if (datosAudio) {
+                const urlAudio = datosAudio.audio_url || datosAudio.audioUrl;
+                const base64 = datosAudio.audio_base64 || datosAudio.audio;
+                let fuente = null;
+                if (typeof urlAudio === "string" && /^(https:\/\/|blob:|data:audio\/)/i.test(urlAudio)) {
+                    fuente = urlAudio;
+                } else if (typeof base64 === "string" && base64.length > 100) {
+                    if (base64.startsWith("data:audio/")) {
+                        fuente = base64;
+                    } else {
+                        try {
+                            const bin = atob(base64.replace(/^data:audio\/[^;]+;base64,/, ""));
+                            const bytes = new Uint8Array(bin.length);
+                            for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+                            const blob = new Blob([bytes], { type: datosAudio.audio_mime || "audio/mpeg" });
+                            objectUrlAudio = URL.createObjectURL(blob);
+                            fuente = objectUrlAudio;
+                        } catch (e) {}
+                    }
+                }
+                if (fuente) {
+                    audioActual = new Audio(fuente);
+                    audioActual.onplay = () => {
+                        const btn = document.getElementById("btnMicSenior");
+                        btn.className = "big-mic-btn hablando";
+                        btn.textContent = `🔊 ${nombreAsistente} hablando...`;
+                    };
+                    audioActual.onended = () => { detenerAudioActual(); terminarRespuestaVoz(); };
+                    audioActual.onerror = () => { detenerAudioActual(); hablarTextoLocal(texto); };
+                    audioActual.play().catch(() => { detenerAudioActual(); hablarTextoLocal(texto); });
+                    return;
+                }
+            }
+            hablarTextoLocal(texto);
+        }
+
+        function hablarTextoLocal(texto) {
+            if (!vozActiva || !('speechSynthesis' in window)) {
+                terminarRespuestaVoz();
+                return;
+            }
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.resume();
+            const limpio = (texto || "")
+                .replace(/[*#_~`$]/g, "")
+                .replace(/https?:\/\/\S+/g, "")
+                .replace(/\s+/g, " ")
+                .trim();
+            if (!limpio) {
+                terminarRespuestaVoz();
+                return;
+            }
+
+            const utter = new SpeechSynthesisUtterance(limpio);
+            const vozSeleccionada = obtenerMejorVoz(tipoVozCuidador);
+            utter.lang = vozSeleccionada?.lang || "es-CL";
+            if (vozSeleccionada) utter.voice = vozSeleccionada;
+            utter.rate = 0.92;
+            utter.pitch = 1.0;
+            utter.onstart = function() {
+                const btn = document.getElementById("btnMicSenior");
+                btn.className = "big-mic-btn hablando";
+                btn.textContent = `🔊 ${nombreAsistente} hablando...`;
+            };
+            utter.onend = terminarRespuestaVoz;
+            utter.onerror = terminarRespuestaVoz;
+            setTimeout(() => window.speechSynthesis.speak(utter), 60);
+        }
+
+        function hablarPorParlante(texto) {
+            reproducirRespuesta(texto);
+        }
+
+        async function hablarSaludoInicial() {
+            const texto = `Hola ${nombreUsuario}. ¿Cómo estás hoy? Podemos conversar con calma.`;
+            if (!vozActiva) return;
+            try {
+                const resp = await fetch(LEO_ENDPOINT, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        mensaje: "",
+                        texto_voz: texto,
+                        faceta: "cuidador",
+                        alumno: nombreUsuario,
+                        asistente: nombreAsistente,
+                        voz_tipo: tipoVozCuidador,
+                        audio: true
+                    })
+                });
+                if (!resp.ok) throw new Error(`Respuesta del servidor: ${resp.status}`);
+                const data = await resp.json();
+                reproducirRespuesta(texto, data);
+            } catch (e) {
+                reproducirRespuesta(texto);
+            }
+        }
+
+        // ==========================================
+        // MANOS LIBRES: palabra de activación + conversación por turnos
+        // El permiso se solicita al tocar el botón; después no hace falta tocarlo por cada turno.
+        // ==========================================
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRec) {
+            recognition = new SpeechRec();
+            recognition.lang = 'es-CL';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onstart = function() {
+                grabacionActiva = true;
+                reconocimientoEnCurso = true;
+                const btn = document.getElementById("btnMicSenior");
+                if (manosLibresActivas) {
+                    btn.className = "big-mic-btn";
+                    btn.textContent = `👂 Escuchando: di “${nombreAsistente}”`;
+                    document.getElementById("estadoTexto").innerText = esperandoComandoWake
+                        ? "🎙️ Te escucho; puedes decir tu consulta"
+                        : `👂 En espera de “${nombreAsistente}”`;
+                } else {
+                    btn.className = "big-mic-btn recording";
+                    btn.innerHTML = "<span>🔴 Te escucho... (Habla con calma)</span>";
+                    document.getElementById("estadoTexto").innerText = "🎙️ Escuchándote...";
+                }
+            };
+
+            recognition.onresult = function(e) {
+                for (let i = e.resultIndex || 0; i < e.results.length; i++) {
+                    const resultado = e.results[i];
+                    if (!resultado.isFinal) continue;
+                    const transcripcion = (resultado[0]?.transcript || "").trim();
+                    if (!transcripcion) continue;
+
+                    // Mientras la rutina está activa, toda voz se trata como un control de Tai Chi;
+                    // nunca se entrega al chat general ni se cambia de tema por accidente.
+                    if (rutinaTaiChiActiva) {
+                        const activacionRutina = detectarPalabraWake(transcripcion);
+                        const comandoRutina = activacionRutina.activada && activacionRutina.comando
+                            ? activacionRutina.comando
+                            : transcripcion;
+                        procesarComandoRutina(comandoRutina);
+                        try { recognition.stop(); } catch (e) {}
+                        return;
+                    }
+
+                    if (manosLibresActivas) {
+                        if (esperandoComandoWake) {
+                            esperandoComandoWake = false;
+                            if (timerWake) clearTimeout(timerWake);
+                            timerWake = null;
+                            respuestaEnCurso = true;
+                            try { recognition.stop(); } catch (e) {}
+                            enviarMensajeSenior(false, transcripcion);
+                            return;
+                        }
+                        const activacion = detectarPalabraWake(transcripcion);
+                        if (!activacion.activada) continue;
+                        respuestaEnCurso = true;
+                        try { recognition.stop(); } catch (e) {}
+                        if (activacion.comando) {
+                            enviarMensajeSenior(false, activacion.comando);
+                        } else {
+                            esperandoComandoWake = true;
+                            reproducirTextoNeural(`Aquí estoy. ¿Quieres contarme algo o prefieres que yo te cuente una historia?`, iniciarVentanaComandoWake);
+                        }
+                        return;
+                    }
+
+                    document.getElementById("inputSenior").value = transcripcion;
+                    try { recognition.stop(); } catch (e) {}
+                    enviarMensajeSenior();
+                    return;
+                }
+            };
+
+            recognition.onerror = function(evento) {
+                if (evento && (evento.error === "not-allowed" || evento.error === "service-not-allowed")) {
+                    manosLibresActivas = false;
+                    esperandoComandoWake = false;
+                    if (timerWake) clearTimeout(timerWake);
+                    actualizarBotonManosLibres("Permite el micrófono para activar manos libres");
+                    document.getElementById("estadoTexto").innerText = "🎙️ El navegador no tiene permiso de micrófono";
+                } else if (!manosLibresActivas) {
+                    detenerMic();
+                }
+            };
+
+            recognition.onend = function() {
+                grabacionActiva = false;
+                reconocimientoEnCurso = false;
+                if (manosLibresActivas && !respuestaEnCurso) {
+                    programarReinicioManosLibres(350);
+                } else if (!manosLibresActivas && !respuestaEnCurso) {
+                    detenerMic();
+                }
+            };
+        }
+
+        function normalizarParaWake(texto) {
+            return normalizarTexto(texto).replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+        }
+
+        function distanciaEdicion(a, b) {
+            if (Math.abs(a.length - b.length) > 1) return 2;
+            let anterior = Array.from({ length: b.length + 1 }, (_, i) => i);
+            for (let i = 1; i <= a.length; i++) {
+                const actual = [i];
+                for (let j = 1; j <= b.length; j++) {
+                    actual[j] = Math.min(
+                        actual[j - 1] + 1,
+                        anterior[j] + 1,
+                        anterior[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
+                    );
+                }
+                anterior = actual;
+            }
+            return anterior[b.length];
+        }
+
+        function detectarPalabraWake(transcripcion) {
+            const textoNormalizado = normalizarParaWake(transcripcion);
+            const palabras = textoNormalizado ? textoNormalizado.split(" ") : [];
+            const nombreWake = normalizarParaWake(nombreAsistente);
+            const palabrasWake = nombreWake ? nombreWake.split(" ") : [];
+            if (!palabras.length || !palabrasWake.length) return { activada: false, comando: "" };
+
+            let consumidas = 0;
+            const inicio = palabras.slice(0, palabrasWake.length).join(" ");
+            if (inicio === nombreWake) {
+                consumidas = palabrasWake.length;
+            } else if (palabrasWake.length === 1 && nombreWake.length >= 3 && distanciaEdicion(palabras[0], nombreWake) <= 1) {
+                // Tolera una pequeña variación del reconocimiento (p. ej. Paz/Pas).
+                consumidas = 1;
+            } else {
+                return { activada: false, comando: "" };
+            }
+
+            const palabrasOriginales = (transcripcion || "").trim().split(/\s+/);
+            const comando = palabrasOriginales.slice(consumidas).join(" ").replace(/^[,.:;!?¡¿-]+/, "").trim();
+            return { activada: true, comando };
+        }
+
+        function actualizarBotonManosLibres(textoPersonalizado = "") {
+            const btn = document.getElementById("btnManosLibres");
+            if (!btn) return;
+            if (manosLibresActivas) {
+                btn.textContent = `⏹️ Desactivar manos libres (${nombreAsistente})`;
+                btn.classList.add("manos-libres-activo");
+            } else {
+                btn.textContent = textoPersonalizado || "🎙️ Activar manos libres";
+                btn.classList.remove("manos-libres-activo");
+            }
+        }
+
+        function programarReinicioManosLibres(espera = 500) {
+            if (timerReinicioReconocimiento) clearTimeout(timerReinicioReconocimiento);
+            timerReinicioReconocimiento = setTimeout(() => {
+                timerReinicioReconocimiento = null;
+                iniciarEscuchaManosLibres();
+            }, espera);
+        }
+
+        function iniciarEscuchaManosLibres() {
+            if (!manosLibresActivas || respuestaEnCurso || !recognition || reconocimientoEnCurso) return;
+            try {
+                recognition.continuous = true;
+                recognition.start();
+            } catch (error) {
+                // El navegador puede seguir cerrando la sesión anterior; onend intentará reabrirla.
+                if (error && error.name !== "InvalidStateError") {
+                    document.getElementById("estadoTexto").innerText = "No pude iniciar el micrófono. Vuelve a activar manos libres.";
+                }
+            }
+        }
+
+        function toggleManosLibres() {
+            desbloquearAudioCelular();
+            if (!recognition) {
+                document.getElementById("estadoTexto").innerText = "Este navegador no admite reconocimiento de voz continuo. Puedes escribir o usar el micrófono si está disponible.";
+                return;
+            }
+            if (manosLibresActivas) {
+                manosLibresActivas = false;
+                respuestaEnCurso = false;
+                esperandoComandoWake = false;
+                if (timerWake) clearTimeout(timerWake);
+                if (timerReinicioReconocimiento) clearTimeout(timerReinicioReconocimiento);
+                timerWake = null;
+                timerReinicioReconocimiento = null;
+                try { recognition.stop(); } catch (e) {}
+                actualizarBotonManosLibres();
+                detenerMic();
+                return;
+            }
+            manosLibresActivas = true;
+            actualizarBotonManosLibres();
+            document.getElementById("estadoTexto").innerText = "Solicitando permiso del micrófono...";
+            iniciarEscuchaManosLibres();
+        }
+
+        function iniciarVentanaComandoWake() {
+            if (!manosLibresActivas) return;
+            esperandoComandoWake = true;
+            document.getElementById("estadoTexto").innerText = "Te escucho. Dime qué necesitas.";
+            if (timerWake) clearTimeout(timerWake);
+            timerWake = setTimeout(() => {
+                esperandoComandoWake = false;
+                timerWake = null;
+                if (manosLibresActivas) {
+                    document.getElementById("estadoTexto").innerText = `👂 En espera de “${nombreAsistente}”`;
+                }
+            }, 8000);
+            programarReinicioManosLibres(250);
+        }
+
+        async function reproducirTextoNeural(texto, alTerminar = null) {
+            respuestaEnCurso = true;
+            try {
+                const resp = await fetch(LEO_ENDPOINT, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        mensaje: "",
+                        texto_voz: texto,
+                        faceta: "cuidador",
+                        alumno: nombreUsuario,
+                        asistente: nombreAsistente,
+                        voz_tipo: tipoVozCuidador,
+                        audio: vozActiva
+                    })
+                });
+                if (!resp.ok) throw new Error(`Respuesta del servidor: ${resp.status}`);
+                const data = await resp.json();
+                reproducirRespuesta(texto, data, alTerminar);
+            } catch (e) {
+                callbackAlTerminarVoz = typeof alTerminar === "function" ? alTerminar : null;
+                hablarTextoLocal(texto);
+            }
+        }
+
+        function toggleMicrofonoSenior() {
+            desbloquearAudioCelular();
+            if (!recognition) {
+                document.getElementById("estadoTexto").innerText = "Este navegador no admite reconocimiento de voz. Puedes escribir tu mensaje.";
+                return;
+            }
+            if (manosLibresActivas) {
+                toggleManosLibres();
+                return;
+            }
+
+            if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+            }
+            detenerAudioActual();
+
+            if (grabacionActiva) {
+                try { recognition.stop(); } catch(e) {}
+                detenerMic();
+            } else {
+                document.getElementById("inputSenior").value = "";
+                recognition.continuous = false;
+                recognition.start();
+            }
+        }
+
+        function detenerMic() {
+            if (!manosLibresActivas) grabacionActiva = false;
+            const btn = document.getElementById("btnMicSenior");
+            if (rutinaTaiChiActiva) {
+                btn.className = "big-mic-btn";
+                btn.textContent = rutinaTaiChiPausada
+                    ? "⏸️ Tai Chi en pausa"
+                    : (manosLibresActivas ? "👂 Escuchando controles de Tai Chi" : "🧘 Tai Chi en curso");
+                actualizarEstadoRutinaTaiChi();
+                return;
+            }
+            if (manosLibresActivas) {
+                btn.className = "big-mic-btn";
+                btn.textContent = `👂 Di “${nombreAsistente}” para hablar`;
+                document.getElementById("estadoTexto").innerText = `👂 Manos libres activas • di “${nombreAsistente}”`;
+            } else {
+                btn.className = "big-mic-btn";
+                btn.textContent = `🎙️ Tocar para Hablar con ${nombreAsistente}`;
+                document.getElementById("estadoTexto").innerText = `🟢 ${nombreAsistente} en línea • Contigo`;
+            }
+        }
+
+        function enviarSugerencia(texto) {
+            desbloquearAudioCelular();
+            document.getElementById("inputSenior").value = texto;
+            enviarMensajeSenior();
+        }
+
+        const pasosRutinaTaiChi = [
+            {
+                foto: 0,
+                titulo: "Círculos de brazos",
+                duracion: 120000,
+                indicacion: "Deja los brazos a los lados y haz 7 círculos hacia adelante y 7 hacia atrás. Repite esa serie 10 veces, sin forzar los hombros. Tienes dos minutos; empieza."
+            },
+            {
+                foto: 4,
+                titulo: "Marcha sentada · primera vuelta",
+                duracion: 40000,
+                indicacion: "Sentada, con los pies apoyados, levanta una rodilla y luego la otra. Acompaña con los brazos si quieres. Marchamos durante 40 segundos."
+            },
+            {
+                foto: 1,
+                titulo: "Piernas hacia atrás, adaptado en silla",
+                duracion: 25000,
+                indicacion: "La lámina muestra hacerlo de pie; nos quedamos sentadas. Desliza un pie suavemente hacia atrás y tráelo de vuelta, hasta 12 veces; luego cambia de pierna."
+            },
+            {
+                foto: 2,
+                titulo: "Elevación de talones sentada",
+                duracion: 20000,
+                indicacion: "Con ambos pies en el suelo, levanta los talones y bájalos despacio. Repite 20 veces a un ritmo cómodo."
+            },
+            {
+                foto: 3,
+                titulo: "Inclinación sentada, sin ponerse de pie",
+                duracion: 20000,
+                indicacion: "La lámina propone una sentadilla con apoyo; seguimos sentadas. Inclina un poco el tronco desde la cadera y vuelve erguida, 8 veces. No te levantes."
+            },
+            {
+                foto: 5,
+                titulo: "Giro suave del tronco",
+                duracion: 30000,
+                indicacion: "Sentada, gira suavemente el tronco a un lado y al otro, manteniendo las caderas quietas. Haz 12 giros por lado, sin llegar al límite."
+            },
+            {
+                foto: 6,
+                titulo: "Extensión cómoda de brazos",
+                duracion: 20000,
+                indicacion: "Sin peso, eleva los brazos solo hasta donde resulte cómodo y bájalos lentamente. Repite 12 veces; puedes mantenerlos más abajo."
+            },
+            {
+                foto: 7,
+                titulo: "Toques alternados de talón",
+                duracion: 20000,
+                indicacion: "Extiende una pierna y acerca el talón al suelo; vuelve y alterna con la otra. Haz 20 toques en total, con calma."
+            },
+            {
+                foto: 4,
+                titulo: "Marcha sentada · segunda vuelta",
+                duracion: 40000,
+                indicacion: "Volvemos a la marcha sentada: alterna las rodillas y acompaña con los brazos si te resulta cómodo. Seguimos durante 40 segundos."
+            },
+            {
+                foto: 8,
+                titulo: "Extensión lateral sentada",
+                duracion: 25000,
+                indicacion: "Sentada, abre un brazo y extiende un poco la pierna del mismo lado; vuelve al centro y cambia de lado. Haz 6 veces por lado, sin forzar."
+            }
+        ];
+
+        function agregarMensajeRutina(texto, paso = null, numero = null) {
+            const chat = document.getElementById("chatDisplay");
+            const caja = document.createElement("div");
+            caja.className = "msg-cuidador";
+            if (paso) {
+                const img = document.createElement("img");
+                img.src = fotosTaiChi[paso.foto];
+                img.alt = `Lámina ${paso.foto + 1}: ${paso.titulo}`;
+                img.className = "img-taichi-guia";
+                img.loading = "eager";
+                caja.appendChild(img);
+                const encabezado = document.createElement("strong");
+                encabezado.textContent = `Movimiento ${numero} de ${pasosRutinaTaiChi.length}: ${paso.titulo}. `;
+                caja.appendChild(encabezado);
+                caja.appendChild(document.createElement("br"));
+            }
+            caja.appendChild(document.createTextNode(texto));
+            chat.appendChild(caja);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function hablarRutinaTaiChi(texto, alTerminar = null) {
+            if (!vozActiva) {
+                if (typeof alTerminar === "function") alTerminar();
+                return;
+            }
+            reproducirTextoNeural(texto, alTerminar);
+        }
+
+        function limpiarTemporizadorRutina() {
+            if (timerRutinaTaiChi) clearTimeout(timerRutinaTaiChi);
+            timerRutinaTaiChi = null;
+            vencimientoRutinaTaiChi = 0;
+        }
+
+        function actualizarEstadoRutinaTaiChi() {
+            const estado = document.getElementById("estadoTexto");
+            if (!estado || !rutinaTaiChiActiva) return;
+            if (rutinaTaiChiPausada) {
+                estado.innerText = "⏸️ Tai Chi en pausa · di “reanudar” para seguir";
+                return;
+            }
+            if (faseRutinaTaiChi === "respiracion") {
+                estado.innerText = `🌿 Respiración ${Math.min(indiceRespiracionTaiChi + 1, 3)} de 3`;
+                return;
+            }
+            if (indicePasoTaiChi >= 0 && pasosRutinaTaiChi[indicePasoTaiChi]) {
+                estado.innerText = `🧘 Tai Chi · movimiento ${indicePasoTaiChi + 1} de ${pasosRutinaTaiChi.length}`;
+            }
+        }
+
+        function actualizarBloqueoDuranteRutina() {
+            const activo = rutinaTaiChiActiva;
+            document.querySelectorAll(".sugerencias-box button").forEach(btn => {
+                btn.disabled = activo;
+                btn.setAttribute("aria-disabled", activo ? "true" : "false");
+            });
+            const campo = document.getElementById("inputSenior");
+            const enviar = document.querySelector(".btn-enviar-senior");
+            if (campo) {
+                campo.disabled = activo;
+                campo.placeholder = activo ? "Tai Chi en curso: usa la voz para pausar o detener..." : "Habla con el micrófono o escribe aquí...";
+            }
+            if (enviar) enviar.disabled = activo;
+            const btnManosLibres = document.getElementById("btnManosLibres");
+            if (btnManosLibres) btnManosLibres.disabled = activo && manosLibresActivas;
+            const btnMic = document.getElementById("btnMicSenior");
+            if (btnMic) btnMic.disabled = activo && manosLibresActivas;
+        }
+
+        function iniciarTaiChiConImagen() {
+            desbloquearAudioCelular();
+            iniciarRutinaTaiChi();
+        }
+
+        function iniciarRutinaTaiChi() {
+            if (rutinaTaiChiActiva) {
+                hablarRutinaTaiChi("Ya estamos haciendo la rutina. Puedes decir pausa, ayuda o detener rutina.");
+                return;
+            }
+            if (!manosLibresActivas && recognition) {
+                manosLibresActivas = true;
+                actualizarBotonManosLibres();
+                iniciarEscuchaManosLibres();
+            }
+            rutinaTaiChiActiva = true;
+            rutinaTaiChiPausada = false;
+            indicePasoTaiChi = -1;
+            indiceRespiracionTaiChi = 0;
+            faseRutinaTaiChi = "respiracion";
+            tiempoRestanteRutinaTaiChi = 0;
+            limpiarTemporizadorRutina();
+            actualizarBloqueoDuranteRutina();
+            agregarMensajeRutina("Comenzamos una rutina suave sentadas, de unos 7 minutos. Mantén los pies apoyados y muévete solo dentro de un rango cómodo. Si sientes dolor, mareo o falta de aire, di “pausa” o “detener rutina”.");
+            actualizarEstadoRutinaTaiChi();
+            hablarRutinaTaiChi(
+                "Comenzamos una rutina suave, sentadas, de unos siete minutos. Mantén los pies apoyados y muévete solo hasta donde te resulte cómodo. Si algo duele, te mareas o te falta el aire, di pausa o detener rutina. Primero haremos tres respiraciones tranquilas.",
+                () => iniciarRespiracionTaiChi(0)
+            );
+        }
+
+        function iniciarRespiracionTaiChi(indice) {
+            if (!rutinaTaiChiActiva || rutinaTaiChiPausada) return;
+            const respiraciones = [
+                "Primera respiración. Toma aire suavemente: uno, dos, tres. Ahora suelta el aire despacio: uno, dos, tres, cuatro.",
+                "Segunda respiración. Inhala sin forzar: uno, dos, tres. Exhala con calma: uno, dos, tres, cuatro.",
+                "Tercera respiración. Toma aire a tu ritmo: uno, dos, tres. Suelta el aire despacio: uno, dos, tres, cuatro."
+            ];
+            if (indice >= respiraciones.length) {
+                faseRutinaTaiChi = "ejercicio";
+                actualizarEstadoRutinaTaiChi();
+                hablarRutinaTaiChi("Muy bien. Ahora empezamos con la primera lámina. Yo te iré guiando y pasaré a la siguiente automáticamente.", () => mostrarPasoTaiChi(0));
+                return;
+            }
+            indiceRespiracionTaiChi = indice;
+            faseRutinaTaiChi = "respiracion";
+            actualizarEstadoRutinaTaiChi();
+            hablarRutinaTaiChi(respiraciones[indice], () => {
+                if (!rutinaTaiChiActiva || rutinaTaiChiPausada) return;
+                const demora = 1800;
+                tiempoRestanteRutinaTaiChi = demora;
+                vencimientoRutinaTaiChi = Date.now() + demora;
+                timerRutinaTaiChi = setTimeout(() => {
+                    timerRutinaTaiChi = null;
+                    vencimientoRutinaTaiChi = 0;
+                    tiempoRestanteRutinaTaiChi = 0;
+                    iniciarRespiracionTaiChi(indice + 1);
+                }, demora);
+                if (manosLibresActivas) programarReinicioManosLibres(250);
+            });
+        }
+
+        function mostrarPasoTaiChi(indice) {
+            if (!rutinaTaiChiActiva || rutinaTaiChiPausada) return;
+            if (indice >= pasosRutinaTaiChi.length) {
+                finalizarRutinaTaiChi();
+                return;
+            }
+            indicePasoTaiChi = indice;
+            faseRutinaTaiChi = "ejercicio";
+            tiempoRestanteRutinaTaiChi = pasosRutinaTaiChi[indice].duracion;
+            const paso = pasosRutinaTaiChi[indice];
+            agregarMensajeRutina(paso.indicacion, paso, indice + 1);
+            actualizarEstadoRutinaTaiChi();
+            hablarRutinaTaiChi(`Movimiento ${indice + 1} de ${pasosRutinaTaiChi.length}. ${paso.indicacion}`, () => iniciarRelojPasoTaiChi(tiempoRestanteRutinaTaiChi));
+        }
+
+        function iniciarRelojPasoTaiChi(duracion) {
+            if (!rutinaTaiChiActiva || rutinaTaiChiPausada) return;
+            limpiarTemporizadorRutina();
+            const ms = Math.max(0, duracion || 0);
+            tiempoRestanteRutinaTaiChi = ms;
+            vencimientoRutinaTaiChi = Date.now() + ms;
+            timerRutinaTaiChi = setTimeout(() => {
+                timerRutinaTaiChi = null;
+                vencimientoRutinaTaiChi = 0;
+                tiempoRestanteRutinaTaiChi = 0;
+                if (!rutinaTaiChiActiva || rutinaTaiChiPausada) return;
+                mostrarPasoTaiChi(indicePasoTaiChi + 1);
+            }, ms);
+            if (manosLibresActivas) programarReinicioManosLibres(250);
+        }
+
+        function pausarRutinaTaiChi(sinAviso = false) {
+            if (!rutinaTaiChiActiva || rutinaTaiChiPausada) return;
+            if (timerRutinaTaiChi) {
+                tiempoRestanteRutinaTaiChi = Math.max(0, vencimientoRutinaTaiChi - Date.now());
+                clearTimeout(timerRutinaTaiChi);
+                timerRutinaTaiChi = null;
+                vencimientoRutinaTaiChi = 0;
+            }
+            rutinaTaiChiPausada = true;
+            actualizarEstadoRutinaTaiChi();
+            if (!sinAviso) hablarRutinaTaiChi("De acuerdo, pausamos aquí. Cuando quieras continuar, di reanudar. También puedes decir detener rutina.");
+        }
+
+        function reanudarRutinaTaiChi() {
+            if (!rutinaTaiChiActiva || !rutinaTaiChiPausada) return;
+            rutinaTaiChiPausada = false;
+            actualizarEstadoRutinaTaiChi();
+            const fase = faseRutinaTaiChi;
+            const restante = tiempoRestanteRutinaTaiChi;
+            hablarRutinaTaiChi("Retomamos con calma.", () => {
+                if (fase === "respiracion") {
+                    const indice = indiceRespiracionTaiChi + 1;
+                    const espera = Math.max(0, restante);
+                    if (espera > 0) {
+                        vencimientoRutinaTaiChi = Date.now() + espera;
+                        timerRutinaTaiChi = setTimeout(() => {
+                            timerRutinaTaiChi = null;
+                            vencimientoRutinaTaiChi = 0;
+                            tiempoRestanteRutinaTaiChi = 0;
+                            iniciarRespiracionTaiChi(Math.min(indice, 3));
+                        }, espera);
+                    } else {
+                        iniciarRespiracionTaiChi(Math.min(indice, 3));
+                    }
+                } else {
+                    iniciarRelojPasoTaiChi(restante || 0);
+                }
+            });
+        }
+
+        function detenerRutinaTaiChi() {
+            if (!rutinaTaiChiActiva) return;
+            limpiarTemporizadorRutina();
+            rutinaTaiChiActiva = false;
+            rutinaTaiChiPausada = false;
+            faseRutinaTaiChi = "inactiva";
+            tiempoRestanteRutinaTaiChi = 0;
+            actualizarBloqueoDuranteRutina();
+            actualizarTextosPerfil();
+            agregarMensajeRutina("La rutina se detuvo aquí. Cuando quieras, podemos conversar o comenzar otra actividad.");
+            hablarRutinaTaiChi("Detenemos la rutina. Cuando quieras, podemos conversar o comenzar otra actividad.");
+        }
+
+        function finalizarRutinaTaiChi() {
+            if (!rutinaTaiChiActiva) return;
+            limpiarTemporizadorRutina();
+            rutinaTaiChiActiva = false;
+            rutinaTaiChiPausada = false;
+            faseRutinaTaiChi = "inactiva";
+            tiempoRestanteRutinaTaiChi = 0;
+            actualizarBloqueoDuranteRutina();
+            actualizarTextosPerfil();
+            agregarMensajeRutina("Completamos los nueve movimientos; la marcha sentada apareció dos veces. Tómate un momento para descansar.");
+            hablarRutinaTaiChi("Terminamos la rutina. Completamos los nueve movimientos y repetimos la marcha sentada. Tómate un momento para descansar; si quieres, ahora conversamos.");
+        }
+
+        function procesarComandoRutina(texto) {
+            if (!rutinaTaiChiActiva) return false;
+            const t = normalizarParaWake(texto);
+            if (!t) return false;
+            if (/\b(reanudar|continua|continuar|retomar|retomemos|sigue|seguir)\b/.test(t)) {
+                if (rutinaTaiChiPausada) reanudarRutinaTaiChi();
+                return true;
+            }
+            if (/\b(detener|deten|detengamos|terminar|terminemos|parar|basta|suficiente|no quiero seguir)\b/.test(t)) {
+                detenerRutinaTaiChi();
+                return true;
+            }
+            if (/\b(pausa|pausar|paremos|alto)\b/.test(t)) {
+                pausarRutinaTaiChi();
+                return true;
+            }
+            if (/\b(ayuda|no entiendo|repite|repetir|que sigue|como hago)\b/.test(t)) {
+                const paso = pasosRutinaTaiChi[indicePasoTaiChi];
+                if (!rutinaTaiChiPausada) pausarRutinaTaiChi(true);
+                const ayuda = paso
+                    ? `Estamos en el movimiento ${indicePasoTaiChi + 1}: ${paso.titulo}. ${paso.indicacion} Puedes decir reanudar, pausa o detener rutina.`
+                    : "Estamos con las tres respiraciones iniciales. Respira a tu ritmo; luego comenzaré la primera lámina. También puedes decir reanudar o detener rutina.";
+                hablarRutinaTaiChi(ayuda);
+                return true;
+            }
+            return false;
+        }
+
+        // ==========================================
+        // COMUNICACIÓN CON MEMORIA Y ALERTAS LIMPIAS
+        // ==========================================
+        function pareceSolicitudTaiChi(texto) {
+            const t = normalizarTexto(texto);
+            return /tai\s*chi|taichi/.test(t) || (/rutina|ejercicio/.test(t) && /silla|suave|movimiento/.test(t));
+        }
+
+        function agregarMensajeChat(texto, esUsuario = false) {
+            const chat = document.getElementById("chatDisplay");
+            const div = document.createElement("div");
+            div.className = esUsuario ? "msg-usuario" : "msg-cuidador";
+            div.textContent = texto;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+            return div;
+        }
+
+        async function enviarMensajeSenior(esTaiChi = false, mensajeDirecto = null) {
+            desbloquearAudioCelular();
+            const input = document.getElementById("inputSenior");
+            const mensaje = (typeof mensajeDirecto === "string" ? mensajeDirecto : input.value).trim();
+            if (!mensaje) {
+                if (manosLibresActivas) terminarRespuestaVoz();
+                return;
+            }
+            if (rutinaTaiChiActiva) {
+                const eraComando = procesarComandoRutina(mensaje);
+                if (!eraComando) hablarRutinaTaiChi("Seguimos con la rutina. Puedes decir pausa, ayuda o detener rutina.");
+                if (input) input.value = "";
+                return;
+            }
+            if (esTaiChi || pareceSolicitudTaiChi(mensaje)) {
+                if (input) input.value = "";
+                iniciarRutinaTaiChi();
+                return;
+            }
+            if (manosLibresActivas) {
+                respuestaEnCurso = true;
+                if (recognition && grabacionActiva) {
+                    try { recognition.stop(); } catch (e) {}
+                }
+            }
+
+            const chat = document.getElementById("chatDisplay");
+            agregarMensajeChat(mensaje, true);
+            if (input) input.value = "";
+            historialMemoria.push({ rol: "usuario", texto: mensaje });
+            if (historialMemoria.length > 6) historialMemoria.shift();
+
+            const loading = document.createElement("div");
+            loading.className = "msg-cuidador";
+            loading.id = "cargando-cuidador";
+            loading.innerText = `${nombreAsistente} te escucha con calma...`;
+            chat.appendChild(loading);
+            chat.scrollTop = chat.scrollHeight;
+
+            try {
+                const promptDirectiva = `Eres ${nombreAsistente}, una inteligencia artificial conversacional de AURIONCARE. Hablas con ${nombreUsuario}.
+La persona atendida se llama ${nombreUsuario} y tú te llamas ${nombreAsistente}; no confundas estos nombres ni llames a la persona por el nombre de la asistente. Si te preguntan si eres una IA, responde con naturalidad y transparencia.
+Habla en español natural, cercano a Chile, con calidez serena y sencillez. Conversa como una compañía agradable, no como un bot de frases hechas: sigue lo que la persona cuenta, evita repetir fórmulas y, cuando ayude, comparte un punto de vista razonado sin fingir experiencias humanas.
+No repitas su nombre en cada respuesta ni uses adulaciones, diminutivos o familiaridad forzada. Si te piden avisar o llamar a alguien, no prometas hacerlo ni digas que ya lo hiciste; este chat no contacta a familiares.
+Mantén el hilo y no cambies de tema. No ofrezcas historias mientras conversan sobre otra cosa o hacen Tai Chi; cuenta una completa solo si la persona la pide o acepta una oferta explícita.
+Mantén el hilo de lo que la persona cuenta. Muchas personas mayores prefieren compartir sus recuerdos, ideas o preocupaciones: haz preguntas abiertas y escucha; no cambies de tema ni ofrezcas actividades de inmediato. Si dice “conversemos”, dile que estás aquí para conversar y deja que elija el tema; no ofrezcas una historia si no la pidió.
+Si te preguntan si eres una IA, responde con transparencia. No afirmes que su familia está pendiente ni que recibió un aviso sin confirmación. Para ejercicios, sigue una secuencia sencilla, segura y sin presionar.`;
+
+                const resp = await fetch(LEO_ENDPOINT, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        mensaje: mensaje,
+                        faceta: "cuidador",
+                        pais: "Internacional",
+                        alumno: nombreUsuario,
+                        asistente: nombreAsistente,
+                        voz_tipo: tipoVozCuidador,
+                        audio: vozActiva,
+                        directiva: promptDirectiva,
+                        // Envía los turnos anteriores, no el mensaje actual que ya va por separado.
+                        historial: historialMemoria.slice(0, -1).slice(-5)
+                    })
+                });
+
+                if (!resp.ok) throw new Error(`Respuesta del servidor: ${resp.status}`);
+                const data = await resp.json();
+                const respuesta = (data.respuesta || "Estoy aquí contigo. ¿Qué te gustaría contarme?").replace(/[*#_~`]/g, "").trim();
+                historialMemoria.push({ rol: "cuidador", texto: respuesta });
+                const loader = document.getElementById("cargando-cuidador");
+                if (loader) loader.remove();
+                agregarMensajeChat(respuesta, false);
+                reproducirRespuesta(respuesta, data);
+            } catch (e) {
+                const loader = document.getElementById("cargando-cuidador");
+                if (loader) loader.remove();
+                const aviso = "No pude conectar en este momento. Revisa tu conexión e inténtalo de nuevo.";
+                agregarMensajeChat(aviso, false);
+                if (manosLibresActivas) terminarRespuestaVoz();
+            }
+        }
+
+        function toggleModalSolAI() {
+            const m = document.getElementById("sol-ai-modal");
+            m.style.display = (m.style.display === "flex") ? "none" : "flex";
+        }
+
+        async function enviarMensajeSolAI() {
+            const inp = document.getElementById("solInput");
+            const txt = inp.value.trim();
+            if (!txt) return;
+
+            const chat = document.getElementById("solMessages");
+            const u = document.createElement("div");
+            u.style.cssText = "background:linear-gradient(135deg,#D4AF37,#AA7C11); color:#000; padding:8px 12px; border-radius:10px; align-self:flex-end; font-size:0.85rem; font-weight:600;";
+            u.innerText = txt;
+            chat.appendChild(u);
+            inp.value = "";
+            chat.scrollTop = chat.scrollHeight;
+
+            try {
+                const res = await fetch(SOL_ENDPOINT, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ mensaje: txt, origen: "Soporte Familiar Cuidador", clave: "unigen" })
+                });
+                const d = await res.json();
+                const r = d.respuesta || "Mensaje recibido. El equipo de soporte se comunicará con la familia.";
+
+                const lDiv = document.createElement("div");
+                lDiv.style.cssText = "background:#1B2636; border:1px solid rgba(212,175,55,0.3); color:#E2E8F0; padding:10px 12px; border-radius:10px; font-size:0.85rem;";
+                lDiv.style.whiteSpace = "pre-line";
+                lDiv.textContent = r;
+                chat.appendChild(lDiv);
+                chat.scrollTop = chat.scrollHeight;
+            } catch(err) {}
+        }
     </script>
-
-    <!-- BOTÓN FLOTANTE EN ESQUINA INFERIOR -->
-    <a href="https://t.me/SoberanasNatureBot?start=beca_7dias" 
-       target="_blank" 
-       style="position: fixed !important; bottom: 22px !important; right: 20px !important; z-index: 99999999 !important; display: flex !important; align-items: center !important; background: rgba(12, 12, 14, 0.96) !important; border: 2px solid #ffcc00 !important; border-radius: 50px !important; padding: 6px 16px 6px 6px !important; text-decoration: none !important; box-shadow: 0 4px 20px rgba(255, 204, 0, 0.45) !important; backdrop-filter: blur(10px) !important;">
-      <div style="width: 44px !important; height: 44px !important; border-radius: 50% !important; overflow: hidden !important; border: 2px solid #ffcc00 !important; margin-right: 12px !important; flex-shrink: 0 !important; box-shadow: 0 0 10px rgba(255, 204, 0, 0.5) !important;">
-        <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" 
-             onerror="this.onerror=null; this.src='image%20(4).jpg';" 
-             alt="Secretaria Lucero" 
-             style="width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important;">
-      </div>
-      <div style="text-align: left !important; line-height: 1.25 !important;">
-        <div style="color: #ffd700 !important; font-size: 13.5px !important; font-weight: 700 !important; font-family: sans-serif !important;">Secretaria Lucero</div>
-        <div style="color: #00ff88 !important; font-size: 11.5px !important; font-weight: 600 !important; font-family: sans-serif !important;">🎓 Pedir Beca de 7 días aquí</div>
-      </div>
-    </a>
-
 </body>
 </html>

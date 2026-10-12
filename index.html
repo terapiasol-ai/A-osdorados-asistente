@@ -483,8 +483,8 @@
 
             <div style="font-size:0.82rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Voz del Asistente:</div>
             <select id="actVozTipo" class="perfil-input">
-                <option value="femenino">🌸 Femenina neural (Catalina)</option>
-                <option value="masculino">🌿 Masculina neural de Leo</option>
+                <option value="es-MX-PalomaNeural">🌸 Femenina Neutra (Paloma)</option>
+                <option value="es-MX-JorgeNeural">🌿 Masculina Neutra (Jorge)</option>
             </select>
 
             <div class="transparencia-box">
@@ -564,8 +564,8 @@
             
             <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:6px; text-align:left;">Voz del Asistente:</div>
             <select id="selectVozTipo" class="perfil-input">
-                <option value="femenino">🌸 Femenina neural (Catalina)</option>
-                <option value="masculino">🌿 Masculina neural de Leo</option>
+                <option value="es-MX-PalomaNeural">🌸 Femenina Neutra (Paloma)</option>
+                <option value="es-MX-JorgeNeural">🌿 Masculina Neutra (Jorge)</option>
             </select>
 
             <button onclick="guardarPerfil()" style="background:var(--gold); border:none; padding:10px 24px; border-radius:20px; font-weight:bold; cursor:pointer; color:#0A0E14;">Guardar Cambios</button>
@@ -607,7 +607,7 @@
     <script>
         let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
         let nombreAsistente = localStorage.getItem("senior_asistente_nom") || "Paz";
-        let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "femenino";
+        let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "es-MX-PalomaNeural";
         let historialMemoria = [];
         let indexFotoTaiChi = 0;
         let manosLibresActivas = false;
@@ -626,7 +626,6 @@
         let vencimientoRutinaTaiChi = 0;
         let tiempoRestanteRutinaTaiChi = 0;
 
-        // 🌟 LAS 9 IMÁGENES EXACTAS DE TAICHI EN SILLA DE TU REPOSITORIO
         const fotosTaiChi = [
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246436360.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246496795.jpg",
@@ -740,9 +739,6 @@
         actualizarTextosPerfil();
         verificarSeguridadYAcceso();
 
-        // ==========================================
-        // Voz neural del servidor y modo manos libres mediante reconocimiento del navegador.
-        // ==========================================
         const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
         const SOL_ENDPOINT = "https://solsanchez-ai-ulq2.onrender.com/api/chat";
 
@@ -796,24 +792,19 @@
             const es = listaVoces.filter(v => (v.lang || "").toLowerCase().startsWith("es"));
             if (!es.length) return null;
 
-            const femenino = tipo !== "masculino";
-            const nombresPreferidos = femenino
-                ? ["catalina", "sabina", "dalia", "paulina", "monica", "elena", "helena"]
-                : ["alvaro", "lorenzo", "jorge", "carlos", "male", "masculino"];
+            const esMasculino = (tipo || "").toLowerCase().includes("jorge") || (tipo || "").toLowerCase().includes("masculino");
             const puntuacion = (v) => {
                 const n = normalizarTexto(v.name || "");
                 let p = 0;
-                const idx = nombresPreferidos.findIndex(x => n.includes(x));
-                if (idx >= 0) p += 100 - idx * 8;
-                if (n.includes("neural") || n.includes("natural")) p += 30;
-                if (n.includes("online")) p += 12;
-                if ((v.lang || "").toLowerCase() === "es-cl") p += 20;
-                else if ((v.lang || "").toLowerCase().startsWith("es-")) p += 8;
-                if (femenino && /\b(male|masculino)\b/.test(n)) p -= 100;
-                if (!femenino && /\b(female|femenina)\b/.test(n)) p -= 100;
+                
+                // Prioridad a voz neutra
+                if (!esMasculino && (n.includes("paloma") || n.includes("dalia") || n.includes("sabina") || n.includes("monica"))) p += 200;
+                if (esMasculino && (n.includes("jorge") || n.includes("gerardo") || n.includes("carlos"))) p += 200;
+
+                if (n.includes("neural") || n.includes("natural")) p += 50;
                 return p;
             };
-            return es.slice()sort((a, b) => puntuacion(b) - puntuacion(a))[0];
+            return es.slice().sort((a, b) => puntuacion(b) - puntuacion(a))[0];
         }
 
         function terminarRespuestaVoz() {
@@ -895,7 +886,7 @@
 
             const utter = new SpeechSynthesisUtterance(limpio);
             const vozSeleccionada = obtenerMejorVoz(tipoVozCuidador);
-            utter.lang = vozSeleccionada?.lang || "es-CL";
+            utter.lang = vozSeleccionada?.lang || "es-MX";
             if (vozSeleccionada) utter.voice = vozSeleccionada;
             utter.rate = 0.92;
             utter.pitch = 1.0;
@@ -938,14 +929,10 @@
             }
         }
 
-        // ==========================================
-        // MANOS LIBRES: palabra de activación + conversación por turnos
-        // El permiso se solicita al tocar el botón; después no hace falta tocarlo por cada turno.
-        // ==========================================
         const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRec) {
             recognition = new SpeechRec();
-            recognition.lang = 'es-CL';
+            recognition.lang = 'es-MX';
             recognition.continuous = false;
             recognition.interimResults = false;
 
@@ -973,8 +960,6 @@
                     const transcripcion = (resultado[0]?.transcript || "").trim();
                     if (!transcripcion) continue;
 
-                    // Mientras la rutina está activa, toda voz se trata como un control de Tai Chi;
-                    // nunca se entrega al chat general ni se cambia de tema por accidente.
                     if (rutinaTaiChiActiva) {
                         const activacionRutina = detectarPalabraWake(transcripcion);
                         const comandoRutina = activacionRutina.activada && activacionRutina.comando
@@ -1071,7 +1056,6 @@
             if (inicio === nombreWake) {
                 consumidas = palabrasWake.length;
             } else if (palabrasWake.length === 1 && nombreWake.length >= 3 && distanciaEdicion(palabras[0], nombreWake) <= 1) {
-                // Tolera una pequeña variación del reconocimiento (p. ej. Paz/Pas).
                 consumidas = 1;
             } else {
                 return { activada: false, comando: "" };
@@ -1108,7 +1092,6 @@
                 recognition.continuous = true;
                 recognition.start();
             } catch (error) {
-                // El navegador puede seguir cerrando la sesión anterior; onend intentará reabrirla.
                 if (error && error.name !== "InvalidStateError") {
                     document.getElementById("estadoTexto").innerText = "No pude iniciar el micrófono. Vuelve a activar manos libres.";
                 }
@@ -1304,12 +1287,12 @@
             if (paso) {
                 const img = document.createElement("img");
                 img.src = fotosTaiChi[paso.foto];
-                img.alt = `Lámina ${paso.foto + 1}: ${paso.titulo}`;
+                img.alt = `Lámina ${paso.foto + 1}:${paso.titulo}`;
                 img.className = "img-taichi-guia";
                 img.loading = "eager";
                 caja.appendChild(img);
                 const encabezado = document.createElement("strong");
-                encabezado.textContent = `Movimiento ${numero} de ${pasosRutinaTaiChi.length}: ${paso.titulo}. `;
+                encabezado.textContent = `Movimiento ${numero} de ${pasosRutinaTaiChi.length}:${paso.titulo}. `;
                 caja.appendChild(encabezado);
                 caja.appendChild(document.createElement("br"));
             }
@@ -1344,7 +1327,7 @@
                 return;
             }
             if (indicePasoTaiChi >= 0 && pasosRutinaTaiChi[indicePasoTaiChi]) {
-                estado.innerText = `🧘 Tai Chi · movimiento ${indicePasoTaiChi + 1} de ${pasosRutinaTaiChi.length}`;
+                estado.innerText = `🧘 Tai Chi · movimiento ${indicePasoTaiChi + 1} de${pasosRutinaTaiChi.length}`;
             }
         }
 
@@ -1441,7 +1424,7 @@
             const paso = pasosRutinaTaiChi[indice];
             agregarMensajeRutina(paso.indicacion, paso, indice + 1);
             actualizarEstadoRutinaTaiChi();
-            hablarRutinaTaiChi(`Movimiento ${indice + 1} de ${pasosRutinaTaiChi.length}. ${paso.indicacion}`, () => iniciarRelojPasoTaiChi(tiempoRestanteRutinaTaiChi));
+            hablarRutinaTaiChi(`Movimiento ${indice + 1} de ${pasosRutinaTaiChi.length}.${paso.indicacion}`, () => iniciarRelojPasoTaiChi(tiempoRestanteRutinaTaiChi));
         }
 
         function iniciarRelojPasoTaiChi(duracion) {
@@ -1546,7 +1529,7 @@
                 const paso = pasosRutinaTaiChi[indicePasoTaiChi];
                 if (!rutinaTaiChiPausada) pausarRutinaTaiChi(true);
                 const ayuda = paso
-                    ? `Estamos en el movimiento ${indicePasoTaiChi + 1}: ${paso.titulo}. ${paso.indicacion} Puedes decir reanudar, pausa o detener rutina.`
+                    ? `Estamos en el movimiento ${indicePasoTaiChi + 1}: ${paso.titulo}.${paso.indicacion} Puedes decir reanudar, pausa o detener rutina.`
                     : "Estamos con las tres respiraciones iniciales. Respira a tu ritmo; luego comenzaré la primera lámina. También puedes decir reanudar o detener rutina.";
                 hablarRutinaTaiChi(ayuda);
                 return true;
@@ -1554,9 +1537,6 @@
             return false;
         }
 
-        // ==========================================
-        // COMUNICACIÓN CON MEMORIA Y ALERTAS LIMPIAS
-        // ==========================================
         function pareceSolicitudTaiChi(texto) {
             const t = normalizarTexto(texto);
             return /tai\s*chi|taichi/.test(t) || (/rutina|ejercicio/.test(t) && /silla|suave|movimiento/.test(t));
@@ -1614,7 +1594,7 @@
             try {
                 const promptDirectiva = `Eres ${nombreAsistente}, una inteligencia artificial conversacional de AURIONCARE. Hablas con ${nombreUsuario}.
 La persona atendida se llama ${nombreUsuario} y tú te llamas ${nombreAsistente}; no confundas estos nombres ni llames a la persona por el nombre de la asistente. Si te preguntan si eres una IA, responde con naturalidad y transparencia.
-Habla en español natural, cercano neutro sin modizmos, con calidez serena y sencillez. Conversa como una compañía agradable, no como un bot de frases hechas: sigue lo que la persona cuenta, evita repetir fórmulas y, cuando ayude, comparte un punto de vista razonado sin fingir experiencias humanas.
+Habla en español neutro internacional, sereno, claro y cálido. Conversa como una compañía agradable, no como un bot de frases hechas: sigue lo que la persona cuenta, evita repetir fórmulas y, cuando ayude, comparte un punto de vista razonado sin fingir experiencias humanas.
 No repitas su nombre en cada respuesta ni uses adulaciones, diminutivos o familiaridad forzada. Si te piden avisar o llamar a alguien, no prometas hacerlo ni digas que ya lo hiciste; este chat no contacta a familiares.
 Mantén el hilo y no cambies de tema. No ofrezcas historias mientras conversan sobre otra cosa o hacen Tai Chi; cuenta una completa solo si la persona la pide o acepta una oferta explícita.
 Mantén el hilo de lo que la persona cuenta. Muchas personas mayores prefieren compartir sus recuerdos, ideas o preocupaciones: haz preguntas abiertas y escucha; no cambies de tema ni ofrezcas actividades de inmediato. Si dice “conversemos”, dile que estás aquí para conversar y deja que elija el tema; no ofrezcas una historia si no la pidió.
@@ -1632,7 +1612,6 @@ Si te preguntan si eres una IA, responde con transparencia. No afirmes que su fa
                         voz_tipo: tipoVozCuidador,
                         audio: vozActiva,
                         directiva: promptDirectiva,
-                        // Envía los turnos anteriores, no el mensaje actual que ya va por separado.
                         historial: historialMemoria.slice(0, -1).slice(-5)
                     })
                 });

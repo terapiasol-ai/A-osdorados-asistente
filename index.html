@@ -797,7 +797,6 @@
                 const n = normalizarTexto(v.name || "");
                 let p = 0;
                 
-                // Prioridad a voz neutra
                 if (!esMasculino && (n.includes("paloma") || n.includes("dalia") || n.includes("sabina") || n.includes("monica"))) p += 200;
                 if (esMasculino && (n.includes("jorge") || n.includes("gerardo") || n.includes("carlos"))) p += 200;
 
@@ -1327,7 +1326,7 @@
                 return;
             }
             if (indicePasoTaiChi >= 0 && pasosRutinaTaiChi[indicePasoTaiChi]) {
-                estado.innerText = `🧘 Tai Chi · movimiento ${indicePasoTaiChi + 1} de${pasosRutinaTaiChi.length}`;
+                estado.innerText = `🧘 Tai Chi · movimiento ${indicePasoTaiChi + 1} de ${pasosRutinaTaiChi.length}`;
             }
         }
 
@@ -1593,6 +1592,7 @@
 
             try {
                 const promptDirectiva = `Eres ${nombreAsistente}, una inteligencia artificial conversacional de AURIONCARE. Hablas con ${nombreUsuario}.
+ATENCIÓN ESPECIAL - ESTADO DE AGOTAMIENTO: ${nombreUsuario} nos ha comunicado que está SÚPER AGOTADA. Bríndale un espacio de descanso absoluto, refugio cálido y contención total. PROHIBIDO hacerle preguntas, pedirle tareas o exigirle respuestas largas. Dale paz, silencio amoroso y oraciones ultra breves.
 La persona atendida se llama ${nombreUsuario} y tú te llamas ${nombreAsistente}; no confundas estos nombres ni llames a la persona por el nombre de la asistente. Si te preguntan si eres una IA, responde con naturalidad y transparencia.
 Habla en español neutro internacional, sereno, claro y cálido. Conversa como una compañía agradable, no como un bot de frases hechas: sigue lo que la persona cuenta, evita repetir fórmulas y, cuando ayude, comparte un punto de vista razonado sin fingir experiencias humanas.
 No repitas su nombre en cada respuesta ni uses adulaciones, diminutivos o familiaridad forzada. Si te piden avisar o llamar a alguien, no prometas hacerlo ni digas que ya lo hiciste; este chat no contacta a familiares.
@@ -1618,7 +1618,7 @@ Si te preguntan si eres una IA, responde con transparencia. No afirmes que su fa
 
                 if (!resp.ok) throw new Error(`Respuesta del servidor: ${resp.status}`);
                 const data = await resp.json();
-                const respuesta = (data.respuesta || "Estoy aquí contigo. ¿Qué te gustaría contarme?").replace(/[*#_~`]/g, "").trim();
+                const respuesta = (data.respuesta || "Estoy aquí contigo. Descansa en paz.").replace(/[*#_~`]/g, "").trim();
                 historialMemoria.push({ rol: "cuidador", texto: respuesta });
                 const loader = document.getElementById("cargando-cuidador");
                 if (loader) loader.remove();
@@ -1627,7 +1627,7 @@ Si te preguntan si eres una IA, responde con transparencia. No afirmes que su fa
             } catch (e) {
                 const loader = document.getElementById("cargando-cuidador");
                 if (loader) loader.remove();
-                const aviso = "No pude conectar en este momento. Revisa tu conexión e inténtalo de nuevo.";
+                const aviso = "Estoy aquí contigo en silencio. Descansa.";
                 agregarMensajeChat(aviso, false);
                 if (manosLibresActivas) terminarRespuestaVoz();
             }

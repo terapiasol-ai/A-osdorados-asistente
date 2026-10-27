@@ -352,3 +352,359 @@
             align-items: center;
             justify-content: center;
             padding: 15px;
+<!-- === INICIO DE LA PARTE 1: ESTRUCTURA Y DISEÑO VISUAL === -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURIONCARE | Años Dorados • Compañía con Alma</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <style>
+        :root {
+            --bg-dark: #0B0F17;
+            --card-bg: #141C28;
+            --gold: #D4AF37;
+            --gold-light: #F6E7B0;
+            --text-light: #F8FAFC;
+            --accent-green: #25D366;
+            --accent-purple: #A78BFA;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Poppins', sans-serif; 
+        }
+
+        body { 
+            background-color: var(--bg-dark); 
+            color: var(--text-light); 
+            min-height: 100vh; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        header {
+            background: linear-gradient(180deg, #182232 0%, var(--bg-dark) 100%);
+            border-bottom: 2px solid var(--gold);
+            padding: 22px 15px 16px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            object-fit: cover;
+            margin-bottom: 8px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+        }
+
+        .badge-senior {
+            background: linear-gradient(135deg, #D4AF37, #AA7C11);
+            color: #0A0E14;
+            padding: 4px 18px;
+            border-radius: 20px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        header h1 { 
+            font-family: 'Cinzel', serif; 
+            font-size: 2.2rem; 
+            color: var(--gold-light); 
+            margin-bottom: 2px; 
+            letter-spacing: 2px;
+        }
+
+        .sub-header-brand {
+            font-size: 1.05rem;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+            font-family: 'Cinzel', serif;
+        }
+
+        header p { 
+            font-size: 0.95rem; 
+            max-width: 650px; 
+            margin: 0 auto; 
+            color: #CBD5E1; 
+        }
+
+        .btn-perfil-top {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #182333;
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .main-container {
+            max-width: 820px;
+            width: 100%;
+            margin: 10px auto 25px;
+            padding: 0 15px;
+            flex: 1;
+        }
+
+        .cuidador-box {
+            background: var(--card-bg);
+            border: 2px solid var(--gold);
+            border-radius: 22px;
+            padding: 20px 16px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .top-bar-cuidador {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+            padding-bottom: 8px;
+        }
+
+        .estado-conexion {
+            color: var(--accent-green);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .btn-audio-toggle {
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            border-radius: 20px;
+            padding: 4px 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .chat-display {
+            background: #0D131F;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            padding: 18px 16px;
+            min-height: 320px;
+            max-height: 440px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .msg-cuidador {
+            background: #182333;
+            border: 1.5px solid rgba(212, 175, 55, 0.35);
+            color: #FFFDF7;
+            padding: 14px 18px;
+            border-radius: 18px 18px 18px 4px;
+            max-width: 90%;
+            font-size: 1.15rem;
+            line-height: 1.5;
+            align-self: flex-start;
+        }
+
+        .img-taichi-guia {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 14px;
+            border: 2px solid var(--gold);
+            margin: 10px 0;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            background: #fff;
+        }
+
+        .btn-repetir-voz {
+            background: none;
+            border: none;
+            color: var(--gold);
+            cursor: pointer;
+            font-size: 1.15rem;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .msg-usuario {
+            background: linear-gradient(135deg, #D4AF37, #AA7C11);
+            color: #0A0E14;
+            padding: 12px 18px;
+            border-radius: 18px 18px 4px 18px;
+            max-width: 85%;
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.4;
+            align-self: flex-end;
+        }
+
+        .sugerencias-box {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .btn-sugerencia {
+            background: #182232;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--gold-light);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-sugerencia:hover { 
+            background: rgba(212, 175, 55, 0.2); 
+        }
+
+        .manos-libres-activo {
+            border-color: var(--accent-green) !important;
+            color: #B8F5CE !important;
+            background: rgba(37, 211, 102, 0.14) !important;
+        }
+
+        .controls-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .big-mic-btn {
+            background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
+            color: #0A0E14;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 36px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.45);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 380px;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .big-mic-btn.recording {
+            background: #E53E3E;
+            color: #FFF;
+            animation: pulseRecord 1.2s infinite;
+        }
+
+        .big-mic-btn.hablando {
+            background: #1E3A8A;
+            color: #93C5FD;
+        }
+
+        @keyframes pulseRecord {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+            100% { transform: scale(1); }
+        }
+
+        .sub-input-row {
+            display: flex;
+            width: 100%;
+            gap: 8px;
+        }
+
+        .text-input-senior {
+            flex: 1;
+            background: #0E1420;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 25px;
+            padding: 12px 18px;
+            color: #FFF;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .btn-enviar-senior {
+            background: var(--gold);
+            border: none;
+            color: #0A0E14;
+            border-radius: 50%;
+            width: 46px;
+            height: 46px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* MODALES */
+        #modal-perfil {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 999999;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .perfil-card {
+            background: #141C28;
+            border: 2px solid var(--gold);
+            border-radius: 18px;
+            padding: 22px;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .perfil-card h3 { 
+            color: var(--gold-light); 
+            margin-bottom: 12px; 
+            font-family: 'Cinzel', serif; 
+        }
+
+        .perfil-input {
+            width: 100%;
+            background: #0D131F;
+            border: 1px solid var(--gold);
+            border-radius: 12px;
+            padding: 10px 14px;
+            color: #FFF;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            outline: none;
+        }
+
+        #modal-activacion {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(11, 15, 23, 0.98);
+            z-index: 1000000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+
+            

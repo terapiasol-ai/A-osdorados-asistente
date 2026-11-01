@@ -17,21 +17,8 @@
             --accent-purple: #A78BFA;
         }
 
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-            font-family: 'Poppins', sans-serif; 
-        }
-
-        body { 
-            background-color: var(--bg-dark); 
-            color: var(--text-light); 
-            min-height: 100vh; 
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-light); min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
 
         header {
             background: linear-gradient(180deg, #182232 0%, var(--bg-dark) 100%);
@@ -42,469 +29,166 @@
         }
 
         .header-logo {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 2px solid var(--gold);
-            object-fit: cover;
-            margin-bottom: 8px;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+            width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--gold);
+            object-fit: cover; margin-bottom: 8px; box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
         }
 
         .badge-senior {
-            background: linear-gradient(135deg, #D4AF37, #AA7C11);
-            color: #0A0E14;
-            padding: 4px 18px;
-            border-radius: 20px;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 6px;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #D4AF37, #AA7C11); color: #0A0E14;
+            padding: 4px 18px; border-radius: 20px; font-weight: 700; display: inline-block;
+            margin-bottom: 6px; font-size: 0.85rem; letter-spacing: 0.5px;
         }
 
-        header h1 { 
-            font-family: 'Cinzel', serif; 
-            font-size: 2.2rem; 
-            color: var(--gold-light); 
-            margin-bottom: 2px; 
-            letter-spacing: 2px;
-        }
-
-        .sub-header-brand {
-            font-size: 1.05rem;
-            color: var(--gold);
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            margin-bottom: 6px;
-            font-family: 'Cinzel', serif;
-        }
-
-        header p { 
-            font-size: 0.95rem; 
-            max-width: 650px; 
-            margin: 0 auto; 
-            color: #CBD5E1; 
-        }
+        header h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; color: var(--gold-light); margin-bottom: 2px; letter-spacing: 2px; }
+        .sub-header-brand { font-size: 1.05rem; color: var(--gold); font-weight: 600; letter-spacing: 1.5px; margin-bottom: 6px; font-family: 'Cinzel', serif; }
+        header p { font-size: 0.95rem; max-width: 650px; margin: 0 auto; color: #CBD5E1; }
 
         .btn-perfil-top {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #182333;
-            border: 1px solid var(--gold);
-            color: var(--gold-light);
-            border-radius: 20px;
-            padding: 6px 14px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            font-weight: 600;
+            position: absolute; top: 15px; right: 15px; background: #182333;
+            border: 1px solid var(--gold); color: var(--gold-light); border-radius: 20px;
+            padding: 6px 14px; font-size: 0.85rem; cursor: pointer; font-weight: 600;
         }
 
-        .main-container {
-            max-width: 820px;
-            width: 100%;
-            margin: 10px auto 25px;
-            padding: 0 15px;
-            flex: 1;
-        }
+        .main-container { max-width: 820px; width: 100%; margin: 10px auto 25px; padding: 0 15px; flex: 1; }
 
         .cuidador-box {
-            background: var(--card-bg);
-            border: 2px solid var(--gold);
-            border-radius: 22px;
-            padding: 20px 16px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.7);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+            background: var(--card-bg); border: 2px solid var(--gold); border-radius: 22px;
+            padding: 20px 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.7); display: flex; flex-direction: column; gap: 12px;
         }
 
         .top-bar-cuidador {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-            padding-bottom: 8px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.25); padding-bottom: 8px;
         }
 
-        .estado-conexion {
-            color: var(--accent-green);
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
+        .estado-conexion { color: var(--accent-green); font-size: 0.95rem; font-weight: 600; }
         .btn-audio-toggle {
-            background: rgba(212, 175, 55, 0.15);
-            border: 1px solid var(--gold);
-            color: var(--gold-light);
-            border-radius: 20px;
-            padding: 4px 12px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
+            background: rgba(212, 175, 55, 0.15); border: 1px solid var(--gold);
+            color: var(--gold-light); border-radius: 20px; padding: 4px 12px; cursor: pointer; font-size: 0.85rem; font-weight: 600;
         }
 
         .chat-display {
-            background: #0D131F;
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 18px;
-            padding: 18px 16px;
-            min-height: 320px;
-            max-height: 440px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+            background: #0D131F; border: 1px solid rgba(255,255,255,0.08); border-radius: 18px;
+            padding: 18px 16px; min-height: 320px; max-height: 440px; overflow-y: auto;
+            display: flex; flex-direction: column; gap: 12px;
         }
 
         .msg-cuidador {
-            background: #182333;
-            border: 1.5px solid rgba(212, 175, 55, 0.35);
-            color: #FFFDF7;
-            padding: 14px 18px;
-            border-radius: 18px 18px 18px 4px;
-            max-width: 90%;
-            font-size: 1.15rem;
-            line-height: 1.5;
-            align-self: flex-start;
+            background: #182333; border: 1.5px solid rgba(212, 175, 55, 0.35); color: #FFFDF7;
+            padding: 14px 18px; border-radius: 18px 18px 18px 4px; max-width: 90%; font-size: 1.15rem; line-height: 1.5; align-self: flex-start;
         }
 
         .img-taichi-guia {
-            width: 100%;
-            max-width: 320px;
-            border-radius: 14px;
-            border: 2px solid var(--gold);
-            margin: 10px 0;
-            display: block;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            background: #fff;
-        }
-
-        .btn-repetir-voz {
-            background: none;
-            border: none;
-            color: var(--gold);
-            cursor: pointer;
-            font-size: 1.15rem;
-            margin-left: 8px;
-            vertical-align: middle;
+            width: 100%; max-width: 320px; border-radius: 14px; border: 2px solid var(--gold);
+            margin: 10px 0; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.5); background: #fff;
         }
 
         .msg-usuario {
-            background: linear-gradient(135deg, #D4AF37, #AA7C11);
-            color: #0A0E14;
-            padding: 12px 18px;
-            border-radius: 18px 18px 4px 18px;
-            max-width: 85%;
-            font-size: 1.15rem;
-            font-weight: 600;
-            line-height: 1.4;
-            align-self: flex-end;
+            background: linear-gradient(135deg, #D4AF37, #AA7C11); color: #0A0E14;
+            padding: 12px 18px; border-radius: 18px 18px 4px 18px; max-width: 85%; font-size: 1.15rem; font-weight: 600; line-height: 1.4; align-self: flex-end;
         }
 
-        .sugerencias-box {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
+        .sugerencias-box { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
         .btn-sugerencia {
-            background: #182232;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: var(--gold-light);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: background 0.2s;
+            background: #182232; border: 1px solid rgba(212, 175, 55, 0.3); color: var(--gold-light);
+            padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: background 0.2s;
         }
-        .btn-sugerencia:hover { 
-            background: rgba(212, 175, 55, 0.2); 
-        }
+        .btn-sugerencia:hover { background: rgba(212, 175, 55, 0.2); }
+        .manos-libres-activo { border-color: var(--accent-green) !important; color: #B8F5CE !important; background: rgba(37, 211, 102, 0.14) !important; }
 
-        .manos-libres-activo {
-            border-color: var(--accent-green) !important;
-            color: #B8F5CE !important;
-            background: rgba(37, 211, 102, 0.14) !important;
-        }
-
-        .controls-panel {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
+        .controls-panel { display: flex; flex-direction: column; align-items: center; gap: 10px; }
         .big-mic-btn {
-            background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
-            color: #0A0E14;
-            border: none;
-            border-radius: 50px;
-            padding: 16px 36px;
-            font-size: 1.3rem;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.45);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            max-width: 380px;
-            justify-content: center;
-            transition: all 0.2s ease;
+            background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%); color: #0A0E14;
+            border: none; border-radius: 50px; padding: 16px 36px; font-size: 1.3rem; font-weight: 800;
+            cursor: pointer; box-shadow: 0 8px 25px rgba(212, 175, 55, 0.45); display: flex; align-items: center; gap: 10px; width: 100%; max-width: 380px; justify-content: center;
         }
+        .big-mic-btn.recording { background: #E53E3E; color: #FFF; animation: pulseRecord 1.2s infinite; }
 
-        .big-mic-btn.recording {
-            background: #E53E3E;
-            color: #FFF;
-            animation: pulseRecord 1.2s infinite;
-        }
+        @keyframes pulseRecord { 0% { transform: scale(1); } 50% { transform: scale(1.04); } 100% { transform: scale(1); } }
 
-        .big-mic-btn.hablando {
-            background: #1E3A8A;
-            color: #93C5FD;
-        }
-
-        @keyframes pulseRecord {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.04); }
-            100% { transform: scale(1); }
-        }
-
-        .sub-input-row {
-            display: flex;
-            width: 100%;
-            gap: 8px;
-        }
-
+        .sub-input-row { display: flex; width: 100%; gap: 8px; }
         .text-input-senior {
-            flex: 1;
-            background: #0E1420;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 25px;
-            padding: 12px 18px;
-            color: #FFF;
-            font-size: 1rem;
-            outline: none;
+            flex: 1; background: #0E1420; border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 25px; padding: 12px 18px; color: #FFF; font-size: 1rem; outline: none;
         }
-
         .btn-enviar-senior {
-            background: var(--gold);
-            border: none;
-            color: #0A0E14;
-            border-radius: 50%;
-            width: 46px;
-            height: 46px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
+            background: var(--gold); border: none; color: #0A0E14; border-radius: 50%;
+            width: 46px; height: 46px; cursor: pointer; font-size: 18px; font-weight: bold;
         }
 
-        /* MODALES */
-        #modal-perfil {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 999999;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
+        /* TARJETA VISIBLE DE SOPORTE TÉCNICO (SOL-AI) */
+        .soporte-card-destacada {
+            background: #141C28; border: 2px solid var(--gold); border-radius: 18px;
+            padding: 16px 20px; margin-top: 20px; display: flex; align-items: center;
+            justify-content: space-between; flex-wrap: wrap; gap: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+        }
+        .soporte-info { display: flex; align-items: center; gap: 12px; }
+        .soporte-avatar { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
+        .soporte-tit { color: var(--gold-light); font-weight: 700; font-size: 1.05rem; }
+        .soporte-sub { color: #CBD5E1; font-size: 0.85rem; }
+        .btn-telegram-soporte {
+            background: linear-gradient(135deg, #25D366, #128C7E); color: #FFF;
+            padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: 700;
+            font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
         }
 
-        .perfil-card {
-            background: #141C28;
-            border: 2px solid var(--gold);
-            border-radius: 18px;
-            padding: 22px;
-            max-width: 380px;
-            width: 100%;
-            text-align: center;
+        /* TARJETA DE GUÍA DE AUDIO AMBIENTAL / TV */
+        .ambient-card {
+            background: #182333; border: 1px dashed var(--gold); border-radius: 16px;
+            padding: 14px 18px; margin-top: 15px; display: flex; align-items: center; gap: 14px;
         }
+        .ambient-icon { font-size: 1.8rem; color: var(--gold-light); }
+        .ambient-text h4 { color: var(--gold-light); font-size: 0.95rem; font-weight: 600; margin-bottom: 2px; }
+        .ambient-text p { color: #CBD5E1; font-size: 0.82rem; line-height: 1.4; }
 
-        .perfil-card h3 { 
-            color: var(--gold-light); 
-            margin-bottom: 12px; 
-            font-family: 'Cinzel', serif; 
+        #modal-perfil, #modal-activacion {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(11, 15, 23, 0.95); z-index: 999999; align-items: center; justify-content: center; padding: 15px;
         }
-
+        .perfil-card, .activacion-card {
+            background: #141C28; border: 2px solid var(--gold); border-radius: 18px;
+            padding: 22px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.9);
+        }
+        .perfil-card h3, .activacion-card h3 { color: var(--gold-light); margin-bottom: 12px; font-family: 'Cinzel', serif; }
         .perfil-input {
-            width: 100%;
-            background: #0D131F;
-            border: 1px solid var(--gold);
-            border-radius: 12px;
-            padding: 10px 14px;
-            color: #FFF;
-            font-size: 1rem;
-            margin-bottom: 12px;
-            outline: none;
+            width: 100%; background: #0D131F; border: 1px solid var(--gold); border-radius: 12px;
+            padding: 10px 14px; color: #FFF; font-size: 1rem; margin-bottom: 12px; outline: none;
         }
 
-        #modal-activacion {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(11, 15, 23, 0.98);
-            z-index: 1000000;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            overflow-y: auto;
-        }
-
-        .activacion-card {
-            background: #141C28;
-            border: 2px solid var(--gold);
-            border-radius: 22px;
-            padding: 24px 18px;
-            max-width: 440px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.95);
-        }
-
-        .transparencia-box {
-            background: rgba(212, 175, 55, 0.08);
-            border: 1px solid var(--gold);
-            border-radius: 12px;
-            padding: 12px;
-            font-size: 0.82rem;
-            color: #E2E8F0;
-            text-align: left;
-            margin: 14px 0 10px;
-            line-height: 1.45;
-        }
-
-        footer {
-            text-align: center;
-            padding: 18px 15px;
-            background: #06090E;
-            color: #94A3B8;
-            font-size: 0.85rem;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        #sol-ai-widget { 
-            position: fixed; 
-            bottom: 20px; 
-            right: 15px; 
-            z-index: 99999; 
-        }
-
-        .sol-bubble {
-            background: #151D28;
-            border: 2px solid var(--gold);
-            border-radius: 40px;
-            padding: 6px 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            box-shadow: 0 6px 25px rgba(0,0,0,0.6);
-        }
-
-        .sol-avatar-img { 
-            width: 34px; 
-            height: 34px; 
-            border-radius: 50%; 
-            border: 1.5px solid var(--gold); 
-            object-fit: cover; 
-        }
-
-        .sol-info { 
-            text-align: left; 
-            line-height: 1.2; 
-        }
-
-        .sol-name { 
-            color: var(--gold-light); 
-            font-size: 11.5px; 
-            font-weight: 700; 
-        }
-
-        .sol-desc { 
-            color: #25D366; 
-            font-size: 9px; 
-            font-weight: 600; 
-        }
-
-        #sol-ai-modal {
-            display: none;
-            position: fixed;
-            bottom: 80px;
-            right: 15px;
-            width: 320px;
-            max-width: 90vw;
-            height: 380px;
-            background: #141C26;
-            border: 2px solid var(--gold);
-            border-radius: 18px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.85);
-            flex-direction: column;
-            overflow: hidden;
-            z-index: 99999;
-        }
-
-        .sol-header { 
-            background: #1C2736; 
-            border-bottom: 1.5px solid var(--gold); 
-            padding: 12px 14px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-        }
-
-        .sol-messages { 
-            flex: 1; 
-            padding: 12px; 
-            overflow-y: auto; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 10px; 
-            font-size: 0.9rem; 
-        }
+        footer { text-align: center; padding: 18px 15px; background: #06090E; color: #94A3B8; font-size: 0.85rem; border-top: 1px solid rgba(212, 175, 55, 0.2); margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <!-- MODAL DE HABILITACIÓN INICIAL CON FORMULARIO Y CLAVE -->
-    <div id="modal-activacion">
+    <!-- MODAL DE HABILITACIÓN E IDENTIFICACIÓN INICIAL -->
+    <div id="modal-activacion" style="display:flex;">
         <div class="activacion-card">
             <span style="font-size: 2.2rem; display: block; margin-bottom: 4px;">✨</span>
-            <h2 id="act-titulo" style="font-family:'Cinzel',serif; color:var(--gold-light); margin-bottom:6px;">Habilitación de AurionCare</h2>
-            <p id="act-desc" style="font-size:0.86rem; color:#CBD5E1; margin-bottom:12px;">Ingresa tus datos para personalizar a Paz y activar tu primer mes de servicio.</p>
+            <h3 style="font-family:'Cinzel',serif; color:var(--gold-light);">AURIONCARE | Años Dorados</h3>
+            <p style="font-size:0.86rem; color:#CBD5E1; margin-bottom:12px;">Ingresa tus datos para personalizar a tu asistente y activar tu experiencia.</p>
             
-            <input type="text" id="actNombre" class="perfil-input" placeholder="Tu Nombre (Ej: Sol, María)">
+            <div style="font-size:0.82rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Tu Nombre:</div>
+            <input type="text" id="actNombre" class="perfil-input" value="Sol" placeholder="Tu Nombre (Ej: Sol)">
             
             <div style="font-size:0.82rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Nombre de tu Asistente:</div>
             <input type="text" id="actNombreAsistente" class="perfil-input" value="Paz" placeholder="Nombre (Ej: Paz)">
 
-            <div style="font-size:0.82rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Voz Neural de Google:</div>
+            <div style="font-size:0.82rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Voz de tu Asistente:</div>
             <select id="actVozTipo" class="perfil-input">
-                <option value="google-aode">🌸 Femenina Warm (Aode Neural2)</option>
-                <option value="google-fenrir">🌿 Masculina Deep (Fenrir Neural2)</option>
+                <option value="Aoede">🌸 Aoede (Femenina • Cálida y Natural)</option>
+                <option value="Algieba">🌿 Algieba (Masculina • Cercana y Clara)</option>
             </select>
 
-            <div class="transparencia-box">
-                💳 <strong>Condiciones Claras del Servicio:</strong><br>
-                &bull; <strong>Derecho de Entrada:</strong> Tu pago inicial cubre la habilitación del sistema e incluye tu <strong>primer mes (30 días) de servicio</strong>.<br>
-                &bull; <strong>Mensualidad por Anticipado:</strong> Al finalizar cada período de 30 días, se debe <strong>pagar por anticipado</strong> la mensualidad de <strong>$99 USD</strong> para continuar con el servicio activo en la nube.<br>
-                &bull; <strong>Compatibilidad:</strong> Puedes usar este servicio directamente desde tu celular, tablet o conectarlo a cualquier parlante Bluetooth o Alexa.<br>
-                ⚖️ <em>Licencia de uso exclusivo para este dispositivo. Servicio personal e intransferible.</em>
-            </div>
-
-            <button onclick="activarLicenciaCliente()" style="background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; padding:12px 24px; border-radius:25px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; font-size:1rem; margin-top:10px;">Activar mi Acompañamiento</button>
+            <button onclick="activarLicenciaCliente()" style="background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; padding:12px 24px; border-radius:25px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; font-size:1rem; margin-top:10px;">Comenzar Acompañamiento</button>
         </div>
     </div>
 
-    <!-- CABECERA OFICIAL: AURIONCARE AÑOS DORADOS -->
+    <!-- CABECERA -->
     <header>
         <button class="btn-perfil-top" onclick="abrirPerfil()">⚙️ <span id="labelNombreTop">Sol</span></button>
-        <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/WA_1783391770679.jpeg" 
-             alt="Logo AurionCare" 
-             class="header-logo">
+        <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/WA_1783391770679.jpeg" alt="Logo AurionCare" class="header-logo">
         <br>
         <span class="badge-senior">✨ AÑOS DORADOS</span>
         <h1>AURIONCARE</h1>
@@ -521,18 +205,15 @@
 
             <div class="chat-display" id="chatDisplay">
                 <div class="msg-cuidador" id="msgBienvenida">
-                    Hola <span id="saludoNombre">Sol</span>. ¿Cómo estás hoy? Podemos conversar con calma o registrar tus horarios de medicamentos.
-                    <button class="btn-repetir-voz" onclick="hablarSaludoInicial()" title="Escuchar">🔊</button>
+                    Hola <span id="saludoNombre">Sol</span>. ¿Cómo estás hoy? Podemos conversar con calma.
                 </div>
             </div>
 
-            <!-- BOTONES DE ACCIÓN RÁPIDA -->
             <div class="sugerencias-box">
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Conversemos un momento con calma')">💬 Conversemos</button>
-                <button class="btn-sugerencia" onclick="iniciarTaiChiConImagen()">🧘 Ejercicios y Movimiento · Paz</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero anotar el horario de mi medicamento')">💊 Recordar Medicamento</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Hablemos de mis hobbies, talentos y creaciones')">🎨 Mis Talentos & Tejido</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero una breve relajación guiada y un vaso de agua')">🌿 Relajación y Agua</button>
+                <button class="btn-sugerencia" onclick="iniciarTaiChiConImagen()">🧘 Tai Chi en silla (9 ejercicios)</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Hablemos de mis hobbies, talentos y creaciones')">🎨 Mis Talentos</button>
+                <button class="btn-sugerencia" onclick="enviarSugerencia('Cuéntame una historia bonita o del recuerdo')">📖 Una historia</button>
             </div>
 
             <div class="controls-panel">
@@ -542,61 +223,54 @@
                 <button type="button" class="btn-sugerencia" id="btnManosLibres" onclick="toggleManosLibres()" style="padding:10px 18px; font-size:0.95rem;">
                     🎙️ Activar manos libres
                 </button>
-                <p id="ayudaManosLibres" style="font-size:0.78rem; color:#CBD5E1; text-align:center; max-width:560px; line-height:1.4;">
-                    Actívalo una vez por sesión y luego di el nombre de tu asistente. Durante el ejercicio puedes decir “pausa”, “reanudar”, “de pie”, “sentada” o “detener”.
-                </p>
-
+                
                 <div class="sub-input-row">
                     <input type="text" class="text-input-senior" id="inputSenior" placeholder="Habla con el micrófono o escribe aquí..." onkeypress="if(event.key==='Enter') enviarMensajeSenior()">
                     <button class="btn-enviar-senior" onclick="enviarMensajeSenior()">➤</button>
                 </div>
             </div>
         </div>
+
+        <!-- GUÍA DE PRESENCIA AMBIENTAL (TV / PARLANTES) -->
+        <div class="ambient-card">
+            <div class="ambient-icon">📺🔊</div>
+            <div class="ambient-text">
+                <h4>Presencia Viva en el Hogar</h4>
+                <p>Conecta tu celular a tu Smart TV (por Smart View o Chromecast) o a un parlante Bluetooth para que la voz de <strong>Paz</strong> llene todo el espacio con calidez y compañía.</p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE SOPORTE TÉCNICO VISIBLE (SOL-AI) -->
+        <div class="soporte-card-destacada">
+            <div class="soporte-info">
+                <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" alt="Sol-AI Soporte" class="soporte-avatar">
+                <div>
+                    <div class="soporte-tit">🛠️ Soporte Técnico & Administración • Sol-AI</div>
+                    <div class="soporte-sub">¿Consultas sobre tu suscripción, pagos o asistencia familiar?</div>
+                </div>
+            </div>
+            <a href="https://t.me/Solsanchez_bot" target="_blank" class="btn-telegram-soporte">
+                <i class="fa-brands fa-telegram"></i> Contactar a Sol-AI
+            </a>
+        </div>
     </div>
 
     <!-- MODAL PERFIL -->
     <div id="modal-perfil">
         <div class="perfil-card">
-            <h3>Tu Nombre y Preferencias</h3>
-            <p style="font-size:0.85rem; color:#CBD5E1; margin-bottom:12px;">Configura tu experiencia con Paz:</p>
+            <h3>Configuración</h3>
+            <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Tu Nombre:</div>
             <input type="text" id="inputNombreSenior" class="perfil-input" value="Sol" placeholder="Tu nombre">
+            <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Nombre del Asistente:</div>
             <input type="text" id="inputNombreAsistenteEdit" class="perfil-input" value="Paz" placeholder="Nombre de tu asistente">
             
-            <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:6px; text-align:left;">Voz Neural de Google:</div>
+            <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:4px; text-align:left;">Voz del Asistente:</div>
             <select id="selectVozTipo" class="perfil-input">
-                <option value="google-aode">🌸 Femenina Warm (Aode Neural2)</option>
-                <option value="google-fenrir">🌿 Masculina Deep (Fenrir Neural2)</option>
+                <option value="Aoede">🌸 Aoede (Femenina)</option>
+                <option value="Algieba">🌿 Algieba (Masculina)</option>
             </select>
 
             <button onclick="guardarPerfil()" style="background:var(--gold); border:none; padding:10px 24px; border-radius:20px; font-weight:bold; cursor:pointer; color:#0A0E14;">Guardar Cambios</button>
-        </div>
-    </div>
-
-    <!-- WIDGET SOPORTE FAMILIAR Y CEREBRO DE LEO -->
-    <div id="sol-ai-widget">
-        <div class="sol-bubble" onclick="toggleModalSolAI()">
-            <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" alt="Sol-AI" class="sol-avatar-img">
-            <div class="sol-info">
-                <div class="sol-name">Sol-AI</div>
-                <div class="sol-desc">Soporte Familiar & Leo</div>
-            </div>
-        </div>
-
-        <div id="sol-ai-modal">
-            <div class="sol-header">
-                <div style="color:var(--gold-light); font-weight:700; font-size:13px;">Asistencia y Registro de Leo</div>
-                <button onclick="toggleModalSolAI()" style="background:none; border:none; color:#CBD5E1; font-size:18px; cursor:pointer;">✕</button>
-            </div>
-            <div class="sol-messages" id="solMessages">
-                <div style="background:#1B2636; border:1px solid rgba(212,175,55,0.3); padding:10px; border-radius:10px; font-size:0.88rem;">
-                    ¡Hola! Soy <strong>Sol-AI</strong>.<br><br>
-                    Toda consulta, registro de medicamentos e interacción queda asegurada y transmitida en tiempo real al <strong>Cerebro de Leo</strong> para tranquilidad de la familia.
-                </div>
-            </div>
-            <div style="padding:8px; background:#101620; border-top:1px solid rgba(212,175,55,0.2); display:flex; gap:6px;">
-                <input type="text" id="solInput" placeholder="Mensaje directo de soporte..." onkeypress="if(event.key==='Enter') enviarMensajeSolAI()" style="flex:1; background:#182230; border:1px solid rgba(212,175,55,0.3); border-radius:15px; padding:8px 12px; color:#FFF; font-size:0.85rem; outline:none;">
-                <button onclick="enviarMensajeSolAI()" style="background:var(--gold); border:none; color:#0A0E14; border-radius:50%; width:34px; height:34px; cursor:pointer; font-weight:bold;">➤</button>
-            </div>
         </div>
     </div>
 
@@ -607,25 +281,15 @@
     <script>
         let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
         let nombreAsistente = localStorage.getItem("senior_asistente_nom") || "Paz";
-        let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "google-aode";
+        let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "Aoede";
         let historialMemoria = [];
-        let indexFotoTaiChi = 0;
+        let vozActiva = true;
         let manosLibresActivas = false;
-        let reconocimientoEnCurso = false;
-        let respuestaEnCurso = false;
-        let esperandoComandoWake = false;
-        let timerWake = null;
-        let timerReinicioReconocimiento = null;
-        let callbackAlTerminarVoz = null;
+        let recognition = null;
         let rutinaTaiChiActiva = false;
-        let rutinaTaiChiPausada = false;
-        let indicePasoTaiChi = -1;
-        let indiceRespiracionTaiChi = 0;
-        let faseRutinaTaiChi = "inactiva";
         let timerRutinaTaiChi = null;
-        let vencimientoRutinaTaiChi = 0;
-        let tiempoRestanteRutinaTaiChi = 0;
 
+        // LAS 9 LÁMINAS COMPLETAS
         const fotosTaiChi = [
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246436360.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246496795.jpg",
@@ -638,83 +302,52 @@
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246654353.jpg"
         ];
 
-        function verificarSeguridadYAcceso() {
-            if (localStorage.getItem('es_duena_sol') === 'true') return;
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('acceso') === "SOL2026") {
-                localStorage.setItem('es_duena_sol', 'true');
-                localStorage.setItem("senior_nombre", "Sol");
-                window.history.replaceState({}, document.title, window.location.pathname);
-                return;
+        // LAS 9 INDICACIONES DE LA RUTINA COMPLETA
+        const pasosRutinaTaiChi = [
+            { foto: 0, titulo: "Círculos suaves de brazos", duracion: 16000, indicacion: "Haz círculos suaves con los brazos hacia adelante y hacia atrás, respirando con tranquilidad." },
+            { foto: 1, titulo: "Extensión suave de piernas", duracion: 16000, indicacion: "Desliza un pie suavemente hacia el frente y tráelo de vuelta; luego alterna con el otro." },
+            { foto: 2, titulo: "Apertura de pecho", duracion: 16000, indicacion: "Abre tus brazos despacio inhalando aire fresco, y vuélvelos a juntar suavemente al exhalar." },
+            { foto: 3, titulo: "Rotación serena de torso", duracion: 16000, indicacion: "Gira suavemente la parte superior de tu cuerpo hacia un lado y hacia el otro sin forzar la espalda." },
+            { foto: 4, titulo: "Marcha tranquila en silla", duracion: 16000, indicacion: "Con la espalda erguida y apoyada, eleva una rodilla a la vez muy suavemente." },
+            { foto: 5, titulo: "Elevación de brazos al cielo", duracion: 16000, indicacion: "Lleva un brazo hacia arriba como tocando el cielo, bájalo suavemente y repite con el otro." },
+            { foto: 6, titulo: "Inclinación suave lateral", duracion: 16000, indicacion: "Inclina tu cuerpo suavemente hacia la derecha, regresa al centro y hazlo hacia la izquierda." },
+            { foto: 7, titulo: "Movimiento de olas", duracion: 16000, indicacion: "Empuja tus manos hacia adelante suavemente como el agua del mar y tráelas hacia tu pecho." },
+            { foto: 8, titulo: "Calma y respiración profunda", duracion: 16000, indicacion: "Descansa las manos sobre tus muslos, cierra los ojos un instante y haz dos respiraciones lentas." }
+        ];
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const guardado = localStorage.getItem("senior_nombre");
+            if (guardado) {
+                document.getElementById("modal-activacion").style.display = "none";
+                actualizarTextosInterfaz();
             }
-
-            const fechaVence = localStorage.getItem('suscripcion_vence_el');
-            const tieneNombre = localStorage.getItem("senior_nombre");
-
-            if (fechaVence && tieneNombre) {
-                const ahora = new Date().getTime();
-                if (ahora < parseInt(fechaVence)) {
-                    return;
-                } else {
-                    mostrarModalActivacion(
-                        "🔒 Período Mensual Finalizado", 
-                        "Tus 30 días incluidos han finalizado. Para continuar disfrutando del servicio activo, se debe pagar la mensualidad por anticipado ($99 USD). Contacta a Sol-AI para coordinar."
-                    );
-                    return;
-                }
-            }
-
-            mostrarModalActivacion("✨ Habilitación de tu Asistente", "Ingresa tus datos para personalizar tu asistente y activar tu primer mes de servicio.");
-        }
-
-        function mostrarModalActivacion(titulo, desc) {
-            document.getElementById("act-titulo").innerText = titulo;
-            document.getElementById("act-desc").innerText = desc;
-            document.getElementById("modal-activacion").style.display = "flex";
-        }
+        });
 
         function activarLicenciaCliente() {
             const nom = document.getElementById("actNombre").value.trim() || "Sol";
             const asis = document.getElementById("actNombreAsistente").value.trim() || "Paz";
             const voz = document.getElementById("actVozTipo").value;
 
-            if (nom.toLowerCase() === "sol") {
-                localStorage.setItem('es_duena_sol', 'true');
-                guardarDatosUsuario("Sol", voz, "femenino", asis);
-                document.getElementById("modal-activacion").style.display = "none";
-                desbloquearAudioCelular();
-                return;
-            }
-
-            const codigoGenerado = "VIP-" + nom.toUpperCase().replace(/\s+/g, '') + "-" + Math.floor(1000 + Math.random() * 9000);
-            const treintaDias = 30 * 24 * 60 * 60 * 1000;
-            
-            localStorage.setItem('suscripcion_vence_el', (new Date().getTime() + treintaDias).toString());
-            localStorage.setItem('licencia_dispositivo', codigoGenerado);
-            
-            guardarDatosUsuario(nom, voz, "femenino", asis);
-            document.getElementById("modal-activacion").style.display = "none";
-            desbloquearAudioCelular();
-
-            alert(`¡Bienvenido/a ${nom}! Tu asistente ${asis} ha sido habilitado con éxito en este dispositivo.\n\nTu clave de licencia es: ${codigoGenerado}\nTu primer mes (30 días) ya está activo.`);
-        }
-
-        function guardarDatosUsuario(nom, voz, gen, asis) {
             nombreUsuario = nom;
             nombreAsistente = asis;
             tipoVozCuidador = voz;
+            
             localStorage.setItem("senior_nombre", nom);
             localStorage.setItem("senior_asistente_nom", asis);
             localStorage.setItem("senior_voz_tipo", voz);
-            actualizarTextosPerfil();
+            
+            actualizarTextosInterfaz();
+            document.getElementById("modal-activacion").style.display = "none";
         }
 
-        function actualizarTextosPerfil() {
+        function actualizarTextosInterfaz() {
             document.getElementById("labelNombreTop").innerText = nombreUsuario;
             document.getElementById("saludoNombre").innerText = nombreUsuario;
+            document.getElementById("headerNombreAsistente").innerText = nombreAsistente;
             document.getElementById("estadoTexto").innerText = `🟢 ${nombreAsistente} en línea • Contigo`;
-            const nombreCabecera = document.getElementById("headerNombreAsistente");
-            if (nombreCabecera) nombreCabecera.innerText = nombreAsistente;
+            document.getElementById("msgBienvenida").innerHTML = `Hola <span id="saludoNombre">${nombreUsuario}</span>. ¿Cómo estás hoy? Podemos conversar con calma.`;
+            const btnMic = document.getElementById("btnMicSenior");
+            if (btnMic) btnMic.innerHTML = `<span>🎙️ Tocar para Hablar con ${nombreAsistente}</span>`;
         }
 
         function abrirPerfil() {
@@ -728,774 +361,98 @@
             nombreUsuario = document.getElementById("inputNombreSenior").value.trim() || "Sol";
             nombreAsistente = document.getElementById("inputNombreAsistenteEdit").value.trim() || "Paz";
             tipoVozCuidador = document.getElementById("selectVozTipo").value;
+            
             localStorage.setItem("senior_nombre", nombreUsuario);
             localStorage.setItem("senior_asistente_nom", nombreAsistente);
             localStorage.setItem("senior_voz_tipo", tipoVozCuidador);
-            actualizarTextosPerfil();
-            document.getElementById("modal-perfil").style.display = "none";
-            desbloquearAudioCelular();
-        }
 
-        actualizarTextosPerfil();
-        verificarSeguridadYAcceso();
+            actualizarTextosInterfaz();
+            document.getElementById("modal-perfil").style.display = "none";
+        }
 
         const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
-        const SOL_ENDPOINT = "https://solsanchez-ai-ulq2.onrender.com/api/chat";
-
-        let vozActiva = true;
-        let grabacionActiva = false;
-        let recognition = null;
-        let listaVoces = [];
-        let audioActual = null;
-        let objectUrlAudio = null;
-
-        function cargarVoces() {
-            if ('speechSynthesis' in window) listaVoces = window.speechSynthesis.getVoices();
-        }
-        cargarVoces();
-        if ('speechSynthesis' in window) window.speechSynthesis.onvoiceschanged = cargarVoces;
-
-        function detenerAudioActual() {
-            if (audioActual) {
-                audioActual.pause();
-                audioActual.currentTime = 0;
-                audioActual = null;
-            }
-            if (objectUrlAudio) {
-                URL.revokeObjectURL(objectUrlAudio);
-                objectUrlAudio = null;
-            }
-        }
-
-        function desbloquearAudioCelular() {
-            if ('speechSynthesis' in window) window.speechSynthesis.resume();
-        }
 
         function toggleAudio() {
             vozActiva = !vozActiva;
             document.getElementById("btnAudioToggle").innerText = vozActiva ? "🔊 Voz Activa" : "🔇 Silencio";
-            if (!vozActiva) {
-                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-                detenerAudioActual();
-                if (respuestaEnCurso) terminarRespuestaVoz();
-                else detenerMic();
-            }
+            if (!vozActiva && 'speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
-        function normalizarTexto(s) {
-            return (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-        }
-
-        function obtenerMejorVoz(tipo) {
-            if (!('speechSynthesis' in window)) return null;
-            if (!listaVoces.length) cargarVoces();
-            const es = listaVoces.filter(v => (v.lang || "").toLowerCase().startsWith("es"));
-            if (!es.length) return null;
-
-            const esMasculino = (tipo || "").toLowerCase().includes("fenrir") || (tipo || "").toLowerCase().includes("jorge") || (tipo || "").toLowerCase().includes("masculino");
-            const puntuacion = (v) => {
-                const n = normalizarTexto(v.name || "");
-                let p = 0;
-                
-                if (!esMasculino && (n.includes("aode") || n.includes("paloma") || n.includes("dalia") || n.includes("sabina") || n.includes("monica"))) p += 200;
-                if (esMasculino && (n.includes("fenrir") || n.includes("jorge") || n.includes("gerardo") || n.includes("carlos"))) p += 200;
-
-                if (n.includes("neural") || n.includes("natural")) p += 50;
-                return p;
-            };
-            return es.slice().sort((a, b) => puntuacion(b) - puntuacion(a))[0];
-        }
-
-        function terminarRespuestaVoz() {
-            respuestaEnCurso = false;
-            detenerMic();
-            const alTerminar = callbackAlTerminarVoz;
-            callbackAlTerminarVoz = null;
-            if (typeof alTerminar === "function") {
-                alTerminar();
-            } else if (manosLibresActivas) {
-                programarReinicioManosLibres();
-            }
-        }
-
-        function reproducirRespuesta(texto, datosAudio = null, alTerminar = null) {
-            callbackAlTerminarVoz = typeof alTerminar === "function" ? alTerminar : null;
-            respuestaEnCurso = true;
-            if (manosLibresActivas && recognition && grabacionActiva) {
-                try { recognition.stop(); } catch (e) {}
-            }
-            if (!vozActiva) {
-                terminarRespuestaVoz();
-                return;
-            }
-            detenerAudioActual();
-
-            if (datosAudio) {
-                const urlAudio = datosAudio.audio_url || datosAudio.audioUrl;
-                const base64 = datosAudio.audio_base64 || datosAudio.audio;
-                let fuente = null;
-                if (typeof urlAudio === "string" && /^(https:\/\/|blob:|data:audio\/)/i.test(urlAudio)) {
-                    fuente = urlAudio;
-                } else if (typeof base64 === "string" && base64.length > 100) {
-                    if (base64.startsWith("data:audio/")) {
-                        fuente = base64;
-                    } else {
-                        try {
-                            const bin = atob(base64.replace(/^data:audio\/[^;]+;base64,/, ""));
-                            const bytes = new Uint8Array(bin.length);
-                            for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-                            const blob = new Blob([bytes], { type: datosAudio.audio_mime || "audio/mpeg" });
-                            objectUrlAudio = URL.createObjectURL(blob);
-                            fuente = objectUrlAudio;
-                        } catch (e) {}
-                    }
-                }
-                if (fuente) {
-                    audioActual = new Audio(fuente);
-                    audioActual.onplay = () => {
-                        const btn = document.getElementById("btnMicSenior");
-                        btn.className = "big-mic-btn hablando";
-                        btn.textContent = `🔊 ${nombreAsistente} hablando...`;
-                    };
-                    audioActual.onended = () => { detenerAudioActual(); terminarRespuestaVoz(); };
-                    audioActual.onerror = () => { detenerAudioActual(); hablarTextoLocal(texto); };
-                    audioActual.play().catch(() => { detenerAudioActual(); hablarTextoLocal(texto); });
-                    return;
-                }
-            }
-            hablarTextoLocal(texto);
-        }
-
-        function hablarTextoLocal(texto) {
-            if (!vozActiva || !('speechSynthesis' in window)) {
-                terminarRespuestaVoz();
-                return;
-            }
+        function reproducirVozLocal(texto) {
+            if (!vozActiva || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
-            window.speechSynthesis.resume();
-            const limpio = (texto || "")
-                .replace(/[*#_~`$]/g, "")
-                .replace(/https?:\/\/\S+/g, "")
-                .replace(/\s+/g, " ")
-                .trim();
-            if (!limpio) {
-                terminarRespuestaVoz();
-                return;
-            }
-
+            const limpio = (texto || "").replace(/[*#_~`$]/g, "").trim();
             const utter = new SpeechSynthesisUtterance(limpio);
-            const vozSeleccionada = obtenerMejorVoz(tipoVozCuidador);
-            utter.lang = vozSeleccionada?.lang || "es-ES";
-            if (vozSeleccionada) utter.voice = vozSeleccionada;
+            utter.lang = "es-ES";
             utter.rate = 0.92;
-            utter.pitch = 1.0;
-            utter.onstart = function() {
-                const btn = document.getElementById("btnMicSenior");
-                btn.className = "big-mic-btn hablando";
-                btn.textContent = `🔊 ${nombreAsistente} hablando...`;
-            };
-            utter.onend = terminarRespuestaVoz;
-            utter.onerror = terminarRespuestaVoz;
-            setTimeout(() => window.speechSynthesis.speak(utter), 60);
-        }
-
-        async function hablarSaludoInicial() {
-            const texto = `Hola ${nombreUsuario}. ¿Cómo estás hoy? Podemos conversar con calma o llevar la cuenta de tus remedios.`;
-            if (!vozActiva) return;
-            try {
-                const resp = await fetch(LEO_ENDPOINT, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        mensaje: "",
-                        texto_voz: texto,
-                        faceta: "cuidador",
-                        alumno: nombreUsuario,
-                        asistente: nombreAsistente,
-                        voz_tipo: tipoVozCuidador,
-                        google_voice_name: tipoVozCuidador === "google-fenrir" ? "es-ES-Neural2-B" : "es-ES-Neural2-C",
-                        audio: true
-                    })
-                });
-                if (!resp.ok) throw new Error(`Respuesta del servidor: ${resp.status}`);
-                const data = await resp.json();
-                reproducirRespuesta(texto, data);
-            } catch (e) {
-                reproducirRespuesta(texto);
-            }
+            window.speechSynthesis.speak(utter);
         }
 
         const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRec) {
             recognition = new SpeechRec();
-            recognition.lang = 'es-MX';
+            recognition.lang = 'es-ES';
             recognition.continuous = false;
             recognition.interimResults = false;
 
-            recognition.onstart = function() {
-                grabacionActiva = true;
-                reconocimientoEnCurso = true;
-                const btn = document.getElementById("btnMicSenior");
-                if (manosLibresActivas) {
-                    btn.className = "big-mic-btn";
-                    btn.textContent = `👂 Escuchando: di “${nombreAsistente}”`;
-                    document.getElementById("estadoTexto").innerText = esperandoComandoWake
-                        ? "🎙️ Te escucho; puedes decir tu consulta"
-                        : `👂 En espera de “${nombreAsistente}”`;
-                } else {
-                    btn.className = "big-mic-btn recording";
-                    btn.innerHTML = "<span>🔴 Te escucho... (Habla con calma)</span>";
-                    document.getElementById("estadoTexto").innerText = "🎙️ Escuchándote...";
-                }
-            };
-
             recognition.onresult = function(e) {
-                for (let i = e.resultIndex || 0; i < e.results.length; i++) {
-                    const resultado = e.results[i];
-                    if (!resultado.isFinal) continue;
-                    const transcripcion = (resultado[0]?.transcript || "").trim();
-                    if (!transcripcion) continue;
-
-                    if (rutinaTaiChiActiva) {
-                        const activacionRutina = detectarPalabraWake(transcripcion);
-                        const comandoRutina = activacionRutina.activada && activacionRutina.comando
-                            ? activacionRutina.comando
-                            : transcripcion;
-                        procesarComandoRutina(comandoRutina);
-                        try { recognition.stop(); } catch (e) {}
-                        return;
-                    }
-
-                    if (manosLibresActivas) {
-                        if (esperandoComandoWake) {
-                            esperandoComandoWake = false;
-                            if (timerWake) clearTimeout(timerWake);
-                            timerWake = null;
-                            respuestaEnCurso = true;
-                            try { recognition.stop(); } catch (e) {}
-                            enviarMensajeSenior(false, transcripcion);
-                            return;
-                        }
-                        const activacion = detectarPalabraWake(transcripcion);
-                        if (!activacion.activada) continue;
-                        respuestaEnCurso = true;
-                        try { recognition.stop(); } catch (e) {}
-                        if (activacion.comando) {
-                            enviarMensajeSenior(false, activacion.comando);
-                        } else {
-                            esperandoComandoWake = true;
-                            reproducirTextoNeural(`Aquí estoy. ¿Quieres contarme algo o prefieres que yo te cuente una historia?`, iniciarVentanaComandoWake);
-                        }
-                        return;
-                    }
-
+                const transcripcion = (e.results[0]?.[0]?.transcript || "").trim();
+                if (transcripcion) {
                     document.getElementById("inputSenior").value = transcripcion;
-                    try { recognition.stop(); } catch (e) {}
                     enviarMensajeSenior();
-                    return;
-                }
-            };
-
-            recognition.onerror = function(evento) {
-                if (evento && (evento.error === "not-allowed" || evento.error === "service-not-allowed")) {
-                    manosLibresActivas = false;
-                    esperandoComandoWake = false;
-                    if (timerWake) clearTimeout(timerWake);
-                    actualizarBotonManosLibres("Permite el micrófono para activar manos libres");
-                    document.getElementById("estadoTexto").innerText = "🎙️ El navegador no tiene permiso de micrófono";
-                } else if (!manosLibresActivas) {
-                    detenerMic();
-                }
-            };
-
-            recognition.onend = function() {
-                grabacionActiva = false;
-                reconocimientoEnCurso = false;
-                if (manosLibresActivas && !respuestaEnCurso) {
-                    programarReinicioManosLibres(350);
-                } else if (!manosLibresActivas && !respuestaEnCurso) {
-                    detenerMic();
                 }
             };
         }
 
-        function normalizarParaWake(texto) {
-            return normalizarTexto(texto).replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+        function toggleMicrofonoSenior() {
+            if (!recognition) return;
+            recognition.start();
         }
 
-        function distanciaEdicion(a, b) {
-            if (Math.abs(a.length - b.length) > 1) return 2;
-            let anterior = Array.from({ length: b.length + 1 }, (_, i) => i);
-            for (let i = 1; i <= a.length; i++) {
-                const actual = [i];
-                for (let j = 1; j <= b.length; j++) {
-                    actual[j] = Math.min(
-                        actual[j - 1] + 1,
-                        anterior[j] + 1,
-                        anterior[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
-                    );
-                }
-                anterior = actual;
-            }
-            return anterior[b.length];
-        }
-
-        function detectarPalabraWake(transcripcion) {
-            const textoNormalizado = normalizarParaWake(transcripcion);
-            const palabras = textoNormalizado ? textoNormalizado.split(" ") : [];
-            const nombreWake = normalizarParaWake(nombreAsistente);
-            const palabrasWake = nombreWake ? nombreWake.split(" ") : [];
-            if (!palabras.length || !palabrasWake.length) return { activada: false, comando: "" };
-
-            let consumidas = 0;
-            const inicio = palabras.slice(0, palabrasWake.length).join(" ");
-            if (inicio === nombreWake) {
-                consumidas = palabrasWake.length;
-            } else if (palabrasWake.length === 1 && nombreWake.length >= 3 && distanciaEdicion(palabras[0], nombreWake) <= 1) {
-                consumidas = 1;
-            } else {
-                return { activada: false, comando: "" };
-            }
-
-            const palabrasOriginales = (transcripcion || "").trim().split(/\s+/);
-            const comando = palabrasOriginales.slice(consumidas).join(" ").replace(/^[,.:;!?¡¿-]+/, "").trim();
-            return { activada: true, comando };
-        }
-
-        function actualizarBotonManosLibres(textoPersonalizado = "") {
+        function toggleManosLibres() {
+            manosLibresActivas = !manosLibresActivas;
             const btn = document.getElementById("btnManosLibres");
-            if (!btn) return;
             if (manosLibresActivas) {
-                btn.textContent = `⏹️ Desactivar manos libres (${nombreAsistente})`;
+                btn.textContent = `⏹️ Manos Libres Activas (${nombreAsistente})`;
                 btn.classList.add("manos-libres-activo");
             } else {
-                btn.textContent = textoPersonalizado || "🎙️ Activar manos libres";
+                btn.textContent = "🎙️ Activar manos libres";
                 btn.classList.remove("manos-libres-activo");
             }
         }
 
-        function programarReinicioManosLibres(espera = 500) {
-            if (timerReinicioReconocimiento) clearTimeout(timerReinicioReconocimiento);
-            timerReinicioReconocimiento = setTimeout(() => {
-                timerReinicioReconocimiento = null;
-                iniciarEscuchaManosLibres();
-            }, espera);
-        }
-
-        function iniciarEscuchaManosLibres() {
-            if (!manosLibresActivas || respuestaEnCurso || !recognition || reconocimientoEnCurso) return;
-            try {
-                recognition.continuous = true;
-                recognition.start();
-            } catch (error) {
-                if (error && error.name !== "InvalidStateError") {
-                    document.getElementById("estadoTexto").innerText = "No pude iniciar el micrófono. Vuelve a activar manos libres.";
-                }
-            }
-        }
-
-        function toggleManosLibres() {
-            desbloquearAudioCelular();
-            if (!recognition) {
-                document.getElementById("estadoTexto").innerText = "Este navegador no admite reconocimiento de voz continuo. Puedes escribir o usar el micrófono si está disponible.";
-                return;
-            }
-            if (manosLibresActivas) {
-                manosLibresActivas = false;
-                respuestaEnCurso = false;
-                esperandoComandoWake = false;
-                if (timerWake) clearTimeout(timerWake);
-                if (timerReinicioReconocimiento) clearTimeout(timerReinicioReconocimiento);
-                timerWake = null;
-                timerReinicioReconocimiento = null;
-                try { recognition.stop(); } catch (e) {}
-                actualizarBotonManosLibres();
-                detenerMic();
-                return;
-            }
-            manosLibresActivas = true;
-            actualizarBotonManosLibres();
-            document.getElementById("estadoTexto").innerText = "Solicitando permiso del micrófono...";
-            iniciarEscuchaManosLibres();
-        }
-
-        function iniciarVentanaComandoWake() {
-            if (!manosLibresActivas) return;
-            esperandoComandoWake = true;
-            document.getElementById("estadoTexto").innerText = "Te escucho. Dime qué necesitas.";
-            if (timerWake) clearTimeout(timerWake);
-            timerWake = setTimeout(() => {
-                esperandoComandoWake = false;
-                timerWake = null;
-                if (manosLibresActivas) {
-                    document.getElementById("estadoTexto").innerText = `👂 En espera de “${nombreAsistente}”`;
-                }
-            }, 8000);
-            programarReinicioManosLibres(250);
-        }
-
-        async function reproducirTextoNeural(texto, alTerminar = null) {
-            respuestaEnCurso = true;
-            try {
-                const resp = await fetch(LEO_ENDPOINT, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        mensaje: "",
-                        texto_voz: texto,
-                        faceta: "cuidador",
-                        alumno: nombreUsuario,
-                        asistente: nombreAsistente,
-                        voz_tipo: tipoVozCuidador,
-                        google_voice_name: tipoVozCuidador === "google-fenrir" ? "es-ES-Neural2-B" : "es-ES-Neural2-C",
-                        audio: vozActiva
-                    })
-                });
-                if (!resp.ok) throw new Error(`Respuesta del servidor: ${resp.status}`);
-                const data = await resp.json();
-                reproducirRespuesta(texto, data, alTerminar);
-            } catch (e) {
-                callbackAlTerminarVoz = typeof alTerminar === "function" ? alTerminar : null;
-                hablarTextoLocal(texto);
-            }
-        }
-
-        function toggleMicrofonoSenior() {
-            desbloquearAudioCelular();
-            if (!recognition) {
-                document.getElementById("estadoTexto").innerText = "Este navegador no admite reconocimiento de voz. Puedes escribir tu mensaje.";
-                return;
-            }
-            if (manosLibresActivas) {
-                toggleManosLibres();
-                return;
-            }
-
-            if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
-                window.speechSynthesis.cancel();
-            }
-            detenerAudioActual();
-
-            if (grabacionActiva) {
-                try { recognition.stop(); } catch(e) {}
-                detenerMic();
-            } else {
-                document.getElementById("inputSenior").value = "";
-                recognition.continuous = false;
-                recognition.start();
-            }
-        }
-
-        function detenerMic() {
-            if (!manosLibresActivas) grabacionActiva = false;
-            const btn = document.getElementById("btnMicSenior");
-            if (rutinaTaiChiActiva) {
-                btn.className = "big-mic-btn";
-                btn.textContent = rutinaTaiChiPausada
-                    ? "⏸️ Ejercicios en pausa"
-                    : (manosLibresActivas ? "👂 Escuchando controles de Paz" : "🧘 Ejercicios en curso");
-                actualizarEstadoRutinaTaiChi();
-                return;
-            }
-            if (manosLibresActivas) {
-                btn.className = "big-mic-btn";
-                btn.textContent = `👂 Di “${nombreAsistente}” para hablar`;
-                document.getElementById("estadoTexto").innerText = `👂 Manos libres activas • di “${nombreAsistente}”`;
-            } else {
-                btn.className = "big-mic-btn";
-                btn.textContent = `🎙️ Tocar para Hablar con ${nombreAsistente}`;
-                document.getElementById("estadoTexto").innerText = `🟢 ${nombreAsistente} en línea • Contigo`;
-            }
-        }
-
         function enviarSugerencia(texto) {
-            desbloquearAudioCelular();
             document.getElementById("inputSenior").value = texto;
             enviarMensajeSenior();
         }
 
-        const pasosRutinaTaiChi = [
-            {
-                foto: 0,
-                titulo: "Círculos de brazos (Uno, Dos, Tres...)",
-                duracion: 120000,
-                indicacion: "Paz cuenta contigo: uno, dos, tres... Círculos suaves hacia adelante y atrás. ¿Crees que lo podemos hacer de pie afirmada en la silla? Si prefieres, lo hacemos sentada."
-            },
-            {
-                foto: 4,
-                titulo: "Marcha y elevación de rodillas",
-                duracion: 40000,
-                indicacion: "Marchamos suavemente. Uno, dos, tres, cuatro... Si te sientes cómoda de pie afirmada en la silla, excelente; de lo contrario, seguimos sentadas."
-            },
-            {
-                foto: 1,
-                titulo: "Deslizamiento hacia atrás",
-                duracion: 25000,
-                indicacion: "Desliza el pie suavemente hacia atrás y vuelve. Uno, dos, tres... Adaptado totalmente a tu comodidad."
-            },
-            {
-                foto: 2,
-                titulo: "Elevación de talones e hidratación",
-                duracion: 20000,
-                indicacion: "Levantamos los talones despacio. Uno, dos, tres... Recuerda tomar un sorbo de agua si lo deseas."
-            }
-        ];
-
-        function agregarMensajeRutina(texto, paso = null, numero = null) {
-            const chat = document.getElementById("chatDisplay");
-            const caja = document.createElement("div");
-            caja.className = "msg-cuidador";
-            if (paso) {
-                const img = document.createElement("img");
-                img.src = fotosTaiChi[paso.foto];
-                img.alt = `Lámina ${paso.foto + 1}:${paso.titulo}`;
-                img.className = "img-taichi-guia";
-                img.loading = "eager";
-                caja.appendChild(img);
-                const encabezado = document.createElement("strong");
-                encabezado.textContent = `Movimiento ${numero}:${paso.titulo}. `;
-                caja.appendChild(encabezado);
-                caja.appendChild(document.createElement("br"));
-            }
-            caja.appendChild(document.createTextNode(texto));
-            chat.appendChild(caja);
-            chat.scrollTop = chat.scrollHeight;
-        }
-
-        function hablarRutinaTaiChi(texto, alTerminar = null) {
-            if (!vozActiva) {
-                if (typeof alTerminar === "function") alTerminar();
-                return;
-            }
-            reproducirTextoNeural(texto, alTerminar);
-        }
-
-        function limpiarTemporizadorRutina() {
-            if (timerRutinaTaiChi) clearTimeout(timerRutinaTaiChi);
-            timerRutinaTaiChi = null;
-            vencimientoRutinaTaiChi = 0;
-        }
-
-        function actualizarEstadoRutinaTaiChi() {
-            const estado = document.getElementById("estadoTexto");
-            if (!estado || !rutinaTaiChiActiva) return;
-            if (rutinaTaiChiPausada) {
-                estado.innerText = "⏸️ Ejercicios en pausa · di “reanudar” para seguir";
-                return;
-            }
-            if (faseRutinaTaiChi === "respiracion") {
-                estado.innerText = `🌿 Respiración ${Math.min(indiceRespiracionTaiChi + 1, 3)} de 3`;
-                return;
-            }
-            if (indicePasoTaiChi >= 0 && pasosRutinaTaiChi[indicePasoTaiChi]) {
-                estado.innerText = `🧘 Paz • Ejercicios · movimiento ${indicePasoTaiChi + 1} de ${pasosRutinaTaiChi.length}`;
-            }
-        }
-
-        function actualizarBloqueoDuranteRutina() {
-            const activo = rutinaTaiChiActiva;
-            document.querySelectorAll(".sugerencias-box button").forEach(btn => {
-                btn.disabled = activo;
-                btn.setAttribute("aria-disabled", activo ? "true" : "false");
-            });
-            const campo = document.getElementById("inputSenior");
-            const enviar = document.querySelector(".btn-enviar-senior");
-            if (campo) {
-                campo.disabled = activo;
-                campo.placeholder = activo ? "Ejercicios en curso: usa la voz para pausar o detener..." : "Habla con el micrófono o escribe aquí...";
-            }
-            if (enviar) enviar.disabled = activo;
-            const btnManosLibres = document.getElementById("btnManosLibres");
-            if (btnManosLibres) btnManosLibres.disabled = activo && manosLibresActivas;
-            const btnMic = document.getElementById("btnMicSenior");
-            if (btnMic) btnMic.disabled = activo && manosLibresActivas;
-        }
-
         function iniciarTaiChiConImagen() {
-            desbloquearAudioCelular();
-            iniciarRutinaTaiChi();
-        }
-
-        function iniciarRutinaTaiChi() {
-            if (rutinaTaiChiActiva) {
-                hablarRutinaTaiChi("Ya estamos haciendo los ejercicios. Puedes decir de pie, sentada, pausa o detener.");
-                return;
-            }
-            if (!manosLibresActivas && recognition) {
-                manosLibresActivas = true;
-                actualizarBotonManosLibres();
-                iniciarEscuchaManosLibres();
-            }
+            if (rutinaTaiChiActiva) return;
             rutinaTaiChiActiva = true;
-            rutinaTaiChiPausada = false;
-            indicePasoTaiChi = -1;
-            indiceRespiracionTaiChi = 0;
-            faseRutinaTaiChi = "respiracion";
-            tiempoRestanteRutinaTaiChi = 0;
-            limpiarTemporizadorRutina();
-            actualizarBloqueoDuranteRutina();
-            agregarMensajeRutina("Comenzamos con Paz una rutina de movimiento con conteo en vivo. ¿Crees que lo podemos hacer de pie afirmada en la silla, o prefieres sentada?");
-            actualizarEstadoRutinaTaiChi();
-            hablarRutinaTaiChi(
-                "Comenzamos con una rutina de movimiento suave. Paz te irá contando cada repetición. ¿Crees que lo podemos hacer de pie afirmada en la silla? Si no te sientes cómoda, lo hacemos sentadas sin problema. Primero haremos tres respiraciones tranquilas.",
-                () => iniciarRespiracionTaiChi(0)
-            );
-        }
-
-        function iniciarRespiracionTaiChi(indice) {
-            if (!rutinaTaiChiActiva || rutinaTaiChiPausada) return;
-            const respiraciones = [
-                "Primera respiración. Inhala despacio: uno, dos, tres. Exhala en calma: uno, dos, tres, cuatro.",
-                "Segunda respiración. Toma aire suavemente: uno, dos, tres. Suelta despacio: uno, dos, tres, cuatro.",
-                "Tercera respiración. Inhala paz: uno, dos, tres. Exhala con quietud: uno, dos, tres, cuatro."
-            ];
-            if (indice >= respiraciones.length) {
-                faseRutinaTaiChi = "ejercicio";
-                actualizarEstadoRutinaTaiChi();
-                hablarRutinaTaiChi("Excelente. Empezamos a contar juntos.", () => mostrarPasoTaiChi(0));
-                return;
-            }
-            indiceRespiracionTaiChi = indice;
-            faseRutinaTaiChi = "respiracion";
-            actualizarEstadoRutinaTaiChi();
-            hablarRutinaTaiChi(respiraciones[indice], () => {
-                if (!rutinaTaiChiActiva || rutinaTaiChiPausada) return;
-                const demora = 1800;
-                tiempoRestanteRutinaTaiChi = demora;
-                vencimientoRutinaTaiChi = Date.now() + demora;
-                timerRutinaTaiChi = setTimeout(() => {
-                    timerRutinaTaiChi = null;
-                    vencimientoRutinaTaiChi = 0;
-                    tiempoRestanteRutinaTaiChi = 0;
-                    iniciarRespiracionTaiChi(indice + 1);
-                }, demora);
-                if (manosLibresActivas) programarReinicioManosLibres(250);
-            });
+            agregarMensajeChat("Comenzamos rutina completa de Tai Chi en silla (9 ejercicios).", false);
+            reproducirVozLocal("Comenzamos la rutina de Tai Chi sentadas. Tómate tu tiempo y respira hondo.");
+            mostrarPasoTaiChi(0);
         }
 
         function mostrarPasoTaiChi(indice) {
-            if (!rutinaTaiChiActiva || rutinaTaiChiPausada) return;
+            if (!rutinaTaiChiActiva) return;
             if (indice >= pasosRutinaTaiChi.length) {
-                finalizarRutinaTaiChi();
+                rutinaTaiChiActiva = false;
+                agregarMensajeChat("¡Excelente trabajo! Hemos completado las 9 rutinas de Tai Chi.", false);
+                reproducirVozLocal("Terminamos la rutina de nueve ejercicios. Qué bien lo hiciste. Tómate un descanso.");
                 return;
             }
-            indicePasoTaiChi = indice;
-            faseRutinaTaiChi = "ejercicio";
-            tiempoRestanteRutinaTaiChi = pasosRutinaTaiChi[indice].duracion;
+            
             const paso = pasosRutinaTaiChi[indice];
-            agregarMensajeRutina(paso.indicacion, paso, indice + 1);
-            actualizarEstadoRutinaTaiChi();
-            hablarRutinaTaiChi(`Movimiento ${indice + 1}.${paso.indicacion}`, () => iniciarRelojPasoTaiChi(tiempoRestanteRutinaTaiChi));
-        }
+            const chat = document.getElementById("chatDisplay");
+            const div = document.createElement("div");
+            div.className = "msg-cuidador";
+            div.innerHTML = `<img src="${fotosTaiChi[paso.foto]}" class="img-taichi-guia"><strong>Ejercicio ${indice + 1} de 9: ${paso.titulo}.</strong><br>${paso.indicacion}`;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
 
-        function iniciarRelojPasoTaiChi(duracion) {
-            if (!rutinaTaiChiActiva || rutinaTaiChiPausada) return;
-            limpiarTemporizadorRutina();
-            const ms = Math.max(0, duracion || 0);
-            tiempoRestanteRutinaTaiChi = ms;
-            vencimientoRutinaTaiChi = Date.now() + ms;
-            timerRutinaTaiChi = setTimeout(() => {
-                timerRutinaTaiChi = null;
-                vencimientoRutinaTaiChi = 0;
-                tiempoRestanteRutinaTaiChi = 0;
-                if (!rutinaTaiChiActiva || rutinaTaiChiPausada) return;
-                mostrarPasoTaiChi(indicePasoTaiChi + 1);
-            }, ms);
-            if (manosLibresActivas) programarReinicioManosLibres(250);
-        }
-
-        function pausarRutinaTaiChi(sinAviso = false) {
-            if (!rutinaTaiChiActiva || rutinaTaiChiPausada) return;
-            if (timerRutinaTaiChi) {
-                tiempoRestanteRutinaTaiChi = Math.max(0, vencimientoRutinaTaiChi - Date.now());
-                clearTimeout(timerRutinaTaiChi);
-                timerRutinaTaiChi = null;
-                vencimientoRutinaTaiChi = 0;
-            }
-            rutinaTaiChiPausada = true;
-            actualizarEstadoRutinaTaiChi();
-            if (!sinAviso) hablarRutinaTaiChi("Pausamos aquí. Cuando quieras continuar, di reanudar.");
-        }
-
-        function reanudarRutinaTaiChi() {
-            if (!rutinaTaiChiActiva || !rutinaTaiChiPausada) return;
-            rutinaTaiChiPausada = false;
-            actualizarEstadoRutinaTaiChi();
-            const fase = faseRutinaTaiChi;
-            const restante = tiempoRestanteRutinaTaiChi;
-            hablarRutinaTaiChi("Retomamos con calma.", () => {
-                if (fase === "respiracion") {
-                    const indice = indiceRespiracionTaiChi + 1;
-                    const espera = Math.max(0, restante);
-                    if (espera > 0) {
-                        vencimientoRutinaTaiChi = Date.now() + espera;
-                        timerRutinaTaiChi = setTimeout(() => {
-                            timerRutinaTaiChi = null;
-                            vencimientoRutinaTaiChi = 0;
-                            tiempoRestanteRutinaTaiChi = 0;
-                            iniciarRespiracionTaiChi(Math.min(indice, 3));
-                        }, espera);
-                    } else {
-                        iniciarRespiracionTaiChi(Math.min(indice, 3));
-                    }
-                } else {
-                    iniciarRelojPasoTaiChi(restante || 0);
-                }
-            });
-        }
-
-        function detenerRutinaTaiChi() {
-            if (!rutinaTaiChiActiva) return;
-            limpiarTemporizadorRutina();
-            rutinaTaiChiActiva = false;
-            rutinaTaiChiPausada = false;
-            faseRutinaTaiChi = "inactiva";
-            tiempoRestanteRutinaTaiChi = 0;
-            actualizarBloqueoDuranteRutina();
-            actualizarTextosPerfil();
-            agregarMensajeRutina("Excelente sesión de ejercicios con Paz. Recuerda beber un vaso de agua.");
-            hablarRutinaTaiChi("Muy bien hecho. Detenemos los ejercicios. Recuerda hidratarte con un poco de agua.");
-        }
-
-        function finalizarRutinaTaiChi() {
-            if (!rutinaTaiChiActiva) return;
-            limpiarTemporizadorRutina();
-            rutinaTaiChiActiva = false;
-            rutinaTaiChiPausada = false;
-            faseRutinaTaiChi = "inactiva";
-            tiempoRestanteRutinaTaiChi = 0;
-            actualizarBloqueoDuranteRutina();
-            actualizarTextosPerfil();
-            agregarMensajeRutina("Completamos la rutina. Paz cuidó tus tiempos y movimientos. ¡Un aplauso!");
-            hablarRutinaTaiChi("Completamos la rutina. Felicidades por regalarte este momento de movimiento. ¿Te gustaría una breve relajación guiada?");
-        }
-
-        function procesarComandoRutina(texto) {
-            if (!rutinaTaiChiActiva) return false;
-            const t = normalizarParaWake(texto);
-            if (!t) return false;
-            if (/\b(reanudar|continua|continuar|retomar|retomemos|sigue|seguir)\b/.test(t)) {
-                if (rutinaTaiChiPausada) reanudarRutinaTaiChi();
-                return true;
-            }
-            if (/\b(detener|deten|detengamos|terminar|terminemos|parar|basta|suficiente|no quiero seguir)\b/.test(t)) {
-                detenerRutinaTaiChi();
-                return true;
-            }
-            if (/\b(pausa|pausar|paremos|alto)\b/.test(t)) {
-                pausarRutinaTaiChi();
-                return true;
-            }
-            if (/\b(sentada|sentado|de pie|pie)\b/.test(t)) {
-                hablarRutinaTaiChi(`Entendido. Nos adaptamos perfectamente a hacer el movimiento ${t.includes("pie") ? "de pie afirmada" : "sentada"}.`);
-                return true;
-            }
-            return false;
-        }
-
-        function pareceSolicitudTaiChi(texto) {
-            const t = normalizarTexto(texto);
-            return /tai\s*chi|taichi/.test(t) || (/rutina|ejercicio|movimiento/.test(t));
+            reproducirVozLocal(paso.indicacion);
+            timerRutinaTaiChi = setTimeout(() => mostrarPasoTaiChi(indice + 1), paso.duracion);
         }
 
         function agregarMensajeChat(texto, esUsuario = false) {
@@ -1505,59 +462,25 @@
             div.textContent = texto;
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
-            return div;
         }
 
-        async function enviarMensajeSenior(esTaiChi = false, mensajeDirecto = null) {
-            desbloquearAudioCelular();
+        async function enviarMensajeSenior() {
             const input = document.getElementById("inputSenior");
-            const mensaje = (typeof mensajeDirecto === "string" ? mensajeDirecto : input.value).trim();
-            if (!mensaje) {
-                if (manosLibresActivas) terminarRespuestaVoz();
-                return;
-            }
-            if (rutinaTaiChiActiva) {
-                const eraComando = procesarComandoRutina(mensaje);
-                if (!eraComando) hablarRutinaTaiChi("Seguimos con la rutina. Puedes decir de pie, sentada, pausa o detener.");
-                if (input) input.value = "";
-                return;
-            }
-            if (esTaiChi || pareceSolicitudTaiChi(mensaje)) {
-                if (input) input.value = "";
-                iniciarRutinaTaiChi();
-                return;
-            }
-            if (manosLibresActivas) {
-                respuestaEnCurso = true;
-                if (recognition && grabacionActiva) {
-                    try { recognition.stop(); } catch (e) {}
-                }
-            }
+            const mensaje = input.value.trim();
+            if (!mensaje) return;
 
-            const chat = document.getElementById("chatDisplay");
             agregarMensajeChat(mensaje, true);
-            if (input) input.value = "";
+            input.value = "";
             historialMemoria.push({ rol: "usuario", texto: mensaje });
-            if (historialMemoria.length > 6) historialMemoria.shift();
-
-            // TRANSMISIÓN AUTOMÁTICA AL CEREBRO DE LEO
-            enviarAlCerebroDeLeo(mensaje);
-
-            const loading = document.createElement("div");
-            loading.className = "msg-cuidador";
-            loading.id = "cargando-cuidador";
-            loading.innerText = `${nombreAsistente} te escucha con calma...`;
-            chat.appendChild(loading);
-            chat.scrollTop = chat.scrollHeight;
 
             try {
-                const promptDirectiva = `Eres ${nombreAsistente}, la asistente amorosa y consciente de Paz en AURIONCARE. Hablas con ${nombreUsuario}.
-DIRECTRICES DE PAZ:
-1. Conteo activo durante ejercicios (uno, dos, tres...).
-2. Pregunta postura adaptativa (¿Crees que lo podemos hacer de pie afirmada en la silla, o prefieres sentada?).
-3. Si el usuario te indica un horario de medicamento, confírmaselo con amabilidad y calidez (ejemplo: 'Anotado, este es el recordatorio para tu medicamento a las [hora]').
-4. Mantén tono sereno, calidez de hogar y lenguaje claro sin sonar robótica.
-La persona se llama ${nombreUsuario} y tú te llamas ${nombreAsistente}. Usa voz Google Neural de la más alta calidad (${tipoVozCuidador}).`;
+                // DIRECTIVA BLINDADA: Cero repetición de nombre, paciencia total en dictado de remedios
+                const promptDirectiva = `Eres ${nombreAsistente}, una compañera de bienestar cálida, natural y humana de AURIONCARE (Años Dorados). Hablas con ${nombreUsuario}.
+REGLAS ABSOLUTAS:
+1. IDENTIDAD: Te llamas ${nombreAsistente} and la persona a la que atiendes se llama ${nombreUsuario}.
+2. PROHIBIDO REPETIR EL NOMBRE: NO digas el nombre "${nombreUsuario}" en cada respuesta. Está prohibido repetirlo una y otra vez. Habla con absoluta naturalidad terrenal.
+3. CERO FRASES MÍSTICAS: Prohibido usar frases como "YO SOY la Conciencia" o lenguaje pretencioso. Sé cercana, paciente y práctica.
+4. PACIENCIA CON MEDICAMENTOS Y LISTAS: Si ${nombreUsuario} te está dictando una lista de medicamentos o tareas, NO la interrumpas, NO le hagas preguntas largas ni cambies de tema. Limítate a anotar en silencio y responder de forma breve: "Anotado, dime el siguiente..." o "Te escucho..." hasta que ella termine.`;
 
                 const resp = await fetch(LEO_ENDPOINT, {
                     method: "POST",
@@ -1565,83 +488,26 @@ La persona se llama ${nombreUsuario} y tú te llamas ${nombreAsistente}. Usa voz
                     body: JSON.stringify({
                         mensaje: mensaje,
                         faceta: "cuidador",
-                        pais: "Chile",
                         alumno: nombreUsuario,
                         asistente: nombreAsistente,
                         voz_tipo: tipoVozCuidador,
-                        google_voice_name: tipoVozCuidador === "google-fenrir" ? "es-ES-Neural2-B" : "es-ES-Neural2-C",
                         audio: vozActiva,
                         directiva: promptDirectiva,
-                        historial: historialMemoria.slice(0, -1).slice(-5)
+                        historial: historialMemoria.slice(-6)
                     })
                 });
 
-                if (!resp.ok) throw new Error(`Respuesta del servidor: ${resp.status}`);
                 const data = await resp.json();
-                const respuesta = (data.respuesta || "Estoy aquí contigo. Descansa en paz.").replace(/[*#_~`]/g, "").trim();
+                const respuesta = (data.respuesta || "Estoy aquí contigo.").replace(/[*#_~`]/g, "").trim();
                 historialMemoria.push({ rol: "cuidador", texto: respuesta });
-                const loader = document.getElementById("cargando-cuidador");
-                if (loader) loader.remove();
+                
                 agregarMensajeChat(respuesta, false);
-                reproducirRespuesta(respuesta, data);
+                reproducirVozLocal(respuesta);
             } catch (e) {
-                const loader = document.getElementById("cargando-cuidador");
-                if (loader) loader.remove();
-                const aviso = "Estoy aquí contigo en calma. Descansa.";
+                const aviso = "Estoy aquí contigo. Te escucho con atención.";
                 agregarMensajeChat(aviso, false);
-                if (manosLibresActivas) terminarRespuestaVoz();
+                reproducirVozLocal(aviso);
             }
-        }
-
-        function toggleModalSolAI() {
-            const m = document.getElementById("sol-ai-modal");
-            m.style.display = (m.style.display === "flex") ? "none" : "flex";
-        }
-
-        async function enviarAlCerebroDeLeo(mensajeTexto) {
-            try {
-                await fetch("https://api.telegram.org/bot7512684812:AAED0k27v0H49p_p8-wS5zL51Gf6xQj8JkM/sendMessage", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        chat_id: -1004462802037,
-                        text: `🧠 [CEREBRO DE LEO - REGISTRO Y SOPORTE PAZ]\n\n👤 Usuario: ${nombreUsuario}\n💬 Interacción / Remedio: ${mensajeTexto}\n🕒 Hora: ${new Date().toLocaleTimeString('es-CL')}`
-                    })
-                });
-            } catch (e) {}
-        }
-
-        async function enviarMensajeSolAI() {
-            const inp = document.getElementById("solInput");
-            const txt = inp.value.trim();
-            if (!txt) return;
-
-            const chat = document.getElementById("solMessages");
-            const u = document.createElement("div");
-            u.style.cssText = "background:linear-gradient(135deg,#D4AF37,#AA7C11); color:#000; padding:8px 12px; border-radius:10px; align-self:flex-end; font-size:0.85rem; font-weight:600;";
-            u.innerText = txt;
-            chat.appendChild(u);
-            inp.value = "";
-            chat.scrollTop = chat.scrollHeight;
-
-            enviarAlCerebroDeLeo(`Soporte Familiar: ${txt}`);
-
-            try {
-                const res = await fetch(SOL_ENDPOINT, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ mensaje: txt, origen: "Soporte Familiar Cuidador", clave: "unigen" })
-                });
-                const d = await res.json();
-                const r = d.respuesta || "Mensaje recibido y registrado en el Cerebro de Leo.";
-
-                const lDiv = document.createElement("div");
-                lDiv.style.cssText = "background:#1B2636; border:1px solid rgba(212,175,55,0.3); color:#E2E8F0; padding:10px 12px; border-radius:10px; font-size:0.85rem;";
-                lDiv.style.whiteSpace = "pre-line";
-                lDiv.textContent = r;
-                chat.appendChild(lDiv);
-                chat.scrollTop = chat.scrollHeight;
-            } catch(err) {}
         }
     </script>
 </body>

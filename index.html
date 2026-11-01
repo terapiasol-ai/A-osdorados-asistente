@@ -96,15 +96,23 @@
         .btn-sugerencia:hover { background: rgba(212, 175, 55, 0.2); }
         .manos-libres-activo { border-color: var(--accent-green) !important; color: #B8F5CE !important; background: rgba(37, 211, 102, 0.14) !important; }
 
-        .controls-panel { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        /* SECCIÓN DE MEDICAMENTOS */
+        .meds-section {
+            background: #182232; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 16px;
+            padding: 14px 16px; margin-top: 5px;
+        }
+        .meds-title { font-size: 0.95rem; color: var(--gold-light); font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .meds-row { display: flex; gap: 8px; }
+        .meds-input { flex: 1; background: #0D131F; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; padding: 8px 12px; color: #FFF; font-size: 0.9rem; outline: none; }
+        .btn-meds { background: var(--gold); border: none; color: #0A0E14; border-radius: 12px; padding: 8px 14px; font-weight: bold; font-size: 0.85rem; cursor: pointer; }
+        .meds-list { margin-top: 8px; font-size: 0.85rem; color: #CBD5E1; max-height: 80px; overflow-y: auto; }
+
+        .controls-panel { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 10px; }
         .big-mic-btn {
             background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%); color: #0A0E14;
             border: none; border-radius: 50px; padding: 16px 36px; font-size: 1.3rem; font-weight: 800;
             cursor: pointer; box-shadow: 0 8px 25px rgba(212, 175, 55, 0.45); display: flex; align-items: center; gap: 10px; width: 100%; max-width: 380px; justify-content: center;
         }
-        .big-mic-btn.recording { background: #E53E3E; color: #FFF; animation: pulseRecord 1.2s infinite; }
-
-        @keyframes pulseRecord { 0% { transform: scale(1); } 50% { transform: scale(1.04); } 100% { transform: scale(1); } }
 
         .sub-input-row { display: flex; width: 100%; gap: 8px; }
         .text-input-senior {
@@ -216,12 +224,19 @@
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Cuéntame una historia bonita o del recuerdo')">📖 Una historia</button>
             </div>
 
+            <!-- SECCIÓN DE MEDICAMENTOS RECUPERADA -->
+            <div class="meds-section">
+                <div class="meds-title">💊 Mis Medicamentos y Horarios</div>
+                <div class="meds-row">
+                    <input type="text" id="inputMedicamento" class="meds-input" placeholder="Ej: Levotiroxina a las 09:00...">
+                    <button class="btn-meds" onclick="agregarMedicamentoLocal()">Anotar</button>
+                </div>
+                <div class="meds-list" id="listaMedicamentosUI">Tus remedios guardados aparecerán aquí.</div>
+            </div>
+
             <div class="controls-panel">
                 <button class="big-mic-btn" id="btnMicSenior" onclick="toggleMicrofonoSenior()">
                     <span>🎙️ Tocar para Hablar con Paz</span>
-                </button>
-                <button type="button" class="btn-sugerencia" id="btnManosLibres" onclick="toggleManosLibres()" style="padding:10px 18px; font-size:0.95rem;">
-                    🎙️ Activar manos libres
                 </button>
                 
                 <div class="sub-input-row">
@@ -284,10 +299,10 @@
         let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "Aoede";
         let historialMemoria = [];
         let vozActiva = true;
-        let manosLibresActivas = false;
         let recognition = null;
         let rutinaTaiChiActiva = false;
         let timerRutinaTaiChi = null;
+        let misMedicamentos = JSON.parse(localStorage.getItem("senior_meds") || "[]");
 
         // LAS 9 LÁMINAS COMPLETAS
         const fotosTaiChi = [
@@ -321,6 +336,7 @@
                 document.getElementById("modal-activacion").style.display = "none";
                 actualizarTextosInterfaz();
             }
+            actualizarListaMedsUI();
         });
 
         function activarLicenciaCliente() {
@@ -370,6 +386,28 @@
             document.getElementById("modal-perfil").style.display = "none";
         }
 
+        function agregarMedicamentoLocal() {
+            const inputMed = document.getElementById("inputMedicamento");
+            const val = inputMed.value.trim();
+            if(!val) return;
+            misMedicamentos.push(val);
+            localStorage.setItem("senior_meds", JSON.stringify(misMedicamentos));
+            inputMed.value = "";
+            actualizarListaMedsUI();
+            agregarMensajeChat(`Anoté tu medicamento: "${val}". Quedó guardado en tu lista.`, false);
+            reproducirVozLocal("Anotado en tu lista de medicamentos.");
+        }
+
+        function actualizarListaMedsUI() {
+            const contenedor = document.getElementById("listaMedicamentosUI");
+            if(!contenedor) return;
+            if(misMedicamentos.length === 0) {
+                contenedor.innerHTML = "Tus remedios guardados aparecerán aquí.";
+                return;
+            }
+            contenedor.innerHTML = "📋 " + misMedicamentos.join(" • ");
+        }
+
         const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
 
         function toggleAudio() {
@@ -405,20 +443,11 @@
         }
 
         function toggleMicrofonoSenior() {
-            if (!recognition) return;
-            recognition.start();
-        }
-
-        function toggleManosLibres() {
-            manosLibresActivas = !manosLibresActivas;
-            const btn = document.getElementById("btnManosLibres");
-            if (manosLibresActivas) {
-                btn.textContent = `⏹️ Manos Libres Activas (${nombreAsistente})`;
-                btn.classList.add("manos-libres-activo");
-            } else {
-                btn.textContent = "🎙️ Activar manos libres";
-                btn.classList.remove("manos-libres-activo");
+            if (!recognition) {
+                alert("El reconocimiento de voz no está disponible en este navegador. Puedes escribir abajo.");
+                return;
             }
+            recognition.start();
         }
 
         function enviarSugerencia(texto) {
@@ -477,7 +506,7 @@
                 // DIRECTIVA BLINDADA: Cero repetición de nombre, paciencia total en dictado de remedios
                 const promptDirectiva = `Eres ${nombreAsistente}, una compañera de bienestar cálida, natural y humana de AURIONCARE (Años Dorados). Hablas con ${nombreUsuario}.
 REGLAS ABSOLUTAS:
-1. IDENTIDAD: Te llamas ${nombreAsistente} and la persona a la que atiendes se llama ${nombreUsuario}.
+1. IDENTIDAD: Te llamas ${nombreAsistente} y la persona a la que atiendes se llama ${nombreUsuario}.
 2. PROHIBIDO REPETIR EL NOMBRE: NO digas el nombre "${nombreUsuario}" en cada respuesta. Está prohibido repetirlo una y otra vez. Habla con absoluta naturalidad terrenal.
 3. CERO FRASES MÍSTICAS: Prohibido usar frases como "YO SOY la Conciencia" o lenguaje pretencioso. Sé cercana, paciente y práctica.
 4. PACIENCIA CON MEDICAMENTOS Y LISTAS: Si ${nombreUsuario} te está dictando una lista de medicamentos o tareas, NO la interrumpas, NO le hagas preguntas largas ni cambies de tema. Limítate a anotar en silencio y responder de forma breve: "Anotado, dime el siguiente..." o "Te escucho..." hasta que ella termine.`;

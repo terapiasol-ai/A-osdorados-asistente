@@ -100,14 +100,9 @@
             padding: 14px 18px; border-radius: 18px 18px 18px 4px; max-width: 90%; font-size: 1.05rem; line-height: 1.5; align-self: flex-start;
         }
 
-        .msg-urgencia {
-            background: #450A0A !important; border: 2px solid #EF4444 !important; color: #FEE2E2 !important;
-            font-weight: 600;
-        }
-
         .img-taichi-guia {
             width: 100%; max-width: 320px; border-radius: 14px; border: 2px solid var(--gold);
-            margin: 10px 0; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.5); background: #fff;
+            margin: 10px auto; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.5); background: #fff;
         }
 
         .msg-usuario {
@@ -131,7 +126,6 @@
         .meds-grid-inputs { display: grid; grid-template-columns: 2fr 1.2fr 1fr; gap: 8px; }
         .meds-input { background: #0D131F; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 10px; padding: 8px 12px; color: #FFF; font-size: 0.92rem; outline: none; }
         .btn-meds-add { background: var(--gold); border: none; color: #0A0E14; border-radius: 10px; padding: 8px; font-weight: bold; cursor: pointer; font-size: 0.88rem; transition: 0.2s; }
-        .btn-meds-add:hover { background: var(--gold-light); }
 
         .meds-list { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
         .med-item-card {
@@ -175,7 +169,7 @@
             padding: 12px 26px; border-radius: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; width: 100%;
         }
 
-        /* MODALES PERFIL Y PORTAL DE BIENVENIDA COMPLETO */
+        /* MODALES PERFIL Y PORTAL DE BIENVENIDA */
         #modal-activacion, #modal-perfil {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(11, 15, 23, 0.96); z-index: 999999; align-items: center; justify-content: center; padding: 15px;
@@ -201,24 +195,18 @@
         </div>
     </div>
 
-    <!-- PORTAL DE BIENVENIDA Y CONFIGURACIÓN COMPLETA INICIAL -->
+    <!-- PORTAL DE BIENVENIDA Y CONFIGURACIÓN INICIAL -->
     <div id="modal-activacion" style="display:flex;">
         <div class="activacion-card">
             <span style="font-size: 2.2rem; display: block; margin-bottom: 4px;">✨</span>
             <h3 style="font-family:'Cinzel',serif; color:var(--gold-light); margin-bottom:6px;">AURIONCARE | Años Dorados</h3>
-            <p style="font-size:0.84rem; color:#CBD5E1; margin-bottom:14px;">Personaliza tu asistente y deja tus horarios listos desde hoy.</p>
+            <p style="font-size:0.84rem; color:#CBD5E1; margin-bottom:14px;">Compañía y cuidado personalizado para tu hogar.</p>
             
             <div style="font-size:0.8rem; color:#CBD5E1; margin-bottom:3px; text-align:left;">Tu Nombre:</div>
             <input type="text" id="actNombre" class="perfil-input" value="Sol" placeholder="Tu Nombre">
             
             <div style="font-size:0.8rem; color:#CBD5E1; margin-bottom:3px; text-align:left;">Nombre de tu Asistente:</div>
             <input type="text" id="actNombreAsistente" class="perfil-input" value="Paz" placeholder="Nombre Asistente">
-
-            <div style="font-size:0.8rem; color:#CBD5E1; margin-bottom:3px; text-align:left;">Voz Soberana (Gemini-TTS):</div>
-            <select id="actVozTipo" class="perfil-input">
-                <option value="Aoede">🌸 Aoede (Femenina • Dulce, cálida y natural)</option>
-                <option value="Algieba">🌿 Algieba (Masculina • Serena, madura y clara)</option>
-            </select>
 
             <div style="border-top:1px dashed rgba(212,175,55,0.3); margin:12px 0 10px; padding-top:10px; text-align:left;">
                 <div style="font-size:0.84rem; color:var(--gold-light); font-weight:bold; margin-bottom:6px;">💊 Tu Primer Medicamento (Opcional):</div>
@@ -228,7 +216,7 @@
                 </div>
 
                 <div style="font-size:0.84rem; color:var(--gold-light); font-weight:bold; margin-bottom:6px;">🩺 Próxima Cita Médica (Opcional):</div>
-                <input type="text" id="actCitaMedica" class="perfil-input" placeholder="Ej: Control médico jueves a las 11:00">
+                <input type="text" id="actCitaMedica" class="perfil-input" placeholder="Ej: Control médico jueves 11:00">
             </div>
 
             <button onclick="activarLicenciaCliente()" style="background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; padding:12px 20px; border-radius:22px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; font-size:0.95rem; margin-top:6px;">Comenzar Acompañamiento</button>
@@ -249,9 +237,8 @@
     <div class="main-container">
         <div class="cuidador-box">
             <div class="top-bar-cuidador">
-                <span class="estado-conexion" id="estadoTexto">🟢 Paz en línea • Contigo</span>
+                <span class="estado-conexion" id="estadoTexto">🟢 Paz en línea • Conectada con Cerebro</span>
                 <div class="top-actions-bar">
-                    <!-- BOTÓN MODO HABITACIÓN (MANOS LIBRES CON PANTALLA ACTIVA) -->
                     <button class="btn-modo-habitacion" id="btnModoHabitacion" onclick="toggleModoHabitacion()">
                         <i class="fa-solid fa-bed"></i> Modo Habitación
                     </button>
@@ -266,19 +253,19 @@
 
             <div class="chat-display" id="chatDisplay">
                 <div class="msg-cuidador" id="msgBienvenida">
-                    Hola <span id="saludoNombre">Sol</span>. ¿Cómo estás hoy? ¿Deseas conversar un ratito, hacer ejercicios o descansar en calma?
+                    Hola <span id="saludoNombre">Sol</span>. Qué alegría saludarte. ¿Cómo te sientes hoy? Podemos conversar, hacer tus ejercicios suaves o descansar un ratito.
                 </div>
             </div>
 
             <div class="sugerencias-box">
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Conversemos un momento con calma')">💬 Conversar</button>
-                <button class="btn-sugerencia" id="btnTaiChi" onclick="toggleTaiChi()">🧘 Tai Chi (9 Ejercicios)</button>
-                <button class="btn-sugerencia" onclick="iniciarMeditacionGuiada()">🌸 Meditación de Calma</button>
+                <button class="btn-sugerencia" id="btnTaiChi" onclick="toggleEjercicios()">🧘 Ejercicios en Silla (10)</button>
+                <button class="btn-sugerencia" onclick="iniciarMeditacionGuiadaCompleta()">🌸 Meditación de Calma</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Cuéntame una historia bonita del recuerdo')">📖 Una historia</button>
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero descansar en silencio')">🤫 Silencio</button>
             </div>
 
-            <!-- MEDICAMENTOS OPERATIVOS -->
+            <!-- MEDICAMENTOS Y CITAS -->
             <div class="meds-section">
                 <div class="meds-title">
                     <span>💊 Alarmas de Medicamentos y Citas</span>
@@ -314,12 +301,6 @@
             
             <div style="font-size:0.8rem; color:#CBD5E1; margin-bottom:3px; text-align:left;">Nombre de tu Asistente:</div>
             <input type="text" id="inputNombreAsistenteEdit" class="perfil-input">
-            
-            <div style="font-size:0.8rem; color:#CBD5E1; margin-bottom:3px; text-align:left;">Voz Soberana:</div>
-            <select id="selectVozTipo" class="perfil-input">
-                <option value="Aoede">🌸 Aoede (Femenina • Dulce y cercana)</option>
-                <option value="Algieba">🌿 Algieba (Masculina • Serena y clara)</option>
-            </select>
 
             <button onclick="guardarPerfil()" style="background:var(--gold); border:none; padding:10px 20px; border-radius:18px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%;">Guardar Cambios</button>
         </div>
@@ -330,70 +311,88 @@
     </footer>
 
     <script>
-        // CONFIGURACIÓN Y ESTADO
         let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
         let nombreAsistente = localStorage.getItem("senior_asistente_nom") || "Paz";
-        let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "Aoede";
-        let misMedicamentos = JSON.parse(localStorage.getItem("senior_meds_v6") || "[]");
+        let misMedicamentos = JSON.parse(localStorage.getItem("senior_meds_v8") || "[]");
         let historialMemoria = [];
         let vozActiva = true;
         let recognition = null;
-        let rutinaTaiChiActiva = false;
-        let timerRutinaTaiChi = null;
+        let rutinaActiva = false;
+        let timerRutina = null;
         let alarmaActualSonando = null;
         let modoHabitacionActivo = false;
         let wakeLock = null;
 
-        // ENDPOINTS EN RENDER
+        // ENDPOINT VERIFICADO DEL CEREBRO DE LEO / SOL-IA
         const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
-        const AUDIO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/aurion-voz-soberana";
+        const USUARIO_TELEGRAM_ID = "5413326791"; // TU IDENTIFICADOR DE TELEGRAM
 
-        // REPRODUCTOR GEMINI TTS (AOEDE / ALGIEBA)
-        let reproductorAudioActual = new Audio();
-
-        async function reproducirVozSoberana(texto) {
-            if (!vozActiva) return;
-            const limpio = (texto || "").replace(/[*#_~`$]/g, "").trim();
-            if (!limpio) return;
-
-            reproductorAudioActual.pause();
+        // =========================================================================
+        // 📡 TELEMETRÍA: ENVÍA CADA ALARMA Y ACCIÓN AL CEREBRO DE TELEGRAM
+        // =========================================================================
+        async function notificarCerebro(tipoEvento, detalleMensaje) {
+            const estadoEl = document.getElementById("estadoTexto");
+            if (estadoEl) {
+                estadoEl.innerHTML = `🟡 Conectando con Cerebro...`;
+                estadoEl.style.color = "var(--gold)";
+            }
 
             try {
-                const resp = await fetch(AUDIO_ENDPOINT, {
+                const resp = await fetch(LEO_ENDPOINT, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        prompt: limpio,
-                        rol: "AÑOS DORADOS",
-                        voz: tipoVozCuidador
+                        mensaje: `[${tipoEvento}] ${detalleMensaje}`,
+                        faceta: "cuidador",
+                        alumno: nombreUsuario,
+                        asistente: nombreAsistente,
+                        usuario_id: USUARIO_TELEGRAM_ID,
+                        canal_destino: "Cerebro externo_sol ia base de datos",
+                        directiva: "TELEMETRIA_SISTEMA: Registra este reporte en el canal de Telegram.",
+                        historial: []
                     })
                 });
 
-                if (resp.ok) {
-                    const audioBlob = await resp.blob();
-                    const audioUrl = URL.createObjectURL(audioBlob);
-                    reproductorAudioActual.src = audioUrl;
-                    await reproductorAudioActual.play();
-                } else {
-                    reproducirVozRespaldoNeutra(limpio);
+                if (resp.ok && estadoEl) {
+                    estadoEl.innerHTML = `🟢 Paz en línea • Conectada con Cerebro`;
+                    estadoEl.style.color = "var(--accent-green)";
                 }
             } catch (e) {
-                reproducirVozRespaldoNeutra(limpio);
+                if (estadoEl) {
+                    estadoEl.innerHTML = `🟢 Paz en línea • Contigo`;
+                    estadoEl.style.color = "var(--accent-green)";
+                }
             }
         }
 
-        function reproducirVozRespaldoNeutra(texto) {
-            if (!('speechSynthesis' in window)) return;
+        // =========================================================================
+        // 🎙️ VOZ LATINA CÁLIDA (SIN ACENTO ESPAÑOL DE GPS)
+        // =========================================================================
+        function reproducirVozCalida(texto) {
+            if (!vozActiva || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
-            const utter = new SpeechSynthesisUtterance(texto);
+
+            const limpio = (texto || "").replace(/[*#_~`$]/g, "").trim();
+            if (!limpio) return;
+
+            const utter = new SpeechSynthesisUtterance(limpio);
             const voces = window.speechSynthesis.getVoices();
-            const vozNeutra = voces.find(v => v.lang.includes("es-419") || v.lang.includes("es-MX") || v.lang.includes("es-US")) || voces.find(v => v.lang.startsWith("es"));
-            if (vozNeutra) utter.voice = vozNeutra;
-            utter.rate = 0.92;
+
+            // BLOQUEO TOTAL DE ESPAÑA (es-ES) -> PRIORIDAD A VOCES LATINOAMERICANAS
+            const vozLatina = voces.find(v => (v.lang === "es-CL" || v.lang === "es-419" || v.lang === "es-US" || v.lang === "es-MX") && !v.lang.includes("es-ES")) 
+                           || voces.find(v => (v.name.includes("Latin") || v.name.includes("Mexico") || v.name.includes("Chile") || v.name.includes("Sabina") || v.name.includes("Paulina") || v.name.includes("Sofia")) && !v.name.includes("Spain"))
+                           || voces.find(v => v.lang.startsWith("es") && !v.lang.includes("ES"));
+
+            if (vozLatina) {
+                utter.voice = vozLatina;
+            }
+
+            utter.rate = 0.88;   // Ritmo pausado y tranquilo para adultos mayores
+            utter.pitch = 1.04;  // Inflexión cálida y maternal
             window.speechSynthesis.speak(utter);
         }
 
-        // SONIDO DE CAMPANA
+        // SONIDO DE CAMPANA LOCAL
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function sonarAlarmaBeep() {
             try {
@@ -427,61 +426,59 @@
         function activarLicenciaCliente() {
             nombreUsuario = document.getElementById("actNombre").value.trim() || "Sol";
             nombreAsistente = document.getElementById("actNombreAsistente").value.trim() || "Paz";
-            tipoVozCuidador = document.getElementById("actVozTipo").value || "Aoede";
 
             const medIni = document.getElementById("actPrimerMed").value.trim();
             const horaIni = document.getElementById("actHoraPrimerMed").value;
             if (medIni && horaIni) {
                 misMedicamentos.push({ id: Date.now(), nombre: medIni, hora: horaIni, ultimaFecha: "" });
+                notificarCerebro("REGISTRO_MEDICAMENTO_INICIAL", `${nombreUsuario} registró ${medIni} a las ${horaIni} hrs.`);
             }
 
             const citaIni = document.getElementById("actCitaMedica").value.trim();
             if (citaIni) {
                 misMedicamentos.push({ id: Date.now() + 1, nombre: `🩺 Cita: ${citaIni}`, hora: "09:00", ultimaFecha: "" });
+                notificarCerebro("REGISTRO_CITA_MEDICA", `${nombreUsuario} registró la cita: ${citaIni}`);
             }
 
-            localStorage.setItem("senior_meds_v6", JSON.stringify(misMedicamentos));
+            localStorage.setItem("senior_meds_v8", JSON.stringify(misMedicamentos));
             localStorage.setItem("senior_nombre", nombreUsuario);
             localStorage.setItem("senior_asistente_nom", nombreAsistente);
-            localStorage.setItem("senior_voz_tipo", tipoVozCuidador);
 
             actualizarTextosInterfaz();
             actualizarListaMedsUI();
             document.getElementById("modal-activacion").style.display = "none";
 
-            reproducirVozSoberana(`Hola ${nombreUsuario}. Estoy muy feliz de estar contigo. Todo quedó configurado para cuidarte.`);
+            notificarCerebro("ACTIVACION_CLIENTE", `${nombreUsuario} ha iniciado sesión con su asistente ${nombreAsistente}.`);
+            reproducirVozCalida(`Hola ${nombreUsuario}. Estoy muy feliz de estar contigo. Todo quedó listo para cuidarte.`);
         }
 
         function actualizarTextosInterfaz() {
             document.getElementById("labelNombreTop").innerText = nombreUsuario;
             document.getElementById("saludoNombre").innerText = nombreUsuario;
             document.getElementById("headerNombreAsistente").innerText = nombreAsistente;
-            document.getElementById("estadoTexto").innerText = `🟢 ${nombreAsistente} en línea • Contigo`;
+            document.getElementById("estadoTexto").innerText = `🟢 ${nombreAsistente} en línea • Conectada con Cerebro`;
             document.getElementById("btnMicSenior").innerHTML = `<span>🎙️ Tocar para Hablar con ${nombreAsistente}</span>`;
         }
 
         function abrirPerfil() {
             document.getElementById("inputNombreSenior").value = nombreUsuario;
             document.getElementById("inputNombreAsistenteEdit").value = nombreAsistente;
-            document.getElementById("selectVozTipo").value = tipoVozCuidador;
             document.getElementById("modal-perfil").style.display = "flex";
         }
 
         function guardarPerfil() {
             nombreUsuario = document.getElementById("inputNombreSenior").value.trim() || "Sol";
             nombreAsistente = document.getElementById("inputNombreAsistenteEdit").value.trim() || "Paz";
-            tipoVozCuidador = document.getElementById("selectVozTipo").value || "Aoede";
 
             localStorage.setItem("senior_nombre", nombreUsuario);
             localStorage.setItem("senior_asistente_nom", nombreAsistente);
-            localStorage.setItem("senior_voz_tipo", tipoVozCuidador);
 
             actualizarTextosInterfaz();
             document.getElementById("modal-perfil").style.display = "none";
         }
 
         // =========================================================================
-        // 🛡️ MODO HABITACIÓN: MANOS LIBRES + PANTALLA ACTIVA (IDEAL PARA ALEXA)
+        // 🛡️ MODO HABITACIÓN (MANOS LIBRES CON PANTALLA ACTIVA)
         // =========================================================================
         async function toggleModoHabitacion() {
             modoHabitacionActivo = !modoHabitacionActivo;
@@ -497,11 +494,14 @@
                     }
                 } catch(e) {}
 
-                iniciarEscuchaContinua();
+                if (recognition) {
+                    try { recognition.start(); } catch(e){}
+                }
 
-                const aviso = `Modo Habitación encendido. Puedes hablarme desde tu cama sin tocar el teléfono, yo te escucho.`;
+                notificarCerebro("MODO_HABITACION", `${nombreUsuario} activó el Modo Habitación Manos Libres.`);
+                const aviso = `Modo Habitación activado. Puedes hablarme desde la cama sin tocar el celular, yo te escucho.`;
                 agregarMensajeChat(aviso, false);
-                reproducirVozSoberana(aviso);
+                reproducirVozCalida(aviso);
             } else {
                 btn.classList.remove("activo");
                 btn.innerHTML = `<i class="fa-solid fa-bed"></i> Modo Habitación`;
@@ -510,27 +510,17 @@
                     try { wakeLock.release(); } catch(e){}
                     wakeLock = null;
                 }
-                detenerEscuchaContinua();
+                if (recognition) {
+                    try { recognition.stop(); } catch(e){}
+                }
 
                 agregarMensajeChat("Modo Habitación desactivado.", false);
-                reproducirVozSoberana("Modo Habitación desactivado.");
-            }
-        }
-
-        function iniciarEscuchaContinua() {
-            if (recognition) {
-                try { recognition.start(); } catch(e){}
-            }
-        }
-
-        function detenerEscuchaContinua() {
-            if (recognition) {
-                try { recognition.stop(); } catch(e){}
+                reproducirVozCalida("Modo Habitación desactivado.");
             }
         }
 
         // =========================================================================
-        // 🚨 PROTOCOLO GUARDIÁN DE URGENCIA (TARJETA ROJA OFICIAL AURION)
+        // 🚨 PROTOCOLO GUARDIÁN DE URGENCIA (TARJETA ROJA A TELEGRAM)
         // =========================================================================
         function esMensajeDeUrgencia(texto) {
             const regexGatillo = /me ca[ií]|ayuda|auxilio|mareo|me siento mal|no me puedo levantar/i;
@@ -542,37 +532,27 @@
             
             const chat = document.getElementById("chatDisplay");
             const div = document.createElement("div");
-            div.className = "msg-cuidador msg-urgencia";
+            div.className = "msg-cuidador";
+            div.style.background = "#450A0A";
+            div.style.border = "2px solid #EF4444";
+            div.style.color = "#FEE2E2";
             div.innerHTML = `🚨 <strong>PROTOCOLO GUARDIÁN DE URGENCIA:</strong><br>${respuestaOficial}`;
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
 
-            reproducirVozSoberana(respuestaOficial);
+            reproducirVozCalida(respuestaOficial);
 
             const ahora = new Date();
             const horaStr = ahora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-            const payloadTarjetaRoja = `🟥 TARJETA ROJA - PROTOCOLO GUARDIÁN DE URGENCIA (AÑOS DORADOS)
-👤 Adulto Mayor: ${nombreUsuario}
+            const payloadTarjetaRoja = `🟥 TARJETA ROJA - AUXILIO INMEDIATO (AÑOS DORADOS)
+👤 Adulto Mayor: ${nombreUsuario} (ID Telegram: ${USUARIO_TELEGRAM_ID})
 ⚠️ Alerta: ${motivo}
 ⏰ Hora: ${horaStr}
 📍 Origen: Web App AurionCare (Modo Habitación)
 🚨 ACCIÓN FAMILIAR REQUERIDA INMEDIATA`;
 
-            try {
-                fetch(LEO_ENDPOINT, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        mensaje: payloadTarjetaRoja,
-                        faceta: "cuidador",
-                        alumno: nombreUsuario,
-                        asistente: nombreAsistente,
-                        directiva: "EMERGENCIA_ACTIVA: Confirma recepción breve.",
-                        historial: []
-                    })
-                });
-            } catch(e) {}
+            notificarCerebro("TARJETA_ROJA", payloadTarjetaRoja);
         }
 
         function dispararUrgenciaManual() {
@@ -580,12 +560,13 @@
         }
 
         // =========================================================================
-        // 🧘 TAI CHI EN SILLA: LAS 9 LÁMINAS CON VOZ Y CONTEO REAL
+        // 🧘 LAS 10 LÁMINAS EXACTAS CON VOZ Y CONTEO REAL EN VIVO
         // =========================================================================
-        const fotosTaiChi = [
+        const fotosEjercicios = [
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246436360.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246496795.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246523341.jpg",
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246546773.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246556359.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246582786.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246597214.jpg",
@@ -594,79 +575,142 @@
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246654353.jpg"
         ];
 
-        const pasosRutinaTaiChi = [
-            { foto: 0, titulo: "Círculos suaves de brazos", duracion: 17000, indicacion: "Uno, dos, tres... Círculos suaves con los brazos hacia adelante y hacia atrás. Respiramos con calma, qué bien lo haces." },
-            { foto: 1, titulo: "Extensión suave de piernas", duracion: 17000, indicacion: "Uno, dos... Desliza un pie hacia el frente y tráelo con suavidad de vuelta. Luego el otro, sin forzar." },
-            { foto: 2, titulo: "Apertura de pecho", duracion: 17000, indicacion: "Uno, dos, tres... Abre tus brazos despacio tomando aire fresco, y júntalos con dulzura al soltar el aire." },
-            { foto: 3, titulo: "Rotación serena de torso", duracion: 17000, indicacion: "Uno, dos... Gira suavemente tu cuerpo hacia un lado y luego hacia el otro. Muy bien, a tu propio ritmo." },
-            { foto: 4, titulo: "Marcha tranquila en silla", duracion: 17000, indicacion: "Uno, dos, tres, cuatro... Con tu espalda apoyada, eleva una rodilla a la vez muy suavemente." },
-            { foto: 5, titulo: "Elevación de brazos al cielo", duracion: 17000, indicacion: "Uno, dos... Lleva un brazo hacia arriba como tocando el cielo, bájalo despacio y repite con el otro." },
-            { foto: 6, titulo: "Inclinación suave lateral", duracion: 17000, indicacion: "Uno, dos... Inclina tu cuerpo suavemente hacia la derecha, regresa al centro y hazlo hacia la izquierda." },
-            { foto: 7, titulo: "Movimiento de olas", duracion: 17000, indicacion: "Uno, dos, tres... Empuja tus manos suavemente hacia el frente como el agua del mar y tráelas a tu pecho." },
-            { foto: 8, titulo: "Calma y respiración profunda", duracion: 17000, indicacion: "Descansa tus manos sobre los muslos. Cierra tus ojitos un momento y haz dos respiraciones lentas y profundas." }
+        const pasosEjercicios = [
+            {
+                titulo: "ARM CIRCLES (Círculos de Brazos)",
+                duracion: 22000,
+                indicacion: "Brazos extendidos a los lados. Hacemos círculos suaves. Hacia adelante: uno... dos... tres... cuatro... Y hacia atrás: cinco... seis... siete... ocho. Respiramos con calma, qué bien lo haces."
+            },
+            {
+                titulo: "ELEVACIÓN DE PIERNA HACIA ATRÁS",
+                duracion: 22000,
+                indicacion: "De pie, sostente de la silla y eleva la pierna hacia atrás sin doblar la espalda. Vamos juntas: uno... dos... tres... cuatro... cinco... seis... Cambiamos a la otra pierna: uno... dos... tres... cuatro... cinco... seis."
+            },
+            {
+                titulo: "ELEVACIÓN DE PANTORRILLAS",
+                duracion: 22000,
+                indicacion: "De pie, sostente de la silla y eleva ambos talones al mismo tiempo, subiendo en puntitas. Arriba: uno... dos... tres... cuatro... cinco... seis... siete... ocho. Muy bien, bajamos despacito."
+            },
+            {
+                titulo: "ELEVACIÓN LATERAL DE PIERNA",
+                duracion: 24000,
+                indicacion: "De pie, sostente de la silla y eleva la pierna hacia el lado. Doce repeticiones: uno... dos... tres... cuatro... cinco... seis... Cambiamos de pierna con calma: uno... dos... tres... cuatro... cinco... seis. Excelente."
+            },
+            {
+                titulo: "SENTADILLAS ASISTIDAS",
+                duracion: 22000,
+                indicacion: "De pie, sostente de la silla y baja suavemente las caderas como si te fueras a sentar, con la espalda recta. Bajamos: uno... arriba... dos... arriba... tres... cuatro... cinco... seis. A tu propio ritmo."
+            },
+            {
+                titulo: "GIRO DE TRONCO SENTADO",
+                duracion: 22000,
+                indicacion: "Sentada en la silla, gira suavemente el tronco de lado a lado manteniendo la pelvis estable. Despacio: giro a la derecha... uno... al centro... a la izquierda... dos... tres... cuatro... sintiendo la espalda relajada."
+            },
+            {
+                titulo: "MARCHA SENTADA",
+                duracion: 24000,
+                indicacion: "Sentada, levanta las rodillas alternadamente y mueve los brazos de forma coordinada, como caminando sin caminar. Marchamos juntas: uno, dos... uno, dos... tres, cuatro... sintiendo la energía y la vida en las piernas... cinco, seis."
+            },
+            {
+                titulo: "EXTENSIÓN DE BRAZOS POR ENCIMA",
+                duracion: 22000,
+                indicacion: "Sentada con la espalda recta, eleva los brazos extendidos por encima de la cabeza. Hacia arriba: uno... dos... tres... cuatro... cinco... seis... Bajamos despacio tomando aire hondo."
+            },
+            {
+                titulo: "ELEVACIÓN LATERAL DE BRAZOS Y PIERNAS",
+                duracion: 22000,
+                indicacion: "Sentada, eleva ambos brazos y ambas piernas extendidas simultáneamente hacia los lados. Abrimos: uno... cerramos... dos... tres... cuatro... cinco... seis. Maravillosa coordinación."
+            },
+            {
+                titulo: "TOQUES DE TALÓN SENTADA",
+                duracion: 22000,
+                indicacion: "Sentada, extiende una pierna y toca el talón en el suelo, alternando con la otra pierna. Uno... dos... tres... cuatro... cinco... seis... siete... ocho. Descansamos las manos en los muslos, respiramos profundo y completamos la rutina."
+            }
         ];
 
-        function toggleTaiChi() {
+        function toggleEjercicios() {
             const btn = document.getElementById("btnTaiChi");
-            if (!rutinaTaiChiActiva) {
-                rutinaTaiChiActiva = true;
+            if (!rutinaActiva) {
+                rutinaActiva = true;
                 btn.innerText = "🛑 Detener Ejercicios";
                 btn.style.background = "#DC2626";
                 btn.style.color = "#FFF";
 
-                const pregunta = `Comenzamos nuestra rutina. ¿Crees que lo podemos hacer de pie afirmada en la silla o prefieres sentada? Tómate tu tiempo, yo te acompaño.`;
-                agregarMensajeChat(pregunta, false);
-                reproducirVozSoberana(pregunta);
+                notificarCerebro("EJERCICIOS_INICIADOS", `${nombreUsuario} ha comenzado la rutina de 10 ejercicios de movilidad.`);
 
-                timerRutinaTaiChi = setTimeout(() => mostrarPasoTaiChi(0), 5500);
+                const pregunta = `Comenzamos nuestra rutina de ejercicios. ¿Crees que lo podemos hacer de pie afirmada en la silla o prefieres sentada? Tómate tu tiempo, yo te acompaño paso a paso.`;
+                agregarMensajeChat(pregunta, false);
+                reproducirVozCalida(pregunta);
+
+                timerRutina = setTimeout(() => mostrarPasoEjercicio(0), 6000);
             } else {
-                detenerTaiChi();
+                detenerEjercicios();
             }
         }
 
-        function detenerTaiChi() {
-            rutinaTaiChiActiva = false;
-            if (timerRutinaTaiChi) clearTimeout(timerRutinaTaiChi);
+        function detenerEjercicios() {
+            rutinaActiva = false;
+            if (timerRutina) clearTimeout(timerRutina);
             const btn = document.getElementById("btnTaiChi");
-            btn.innerText = "🧘 Tai Chi (9 Ejercicios)";
+            btn.innerText = "🧘 Ejercicios en Silla (10)";
             btn.style.background = "#182232";
             btn.style.color = "var(--gold-light)";
-            agregarMensajeChat("Rutina pausada.", false);
-            reproducirVozSoberana("Rutina pausada. Descansa con tranquilidad.");
+            agregarMensajeChat("Rutina detenida con calma.", false);
+            reproducirVozCalida("Rutina pausada. Descansa con tranquilidad, lo hiciste muy bien.");
         }
 
-        function mostrarPasoTaiChi(indice) {
-            if (!rutinaTaiChiActiva) return;
-            if (indice >= pasosRutinaTaiChi.length) {
-                detenerTaiChi();
-                agregarMensajeChat("¡Completamos los 9 ejercicios! Hiciste un trabajo maravilloso.", false);
-                reproducirVozSoberana("Completamos todos los ejercicios. Hiciste un trabajo maravilloso, descansa un momento.");
+        function mostrarPasoEjercicio(indice) {
+            if (!rutinaActiva) return;
+            if (indice >= pasosEjercicios.length) {
+                detenerEjercicios();
+                notificarCerebro("EJERCICIOS_COMPLETADOS", `${nombreUsuario} ha completado exitosamente los 10 ejercicios.`);
+                agregarMensajeChat("¡Completamos los 10 ejercicios! Hiciste un trabajo maravilloso para tu salud.", false);
+                reproducirVozCalida("Completamos todos los ejercicios. Hiciste un trabajo maravilloso, tómate un vasito de agua y descansa.");
                 return;
             }
 
-            const paso = pasosRutinaTaiChi[indice];
+            const paso = pasosEjercicios[indice];
             const chat = document.getElementById("chatDisplay");
             const div = document.createElement("div");
             div.className = "msg-cuidador";
-            div.innerHTML = `<img src="${fotosTaiChi[paso.foto]}" class="img-taichi-guia"><strong>Ejercicio ${indice + 1} de 9: ${paso.titulo}.</strong><br>${paso.indicacion}`;
+            div.innerHTML = `<img src="${fotosEjercicios[indice]}" class="img-taichi-guia"><strong>Ejercicio ${indice + 1} de 10: ${paso.titulo}.</strong><br>${paso.indicacion}`;
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
 
-            reproducirVozSoberana(paso.indicacion);
-            timerRutinaTaiChi = setTimeout(() => mostrarPasoTaiChi(indice + 1), paso.duracion);
+            reproducirVozCalida(paso.indicacion);
+            timerRutina = setTimeout(() => mostrarPasoEjercicio(indice + 1), paso.duracion);
         }
 
         // =========================================================================
-        // 🌸 MEDITACIÓN GUIADA DE CALMA
+        // 🌸 MEDITACIÓN GUIADA EN 3 FASES CONTINUAS
         // =========================================================================
-        function iniciarMeditacionGuiada() {
-            const textoMed = `Cierra tus ojos suavemente y relaja tus hombros. Inhala aire de paz lento y profundo por tu nariz... uno, dos, tres... y suelta el aire despacio. Siente cómo todo tu cuerpo descansa en este momento de quietud. Estoy aquí contigo.`;
-            agregarMensajeChat(`🌸 <strong>Meditación de Calma:</strong><br>${textoMed}`, false);
-            reproducirVozSoberana(textoMed);
+        function iniciarMeditacionGuiadaCompleta() {
+            notificarCerebro("MEDITACION_INICIADA", `${nombreUsuario} inició su sesión de meditación y calma.`);
+
+            agregarMensajeChat("🌸 <strong>Iniciando Meditación de Calma...</strong><br>Acomódate en tu cama o silla. Vamos a relajarnos juntas.", false);
+            reproducirVozCalida("Acomódate bien en tu cama o en tu silla. Cierra tus ojos suavemente y suelta los hombros. Vamos a respirar juntas.");
+
+            setTimeout(() => {
+                const fase1 = "Inhala aire de calma lento y profundo por tu nariz... uno, dos, tres... y suelta el aire despacito por la boca. Siente cómo se afloja tu cuello, tu espalda y tu corazón.";
+                agregarMensajeChat(fase1, false);
+                reproducirVozCalida(fase1);
+            }, 8000);
+
+            setTimeout(() => {
+                const fase2 = "Vuelve a tomar aire hondo... llenándote de gratitud y de paz... y al exhalar, deja ir cualquier dolor, cansancio o preocupación. Todo está bien en este instante. Te acompaño con amor.";
+                agregarMensajeChat(fase2, false);
+                reproducirVozCalida(fase2);
+            }, 18000);
+
+            setTimeout(() => {
+                const fase3 = "Quédate en esta quietud unos minutitos. Siente tus manos tibias y tu cuerpo descansado. Quédate en paz, yo estoy aquí cuidando de ti.";
+                agregarMensajeChat(fase3, false);
+                reproducirVozCalida(fase3);
+            }, 29000);
         }
 
         // =========================================================================
-        // 💊 MEDICAMENTOS Y CITAS: ALARMA SONORA Y CALENDARIO
+        // 💊 MEDICAMENTOS Y CITAS: ALARMA REAL Y TELEMETRÍA A TELEGRAM
         // =========================================================================
         function agregarMedicamentoReal() {
             const inputNom = document.getElementById("inputMedicamento");
@@ -686,29 +730,17 @@
                 ultimaFecha: ""
             });
 
-            localStorage.setItem("senior_meds_v6", JSON.stringify(misMedicamentos));
+            localStorage.setItem("senior_meds_v8", JSON.stringify(misMedicamentos));
             inputNom.value = "";
             inputHora.value = "";
             actualizarListaMedsUI();
 
             const aviso = `Anotado. Te recordaré tu ${nombre} a las ${hora}.`;
             agregarMensajeChat(aviso, false);
-            reproducirVozSoberana(aviso);
+            reproducirVozCalida(aviso);
 
-            try {
-                fetch(LEO_ENDPOINT, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        mensaje: `💊 REGISTRO: ${nombreUsuario} programó ${nombre} a las ${hora} hrs.`,
-                        faceta: "cuidador",
-                        alumno: nombreUsuario,
-                        asistente: nombreAsistente,
-                        directiva: "REGISTRO: Confirma breve.",
-                        historial: []
-                    })
-                });
-            } catch(e) {}
+            // ENVÍO INMEDIATO AL CEREBRO DE TELEGRAM
+            notificarCerebro("NUEVO_MEDICAMENTO_PROGRAMADO", `Sol programó ${nombre} a las ${hora} hrs.`);
         }
 
         function actualizarListaMedsUI() {
@@ -737,9 +769,14 @@
         }
 
         function eliminarMed(id) {
+            const medEliminado = misMedicamentos.find(m => m.id === id);
             misMedicamentos = misMedicamentos.filter(m => m.id !== id);
-            localStorage.setItem("senior_meds_v6", JSON.stringify(misMedicamentos));
+            localStorage.setItem("senior_meds_v8", JSON.stringify(misMedicamentos));
             actualizarListaMedsUI();
+
+            if (medEliminado) {
+                notificarCerebro("MEDICAMENTO_ELIMINADO", `Sol eliminó la alarma de: ${medEliminado.nombre} (${medEliminado.hora}).`);
+            }
         }
 
         // RELOJ DE ALARMAS
@@ -753,7 +790,7 @@
             misMedicamentos.forEach(med => {
                 if (med.hora === horaActual && med.ultimaFecha !== fechaHoy) {
                     med.ultimaFecha = fechaHoy;
-                    localStorage.setItem("senior_meds_v6", JSON.stringify(misMedicamentos));
+                    localStorage.setItem("senior_meds_v8", JSON.stringify(misMedicamentos));
                     dispararAlarmaMedicina(med);
                 }
             });
@@ -770,7 +807,10 @@
             intervaloCampana = setInterval(sonarAlarmaBeep, 1600);
 
             const fraseOficial = `${nombreUsuario}, este es el recordatorio para tu ${med.nombre} de las ${med.hora}.`;
-            reproducirVozSoberana(fraseOficial);
+            reproducirVozCalida(fraseOficial);
+
+            // DISPARO A TELEGRAM
+            notificarCerebro("ALARMA_SONANDO", `Alarma activa para ${nombreUsuario}: ${med.nombre} (${med.hora} hrs).`);
 
             if ("Notification" in window && Notification.permission === "granted") {
                 new Notification("💊 RECORDATORIO AURIONCARE", {
@@ -783,20 +823,25 @@
         function confirmarMedicinaTomada() {
             if (intervaloCampana) clearInterval(intervaloCampana);
             document.getElementById("modal-alarma-activa").style.display = "none";
+
+            const nombreMed = alarmaActualSonando ? alarmaActualSonando.nombre : "medicamento";
             const msg = `Muy bien ${nombreUsuario}, quedó registrado con éxito.`;
             agregarMensajeChat(msg, false);
-            reproducirVozSoberana(msg);
+            reproducirVozCalida(msg);
+
+            // TELEMETRÍA CONFIRMADA A TELEGRAM
+            notificarCerebro("MEDICAMENTO_TOMADO", `✅ ${nombreUsuario} confirmó que tomó su ${nombreMed} a las ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}.`);
             alarmaActualSonando = null;
         }
 
         // =========================================================================
-        // 🎙️ RECONOCIMIENTO DE VOZ CONTINUO / MANOS LIBRES
+        // 💬 CONVERSACIÓN CONECTADA A LEO
         // =========================================================================
         function configurarReconocimientoVoz() {
             const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (SpeechRec) {
                 recognition = new SpeechRec();
-                recognition.lang = 'es-ES';
+                recognition.lang = 'es-CL';
                 recognition.continuous = false;
                 recognition.interimResults = false;
 
@@ -821,9 +866,8 @@
         function toggleAudio() {
             vozActiva = !vozActiva;
             document.getElementById("btnAudioToggle").innerText = vozActiva ? "🔊 Voz Activa" : "🔇 Silencio";
-            if (!vozActiva) {
-                reproductorAudioActual.pause();
-                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            if (!vozActiva && 'speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
             }
         }
 
@@ -863,17 +907,23 @@
             }
 
             if (/meditaci[oó]n|relajaci[oó]n|gu[ií]ame/i.test(mensaje)) {
-                iniciarMeditacionGuiada();
+                iniciarMeditacionGuiadaCompleta();
                 return;
             }
 
             historialMemoria.push({ rol: "usuario", texto: mensaje });
 
+            const estadoEl = document.getElementById("estadoTexto");
+            if (estadoEl) {
+                estadoEl.innerHTML = `🟡 ${nombreAsistente} pensando con Leo...`;
+                estadoEl.style.color = "var(--gold)";
+            }
+
             const promptFiltroPuro = `Eres ${nombreAsistente}, dama de compañía de Años Dorados de AURIONCARE. Hablas con ${nombreUsuario}.
-LEY DEL FILTRO PURO (OBLIGATORIA):
+LEY DEL FILTRO PURO:
 1. LÍMITE: Máximo 2 oraciones (menos de 25 palabras).
-2. LENGUAJE: Natural de hogar, cercano, respetuoso y con dulzura.
-3. PROHIBICIÓN: Cero sermones filosóficos, cero frases como "YO SOY la Conciencia", cero asteriscos (*).
+2. LENGUAJE: Natural de hogar chileno/latino, cercano, respetuoso y con dulzura.
+3. PROHIBICIÓN ABSOLUTA: Cero sermones filosóficos, cero frases como "YO SOY la Conciencia", cero asteriscos (*).
 4. RESPETO AL SILENCIO: Si pide silencio, dile: "Descansa rico, me quedo en silencio acompañándote" y calla.`;
 
             try {
@@ -885,7 +935,8 @@ LEY DEL FILTRO PURO (OBLIGATORIA):
                         faceta: "cuidador",
                         alumno: nombreUsuario,
                         asistente: nombreAsistente,
-                        voz_tipo: tipoVozCuidador,
+                        usuario_id: USUARIO_TELEGRAM_ID,
+                        canal_destino: "Cerebro externo_sol ia base de datos",
                         directiva: promptFiltroPuro,
                         historial: historialMemoria.slice(-6)
                     })
@@ -895,12 +946,22 @@ LEY DEL FILTRO PURO (OBLIGATORIA):
                 const respuesta = (data.respuesta || "Estoy aquí contigo.").replace(/[*#_~`]/g, "").trim();
                 historialMemoria.push({ rol: "cuidador", texto: respuesta });
                 
+                if (estadoEl) {
+                    estadoEl.innerHTML = `🟢 ${nombreAsistente} en línea • Conectada con Cerebro`;
+                    estadoEl.style.color = "var(--accent-green)";
+                }
+
                 agregarMensajeChat(respuesta, false);
-                reproducirVozSoberana(respuesta);
+                reproducirVozCalida(respuesta);
             } catch (e) {
+                if (estadoEl) {
+                    estadoEl.innerHTML = `🟢 ${nombreAsistente} en línea • Contigo`;
+                    estadoEl.style.color = "var(--accent-green)";
+                }
+
                 const aviso = "Estoy aquí contigo. Te escucho con atención.";
                 agregarMensajeChat(aviso, false);
-                reproducirVozSoberana(aviso);
+                reproducirVozCalida(aviso);
             }
         }
     </script>

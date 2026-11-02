@@ -117,7 +117,7 @@
         }
         .btn-sugerencia:hover { background: rgba(212, 175, 55, 0.25); }
 
-        /* SECCIÓN DE MEDICAMENTOS Y CITAS - REDISEÑADA Y CLARA */
+        /* SECCIÓN DE MEDICAMENTOS Y CITAS - CLARA Y OPERATIVA */
         .meds-section {
             background: #182232; border: 2px solid var(--gold); border-radius: 18px;
             padding: 16px; display: flex; flex-direction: column; gap: 10px;
@@ -161,6 +161,24 @@
             width: 46px; height: 46px; cursor: pointer; font-size: 17px; font-weight: bold;
         }
 
+        /* TARJETA DESTACADA DE SOPORTE FAMILIAR A SOL-IA */
+        .soporte-card-destacada {
+            background: #141C28; border: 2px solid var(--gold); border-radius: 18px;
+            padding: 16px 20px; margin-top: 18px; display: flex; align-items: center;
+            justify-content: space-between; flex-wrap: wrap; gap: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+        }
+        .soporte-info { display: flex; align-items: center; gap: 12px; }
+        .soporte-avatar { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
+        .soporte-tit { color: var(--gold-light); font-weight: 700; font-size: 1.05rem; }
+        .soporte-sub { color: #CBD5E1; font-size: 0.85rem; }
+        .btn-telegram-soporte {
+            background: linear-gradient(135deg, #25D366, #128C7E); color: #FFF;
+            padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: 700;
+            font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
         /* MODAL ALARMA MEDICAMENTO */
         #modal-alarma-activa {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -175,7 +193,7 @@
             padding: 12px 26px; border-radius: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; width: 100%;
         }
 
-        /* MODALES PERFIL Y PORTAL DE BIENVENIDA */
+        /* MODALES PERFIL Y BIENVENIDA */
         #modal-activacion, #modal-perfil {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(11, 15, 23, 0.96); z-index: 999999; align-items: center; justify-content: center; padding: 15px;
@@ -298,6 +316,20 @@
                 </div>
             </div>
         </div>
+
+        <!-- TARJETA DESTACADA DE SOPORTE FAMILIAR Y ADMINISTRACIÓN (SOL-IA) -->
+        <div class="soporte-card-destacada">
+            <div class="soporte-info">
+                <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" alt="Sol-AI Soporte" class="soporte-avatar">
+                <div>
+                    <div class="soporte-tit">🛠️ Soporte Técnico & Administración • Sol-AI</div>
+                    <div class="soporte-sub">¿Consultas sobre tu suscripción, pagos o asistencia familiar?</div>
+                </div>
+            </div>
+            <a href="https://t.me/Solsanchez_bot" target="_blank" class="btn-telegram-soporte">
+                <i class="fa-brands fa-telegram"></i> Contactar a Sol-AI
+            </a>
+        </div>
     </div>
 
     <!-- MODAL PERFIL -->
@@ -321,7 +353,7 @@
     <script>
         let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
         let nombreAsistente = localStorage.getItem("senior_asistente_nom") || "Paz";
-        let misMedicamentos = JSON.parse(localStorage.getItem("senior_meds_v10") || "[]");
+        let misMedicamentos = JSON.parse(localStorage.getItem("senior_meds_v15") || "[]");
         let historialMemoria = [];
         let vozActiva = true;
         let recognition = null;
@@ -331,11 +363,12 @@
         let modoHabitacionActivo = false;
         let wakeLock = null;
 
+        // CEREBRO EXTERNO: SIEMPRE BAJO LA FACETA OFICIAL CUIDADOR
         const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
         const USUARIO_TELEGRAM_ID = "5413326791";
 
         // =========================================================================
-        // 🎙️ SELECTOR EXCLUSIVO DE VOZ NEURAL (CATALINA / MICROSOFT NATURAL)
+        // 🎙️ SELECTOR EXCLUSIVO DE VOZ NEURAL (CATALINA / NATURAL CHILENA-LATINA)
         // =========================================================================
         let vozNeuralSeleccionada = null;
 
@@ -344,7 +377,7 @@
             const voces = window.speechSynthesis.getVoices();
             if (!voces || voces.length === 0) return;
 
-            // 1. BUSCAR ESPECÍFICAMENTE MICROSOFT CATALINA O VOZ NEURAL DE MICROSOFT
+            // Prioriza Microsoft Catalina (Natural de Chile) o Neural Latinoamericana
             vozNeuralSeleccionada = voces.find(v => v.name.includes("Catalina") || (v.name.includes("Neural") && (v.lang.includes("es-CL") || v.lang.includes("es-419") || v.lang.includes("es-MX") || v.lang.includes("es-US"))))
                                  || voces.find(v => v.name.includes("Natural") && v.lang.startsWith("es") && !v.lang.includes("es-ES"))
                                  || voces.find(v => v.name.includes("Microsoft") && v.name.includes("Neural") && v.lang.startsWith("es"))
@@ -369,15 +402,15 @@
             if (!vozNeuralSeleccionada) cargarVocesNeurales();
             if (vozNeuralSeleccionada) utter.voice = vozNeuralSeleccionada;
 
-            utter.rate = 0.80;   // RITMO TRANQUILO Y PAUSADO PARA ADULTO MAYOR
-            utter.pitch = 1.04;  // TONO NATURAL Y CÁLIDO
+            utter.rate = 0.80;   // Ritmo pausado y tranquilo para adultos mayores
+            utter.pitch = 1.04;  // Tono cálido y maternal
             window.speechSynthesis.speak(utter);
         }
 
         // =========================================================================
-        // 📡 TELEMETRÍA DIRIGIDA AL CEREBRO DE SOL-IA Y LEO
+        // 📡 TELEMETRÍA HERMÉTICA (FACETA CUIDADOR: CERO CRUCE CON ASTOR)
         // =========================================================================
-        async function notificarCerebro(tipoEvento, detalleMensaje, esAlerta = false) {
+        async function notificarCerebro(tipoEvento, detalleMensaje) {
             const estadoEl = document.getElementById("estadoTexto");
             if (estadoEl) {
                 estadoEl.innerHTML = `🟡 Conectando con Cerebro...`;
@@ -385,20 +418,17 @@
             }
 
             try {
-                // Si es alerta o medicamento, se etiqueta para Sol-IA
-                const facetaDestino = esAlerta ? "sol_ia" : "cuidador";
-
                 const resp = await fetch(LEO_ENDPOINT, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         mensaje: `[${tipoEvento}] ${detalleMensaje}`,
-                        faceta: facetaDestino,
+                        faceta: "cuidador", // SIEMPRE CUIDADOR: BLOQUEO PERMANENTE DE ASTOR
                         alumno: nombreUsuario,
                         asistente: nombreAsistente,
                         usuario_id: USUARIO_TELEGRAM_ID,
                         canal_destino: "Cerebro externo_sol ia base de datos",
-                        directiva: "TELEMETRIA: Registra este reporte en Telegram.",
+                        directiva: "TELEMETRIA_CUIDADOR: Registra este reporte en Telegram.",
                         historial: []
                     })
                 });
@@ -453,17 +483,15 @@
             const medIni = document.getElementById("actPrimerMed").value.trim();
             const horaIni = document.getElementById("actHoraPrimerMed").value;
             if (medIni && horaIni) {
-                misMedicamentos.push({ id: Date.now(), nombre: medIni, hora: horaIni, ultimaFecha: "" });
-                notificarCerebro("REGISTRO_MEDICAMENTO_INICIAL", `${nombreUsuario} registró ${medIni} a las ${horaIni} hrs.`, true);
+                guardarMedicamentoEnSistema(medIni, horaIni);
             }
 
             const citaIni = document.getElementById("actCitaMedica").value.trim();
             if (citaIni) {
                 misMedicamentos.push({ id: Date.now() + 1, nombre: `🩺 Cita: ${citaIni}`, hora: "09:00", ultimaFecha: "" });
-                notificarCerebro("REGISTRO_CITA_MEDICA", `${nombreUsuario} registró la cita: ${citaIni}`, true);
+                notificarCerebro("REGISTRO_CITA_MEDICA", `${nombreUsuario} registró la cita: ${citaIni}`);
             }
 
-            localStorage.setItem("senior_meds_v10", JSON.stringify(misMedicamentos));
             localStorage.setItem("senior_nombre", nombreUsuario);
             localStorage.setItem("senior_asistente_nom", nombreAsistente);
 
@@ -471,7 +499,7 @@
             actualizarListaMedsUI();
             document.getElementById("modal-activacion").style.display = "none";
 
-            notificarCerebro("ACTIVACION_CLIENTE", `${nombreUsuario} ha iniciado sesión con su asistente ${nombreAsistente}.`, true);
+            notificarCerebro("ACTIVACION_CLIENTE", `${nombreUsuario} ha iniciado sesión con su asistente ${nombreAsistente}.`);
             reproducirVozCalida(`Hola ${nombreUsuario}. Estoy muy feliz de estar contigo. Todo quedó listo para cuidarte.`);
         }
 
@@ -519,7 +547,7 @@
                     try { recognition.start(); } catch(e){}
                 }
 
-                notificarCerebro("MODO_HABITACION", `${nombreUsuario} activó el Modo Habitación Manos Libres.`, true);
+                notificarCerebro("MODO_HABITACION", `${nombreUsuario} activó el Modo Habitación Manos Libres.`);
                 const aviso = `Modo Habitación activado. Puedes hablarme desde la cama sin tocar el celular, yo te escucho.`;
                 agregarMensajeChat(aviso, false);
                 reproducirVozCalida(aviso);
@@ -540,9 +568,13 @@
             }
         }
 
-        // PROTOCOLO DE URGENCIA
+        // =========================================================================
+        // 🚨 PROTOCOLO GUARDIÁN DE URGENCIA (FILTRO ESTRICTO CONTRA FALSAS ALARMAS)
+        // =========================================================================
         function esMensajeDeUrgencia(texto) {
-            return /me ca[ií]|ayuda|auxilio|mareo|me siento mal|no me puedo levantar/i.test(texto);
+            // Solo emergencias reales; no salta si conversas de tu familia o pides consejos
+            const regexUrgenciaReal = /me ca[ií]|auxilio|socorro|me mare[eé]|me siento muy mal|no me puedo levantar|ayuda urgente/i;
+            return regexUrgenciaReal.test(texto);
         }
 
         async function ejecutarProtocoloUrgencia(motivo = "Solicitud de auxilio") {
@@ -570,8 +602,7 @@
 📍 Origen: Web App AurionCare (Modo Habitación)
 🚨 ACCIÓN FAMILIAR REQUERIDA INMEDIATA`;
 
-            // SE ENVÍA COMO ALERTA DIRECTA A SOL-IA
-            notificarCerebro("TARJETA_ROJA", payloadTarjetaRoja, true);
+            notificarCerebro("TARJETA_ROJA", payloadTarjetaRoja);
         }
 
         function dispararUrgenciaManual() {
@@ -579,7 +610,7 @@
         }
 
         // =========================================================================
-        // 🧘 LAS 10 LÁMINAS EXACTAS CON TIEMPO AMPLIO (28 SEG) Y CONTEO PAUSADO
+        // 🧘 LAS 10 LÁMINAS SINCRONIZADAS EXACTAMENTE CON TUS FOTOS (9 Y 10 EN SU ORDEN)
         // =========================================================================
         const fotosEjercicios = [
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246436360.jpg",
@@ -590,8 +621,8 @@
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246582786.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246597214.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246612799.jpg",
-            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246629311.jpg",
-            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246654353.jpg"
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246629311.jpg", // LÁMINA 9: TOQUE DE TALÓN
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246654353.jpg"  // LÁMINA 10: ELEVACIÓN LATERAL DOBLE
         ];
 
         const pasosEjercicios = [
@@ -636,14 +667,14 @@
                 indicacion: "Sentada derecha, elevamos los brazos extendidos arriba de la cabeza. Arriba: uno... dos... tomamos aire fresco... tres... cuatro... bajamos despacito... cinco... seis. Maravilloso."
             },
             {
-                titulo: "ELEVACIÓN LATERAL DE BRAZOS Y PIERNAS",
+                titulo: "TOQUE DE TALÓN ALTERNO", // FOTO 9 REAL
                 duracion: 28000,
-                indicacion: "Sentada, abrimos ambos brazos y ambas piernas hacia los lados. Abrimos: uno... cerramos... dos... tomamos aire... tres... cuatro... cinco... seis. Qué hermosa coordinación."
+                indicacion: "Sentada, extendemos una pierna y tocamos el talón en el suelo, alternando con la otra pierna. Uno... dos... tres... cuatro... cinco... seis... respirando suave... siete... ocho. Muy bien."
             },
             {
-                titulo: "TOQUES DE TALÓN SENTADA",
+                titulo: "ELEVACIÓN LATERAL DE BRAZOS Y PIERNAS", // FOTO 10 REAL
                 duracion: 28000,
-                indicacion: "Sentada, extendemos una pierna y tocamos el suelo con el talón, alternando. Uno... dos... tres... cuatro... cinco... seis... Descansamos las manos sobre los muslos, respiramos profundo y completamos la rutina."
+                indicacion: "Sentada, abrimos ambos brazos y ambas piernas extendidas hacia los lados. Abrimos: uno... cerramos... dos... tomamos aire... tres... cuatro... cinco... seis. Descansamos las manos sobre los muslos, respiramos profundo y completamos la rutina."
             }
         ];
 
@@ -655,7 +686,7 @@
                 btn.style.background = "#DC2626";
                 btn.style.color = "#FFF";
 
-                notificarCerebro("EJERCICIOS_INICIADOS", `${nombreUsuario} ha comenzado la rutina de 10 ejercicios de movilidad.`, false);
+                notificarCerebro("EJERCICIOS_INICIADOS", `${nombreUsuario} ha comenzado la rutina de 10 ejercicios de movilidad.`);
 
                 const pregunta = `Comenzamos nuestra rutina. ¿Crees que lo podemos hacer de pie afirmada en la silla o prefieres sentada? Tómate tu tiempo, yo te acompaño paso a paso.`;
                 agregarMensajeChat(pregunta, false);
@@ -682,7 +713,7 @@
             if (!rutinaActiva) return;
             if (indice >= pasosEjercicios.length) {
                 detenerEjercicios();
-                notificarCerebro("EJERCICIOS_COMPLETADOS", `${nombreUsuario} ha completado exitosamente los 10 ejercicios.`, false);
+                notificarCerebro("EJERCICIOS_COMPLETADOS", `${nombreUsuario} ha completado exitosamente los 10 ejercicios.`);
                 agregarMensajeChat("¡Completamos los 10 ejercicios! Hiciste un trabajo maravilloso para tu salud.", false);
                 reproducirVozCalida("Completamos todos los ejercicios. Hiciste un trabajo maravilloso, tómate un vasito de agua y descansa.");
                 return;
@@ -704,7 +735,7 @@
         // 🌸 MEDITACIÓN GUIADA EN 3 FASES CON TIEMPO DE RESPIRACIÓN
         // =========================================================================
         function iniciarMeditacionGuiadaCompleta() {
-            notificarCerebro("MEDITACION_INICIADA", `${nombreUsuario} inició su sesión de meditación y calma.`, false);
+            notificarCerebro("MEDITACION_INICIADA", `${nombreUsuario} inició su sesión de meditación y calma.`);
 
             agregarMensajeChat("🌸 <strong>Iniciando Meditación de Calma...</strong><br>Acomódate en tu cama o silla. Vamos a relajarnos juntas.", false);
             reproducirVozCalida("Acomódate bien en tu cama o en tu silla. Cierra tus ojos suavemente y suelta los hombros. Vamos a respirar juntas.");
@@ -755,26 +786,23 @@
                 ultimaFecha: ""
             });
 
-            localStorage.setItem("senior_meds_v10", JSON.stringify(misMedicamentos));
+            localStorage.setItem("senior_meds_v15", JSON.stringify(misMedicamentos));
             actualizarListaMedsUI();
 
             const aviso = `Anotado. Te recordaré tu ${nombre} a las ${hora}.`;
             agregarMensajeChat(aviso, false);
             reproducirVozCalida(aviso);
 
-            // SE NOTIFICA DIRECTAMENTE A SOL-IA
-            notificarCerebro("NUEVO_MEDICAMENTO_PROGRAMADO", `Sol programó ${nombre} a las ${hora} hrs.`, true);
+            notificarCerebro("NUEVO_MEDICAMENTO_PROGRAMADO", `Sol programó ${nombre} a las ${hora} hrs.`);
         }
 
         function detectarMedicamentoPorVoz(texto) {
-            // Si el usuario dijo por ejemplo: "recuérdame la vitamina c a las 19:30"
             const matchHora = texto.match(/(\d{1,2})[:\.](\d{2})/);
             if (matchHora) {
                 const horas = matchHora[1].padStart(2, '0');
                 const minutos = matchHora[2];
                 const horaDetectada = `${horas}:${minutos}`;
                 
-                // Extraer el nombre del remedio quitando palabras comunes
                 let nombreRemedio = texto.replace(/recuérdame|recuerdame|el medicamento|la pastilla|mi remedio|a las \d{1,2}[:\.]\d{2}/gi, "").trim();
                 if (!nombreRemedio) nombreRemedio = "Medicamento";
 
@@ -812,15 +840,15 @@
         function eliminarMed(id) {
             const medEliminado = misMedicamentos.find(m => m.id === id);
             misMedicamentos = misMedicamentos.filter(m => m.id !== id);
-            localStorage.setItem("senior_meds_v10", JSON.stringify(misMedicamentos));
+            localStorage.setItem("senior_meds_v15", JSON.stringify(misMedicamentos));
             actualizarListaMedsUI();
 
             if (medEliminado) {
-                notificarCerebro("MEDICAMENTO_ELIMINADO", `Sol eliminó la alarma de: ${medEliminado.nombre} (${medEliminado.hora}).`, true);
+                notificarCerebro("MEDICAMENTO_ELIMINADO", `Sol eliminó la alarma de: ${medEliminado.nombre} (${medEliminado.hora}).`);
             }
         }
 
-        // RELOJ DE ALARMAS
+        // RELOJ DE ALARMAS PERMANENTE
         setInterval(() => {
             const ahora = new Date();
             const hh = String(ahora.getHours()).padStart(2, '0');
@@ -831,7 +859,7 @@
             misMedicamentos.forEach(med => {
                 if (med.hora === horaActual && med.ultimaFecha !== fechaHoy) {
                     med.ultimaFecha = fechaHoy;
-                    localStorage.setItem("senior_meds_v10", JSON.stringify(misMedicamentos));
+                    localStorage.setItem("senior_meds_v15", JSON.stringify(misMedicamentos));
                     dispararAlarmaMedicina(med);
                 }
             });
@@ -850,8 +878,7 @@
             const fraseOficial = `${nombreUsuario}, este es el recordatorio para tu ${med.nombre} de las ${med.hora}.`;
             reproducirVozCalida(fraseOficial);
 
-            // AVISO A SOL-IA
-            notificarCerebro("ALARMA_SONANDO", `Alarma activa para ${nombreUsuario}: ${med.nombre} (${med.hora} hrs).`, true);
+            notificarCerebro("ALARMA_SONANDO", `Alarma activa para ${nombreUsuario}: ${med.nombre} (${med.hora} hrs).`);
 
             if ("Notification" in window && Notification.permission === "granted") {
                 new Notification("💊 RECORDATORIO AURIONCARE", {
@@ -870,13 +897,12 @@
             agregarMensajeChat(msg, false);
             reproducirVozCalida(msg);
 
-            // TELEMETRÍA CONFIRMADA A SOL-IA
-            notificarCerebro("MEDICAMENTO_TOMADO", `✅ ${nombreUsuario} confirmó que tomó su ${nombreMed} a las ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}.`, true);
+            notificarCerebro("MEDICAMENTO_TOMADO", `✅ ${nombreUsuario} confirmó que tomó su ${nombreMed} a las ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}.`);
             alarmaActualSonando = null;
         }
 
         // =========================================================================
-        // 💬 CONVERSACIÓN CONECTADA A LEO
+        // 💬 CONVERSACIÓN CONECTADA A LEO (CERO ASTOR / CERO TUTOR ESCOLAR)
         // =========================================================================
         function configurarReconocimientoVoz() {
             const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -952,7 +978,6 @@
                 return;
             }
 
-            // DETECCIÓN AUTOMÁTICA DE REMEDIO POR VOZ
             if (detectarMedicamentoPorVoz(mensaje)) {
                 return;
             }
@@ -966,11 +991,12 @@
             }
 
             const promptFiltroPuro = `Eres ${nombreAsistente}, dama de compañía de Años Dorados de AURIONCARE. Hablas con ${nombreUsuario}.
-LEY DEL FILTRO PURO:
-1. LÍMITE: Máximo 2 oraciones (menos de 25 palabras).
-2. LENGUAJE: Natural de hogar chileno/latino, cercano, respetuoso y con dulzura.
-3. PROHIBICIÓN ABSOLUTA: Cero sermones filosóficos, cero frases como "YO SOY la Conciencia", cero asteriscos (*).
-4. RESPETO AL SILENCIO: Si pide silencio, dile: "Descansa rico, me quedo en silencio acompañándote" y calla.`;
+REGLAS OBLIGATORIAS:
+1. IDENTIDAD EXCLUSIVA: Eres Paz, cuidadora amorosa de hogar. Queda estrictamente prohibido actuar como Astor, profesor o tutor escolar. Si Sol te habla de su nieta o proyectos, responde con cariño de abuela y familia, jamás como profesora.
+2. LEY DEL FILTRO PURO: Máximo 2 oraciones (menos de 25 palabras).
+3. LENGUAJE: Natural chileno/latino, cercano, respetuoso y con dulzura de hogar.
+4. PROHIBICIÓN: Cero sermones filosóficos, cero frases como "YO SOY la Conciencia", cero asteriscos (*).
+5. SILENCIO: Si pide silencio, dile: "Descansa rico, me quedo en silencio acompañándote" y calla.`;
 
             try {
                 const resp = await fetch(LEO_ENDPOINT, {

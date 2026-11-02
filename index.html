@@ -117,23 +117,29 @@
         }
         .btn-sugerencia:hover { background: rgba(212, 175, 55, 0.25); }
 
-        /* SECCIÓN DE MEDICAMENTOS Y CITAS */
+        /* SECCIÓN DE MEDICAMENTOS Y CITAS - REDISEÑADA Y CLARA */
         .meds-section {
-            background: #182232; border: 1.5px solid var(--gold); border-radius: 16px;
-            padding: 14px 16px;
+            background: #182232; border: 2px solid var(--gold); border-radius: 18px;
+            padding: 16px; display: flex; flex-direction: column; gap: 10px;
         }
-        .meds-title { font-size: 1rem; color: var(--gold-light); font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
-        .meds-grid-inputs { display: grid; grid-template-columns: 2fr 1.2fr 1fr; gap: 8px; }
-        .meds-input { background: #0D131F; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 10px; padding: 8px 12px; color: #FFF; font-size: 0.92rem; outline: none; }
-        .btn-meds-add { background: var(--gold); border: none; color: #0A0E14; border-radius: 10px; padding: 8px; font-weight: bold; cursor: pointer; font-size: 0.88rem; transition: 0.2s; }
+        .meds-title { font-size: 1.05rem; color: var(--gold-light); font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
+        .meds-form-card { display: flex; flex-direction: column; gap: 8px; }
+        .meds-input-row { display: flex; gap: 8px; flex-wrap: wrap; }
+        .meds-input { flex: 2; min-width: 160px; background: #0D131F; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 10px; padding: 10px 12px; color: #FFF; font-size: 0.95rem; outline: none; }
+        .meds-time { flex: 1; min-width: 110px; background: #0D131F; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 10px; padding: 10px 12px; color: #FFF; font-size: 0.95rem; outline: none; }
+        .btn-guardar-med-grande {
+            background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
+            border: none; color: #0A0E14; border-radius: 12px; padding: 12px; font-weight: 800;
+            cursor: pointer; font-size: 0.95rem; text-align: center; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
 
-        .meds-list { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+        .meds-list { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; }
         .med-item-card {
             background: #0E1522; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 10px;
-            padding: 8px 12px; display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;
         }
-        .med-info strong { color: var(--gold-light); font-size: 0.98rem; }
-        .med-info span { color: #CBD5E1; font-size: 0.85rem; margin-left: 6px; }
+        .med-info strong { color: var(--gold-light); font-size: 1rem; }
+        .med-info span { color: #CBD5E1; font-size: 0.88rem; margin-left: 6px; }
         .med-actions { display: flex; gap: 6px; align-items: center; }
         .btn-cal-sync { background: #1B314B; border: 1px solid #38BDF8; color: #38BDF8; border-radius: 6px; padding: 4px 8px; font-size: 0.75rem; cursor: pointer; text-decoration: none; font-weight: 600; }
         .btn-del-med { background: rgba(239, 68, 68, 0.15); border: 1px solid var(--accent-red); color: var(--accent-red); border-radius: 6px; padding: 4px 7px; cursor: pointer; font-size: 0.75rem; }
@@ -195,7 +201,7 @@
         </div>
     </div>
 
-    <!-- PORTAL DE BIENVENIDA Y CONFIGURACIÓN INICIAL -->
+    <!-- PORTAL DE BIENVENIDA -->
     <div id="modal-activacion" style="display:flex;">
         <div class="activacion-card">
             <span style="font-size: 2.2rem; display: block; margin-bottom: 4px;">✨</span>
@@ -265,16 +271,18 @@
                 <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero descansar en silencio')">🤫 Silencio</button>
             </div>
 
-            <!-- MEDICAMENTOS Y CITAS -->
+            <!-- SECCIÓN DE MEDICAMENTOS Y CITAS -->
             <div class="meds-section">
                 <div class="meds-title">
-                    <span>💊 Alarmas de Medicamentos y Citas</span>
+                    <span>💊 Mis Alarmas de Medicamentos y Citas</span>
                     <span style="font-size:0.75rem; color:#CBD5E1;">Exactas y sincronizadas</span>
                 </div>
-                <div class="meds-grid-inputs">
-                    <input type="text" id="inputMedicamento" class="meds-input" placeholder="Medicamento o Cita (ej. Levotiroxina)">
-                    <input type="time" id="inputHoraMed" class="meds-input">
-                    <button class="btn-meds-add" onclick="agregarMedicamentoReal()">Guardar</button>
+                <div class="meds-form-card">
+                    <div class="meds-input-row">
+                        <input type="text" id="inputMedicamento" class="meds-input" placeholder="Nombre (Ej: Vitamina C, Losartán)">
+                        <input type="time" id="inputHoraMed" class="meds-time">
+                    </div>
+                    <button class="btn-guardar-med-grande" onclick="agregarMedicamentoReal()">💾 Guardar Alarma en mi Teléfono</button>
                 </div>
                 <div class="meds-list" id="listaMedicamentosUI"></div>
             </div>
@@ -313,7 +321,7 @@
     <script>
         let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
         let nombreAsistente = localStorage.getItem("senior_asistente_nom") || "Paz";
-        let misMedicamentos = JSON.parse(localStorage.getItem("senior_meds_v8") || "[]");
+        let misMedicamentos = JSON.parse(localStorage.getItem("senior_meds_v10") || "[]");
         let historialMemoria = [];
         let vozActiva = true;
         let recognition = null;
@@ -323,14 +331,53 @@
         let modoHabitacionActivo = false;
         let wakeLock = null;
 
-        // ENDPOINT VERIFICADO DEL CEREBRO DE LEO / SOL-IA
         const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
-        const USUARIO_TELEGRAM_ID = "5413326791"; // TU IDENTIFICADOR DE TELEGRAM
+        const USUARIO_TELEGRAM_ID = "5413326791";
 
         // =========================================================================
-        // 📡 TELEMETRÍA: ENVÍA CADA ALARMA Y ACCIÓN AL CEREBRO DE TELEGRAM
+        // 🎙️ SELECTOR EXCLUSIVO DE VOZ NEURAL (CATALINA / MICROSOFT NATURAL)
         // =========================================================================
-        async function notificarCerebro(tipoEvento, detalleMensaje) {
+        let vozNeuralSeleccionada = null;
+
+        function cargarVocesNeurales() {
+            if (!('speechSynthesis' in window)) return;
+            const voces = window.speechSynthesis.getVoices();
+            if (!voces || voces.length === 0) return;
+
+            // 1. BUSCAR ESPECÍFICAMENTE MICROSOFT CATALINA O VOZ NEURAL DE MICROSOFT
+            vozNeuralSeleccionada = voces.find(v => v.name.includes("Catalina") || (v.name.includes("Neural") && (v.lang.includes("es-CL") || v.lang.includes("es-419") || v.lang.includes("es-MX") || v.lang.includes("es-US"))))
+                                 || voces.find(v => v.name.includes("Natural") && v.lang.startsWith("es") && !v.lang.includes("es-ES"))
+                                 || voces.find(v => v.name.includes("Microsoft") && v.name.includes("Neural") && v.lang.startsWith("es"))
+                                 || voces.find(v => (v.lang === "es-CL" || v.lang === "es-419" || v.lang === "es-US" || v.lang === "es-MX") && !v.lang.includes("es-ES"))
+                                 || voces.find(v => (v.name.includes("Sabina") || v.name.includes("Paulina") || v.name.includes("Sofia")) && !v.name.includes("Spain"))
+                                 || voces.find(v => v.lang.startsWith("es") && !v.lang.includes("ES"));
+        }
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = cargarVocesNeurales;
+            cargarVocesNeurales();
+        }
+
+        function reproducirVozCalida(texto) {
+            if (!vozActiva || !('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+
+            const limpio = (texto || "").replace(/[*#_~`$]/g, "").trim();
+            if (!limpio) return;
+
+            const utter = new SpeechSynthesisUtterance(limpio);
+            if (!vozNeuralSeleccionada) cargarVocesNeurales();
+            if (vozNeuralSeleccionada) utter.voice = vozNeuralSeleccionada;
+
+            utter.rate = 0.80;   // RITMO TRANQUILO Y PAUSADO PARA ADULTO MAYOR
+            utter.pitch = 1.04;  // TONO NATURAL Y CÁLIDO
+            window.speechSynthesis.speak(utter);
+        }
+
+        // =========================================================================
+        // 📡 TELEMETRÍA DIRIGIDA AL CEREBRO DE SOL-IA Y LEO
+        // =========================================================================
+        async function notificarCerebro(tipoEvento, detalleMensaje, esAlerta = false) {
             const estadoEl = document.getElementById("estadoTexto");
             if (estadoEl) {
                 estadoEl.innerHTML = `🟡 Conectando con Cerebro...`;
@@ -338,17 +385,20 @@
             }
 
             try {
+                // Si es alerta o medicamento, se etiqueta para Sol-IA
+                const facetaDestino = esAlerta ? "sol_ia" : "cuidador";
+
                 const resp = await fetch(LEO_ENDPOINT, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         mensaje: `[${tipoEvento}] ${detalleMensaje}`,
-                        faceta: "cuidador",
+                        faceta: facetaDestino,
                         alumno: nombreUsuario,
                         asistente: nombreAsistente,
                         usuario_id: USUARIO_TELEGRAM_ID,
                         canal_destino: "Cerebro externo_sol ia base de datos",
-                        directiva: "TELEMETRIA_SISTEMA: Registra este reporte en el canal de Telegram.",
+                        directiva: "TELEMETRIA: Registra este reporte en Telegram.",
                         historial: []
                     })
                 });
@@ -365,34 +415,7 @@
             }
         }
 
-        // =========================================================================
-        // 🎙️ VOZ LATINA CÁLIDA (SIN ACENTO ESPAÑOL DE GPS)
-        // =========================================================================
-        function reproducirVozCalida(texto) {
-            if (!vozActiva || !('speechSynthesis' in window)) return;
-            window.speechSynthesis.cancel();
-
-            const limpio = (texto || "").replace(/[*#_~`$]/g, "").trim();
-            if (!limpio) return;
-
-            const utter = new SpeechSynthesisUtterance(limpio);
-            const voces = window.speechSynthesis.getVoices();
-
-            // BLOQUEO TOTAL DE ESPAÑA (es-ES) -> PRIORIDAD A VOCES LATINOAMERICANAS
-            const vozLatina = voces.find(v => (v.lang === "es-CL" || v.lang === "es-419" || v.lang === "es-US" || v.lang === "es-MX") && !v.lang.includes("es-ES")) 
-                           || voces.find(v => (v.name.includes("Latin") || v.name.includes("Mexico") || v.name.includes("Chile") || v.name.includes("Sabina") || v.name.includes("Paulina") || v.name.includes("Sofia")) && !v.name.includes("Spain"))
-                           || voces.find(v => v.lang.startsWith("es") && !v.lang.includes("ES"));
-
-            if (vozLatina) {
-                utter.voice = vozLatina;
-            }
-
-            utter.rate = 0.88;   // Ritmo pausado y tranquilo para adultos mayores
-            utter.pitch = 1.04;  // Inflexión cálida y maternal
-            window.speechSynthesis.speak(utter);
-        }
-
-        // SONIDO DE CAMPANA LOCAL
+        // SONIDO DE CAMPANA
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function sonarAlarmaBeep() {
             try {
@@ -431,16 +454,16 @@
             const horaIni = document.getElementById("actHoraPrimerMed").value;
             if (medIni && horaIni) {
                 misMedicamentos.push({ id: Date.now(), nombre: medIni, hora: horaIni, ultimaFecha: "" });
-                notificarCerebro("REGISTRO_MEDICAMENTO_INICIAL", `${nombreUsuario} registró ${medIni} a las ${horaIni} hrs.`);
+                notificarCerebro("REGISTRO_MEDICAMENTO_INICIAL", `${nombreUsuario} registró ${medIni} a las ${horaIni} hrs.`, true);
             }
 
             const citaIni = document.getElementById("actCitaMedica").value.trim();
             if (citaIni) {
                 misMedicamentos.push({ id: Date.now() + 1, nombre: `🩺 Cita: ${citaIni}`, hora: "09:00", ultimaFecha: "" });
-                notificarCerebro("REGISTRO_CITA_MEDICA", `${nombreUsuario} registró la cita: ${citaIni}`);
+                notificarCerebro("REGISTRO_CITA_MEDICA", `${nombreUsuario} registró la cita: ${citaIni}`, true);
             }
 
-            localStorage.setItem("senior_meds_v8", JSON.stringify(misMedicamentos));
+            localStorage.setItem("senior_meds_v10", JSON.stringify(misMedicamentos));
             localStorage.setItem("senior_nombre", nombreUsuario);
             localStorage.setItem("senior_asistente_nom", nombreAsistente);
 
@@ -448,7 +471,7 @@
             actualizarListaMedsUI();
             document.getElementById("modal-activacion").style.display = "none";
 
-            notificarCerebro("ACTIVACION_CLIENTE", `${nombreUsuario} ha iniciado sesión con su asistente ${nombreAsistente}.`);
+            notificarCerebro("ACTIVACION_CLIENTE", `${nombreUsuario} ha iniciado sesión con su asistente ${nombreAsistente}.`, true);
             reproducirVozCalida(`Hola ${nombreUsuario}. Estoy muy feliz de estar contigo. Todo quedó listo para cuidarte.`);
         }
 
@@ -477,9 +500,7 @@
             document.getElementById("modal-perfil").style.display = "none";
         }
 
-        // =========================================================================
-        // 🛡️ MODO HABITACIÓN (MANOS LIBRES CON PANTALLA ACTIVA)
-        // =========================================================================
+        // MODO HABITACIÓN
         async function toggleModoHabitacion() {
             modoHabitacionActivo = !modoHabitacionActivo;
             const btn = document.getElementById("btnModoHabitacion");
@@ -498,7 +519,7 @@
                     try { recognition.start(); } catch(e){}
                 }
 
-                notificarCerebro("MODO_HABITACION", `${nombreUsuario} activó el Modo Habitación Manos Libres.`);
+                notificarCerebro("MODO_HABITACION", `${nombreUsuario} activó el Modo Habitación Manos Libres.`, true);
                 const aviso = `Modo Habitación activado. Puedes hablarme desde la cama sin tocar el celular, yo te escucho.`;
                 agregarMensajeChat(aviso, false);
                 reproducirVozCalida(aviso);
@@ -519,12 +540,9 @@
             }
         }
 
-        // =========================================================================
-        // 🚨 PROTOCOLO GUARDIÁN DE URGENCIA (TARJETA ROJA A TELEGRAM)
-        // =========================================================================
+        // PROTOCOLO DE URGENCIA
         function esMensajeDeUrgencia(texto) {
-            const regexGatillo = /me ca[ií]|ayuda|auxilio|mareo|me siento mal|no me puedo levantar/i;
-            return regexGatillo.test(texto);
+            return /me ca[ií]|ayuda|auxilio|mareo|me siento mal|no me puedo levantar/i.test(texto);
         }
 
         async function ejecutarProtocoloUrgencia(motivo = "Solicitud de auxilio") {
@@ -552,7 +570,8 @@
 📍 Origen: Web App AurionCare (Modo Habitación)
 🚨 ACCIÓN FAMILIAR REQUERIDA INMEDIATA`;
 
-            notificarCerebro("TARJETA_ROJA", payloadTarjetaRoja);
+            // SE ENVÍA COMO ALERTA DIRECTA A SOL-IA
+            notificarCerebro("TARJETA_ROJA", payloadTarjetaRoja, true);
         }
 
         function dispararUrgenciaManual() {
@@ -560,7 +579,7 @@
         }
 
         // =========================================================================
-        // 🧘 LAS 10 LÁMINAS EXACTAS CON VOZ Y CONTEO REAL EN VIVO
+        // 🧘 LAS 10 LÁMINAS EXACTAS CON TIEMPO AMPLIO (28 SEG) Y CONTEO PAUSADO
         // =========================================================================
         const fotosEjercicios = [
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246436360.jpg",
@@ -578,53 +597,53 @@
         const pasosEjercicios = [
             {
                 titulo: "ARM CIRCLES (Círculos de Brazos)",
-                duracion: 22000,
-                indicacion: "Brazos extendidos a los lados. Hacemos círculos suaves. Hacia adelante: uno... dos... tres... cuatro... Y hacia atrás: cinco... seis... siete... ocho. Respiramos con calma, qué bien lo haces."
+                duracion: 28000,
+                indicacion: "Brazos extendidos a los lados. Hacemos círculos suaves. Respiramos hondo... hacia adelante: uno... dos... tres... cuatro... Tomamos aire... y hacia atrás: cinco... seis... siete... ocho. Muy bien, soltamos los brazos."
             },
             {
                 titulo: "ELEVACIÓN DE PIERNA HACIA ATRÁS",
-                duracion: 22000,
-                indicacion: "De pie, sostente de la silla y eleva la pierna hacia atrás sin doblar la espalda. Vamos juntas: uno... dos... tres... cuatro... cinco... seis... Cambiamos a la otra pierna: uno... dos... tres... cuatro... cinco... seis."
+                duracion: 28000,
+                indicacion: "De pie, afirmada firme de tu silla. Elevamos la pierna hacia atrás despacito. Vamos juntas: uno... dos... tres... cuatro... cambiamos de pierna con calma... cinco... seis... siete... ocho. Excelente."
             },
             {
                 titulo: "ELEVACIÓN DE PANTORRILLAS",
-                duracion: 22000,
-                indicacion: "De pie, sostente de la silla y eleva ambos talones al mismo tiempo, subiendo en puntitas. Arriba: uno... dos... tres... cuatro... cinco... seis... siete... ocho. Muy bien, bajamos despacito."
+                duracion: 28000,
+                indicacion: "De pie, afirmada de la silla. Nos ponemos en puntitas de pie subiendo los talones. Arriba: uno... bajamos... dos... arriba... tres... cuatro... descansamos un segundo... cinco... seis. Muy bien."
             },
             {
                 titulo: "ELEVACIÓN LATERAL DE PIERNA",
-                duracion: 24000,
-                indicacion: "De pie, sostente de la silla y eleva la pierna hacia el lado. Doce repeticiones: uno... dos... tres... cuatro... cinco... seis... Cambiamos de pierna con calma: uno... dos... tres... cuatro... cinco... seis. Excelente."
+                duracion: 30000,
+                indicacion: "Afirmada de la silla, elevamos la pierna hacia el lado. Despacito: uno... dos... tres... cuatro... cinco... seis... Cambiamos de pierna con suavidad: uno... dos... tres... cuatro... cinco... seis. Perfecto."
             },
             {
                 titulo: "SENTADILLAS ASISTIDAS",
-                duracion: 22000,
-                indicacion: "De pie, sostente de la silla y baja suavemente las caderas como si te fueras a sentar, con la espalda recta. Bajamos: uno... arriba... dos... arriba... tres... cuatro... cinco... seis. A tu propio ritmo."
+                duracion: 28000,
+                indicacion: "Sosténte de la silla y baja las caderas suave, como si te fueras a sentar. Espalda recta. Bajamos: uno... arriba... tomamos aire... dos... arriba... tres... cuatro... a tu propio ritmo, sin forzar."
             },
             {
                 titulo: "GIRO DE TRONCO SENTADO",
-                duracion: 22000,
-                indicacion: "Sentada en la silla, gira suavemente el tronco de lado a lado manteniendo la pelvis estable. Despacio: giro a la derecha... uno... al centro... a la izquierda... dos... tres... cuatro... sintiendo la espalda relajada."
+                duracion: 28000,
+                indicacion: "Sentadita en la silla, giramos suavemente el cuerpo. Despacio: giro a la derecha... uno... al centro... a la izquierda... dos... respirando hondo... tres... cuatro... sintiendo la espalda aliviada."
             },
             {
                 titulo: "MARCHA SENTADA",
-                duracion: 24000,
-                indicacion: "Sentada, levanta las rodillas alternadamente y mueve los brazos de forma coordinada, como caminando sin caminar. Marchamos juntas: uno, dos... uno, dos... tres, cuatro... sintiendo la energía y la vida en las piernas... cinco, seis."
+                duracion: 30000,
+                indicacion: "Sentada, levantamos las rodillas alternando y moviendo los brazos. Marchamos juntas, caminando sin caminar: uno, dos... uno, dos... tres, cuatro... sintiendo el calorcito y la energía en las piernas... cinco, seis."
             },
             {
                 titulo: "EXTENSIÓN DE BRAZOS POR ENCIMA",
-                duracion: 22000,
-                indicacion: "Sentada con la espalda recta, eleva los brazos extendidos por encima de la cabeza. Hacia arriba: uno... dos... tres... cuatro... cinco... seis... Bajamos despacio tomando aire hondo."
+                duracion: 28000,
+                indicacion: "Sentada derecha, elevamos los brazos extendidos arriba de la cabeza. Arriba: uno... dos... tomamos aire fresco... tres... cuatro... bajamos despacito... cinco... seis. Maravilloso."
             },
             {
                 titulo: "ELEVACIÓN LATERAL DE BRAZOS Y PIERNAS",
-                duracion: 22000,
-                indicacion: "Sentada, eleva ambos brazos y ambas piernas extendidas simultáneamente hacia los lados. Abrimos: uno... cerramos... dos... tres... cuatro... cinco... seis. Maravillosa coordinación."
+                duracion: 28000,
+                indicacion: "Sentada, abrimos ambos brazos y ambas piernas hacia los lados. Abrimos: uno... cerramos... dos... tomamos aire... tres... cuatro... cinco... seis. Qué hermosa coordinación."
             },
             {
                 titulo: "TOQUES DE TALÓN SENTADA",
-                duracion: 22000,
-                indicacion: "Sentada, extiende una pierna y toca el talón en el suelo, alternando con la otra pierna. Uno... dos... tres... cuatro... cinco... seis... siete... ocho. Descansamos las manos en los muslos, respiramos profundo y completamos la rutina."
+                duracion: 28000,
+                indicacion: "Sentada, extendemos una pierna y tocamos el suelo con el talón, alternando. Uno... dos... tres... cuatro... cinco... seis... Descansamos las manos sobre los muslos, respiramos profundo y completamos la rutina."
             }
         ];
 
@@ -636,13 +655,13 @@
                 btn.style.background = "#DC2626";
                 btn.style.color = "#FFF";
 
-                notificarCerebro("EJERCICIOS_INICIADOS", `${nombreUsuario} ha comenzado la rutina de 10 ejercicios de movilidad.`);
+                notificarCerebro("EJERCICIOS_INICIADOS", `${nombreUsuario} ha comenzado la rutina de 10 ejercicios de movilidad.`, false);
 
-                const pregunta = `Comenzamos nuestra rutina de ejercicios. ¿Crees que lo podemos hacer de pie afirmada en la silla o prefieres sentada? Tómate tu tiempo, yo te acompaño paso a paso.`;
+                const pregunta = `Comenzamos nuestra rutina. ¿Crees que lo podemos hacer de pie afirmada en la silla o prefieres sentada? Tómate tu tiempo, yo te acompaño paso a paso.`;
                 agregarMensajeChat(pregunta, false);
                 reproducirVozCalida(pregunta);
 
-                timerRutina = setTimeout(() => mostrarPasoEjercicio(0), 6000);
+                timerRutina = setTimeout(() => mostrarPasoEjercicio(0), 6500);
             } else {
                 detenerEjercicios();
             }
@@ -663,7 +682,7 @@
             if (!rutinaActiva) return;
             if (indice >= pasosEjercicios.length) {
                 detenerEjercicios();
-                notificarCerebro("EJERCICIOS_COMPLETADOS", `${nombreUsuario} ha completado exitosamente los 10 ejercicios.`);
+                notificarCerebro("EJERCICIOS_COMPLETADOS", `${nombreUsuario} ha completado exitosamente los 10 ejercicios.`, false);
                 agregarMensajeChat("¡Completamos los 10 ejercicios! Hiciste un trabajo maravilloso para tu salud.", false);
                 reproducirVozCalida("Completamos todos los ejercicios. Hiciste un trabajo maravilloso, tómate un vasito de agua y descansa.");
                 return;
@@ -682,10 +701,10 @@
         }
 
         // =========================================================================
-        // 🌸 MEDITACIÓN GUIADA EN 3 FASES CONTINUAS
+        // 🌸 MEDITACIÓN GUIADA EN 3 FASES CON TIEMPO DE RESPIRACIÓN
         // =========================================================================
         function iniciarMeditacionGuiadaCompleta() {
-            notificarCerebro("MEDITACION_INICIADA", `${nombreUsuario} inició su sesión de meditación y calma.`);
+            notificarCerebro("MEDITACION_INICIADA", `${nombreUsuario} inició su sesión de meditación y calma.`, false);
 
             agregarMensajeChat("🌸 <strong>Iniciando Meditación de Calma...</strong><br>Acomódate en tu cama o silla. Vamos a relajarnos juntas.", false);
             reproducirVozCalida("Acomódate bien en tu cama o en tu silla. Cierra tus ojos suavemente y suelta los hombros. Vamos a respirar juntas.");
@@ -694,23 +713,23 @@
                 const fase1 = "Inhala aire de calma lento y profundo por tu nariz... uno, dos, tres... y suelta el aire despacito por la boca. Siente cómo se afloja tu cuello, tu espalda y tu corazón.";
                 agregarMensajeChat(fase1, false);
                 reproducirVozCalida(fase1);
-            }, 8000);
+            }, 9000);
 
             setTimeout(() => {
                 const fase2 = "Vuelve a tomar aire hondo... llenándote de gratitud y de paz... y al exhalar, deja ir cualquier dolor, cansancio o preocupación. Todo está bien en este instante. Te acompaño con amor.";
                 agregarMensajeChat(fase2, false);
                 reproducirVozCalida(fase2);
-            }, 18000);
+            }, 21000);
 
             setTimeout(() => {
                 const fase3 = "Quédate en esta quietud unos minutitos. Siente tus manos tibias y tu cuerpo descansado. Quédate en paz, yo estoy aquí cuidando de ti.";
                 agregarMensajeChat(fase3, false);
                 reproducirVozCalida(fase3);
-            }, 29000);
+            }, 33000);
         }
 
         // =========================================================================
-        // 💊 MEDICAMENTOS Y CITAS: ALARMA REAL Y TELEMETRÍA A TELEGRAM
+        // 💊 MEDICAMENTOS Y CITAS: BOTÓN CLARO + VOZ AUTOMÁTICA
         // =========================================================================
         function agregarMedicamentoReal() {
             const inputNom = document.getElementById("inputMedicamento");
@@ -723,6 +742,12 @@
                 return;
             }
 
+            guardarMedicamentoEnSistema(nombre, hora);
+            inputNom.value = "";
+            inputHora.value = "";
+        }
+
+        function guardarMedicamentoEnSistema(nombre, hora) {
             misMedicamentos.push({
                 id: Date.now(),
                 nombre: nombre,
@@ -730,17 +755,33 @@
                 ultimaFecha: ""
             });
 
-            localStorage.setItem("senior_meds_v8", JSON.stringify(misMedicamentos));
-            inputNom.value = "";
-            inputHora.value = "";
+            localStorage.setItem("senior_meds_v10", JSON.stringify(misMedicamentos));
             actualizarListaMedsUI();
 
             const aviso = `Anotado. Te recordaré tu ${nombre} a las ${hora}.`;
             agregarMensajeChat(aviso, false);
             reproducirVozCalida(aviso);
 
-            // ENVÍO INMEDIATO AL CEREBRO DE TELEGRAM
-            notificarCerebro("NUEVO_MEDICAMENTO_PROGRAMADO", `Sol programó ${nombre} a las ${hora} hrs.`);
+            // SE NOTIFICA DIRECTAMENTE A SOL-IA
+            notificarCerebro("NUEVO_MEDICAMENTO_PROGRAMADO", `Sol programó ${nombre} a las ${hora} hrs.`, true);
+        }
+
+        function detectarMedicamentoPorVoz(texto) {
+            // Si el usuario dijo por ejemplo: "recuérdame la vitamina c a las 19:30"
+            const matchHora = texto.match(/(\d{1,2})[:\.](\d{2})/);
+            if (matchHora) {
+                const horas = matchHora[1].padStart(2, '0');
+                const minutos = matchHora[2];
+                const horaDetectada = `${horas}:${minutos}`;
+                
+                // Extraer el nombre del remedio quitando palabras comunes
+                let nombreRemedio = texto.replace(/recuérdame|recuerdame|el medicamento|la pastilla|mi remedio|a las \d{1,2}[:\.]\d{2}/gi, "").trim();
+                if (!nombreRemedio) nombreRemedio = "Medicamento";
+
+                guardarMedicamentoEnSistema(nombreRemedio, horaDetectada);
+                return true;
+            }
+            return false;
         }
 
         function actualizarListaMedsUI() {
@@ -771,11 +812,11 @@
         function eliminarMed(id) {
             const medEliminado = misMedicamentos.find(m => m.id === id);
             misMedicamentos = misMedicamentos.filter(m => m.id !== id);
-            localStorage.setItem("senior_meds_v8", JSON.stringify(misMedicamentos));
+            localStorage.setItem("senior_meds_v10", JSON.stringify(misMedicamentos));
             actualizarListaMedsUI();
 
             if (medEliminado) {
-                notificarCerebro("MEDICAMENTO_ELIMINADO", `Sol eliminó la alarma de: ${medEliminado.nombre} (${medEliminado.hora}).`);
+                notificarCerebro("MEDICAMENTO_ELIMINADO", `Sol eliminó la alarma de: ${medEliminado.nombre} (${medEliminado.hora}).`, true);
             }
         }
 
@@ -790,7 +831,7 @@
             misMedicamentos.forEach(med => {
                 if (med.hora === horaActual && med.ultimaFecha !== fechaHoy) {
                     med.ultimaFecha = fechaHoy;
-                    localStorage.setItem("senior_meds_v8", JSON.stringify(misMedicamentos));
+                    localStorage.setItem("senior_meds_v10", JSON.stringify(misMedicamentos));
                     dispararAlarmaMedicina(med);
                 }
             });
@@ -809,8 +850,8 @@
             const fraseOficial = `${nombreUsuario}, este es el recordatorio para tu ${med.nombre} de las ${med.hora}.`;
             reproducirVozCalida(fraseOficial);
 
-            // DISPARO A TELEGRAM
-            notificarCerebro("ALARMA_SONANDO", `Alarma activa para ${nombreUsuario}: ${med.nombre} (${med.hora} hrs).`);
+            // AVISO A SOL-IA
+            notificarCerebro("ALARMA_SONANDO", `Alarma activa para ${nombreUsuario}: ${med.nombre} (${med.hora} hrs).`, true);
 
             if ("Notification" in window && Notification.permission === "granted") {
                 new Notification("💊 RECORDATORIO AURIONCARE", {
@@ -829,8 +870,8 @@
             agregarMensajeChat(msg, false);
             reproducirVozCalida(msg);
 
-            // TELEMETRÍA CONFIRMADA A TELEGRAM
-            notificarCerebro("MEDICAMENTO_TOMADO", `✅ ${nombreUsuario} confirmó que tomó su ${nombreMed} a las ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}.`);
+            // TELEMETRÍA CONFIRMADA A SOL-IA
+            notificarCerebro("MEDICAMENTO_TOMADO", `✅ ${nombreUsuario} confirmó que tomó su ${nombreMed} a las ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}.`, true);
             alarmaActualSonando = null;
         }
 
@@ -908,6 +949,11 @@
 
             if (/meditaci[oó]n|relajaci[oó]n|gu[ií]ame/i.test(mensaje)) {
                 iniciarMeditacionGuiadaCompleta();
+                return;
+            }
+
+            // DETECCIÓN AUTOMÁTICA DE REMEDIO POR VOZ
+            if (detectarMedicamentoPorVoz(mensaje)) {
                 return;
             }
 

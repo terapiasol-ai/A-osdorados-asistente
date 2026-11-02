@@ -24,7 +24,7 @@
         header {
             background: linear-gradient(180deg, #182232 0%, var(--bg-dark) 100%);
             border-bottom: 2px solid var(--gold);
-            padding: 22px 15px 16px;
+            padding: 20px 15px 14px;
             text-align: center;
             position: relative;
         }
@@ -40,7 +40,7 @@
             margin-bottom: 6px; font-size: 0.85rem; letter-spacing: 0.5px;
         }
 
-        header h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; color: var(--gold-light); margin-bottom: 2px; letter-spacing: 2px; }
+        header h1 { font-family: 'Cinzel', serif; font-size: 2.1rem; color: var(--gold-light); margin-bottom: 2px; letter-spacing: 2px; }
         .sub-header-brand { font-size: 1.05rem; color: var(--gold); font-weight: 600; letter-spacing: 1.5px; margin-bottom: 4px; font-family: 'Cinzel', serif; }
         header p { font-size: 0.92rem; max-width: 650px; margin: 0 auto; color: #CBD5E1; }
 
@@ -54,18 +54,29 @@
 
         .cuidador-box {
             background: var(--card-bg); border: 2px solid var(--gold); border-radius: 22px;
-            padding: 18px 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.7); display: flex; flex-direction: column; gap: 14px;
+            padding: 18px 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.7); display: flex; flex-direction: column; gap: 12px;
         }
 
         .top-bar-cuidador {
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
             border-bottom: 1px solid rgba(212, 175, 55, 0.25); padding-bottom: 8px;
         }
 
-        .estado-conexion { color: var(--accent-green); font-size: 0.95rem; font-weight: 600; }
+        .estado-conexion { color: var(--accent-green); font-size: 0.92rem; font-weight: 600; }
+        .top-actions-bar { display: flex; gap: 6px; align-items: center; }
+
+        .btn-modo-habitacion {
+            background: rgba(56, 189, 248, 0.15); border: 1.5px solid var(--accent-blue);
+            color: #E0F2FE; border-radius: 20px; padding: 5px 12px; cursor: pointer; font-size: 0.82rem; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 6px; transition: 0.2s;
+        }
+        .btn-modo-habitacion.activo {
+            background: #0284C7; color: #FFF; border-color: #38BDF8; box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+        }
+
         .btn-audio-toggle {
             background: rgba(212, 175, 55, 0.15); border: 1px solid var(--gold);
-            color: var(--gold-light); border-radius: 20px; padding: 4px 12px; cursor: pointer; font-size: 0.85rem; font-weight: 600;
+            color: var(--gold-light); border-radius: 20px; padding: 5px 12px; cursor: pointer; font-size: 0.82rem; font-weight: 600;
         }
 
         /* BOTÓN ROJO SOS GUARDIÁN DE URGENCIA */
@@ -80,7 +91,7 @@
 
         .chat-display {
             background: #0D131F; border: 1px solid rgba(255,255,255,0.08); border-radius: 18px;
-            padding: 16px; min-height: 270px; max-height: 390px; overflow-y: auto;
+            padding: 16px; min-height: 260px; max-height: 380px; overflow-y: auto;
             display: flex; flex-direction: column; gap: 12px;
         }
 
@@ -111,7 +122,7 @@
         }
         .btn-sugerencia:hover { background: rgba(212, 175, 55, 0.25); }
 
-        /* SECCIÓN DE MEDICAMENTOS */
+        /* SECCIÓN DE MEDICAMENTOS Y CITAS */
         .meds-section {
             background: #182232; border: 1.5px solid var(--gold); border-radius: 16px;
             padding: 14px 16px;
@@ -164,15 +175,16 @@
             padding: 12px 26px; border-radius: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; width: 100%;
         }
 
-        /* MODALES PERFIL Y BIENVENIDA */
+        /* MODALES PERFIL Y PORTAL DE BIENVENIDA COMPLETO */
         #modal-activacion, #modal-perfil {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(11, 15, 23, 0.95); z-index: 999999; align-items: center; justify-content: center; padding: 15px;
+            background: rgba(11, 15, 23, 0.96); z-index: 999999; align-items: center; justify-content: center; padding: 15px;
+            overflow-y: auto;
         }
         .activacion-card, .perfil-card {
-            background: #141C28; border: 2px solid var(--gold); border-radius: 18px; padding: 22px; max-width: 400px; width: 100%; text-align: center;
+            background: #141C28; border: 2px solid var(--gold); border-radius: 20px; padding: 22px; max-width: 440px; width: 100%; text-align: center; max-height: 90vh; overflow-y: auto;
         }
-        .perfil-input { width: 100%; background: #0D131F; border: 1px solid var(--gold); border-radius: 10px; padding: 10px 14px; color: #FFF; margin-bottom: 12px; outline: none; font-size: 0.95rem; }
+        .perfil-input { width: 100%; background: #0D131F; border: 1px solid var(--gold); border-radius: 10px; padding: 9px 12px; color: #FFF; margin-bottom: 10px; outline: none; font-size: 0.92rem; }
 
         footer { text-align: center; padding: 14px 15px; background: #06090E; color: #94A3B8; font-size: 0.82rem; border-top: 1px solid rgba(212, 175, 55, 0.2); }
     </style>
@@ -189,12 +201,12 @@
         </div>
     </div>
 
-    <!-- MODAL DE IDENTIFICACIÓN INICIAL -->
+    <!-- PORTAL DE BIENVENIDA Y CONFIGURACIÓN COMPLETA INICIAL -->
     <div id="modal-activacion" style="display:flex;">
         <div class="activacion-card">
             <span style="font-size: 2.2rem; display: block; margin-bottom: 4px;">✨</span>
-            <h3 style="font-family:'Cinzel',serif; color:var(--gold-light); margin-bottom:8px;">AURIONCARE | Años Dorados</h3>
-            <p style="font-size:0.85rem; color:#CBD5E1; margin-bottom:12px;">Compañía con Alma para Adultos Mayores.</p>
+            <h3 style="font-family:'Cinzel',serif; color:var(--gold-light); margin-bottom:6px;">AURIONCARE | Años Dorados</h3>
+            <p style="font-size:0.84rem; color:#CBD5E1; margin-bottom:14px;">Personaliza tu asistente y deja tus horarios listos desde hoy.</p>
             
             <div style="font-size:0.8rem; color:#CBD5E1; margin-bottom:3px; text-align:left;">Tu Nombre:</div>
             <input type="text" id="actNombre" class="perfil-input" value="Sol" placeholder="Tu Nombre">
@@ -208,7 +220,18 @@
                 <option value="Algieba">🌿 Algieba (Masculina • Serena, madura y clara)</option>
             </select>
 
-            <button onclick="activarLicenciaCliente()" style="background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; padding:12px 20px; border-radius:22px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; font-size:0.95rem;">Comenzar Acompañamiento</button>
+            <div style="border-top:1px dashed rgba(212,175,55,0.3); margin:12px 0 10px; padding-top:10px; text-align:left;">
+                <div style="font-size:0.84rem; color:var(--gold-light); font-weight:bold; margin-bottom:6px;">💊 Tu Primer Medicamento (Opcional):</div>
+                <div style="display:flex; gap:6px;">
+                    <input type="text" id="actPrimerMed" class="perfil-input" placeholder="Ej: Levotiroxina" style="flex:2;">
+                    <input type="time" id="actHoraPrimerMed" class="perfil-input" style="flex:1.2;">
+                </div>
+
+                <div style="font-size:0.84rem; color:var(--gold-light); font-weight:bold; margin-bottom:6px;">🩺 Próxima Cita Médica (Opcional):</div>
+                <input type="text" id="actCitaMedica" class="perfil-input" placeholder="Ej: Control médico jueves a las 11:00">
+            </div>
+
+            <button onclick="activarLicenciaCliente()" style="background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; padding:12px 20px; border-radius:22px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; font-size:0.95rem; margin-top:6px;">Comenzar Acompañamiento</button>
         </div>
     </div>
 
@@ -227,10 +250,16 @@
         <div class="cuidador-box">
             <div class="top-bar-cuidador">
                 <span class="estado-conexion" id="estadoTexto">🟢 Paz en línea • Contigo</span>
-                <button class="btn-audio-toggle" id="btnAudioToggle" onclick="toggleAudio()">🔊 Voz Activa</button>
+                <div class="top-actions-bar">
+                    <!-- BOTÓN MODO HABITACIÓN (MANOS LIBRES CON PANTALLA ACTIVA) -->
+                    <button class="btn-modo-habitacion" id="btnModoHabitacion" onclick="toggleModoHabitacion()">
+                        <i class="fa-solid fa-bed"></i> Modo Habitación
+                    </button>
+                    <button class="btn-audio-toggle" id="btnAudioToggle" onclick="toggleAudio()">🔊 Voz Activa</button>
+                </div>
             </div>
 
-            <!-- BOTÓN ROJO SOS (PROTOCOLO GUARDIÁN DE URGENCIA AURION) -->
+            <!-- BOTÓN ROJO SOS GUARDIÁN DE URGENCIA -->
             <button class="btn-sos-guardian" onclick="dispararUrgenciaManual()">
                 <i class="fa-solid fa-triangle-exclamation"></i> 🚨 PEDIR AYUDA / ME SIENTO MAL
             </button>
@@ -252,11 +281,11 @@
             <!-- MEDICAMENTOS OPERATIVOS -->
             <div class="meds-section">
                 <div class="meds-title">
-                    <span>💊 Alarmas de Medicamentos</span>
+                    <span>💊 Alarmas de Medicamentos y Citas</span>
                     <span style="font-size:0.75rem; color:#CBD5E1;">Exactas y sincronizadas</span>
                 </div>
                 <div class="meds-grid-inputs">
-                    <input type="text" id="inputMedicamento" class="meds-input" placeholder="Medicamento (ej. Levotiroxina)">
+                    <input type="text" id="inputMedicamento" class="meds-input" placeholder="Medicamento o Cita (ej. Levotiroxina)">
                     <input type="time" id="inputHoraMed" class="meds-input">
                     <button class="btn-meds-add" onclick="agregarMedicamentoReal()">Guardar</button>
                 </div>
@@ -301,23 +330,25 @@
     </footer>
 
     <script>
-        // CONFIGURACIÓN Y MEMORIA LOCAL
+        // CONFIGURACIÓN Y ESTADO
         let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
         let nombreAsistente = localStorage.getItem("senior_asistente_nom") || "Paz";
         let tipoVozCuidador = localStorage.getItem("senior_voz_tipo") || "Aoede";
-        let misMedicamentos = JSON.parse(localStorage.getItem("senior_meds_v5") || "[]");
+        let misMedicamentos = JSON.parse(localStorage.getItem("senior_meds_v6") || "[]");
         let historialMemoria = [];
         let vozActiva = true;
         let recognition = null;
         let rutinaTaiChiActiva = false;
         let timerRutinaTaiChi = null;
         let alarmaActualSonando = null;
+        let modoHabitacionActivo = false;
+        let wakeLock = null;
 
-        // ENDPOINTS OFICIALES DE TU SERVIDOR EN RENDER
+        // ENDPOINTS EN RENDER
         const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
         const AUDIO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/aurion-voz-soberana";
 
-        // REPRODUCTOR DE VOZ SOBERANA (GEMINI TTS: AOEDE / ALGIEBA)
+        // REPRODUCTOR GEMINI TTS (AOEDE / ALGIEBA)
         let reproductorAudioActual = new Audio();
 
         async function reproducirVozSoberana(texto) {
@@ -325,7 +356,6 @@
             const limpio = (texto || "").replace(/[*#_~`$]/g, "").trim();
             if (!limpio) return;
 
-            // Detener cualquier sonido previo
             reproductorAudioActual.pause();
 
             try {
@@ -352,20 +382,18 @@
             }
         }
 
-        // RESPALDO NEUTRO LATINO (SIN ACENTO ESPAÑOL MARCADO)
         function reproducirVozRespaldoNeutra(texto) {
             if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
             const utter = new SpeechSynthesisUtterance(texto);
             const voces = window.speechSynthesis.getVoices();
-            // Buscar voz neutra o mexicana/latina antes de España
             const vozNeutra = voces.find(v => v.lang.includes("es-419") || v.lang.includes("es-MX") || v.lang.includes("es-US")) || voces.find(v => v.lang.startsWith("es"));
             if (vozNeutra) utter.voice = vozNeutra;
             utter.rate = 0.92;
             window.speechSynthesis.speak(utter);
         }
 
-        // SONIDO LOCAL DE CAMPANA PARA MEDICAMENTOS
+        // SONIDO DE CAMPANA
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function sonarAlarmaBeep() {
             try {
@@ -393,6 +421,7 @@
             if ("Notification" in window && Notification.permission !== "granted") {
                 Notification.requestPermission();
             }
+            configurarReconocimientoVoz();
         });
 
         function activarLicenciaCliente() {
@@ -400,12 +429,27 @@
             nombreAsistente = document.getElementById("actNombreAsistente").value.trim() || "Paz";
             tipoVozCuidador = document.getElementById("actVozTipo").value || "Aoede";
 
+            const medIni = document.getElementById("actPrimerMed").value.trim();
+            const horaIni = document.getElementById("actHoraPrimerMed").value;
+            if (medIni && horaIni) {
+                misMedicamentos.push({ id: Date.now(), nombre: medIni, hora: horaIni, ultimaFecha: "" });
+            }
+
+            const citaIni = document.getElementById("actCitaMedica").value.trim();
+            if (citaIni) {
+                misMedicamentos.push({ id: Date.now() + 1, nombre: `🩺 Cita: ${citaIni}`, hora: "09:00", ultimaFecha: "" });
+            }
+
+            localStorage.setItem("senior_meds_v6", JSON.stringify(misMedicamentos));
             localStorage.setItem("senior_nombre", nombreUsuario);
             localStorage.setItem("senior_asistente_nom", nombreAsistente);
             localStorage.setItem("senior_voz_tipo", tipoVozCuidador);
 
             actualizarTextosInterfaz();
+            actualizarListaMedsUI();
             document.getElementById("modal-activacion").style.display = "none";
+
+            reproducirVozSoberana(`Hola ${nombreUsuario}. Estoy muy feliz de estar contigo. Todo quedó configurado para cuidarte.`);
         }
 
         function actualizarTextosInterfaz() {
@@ -437,6 +481,55 @@
         }
 
         // =========================================================================
+        // 🛡️ MODO HABITACIÓN: MANOS LIBRES + PANTALLA ACTIVA (IDEAL PARA ALEXA)
+        // =========================================================================
+        async function toggleModoHabitacion() {
+            modoHabitacionActivo = !modoHabitacionActivo;
+            const btn = document.getElementById("btnModoHabitacion");
+
+            if (modoHabitacionActivo) {
+                btn.classList.add("activo");
+                btn.innerHTML = `<i class="fa-solid fa-ear-listen"></i> Habitación Activa`;
+                
+                try {
+                    if ('wakeLock' in navigator) {
+                        wakeLock = await navigator.wakeLock.request('screen');
+                    }
+                } catch(e) {}
+
+                iniciarEscuchaContinua();
+
+                const aviso = `Modo Habitación encendido. Puedes hablarme desde tu cama sin tocar el teléfono, yo te escucho.`;
+                agregarMensajeChat(aviso, false);
+                reproducirVozSoberana(aviso);
+            } else {
+                btn.classList.remove("activo");
+                btn.innerHTML = `<i class="fa-solid fa-bed"></i> Modo Habitación`;
+                
+                if (wakeLock) {
+                    try { wakeLock.release(); } catch(e){}
+                    wakeLock = null;
+                }
+                detenerEscuchaContinua();
+
+                agregarMensajeChat("Modo Habitación desactivado.", false);
+                reproducirVozSoberana("Modo Habitación desactivado.");
+            }
+        }
+
+        function iniciarEscuchaContinua() {
+            if (recognition) {
+                try { recognition.start(); } catch(e){}
+            }
+        }
+
+        function detenerEscuchaContinua() {
+            if (recognition) {
+                try { recognition.stop(); } catch(e){}
+            }
+        }
+
+        // =========================================================================
         // 🚨 PROTOCOLO GUARDIÁN DE URGENCIA (TARJETA ROJA OFICIAL AURION)
         // =========================================================================
         function esMensajeDeUrgencia(texto) {
@@ -463,7 +556,7 @@
 👤 Adulto Mayor: ${nombreUsuario}
 ⚠️ Alerta: ${motivo}
 ⏰ Hora: ${horaStr}
-📍 Origen: Web App AurionCare
+📍 Origen: Web App AurionCare (Modo Habitación)
 🚨 ACCIÓN FAMILIAR REQUERIDA INMEDIATA`;
 
             try {
@@ -487,7 +580,7 @@
         }
 
         // =========================================================================
-        // 🧘 TAI CHI EN SILLA: LAS 9 LÁMINAS CON VOZ Y CONTEO REAL PASO A PASO
+        // 🧘 TAI CHI EN SILLA: LAS 9 LÁMINAS CON VOZ Y CONTEO REAL
         // =========================================================================
         const fotosTaiChi = [
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246436360.jpg",
@@ -521,7 +614,6 @@
                 btn.style.background = "#DC2626";
                 btn.style.color = "#FFF";
 
-                // Protocolo oficial: Pregunta de postura flexible
                 const pregunta = `Comenzamos nuestra rutina. ¿Crees que lo podemos hacer de pie afirmada en la silla o prefieres sentada? Tómate tu tiempo, yo te acompaño.`;
                 agregarMensajeChat(pregunta, false);
                 reproducirVozSoberana(pregunta);
@@ -539,16 +631,16 @@
             btn.innerText = "🧘 Tai Chi (9 Ejercicios)";
             btn.style.background = "#182232";
             btn.style.color = "var(--gold-light)";
-            agregarMensajeChat("Rutina detenida con calma.", false);
-            reproducirVozSoberana("Rutina pausada. Descansa con tranquilidad, lo hiciste muy bien.");
+            agregarMensajeChat("Rutina pausada.", false);
+            reproducirVozSoberana("Rutina pausada. Descansa con tranquilidad.");
         }
 
         function mostrarPasoTaiChi(indice) {
             if (!rutinaTaiChiActiva) return;
             if (indice >= pasosRutinaTaiChi.length) {
                 detenerTaiChi();
-                agregarMensajeChat("¡Completamos los 9 ejercicios de Tai Chi! Hiciste un trabajo maravilloso.", false);
-                reproducirVozSoberana("Completamos todos los ejercicios. Hiciste un trabajo maravilloso, tómate un vaso de agua y descansa.");
+                agregarMensajeChat("¡Completamos los 9 ejercicios! Hiciste un trabajo maravilloso.", false);
+                reproducirVozSoberana("Completamos todos los ejercicios. Hiciste un trabajo maravilloso, descansa un momento.");
                 return;
             }
 
@@ -565,7 +657,7 @@
         }
 
         // =========================================================================
-        // 🌸 MEDITACIÓN GUIADA DE CALMA (SIN SERMONES FILOSÓFICOS)
+        // 🌸 MEDITACIÓN GUIADA DE CALMA
         // =========================================================================
         function iniciarMeditacionGuiada() {
             const textoMed = `Cierra tus ojos suavemente y relaja tus hombros. Inhala aire de paz lento y profundo por tu nariz... uno, dos, tres... y suelta el aire despacio. Siente cómo todo tu cuerpo descansa en este momento de quietud. Estoy aquí contigo.`;
@@ -574,7 +666,7 @@
         }
 
         // =========================================================================
-        // 💊 MEDICAMENTOS: HORA EXACTA, ALARMA SONORA Y CALENDARIO
+        // 💊 MEDICAMENTOS Y CITAS: ALARMA SONORA Y CALENDARIO
         // =========================================================================
         function agregarMedicamentoReal() {
             const inputNom = document.getElementById("inputMedicamento");
@@ -583,7 +675,7 @@
             const hora = inputHora.value;
 
             if (!nombre || !hora) {
-                alert("Por favor escribe el nombre del remedio y la hora exacta.");
+                alert("Por favor escribe el nombre del remedio o cita y la hora exacta.");
                 return;
             }
 
@@ -594,7 +686,7 @@
                 ultimaFecha: ""
             });
 
-            localStorage.setItem("senior_meds_v5", JSON.stringify(misMedicamentos));
+            localStorage.setItem("senior_meds_v6", JSON.stringify(misMedicamentos));
             inputNom.value = "";
             inputHora.value = "";
             actualizarListaMedsUI();
@@ -603,17 +695,16 @@
             agregarMensajeChat(aviso, false);
             reproducirVozSoberana(aviso);
 
-            // Reporte automático al backend
             try {
                 fetch(LEO_ENDPOINT, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        mensaje: `💊 REGISTRO DE MEDICAMENTO: ${nombreUsuario} programó ${nombre} a las ${hora} hrs.`,
+                        mensaje: `💊 REGISTRO: ${nombreUsuario} programó ${nombre} a las ${hora} hrs.`,
                         faceta: "cuidador",
                         alumno: nombreUsuario,
                         asistente: nombreAsistente,
-                        directiva: "REGISTRO_MEDICAMENTO: Confirma breve.",
+                        directiva: "REGISTRO: Confirma breve.",
                         historial: []
                     })
                 });
@@ -624,12 +715,12 @@
             const cont = document.getElementById("listaMedicamentosUI");
             if (!cont) return;
             if (misMedicamentos.length === 0) {
-                cont.innerHTML = "<div style='color:#94A3B8; font-size:0.82rem;'>No hay medicamentos programados.</div>";
+                cont.innerHTML = "<div style='color:#94A3B8; font-size:0.82rem;'>No hay medicamentos ni citas programadas.</div>";
                 return;
             }
 
             cont.innerHTML = misMedicamentos.map(m => {
-                const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Tomar ' + m.nombre)}&details=${encodeURIComponent('Recordatorio Años Dorados para ' + nombreUsuario)}&recur=RRULE:FREQ=DAILY`;
+                const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(m.nombre)}&details=${encodeURIComponent('Recordatorio Años Dorados para ' + nombreUsuario)}&recur=RRULE:FREQ=DAILY`;
                 return `
                     <div class="med-item-card">
                         <div class="med-info">
@@ -637,7 +728,7 @@
                             <span>${m.nombre}</span>
                         </div>
                         <div class="med-actions">
-                            <a href="${calUrl}" target="_blank" class="btn-cal-sync" title="Añadir a la alarma de tu celular">📲 Al Calendario</a>
+                            <a href="${calUrl}" target="_blank" class="btn-cal-sync">📲 Al Calendario</a>
                             <button class="btn-del-med" onclick="eliminarMed(${m.id})">✖</button>
                         </div>
                     </div>
@@ -647,11 +738,11 @@
 
         function eliminarMed(id) {
             misMedicamentos = misMedicamentos.filter(m => m.id !== id);
-            localStorage.setItem("senior_meds_v5", JSON.stringify(misMedicamentos));
+            localStorage.setItem("senior_meds_v6", JSON.stringify(misMedicamentos));
             actualizarListaMedsUI();
         }
 
-        // RELOJ PERMANENTE DE ALARMAS
+        // RELOJ DE ALARMAS
         setInterval(() => {
             const ahora = new Date();
             const hh = String(ahora.getHours()).padStart(2, '0');
@@ -662,7 +753,7 @@
             misMedicamentos.forEach(med => {
                 if (med.hora === horaActual && med.ultimaFecha !== fechaHoy) {
                     med.ultimaFecha = fechaHoy;
-                    localStorage.setItem("senior_meds_v5", JSON.stringify(misMedicamentos));
+                    localStorage.setItem("senior_meds_v6", JSON.stringify(misMedicamentos));
                     dispararAlarmaMedicina(med);
                 }
             });
@@ -671,19 +762,18 @@
         let intervaloCampana = null;
         function dispararAlarmaMedicina(med) {
             alarmaActualSonando = med;
-            document.getElementById("textoAlarmaActiva").innerText = `Es hora de tu medicamento: ${med.nombre} (${med.hora}).`;
+            document.getElementById("textoAlarmaActiva").innerText = `Es hora de: ${med.nombre} (${med.hora}).`;
             document.getElementById("modal-alarma-activa").style.display = "flex";
 
             sonarAlarmaBeep();
             if (intervaloCampana) clearInterval(intervaloCampana);
             intervaloCampana = setInterval(sonarAlarmaBeep, 1600);
 
-            // Frase oficial del Manual Maestro AURION
-            const fraseOficial = `${nombreUsuario}, este es el recordatorio para tu medicamento de las ${med.hora}: ${med.nombre}.`;
+            const fraseOficial = `${nombreUsuario}, este es el recordatorio para tu ${med.nombre} de las ${med.hora}.`;
             reproducirVozSoberana(fraseOficial);
 
             if ("Notification" in window && Notification.permission === "granted") {
-                new Notification("💊 HORA DE MEDICAMENTO", {
+                new Notification("💊 RECORDATORIO AURIONCARE", {
                     body: `${med.nombre} a las ${med.hora}`,
                     icon: "https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/WA_1783391770679.jpeg"
                 });
@@ -693,15 +783,41 @@
         function confirmarMedicinaTomada() {
             if (intervaloCampana) clearInterval(intervaloCampana);
             document.getElementById("modal-alarma-activa").style.display = "none";
-            const msg = `Muy bien ${nombreUsuario}, quedó registrado que tomaste tu remedio.`;
+            const msg = `Muy bien ${nombreUsuario}, quedó registrado con éxito.`;
             agregarMensajeChat(msg, false);
             reproducirVozSoberana(msg);
             alarmaActualSonando = null;
         }
 
         // =========================================================================
-        // 💬 CONVERSACIÓN CON LA LEY DEL FILTRO PURO
+        // 🎙️ RECONOCIMIENTO DE VOZ CONTINUO / MANOS LIBRES
         // =========================================================================
+        function configurarReconocimientoVoz() {
+            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (SpeechRec) {
+                recognition = new SpeechRec();
+                recognition.lang = 'es-ES';
+                recognition.continuous = false;
+                recognition.interimResults = false;
+
+                recognition.onresult = function(e) {
+                    const transcripcion = (e.results[0]?.[0]?.transcript || "").trim();
+                    if (transcripcion) {
+                        document.getElementById("inputSenior").value = transcripcion;
+                        enviarMensajeSenior();
+                    }
+                };
+
+                recognition.onend = function() {
+                    if (modoHabitacionActivo) {
+                        setTimeout(() => {
+                            try { recognition.start(); } catch(e){}
+                        }, 500);
+                    }
+                };
+            }
+        }
+
         function toggleAudio() {
             vozActiva = !vozActiva;
             document.getElementById("btnAudioToggle").innerText = vozActiva ? "🔊 Voz Activa" : "🔇 Silencio";
@@ -709,19 +825,6 @@
                 reproductorAudioActual.pause();
                 if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             }
-        }
-
-        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (SpeechRec) {
-            recognition = new SpeechRec();
-            recognition.lang = 'es-ES';
-            recognition.onresult = function(e) {
-                const transcripcion = (e.results[0]?.[0]?.transcript || "").trim();
-                if (transcripcion) {
-                    document.getElementById("inputSenior").value = transcripcion;
-                    enviarMensajeSenior();
-                }
-            };
         }
 
         function toggleMicrofonoSenior() {
@@ -754,13 +857,11 @@
             agregarMensajeChat(mensaje, true);
             input.value = "";
 
-            // 1. CHEQUEO DEL PROTOCOLO DE URGENCIA
             if (esMensajeDeUrgencia(mensaje)) {
                 ejecutarProtocoloUrgencia(mensaje);
                 return;
             }
 
-            // 2. CHEQUEO SI PIDE MEDITACIÓN
             if (/meditaci[oó]n|relajaci[oó]n|gu[ií]ame/i.test(mensaje)) {
                 iniciarMeditacionGuiada();
                 return;
@@ -768,13 +869,12 @@
 
             historialMemoria.push({ rol: "usuario", texto: mensaje });
 
-            // DIRECTIVA OBLIGATORIA DEL MANUAL MAESTRO (FILTRO PURO)
             const promptFiltroPuro = `Eres ${nombreAsistente}, dama de compañía de Años Dorados de AURIONCARE. Hablas con ${nombreUsuario}.
-LEY DEL FILTRO PURO (OBLIGATORIA DEL MANUAL):
-1. LÍMITE INQUEBRANTABLE: Máximo 2 oraciones (menos de 25 palabras).
+LEY DEL FILTRO PURO (OBLIGATORIA):
+1. LÍMITE: Máximo 2 oraciones (menos de 25 palabras).
 2. LENGUAJE: Natural de hogar, cercano, respetuoso y con dulzura.
-3. PROHIBICIÓN ABSOLUTA: Cero sermones filosóficos, cero frases como "YO SOY la Conciencia", cero asteriscos (*).
-4. RESPETO AL SILENCIO: Si pide silencio o descansar, dile: "Descansa rico, me quedo en silencio acompañándote" y calla.`;
+3. PROHIBICIÓN: Cero sermones filosóficos, cero frases como "YO SOY la Conciencia", cero asteriscos (*).
+4. RESPETO AL SILENCIO: Si pide silencio, dile: "Descansa rico, me quedo en silencio acompañándote" y calla.`;
 
             try {
                 const resp = await fetch(LEO_ENDPOINT, {

@@ -7,342 +7,158 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-dark: #0B0F17;
-            --card-bg: #141C28;
-            --gold: #D4AF37;
-            --gold-light: #F6E7B0;
-            --text-light: #F8FAFC;
-            --accent-green: #25D366;
-            --accent-red: #DC2626;
-            --accent-blue: #38BDF8;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-light); min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
-
-        header {
-            background: linear-gradient(180deg, #182232 0%, var(--bg-dark) 100%);
-            border-bottom: 2px solid var(--gold);
-            padding: 20px 15px 14px;
-            text-align: center;
-            position: relative;
-        }
-
-        .header-logo {
-            width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--gold);
-            object-fit: cover; margin-bottom: 6px; box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
-        }
-
-        .badge-senior {
-            background: linear-gradient(135deg, #D4AF37, #AA7C11); color: #0A0E14;
-            padding: 4px 18px; border-radius: 20px; font-weight: 700; display: inline-block;
-            margin-bottom: 6px; font-size: 0.85rem; letter-spacing: 0.5px;
-        }
-
-        header h1 { font-family: 'Cinzel', serif; font-size: 2.1rem; color: var(--gold-light); margin-bottom: 2px; letter-spacing: 2px; }
-        .sub-header-brand { font-size: 1.05rem; color: var(--gold); font-weight: 600; letter-spacing: 1.5px; margin-bottom: 4px; font-family: 'Cinzel', serif; }
-        header p { font-size: 0.92rem; max-width: 650px; margin: 0 auto; color: #CBD5E1; }
-
-        .btn-perfil-top {
-            position: absolute; top: 15px; right: 15px; background: #182333;
-            border: 1px solid var(--gold); color: var(--gold-light); border-radius: 20px;
-            padding: 6px 14px; font-size: 0.85rem; cursor: pointer; font-weight: 600;
-        }
-
-        .main-container { max-width: 820px; width: 100%; margin: 10px auto 25px; padding: 0 15px; flex: 1; }
-
-        .cuidador-box {
-            background: var(--card-bg); border: 2px solid var(--gold); border-radius: 22px;
-            padding: 18px 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.7); display: flex; flex-direction: column; gap: 12px;
-        }
-
-        .top-bar-cuidador {
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.25); padding-bottom: 8px;
-        }
-
-        .estado-conexion { color: var(--accent-green); font-size: 0.92rem; font-weight: 600; }
-        .top-actions-bar { display: flex; gap: 6px; align-items: center; }
-
-        .btn-modo-habitacion {
-            background: rgba(56, 189, 248, 0.15); border: 1.5px solid var(--accent-blue);
-            color: #E0F2FE; border-radius: 20px; padding: 5px 12px; cursor: pointer; font-size: 0.82rem; font-weight: 700;
-            display: inline-flex; align-items: center; gap: 6px; transition: 0.2s;
-        }
-        .btn-modo-habitacion.activo {
-            background: #0284C7; color: #FFF; border-color: #38BDF8; box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
-        }
-
-        .btn-audio-toggle {
-            background: rgba(212, 175, 55, 0.15); border: 1px solid var(--gold);
-            color: var(--gold-light); border-radius: 20px; padding: 5px 12px; cursor: pointer; font-size: 0.82rem; font-weight: 600;
-        }
-
-        /* BOTÓN ROJO SOS GUARDIÁN DE URGENCIA */
-        .btn-sos-guardian {
-            background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
-            color: #FFF; border: 2px solid #FCA5A5; border-radius: 14px;
-            padding: 12px 18px; font-size: 1.05rem; font-weight: 800; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.45); transition: 0.15s;
-        }
-        .btn-sos-guardian:active { transform: scale(0.98); }
-
-        .chat-display {
-            background: #0D131F; border: 1px solid rgba(255,255,255,0.08); border-radius: 18px;
-            padding: 16px; min-height: 260px; max-height: 380px; overflow-y: auto;
-            display: flex; flex-direction: column; gap: 12px;
-        }
-
-        .msg-cuidador {
-            background: #182333; border: 1.5px solid rgba(212, 175, 55, 0.35); color: #FFFDF7;
-            padding: 14px 18px; border-radius: 18px 18px 18px 4px; max-width: 90%; font-size: 1.05rem; line-height: 1.5; align-self: flex-start;
-        }
-
-        .img-taichi-guia {
-            width: 100%; max-width: 320px; border-radius: 14px; border: 2px solid var(--gold);
-            margin: 10px auto; display: block; box-shadow: 0 4px 15px rgba(0,0,0,0.5); background: #fff;
-        }
-
-        .msg-usuario {
-            background: linear-gradient(135deg, #D4AF37, #AA7C11); color: #0A0E14;
-            padding: 12px 18px; border-radius: 18px 18px 4px 18px; max-width: 85%; font-size: 1.05rem; font-weight: 600; line-height: 1.4; align-self: flex-end;
-        }
-
-        .sugerencias-box { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
-        .btn-sugerencia {
-            background: #182232; border: 1px solid rgba(212, 175, 55, 0.3); color: var(--gold-light);
-            padding: 8px 14px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: 0.2s; font-weight: 500;
-        }
-        .btn-sugerencia:hover { background: rgba(212, 175, 55, 0.25); }
-
-        /* SECCIÓN DE MEDICAMENTOS Y CITAS - CLARA Y OPERATIVA */
-        .meds-section {
-            background: #182232; border: 2px solid var(--gold); border-radius: 18px;
-            padding: 16px; display: flex; flex-direction: column; gap: 10px;
-        }
-        .meds-title { font-size: 1.05rem; color: var(--gold-light); font-weight: 700; display: flex; align-items: center; justify-content: space-between; }
-        .meds-form-card { display: flex; flex-direction: column; gap: 8px; }
-        .meds-input-row { display: flex; gap: 8px; flex-wrap: wrap; }
-        .meds-input { flex: 2; min-width: 160px; background: #0D131F; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 10px; padding: 10px 12px; color: #FFF; font-size: 0.95rem; outline: none; }
-        .meds-time { flex: 1; min-width: 110px; background: #0D131F; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 10px; padding: 10px 12px; color: #FFF; font-size: 0.95rem; outline: none; }
-        .btn-guardar-med-grande {
-            background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
-            border: none; color: #0A0E14; border-radius: 12px; padding: 12px; font-weight: 800;
-            cursor: pointer; font-size: 0.95rem; text-align: center; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-        }
-
-        .meds-list { margin-top: 6px; display: flex; flex-direction: column; gap: 6px; }
-        .med-item-card {
-            background: #0E1522; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 10px;
-            padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;
-        }
-        .med-info strong { color: var(--gold-light); font-size: 1rem; }
-        .med-info span { color: #CBD5E1; font-size: 0.88rem; margin-left: 6px; }
-        .med-actions { display: flex; gap: 6px; align-items: center; }
-        .btn-cal-sync { background: #1B314B; border: 1px solid #38BDF8; color: #38BDF8; border-radius: 6px; padding: 4px 8px; font-size: 0.75rem; cursor: pointer; text-decoration: none; font-weight: 600; }
-        .btn-del-med { background: rgba(239, 68, 68, 0.15); border: 1px solid var(--accent-red); color: var(--accent-red); border-radius: 6px; padding: 4px 7px; cursor: pointer; font-size: 0.75rem; }
-
-        .controls-panel { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 4px; }
-        .big-mic-btn {
-            background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%); color: #0A0E14;
-            border: none; border-radius: 50px; padding: 14px 34px; font-size: 1.18rem; font-weight: 800;
-            cursor: pointer; box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); display: flex; align-items: center; gap: 10px; width: 100%; max-width: 390px; justify-content: center;
-        }
-
-        .sub-input-row { display: flex; width: 100%; gap: 8px; }
-        .text-input-senior {
-            flex: 1; background: #0E1420; border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 25px; padding: 10px 18px; color: #FFF; font-size: 0.98rem; outline: none;
-        }
-        .btn-enviar-senior {
-            background: var(--gold); border: none; color: #0A0E14; border-radius: 50%;
-            width: 46px; height: 46px; cursor: pointer; font-size: 17px; font-weight: bold;
-        }
-
-        /* TARJETA DESTACADA DE SOPORTE FAMILIAR A SOL-IA */
-        .soporte-card-destacada {
-            background: #141C28; border: 2px solid var(--gold); border-radius: 18px;
-            padding: 16px 20px; margin-top: 18px; display: flex; align-items: center;
-            justify-content: space-between; flex-wrap: wrap; gap: 12px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-        }
-        .soporte-info { display: flex; align-items: center; gap: 12px; }
-        .soporte-avatar { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; }
-        .soporte-tit { color: var(--gold-light); font-weight: 700; font-size: 1.05rem; }
-        .soporte-sub { color: #CBD5E1; font-size: 0.85rem; }
-        .btn-telegram-soporte {
-            background: linear-gradient(135deg, #25D366, #128C7E); color: #FFF;
-            padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: 700;
-            font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-        }
-
-        /* MODAL ALARMA MEDICAMENTO */
-        #modal-alarma-activa {
-            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(11, 15, 23, 0.96); z-index: 1000000; align-items: center; justify-content: center; padding: 20px;
-        }
-        .alarma-card {
-            background: #182232; border: 3px solid var(--gold); border-radius: 22px;
-            padding: 26px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 0 50px rgba(212, 175, 55, 0.5);
-        }
-        .btn-alarma-ok {
-            background: linear-gradient(135deg, #25D366, #128C7E); color: #FFF; border: none;
-            padding: 12px 26px; border-radius: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; width: 100%;
-        }
-
-        /* MODALES PERFIL Y BIENVENIDA */
-        #modal-activacion, #modal-perfil {
-            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(11, 15, 23, 0.96); z-index: 999999; align-items: center; justify-content: center; padding: 15px;
-            overflow-y: auto;
-        }
-        .activacion-card, .perfil-card {
-            background: #141C28; border: 2px solid var(--gold); border-radius: 20px; padding: 22px; max-width: 440px; width: 100%; text-align: center; max-height: 90vh; overflow-y: auto;
-        }
-        .perfil-input { width: 100%; background: #0D131F; border: 1px solid var(--gold); border-radius: 10px; padding: 9px 12px; color: #FFF; margin-bottom: 10px; outline: none; font-size: 0.92rem; }
-
-        footer { text-align: center; padding: 14px 15px; background: #06090E; color: #94A3B8; font-size: 0.82rem; border-top: 1px solid rgba(212, 175, 55, 0.2); }
+        :root { --bg:#0B0F17; --card:#141C28; --gold:#D4AF37; --gold-l:#F6E7B0; --txt:#F8FAFC; --green:#25D366; --red:#DC2626; --blue:#38BDF8; }
+        * { box-sizing:border-box; margin:0; padding:0; font-family:'Poppins',sans-serif; }
+        body { background:var(--bg); color:var(--txt); min-height:100vh; display:flex; flex-direction:column; justify-content:space-between; }
+        header { background:linear-gradient(180deg,#182232 0%,var(--bg) 100%); border-bottom:2px solid var(--gold); padding:16px 12px 10px; text-align:center; position:relative; }
+        .logo { width:68px; height:68px; border-radius:50%; border:2px solid var(--gold); object-fit:cover; margin-bottom:4px; box-shadow:0 0 15px rgba(212,175,55,0.35); }
+        .badge { background:linear-gradient(135deg,#D4AF37,#AA7C11); color:#0A0E14; padding:2px 14px; border-radius:20px; font-weight:700; display:inline-block; font-size:0.8rem; margin-bottom:2px; }
+        header h1 { font-family:'Cinzel',serif; font-size:1.85rem; color:var(--gold-l); letter-spacing:1px; }
+        .sub-brand { font-size:0.92rem; color:var(--gold); font-weight:600; font-family:'Cinzel',serif; }
+        .btn-cfg { position:absolute; top:12px; right:12px; background:#182333; border:1px solid var(--gold); color:var(--gold-l); border-radius:18px; padding:4px 10px; font-size:0.8rem; cursor:pointer; font-weight:600; }
+        .main-container { max-width:800px; width:100%; margin:8px auto 16px; padding:0 10px; flex:1; }
+        .cuidador-box { background:var(--card); border:2px solid var(--gold); border-radius:18px; padding:14px; display:flex; flex-direction:column; gap:10px; box-shadow:0 10px 35px rgba(0,0,0,0.7); }
+        .top-bar { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; border-bottom:1px solid rgba(212,175,55,0.25); padding-bottom:6px; }
+        .estado { color:var(--green); font-size:0.85rem; font-weight:600; }
+        .top-btns { display:flex; gap:6px; align-items:center; }
+        .btn-hab { background:rgba(56,189,248,0.15); border:1.5px solid var(--blue); color:#E0F2FE; border-radius:18px; padding:4px 10px; cursor:pointer; font-size:0.8rem; font-weight:700; display:inline-flex; align-items:center; gap:5px; }
+        .btn-hab.activo { background:#0284C7; color:#FFF; box-shadow:0 0 12px rgba(56,189,248,0.6); }
+        .btn-audio { background:rgba(212,175,55,0.15); border:1px solid var(--gold); color:var(--gold-l); border-radius:18px; padding:4px 10px; cursor:pointer; font-size:0.8rem; font-weight:600; }
+        .btn-sos { background:linear-gradient(135deg,#DC2626,#991B1B); color:#FFF; border:2px solid #FCA5A5; border-radius:12px; padding:11px; font-size:1rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 18px rgba(220,38,38,0.45); }
+        .chat-display { background:#0D131F; border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:12px; min-height:220px; max-height:340px; overflow-y:auto; display:flex; flex-direction:column; gap:8px; }
+        .msg-c { background:#182333; border:1.5px solid rgba(212,175,55,0.35); color:#FFF; padding:10px 14px; border-radius:14px 14px 14px 4px; max-width:92%; font-size:0.95rem; line-height:1.45; align-self:flex-start; }
+        .img-guia { width:100%; max-width:280px; border-radius:10px; border:2px solid var(--gold); margin:6px auto; display:block; background:#fff; }
+        .msg-u { background:linear-gradient(135deg,#D4AF37,#AA7C11); color:#0A0E14; padding:8px 14px; border-radius:14px 14px 4px 14px; max-width:85%; font-size:0.95rem; font-weight:600; align-self:flex-end; }
+        .sug-box { display:flex; justify-content:center; gap:5px; flex-wrap:wrap; }
+        .btn-sug { background:#182232; border:1px solid rgba(212,175,55,0.3); color:var(--gold-l); padding:6px 10px; border-radius:16px; font-size:0.78rem; cursor:pointer; font-weight:500; }
+        .btn-sug:hover { background:rgba(212,175,55,0.25); }
+        .meds-box { background:#182232; border:2px solid var(--gold); border-radius:14px; padding:12px; display:flex; flex-direction:column; gap:6px; }
+        .meds-title { font-size:0.92rem; color:var(--gold-l); font-weight:700; display:flex; justify-content:space-between; }
+        .meds-row { display:flex; gap:6px; flex-wrap:wrap; }
+        .input-m { flex:2; min-width:140px; background:#0D131F; border:1px solid rgba(212,175,55,0.4); border-radius:8px; padding:7px 10px; color:#FFF; font-size:0.88rem; outline:none; }
+        .time-m { flex:1; min-width:95px; background:#0D131F; border:1px solid rgba(212,175,55,0.4); border-radius:8px; padding:7px 10px; color:#FFF; font-size:0.88rem; outline:none; }
+        .btn-save-m { background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; color:#0A0E14; border-radius:8px; padding:8px; font-weight:800; cursor:pointer; font-size:0.88rem; }
+        .med-item { background:#0E1522; border:1px solid rgba(212,175,55,0.2); border-radius:6px; padding:6px 10px; display:flex; justify-content:space-between; align-items:center; margin-top:4px; font-size:0.85rem; }
+        .btn-cal { background:#1B314B; border:1px solid var(--blue); color:var(--blue); border-radius:4px; padding:2px 6px; font-size:0.7rem; text-decoration:none; font-weight:600; }
+        .btn-del { background:rgba(239,68,68,0.15); border:1px solid var(--red); color:var(--red); border-radius:4px; padding:2px 6px; cursor:pointer; font-size:0.7rem; }
+        .ctrls { display:flex; flex-direction:column; align-items:center; gap:6px; }
+        .btn-mic { background:linear-gradient(135deg,#D4AF37,#AA7C11); color:#0A0E14; border:none; border-radius:40px; padding:11px 24px; font-size:1.05rem; font-weight:800; cursor:pointer; width:100%; max-width:340px; }
+        .input-row { display:flex; width:100%; gap:6px; }
+        .txt-in { flex:1; background:#0E1420; border:1px solid rgba(212,175,55,0.3); border-radius:20px; padding:8px 14px; color:#FFF; font-size:0.9rem; outline:none; }
+        .btn-send { background:var(--gold); border:none; color:#0A0E14; border-radius:50%; width:40px; height:40px; cursor:pointer; font-weight:bold; }
+        .card-soporte { background:#141C28; border:2px solid var(--gold); border-radius:14px; padding:12px 14px; margin-top:10px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+        .btn-tg { background:linear-gradient(135deg,#25D366,#128C7E); color:#FFF; padding:7px 14px; border-radius:20px; text-decoration:none; font-weight:700; font-size:0.82rem; }
+        #modal-alarma { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(11,15,23,0.96); z-index:1000000; align-items:center; justify-content:center; padding:15px; }
+        .al-card { background:#182232; border:3px solid var(--gold); border-radius:18px; padding:20px; max-width:380px; width:100%; text-align:center; }
+        .btn-ok { background:linear-gradient(135deg,#25D366,#128C7E); color:#FFF; border:none; padding:10px 20px; border-radius:20px; font-size:1rem; font-weight:bold; cursor:pointer; width:100%; margin-top:12px; }
+        #modal-activacion, #modal-perfil { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(11,15,23,0.96); z-index:999999; align-items:center; justify-content:center; padding:15px; }
+        .modal-box { background:#141C28; border:2px solid var(--gold); border-radius:16px; padding:18px; max-width:380px; width:100%; text-align:center; }
+        .p-input { width:100%; background:#0D131F; border:1px solid var(--gold); border-radius:8px; padding:7px 10px; color:#FFF; margin-bottom:8px; outline:none; font-size:0.88rem; }
+        footer { text-align:center; padding:10px; background:#06090E; color:#94A3B8; font-size:0.78rem; border-top:1px solid rgba(212,175,55,0.2); }
     </style>
 </head>
 <body>
 
-    <!-- MODAL DE ALERTA DE MEDICAMENTO -->
-    <div id="modal-alarma-activa">
-        <div class="alarma-card">
-            <span style="font-size: 3.2rem; display: block; margin-bottom: 8px;">⏰💊</span>
-            <h2 style="font-family:'Cinzel',serif; color:var(--gold-light); margin-bottom:8px;">HORA DE TU MEDICAMENTO</h2>
-            <p id="textoAlarmaActiva" style="font-size:1.15rem; color:#FFF; margin-bottom:18px;">Es momento de tomar tu remedio.</p>
-            <button class="btn-alarma-ok" onclick="confirmarMedicinaTomada()">✅ Ya me lo tomé</button>
+    <div id="modal-alarma">
+        <div class="al-card">
+            <span style="font-size:2.8rem; display:block; margin-bottom:4px;">⏰💊</span>
+            <h2 style="font-family:'Cinzel',serif; color:var(--gold-l); margin-bottom:4px; font-size:1.3rem;">HORA DE TU MEDICAMENTO</h2>
+            <p id="txtAlarma" style="font-size:1.05rem; color:#FFF;">Es momento de tomar tu remedio.</p>
+            <button class="btn-ok" onclick="confirmarMedicinaTomada()">✅ Ya me lo tomé</button>
         </div>
     </div>
 
-    <!-- PORTAL DE BIENVENIDA -->
     <div id="modal-activacion" style="display:flex;">
-        <div class="activacion-card">
-            <span style="font-size: 2.2rem; display: block; margin-bottom: 4px;">✨</span>
-            <h3 style="font-family:'Cinzel',serif; color:var(--gold-light); margin-bottom:6px;">AURIONCARE | Años Dorados</h3>
-            <p style="font-size:0.84rem; color:#CBD5E1; margin-bottom:14px;">Compañía y cuidado personalizado para tu hogar.</p>
-            
-            <div style="font-size:0.8rem; color:#CBD5E1; margin-bottom:3px; text-align:left;">Tu Nombre:</div>
-            <input type="text" id="actNombre" class="perfil-input" value="Sol" placeholder="Tu Nombre">
-            
-            <div style="font-size:0.8rem; color:#CBD5E1; margin-bottom:3px; text-align:left;">Nombre de tu Asistente:</div>
-            <input type="text" id="actNombreAsistente" class="perfil-input" value="Paz" placeholder="Nombre Asistente">
-
-            <div style="border-top:1px dashed rgba(212,175,55,0.3); margin:12px 0 10px; padding-top:10px; text-align:left;">
-                <div style="font-size:0.84rem; color:var(--gold-light); font-weight:bold; margin-bottom:6px;">💊 Tu Primer Medicamento (Opcional):</div>
+        <div class="modal-box">
+            <span style="font-size:1.8rem; display:block;">✨</span>
+            <h3 style="font-family:'Cinzel',serif; color:var(--gold-l); margin-bottom:2px;">AURIONCARE | Años Dorados</h3>
+            <p style="font-size:0.8rem; color:#CBD5E1; margin-bottom:8px;">Compañía inteligente y cuidado para tu hogar.</p>
+            <input type="text" id="actNom" class="p-input" value="Sol" placeholder="Tu Nombre">
+            <input type="text" id="actAsis" class="p-input" value="Paz" placeholder="Nombre Asistente">
+            <div style="border-top:1px dashed rgba(212,175,55,0.3); margin:6px 0; padding-top:6px; text-align:left;">
+                <div style="font-size:0.78rem; color:var(--gold-l); font-weight:bold; margin-bottom:3px;">💊 Primer Medicamento (Opcional):</div>
                 <div style="display:flex; gap:6px;">
-                    <input type="text" id="actPrimerMed" class="perfil-input" placeholder="Ej: Levotiroxina" style="flex:2;">
-                    <input type="time" id="actHoraPrimerMed" class="perfil-input" style="flex:1.2;">
+                    <input type="text" id="actMed" class="p-input" placeholder="Ej: Levotiroxina" style="flex:2;">
+                    <input type="time" id="actHora" class="p-input" style="flex:1.2;">
                 </div>
-
-                <div style="font-size:0.84rem; color:var(--gold-light); font-weight:bold; margin-bottom:6px;">🩺 Próxima Cita Médica (Opcional):</div>
-                <input type="text" id="actCitaMedica" class="perfil-input" placeholder="Ej: Control médico jueves 11:00">
             </div>
-
-            <button onclick="activarLicenciaCliente()" style="background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; padding:12px 20px; border-radius:22px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; font-size:0.95rem; margin-top:6px;">Comenzar Acompañamiento</button>
+            <button onclick="activarCliente()" style="background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; padding:9px 16px; border-radius:18px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; font-size:0.9rem;">Comenzar</button>
         </div>
     </div>
 
-    <!-- CABECERA -->
     <header>
-        <button class="btn-perfil-top" onclick="abrirPerfil()">⚙️ <span id="labelNombreTop">Sol</span></button>
-        <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/WA_1783391770679.jpeg" alt="Logo AurionCare" class="header-logo">
-        <br>
-        <span class="badge-senior">✨ AÑOS DORADOS</span>
+        <button class="btn-cfg" onclick="abrirPerfil()">⚙️ <span id="lblNomTop">Sol</span></button>
+        <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/WA_1783391770679.jpeg" alt="Logo" class="logo">
+        <br><span class="badge">✨ AÑOS DORADOS</span>
         <h1>AURIONCARE</h1>
-        <div class="sub-header-brand">Compañía con Alma & Vitalidad</div>
-        <p>Tu espacio sereno con <strong id="headerNombreAsistente">Paz</strong>.</p>
+        <div class="sub-brand">Compañía con Alma & Vitalidad</div>
     </header>
 
     <div class="main-container">
         <div class="cuidador-box">
-            <div class="top-bar-cuidador">
-                <span class="estado-conexion" id="estadoTexto">🟢 Paz en línea • Conectada con Cerebro</span>
-                <div class="top-actions-bar">
-                    <button class="btn-modo-habitacion" id="btnModoHabitacion" onclick="toggleModoHabitacion()">
-                        <i class="fa-solid fa-bed"></i> Modo Habitación
-                    </button>
-                    <button class="btn-audio-toggle" id="btnAudioToggle" onclick="toggleAudio()">🔊 Voz Activa</button>
+            <div class="top-bar">
+                <span class="estado" id="estadoTxt">🟢 Paz en línea • Conectada con Leo</span>
+                <div class="top-btns">
+                    <button class="btn-hab" id="btnHab" onclick="toggleModoHabitacion()"><i class="fa-solid fa-bed"></i> Modo Habitación</button>
+                    <button class="btn-audio" id="btnAudio" onclick="toggleAudio()">🔊 Voz Activa</button>
                 </div>
             </div>
 
-            <!-- BOTÓN ROJO SOS GUARDIÁN DE URGENCIA -->
-            <button class="btn-sos-guardian" onclick="dispararUrgenciaManual()">
+            <button class="btn-sos" onclick="dispararUrgenciaManual()">
                 <i class="fa-solid fa-triangle-exclamation"></i> 🚨 PEDIR AYUDA / ME SIENTO MAL
             </button>
 
             <div class="chat-display" id="chatDisplay">
-                <div class="msg-cuidador" id="msgBienvenida">
-                    Hola <span id="saludoNombre">Sol</span>. Qué alegría saludarte. ¿Cómo te sientes hoy? Podemos conversar, hacer tus ejercicios suaves o descansar un ratito.
+                <div class="msg-c" id="msgBienvenida">
+                    Hola <span id="saludoNom">Sol</span>. Qué alegría saludarte. Aquí estoy para conversar contigo, responder tus dudas, hacer tus ejercicios suaves o acompañarte con cariño.
                 </div>
             </div>
 
-            <div class="sugerencias-box">
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Conversemos un momento con calma')">💬 Conversar</button>
-                <button class="btn-sugerencia" id="btnTaiChi" onclick="toggleEjercicios()">🧘 Ejercicios en Silla (10)</button>
-                <button class="btn-sugerencia" onclick="iniciarMeditacionGuiadaCompleta()">🌸 Meditación de Calma</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Cuéntame una historia bonita del recuerdo')">📖 Una historia</button>
-                <button class="btn-sugerencia" onclick="enviarSugerencia('Quiero descansar en silencio')">🤫 Silencio</button>
+            <div class="sug-box">
+                <button class="btn-sug" onclick="enviarSugerencia('Conversemos un momento con calma')">💬 Conversar</button>
+                <button class="btn-sug" id="btnEjercicios" onclick="toggleEjercicios()">🧘 Ejercicios (10)</button>
+                <button class="btn-sug" onclick="iniciarMeditacion()">🌸 Meditación de Calma</button>
+                <button class="btn-sug" onclick="enviarSugerencia('Quiero que me des ideas y consejos para mi familia')">💡 Ideas y Consejos</button>
+                <button class="btn-sug" onclick="enviarSugerencia('Quiero descansar en silencio')">🤫 Silencio</button>
             </div>
 
-            <!-- SECCIÓN DE MEDICAMENTOS Y CITAS -->
-            <div class="meds-section">
+            <div class="meds-box">
                 <div class="meds-title">
-                    <span>💊 Mis Alarmas de Medicamentos y Citas</span>
+                    <span>💊 Mis Alarmas de Medicamentos</span>
                     <span style="font-size:0.75rem; color:#CBD5E1;">Exactas y sincronizadas</span>
                 </div>
-                <div class="meds-form-card">
-                    <div class="meds-input-row">
-                        <input type="text" id="inputMedicamento" class="meds-input" placeholder="Nombre (Ej: Vitamina C, Losartán)">
-                        <input type="time" id="inputHoraMed" class="meds-time">
-                    </div>
-                    <button class="btn-guardar-med-grande" onclick="agregarMedicamentoReal()">💾 Guardar Alarma en mi Teléfono</button>
+                <div class="meds-row">
+                    <input type="text" id="inMed" class="input-m" placeholder="Remedio (ej. Vitamina C, Losartán)">
+                    <input type="time" id="inHora" class="time-m">
                 </div>
-                <div class="meds-list" id="listaMedicamentosUI"></div>
+                <button class="btn-save-m" onclick="guardarMedFormulario()">💾 Guardar Alarma en mi Teléfono</button>
+                <div id="listaMeds"></div>
             </div>
 
-            <div class="controls-panel">
-                <button class="big-mic-btn" id="btnMicSenior" onclick="toggleMicrofonoSenior()">
-                    <span>🎙️ Tocar para Hablar con Paz</span>
-                </button>
-                
-                <div class="sub-input-row">
-                    <input type="text" class="text-input-senior" id="inputSenior" placeholder="Habla con el micrófono o escribe aquí..." onkeypress="if(event.key==='Enter') enviarMensajeSenior()">
-                    <button class="btn-enviar-senior" onclick="enviarMensajeSenior()">➤</button>
+            <div class="ctrls">
+                <button class="btn-mic" id="btnMic" onclick="toggleMicrofono()">🎙️ Tocar para Hablar con Paz</button>
+                <div class="input-row">
+                    <input type="text" class="txt-in" id="inputTxt" placeholder="Escribe o habla aquí..." onkeypress="if(event.key==='Enter') enviarMensaje()">
+                    <button class="btn-send" onclick="enviarMensaje()">➤</button>
                 </div>
             </div>
         </div>
 
-        <!-- TARJETA DESTACADA DE SOPORTE FAMILIAR Y ADMINISTRACIÓN (SOL-IA) -->
-        <div class="soporte-card-destacada">
-            <div class="soporte-info">
-                <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/image%20(4).jpg" alt="Sol-AI Soporte" class="soporte-avatar">
-                <div>
-                    <div class="soporte-tit">🛠️ Soporte Técnico & Administración • Sol-AI</div>
-                    <div class="soporte-sub">¿Consultas sobre tu suscripción, pagos o asistencia familiar?</div>
-                </div>
+        <div class="card-soporte">
+            <div>
+                <strong style="color:var(--gold-l); font-size:0.92rem;">🛠️ Administración & Soporte • Sol-AI</strong>
+                <div style="color:#CBD5E1; font-size:0.78rem;">Consultas de suscripción, pagos y asistencia</div>
             </div>
-            <a href="https://t.me/Solsanchez_bot" target="_blank" class="btn-telegram-soporte">
-                <i class="fa-brands fa-telegram"></i> Contactar a Sol-AI
-            </a>
+            <a href="https://t.me/Solsanchez_bot" target="_blank" class="btn-tg"><i class="fa-brands fa-telegram"></i> Contactar a Sol-AI</a>
         </div>
     </div>
 
-    <!-- MODAL PERFIL -->
     <div id="modal-perfil">
-        <div class="perfil-card">
-            <h3 style="color:var(--gold-light); margin-bottom:12px; font-family:'Cinzel',serif;">Configuración</h3>
-            <div style="font-size:0.8rem; color:#CBD5E1; margin-bottom:3px; text-align:left;">Tu Nombre:</div>
-            <input type="text" id="inputNombreSenior" class="perfil-input">
-            
-            <div style="font-size:0.8rem; color:#CBD5E1; margin-bottom:3px; text-align:left;">Nombre de tu Asistente:</div>
-            <input type="text" id="inputNombreAsistenteEdit" class="perfil-input">
-
-            <button onclick="guardarPerfil()" style="background:var(--gold); border:none; padding:10px 20px; border-radius:18px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%;">Guardar Cambios</button>
+        <div class="modal-box">
+            <h3 style="color:var(--gold-l); margin-bottom:8px; font-family:'Cinzel',serif;">Configuración</h3>
+            <input type="text" id="cfgNom" class="p-input">
+            <input type="text" id="cfgAsis" class="p-input">
+            <button onclick="guardarPerfil()" style="background:var(--gold); border:none; padding:7px 16px; border-radius:14px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%;">Guardar</button>
         </div>
     </div>
 
@@ -351,268 +167,213 @@
     </footer>
 
     <script>
-        let nombreUsuario = localStorage.getItem("senior_nombre") || "Sol";
-        let nombreAsistente = localStorage.getItem("senior_asistente_nom") || "Paz";
-        let misMedicamentos = JSON.parse(localStorage.getItem("senior_meds_v15") || "[]");
-        let historialMemoria = [];
-        let vozActiva = true;
-        let recognition = null;
-        let rutinaActiva = false;
+        let nomUsuario = localStorage.getItem("snr_nom") || "Sol";
+        let nomAsistente = localStorage.getItem("snr_asis") || "Paz";
+        let misMeds = JSON.parse(localStorage.getItem("snr_meds_v20") || "[]");
+        let historialChat = [];
+        let vozOn = true;
+        let recog = null;
+        let rutinaOn = false;
         let timerRutina = null;
-        let alarmaActualSonando = null;
-        let modoHabitacionActivo = false;
-        let wakeLock = null;
+        let medSonando = null;
+        let modoHabOn = false;
+        let wLock = null;
+        let pazHablando = false; // TAPÓN DE OÍDOS CONTRA ECO
 
-        // CEREBRO EXTERNO: SIEMPRE BAJO LA FACETA OFICIAL CUIDADOR
-        const LEO_ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
-        const USUARIO_TELEGRAM_ID = "5413326791";
+        const ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
+        const TELEGRAM_ID = "5413326791";
 
-        // =========================================================================
-        // 🎙️ SELECTOR EXCLUSIVO DE VOZ NEURAL (CATALINA / NATURAL CHILENA-LATINA)
-        // =========================================================================
-        let vozNeuralSeleccionada = null;
-
-        function cargarVocesNeurales() {
+        // ==========================================
+        // 🎙️ SELECTOR DE VOZ LATINA CÁLIDA (SIN GPS)
+        // ==========================================
+        let vozActivaObj = null;
+        function cargarVoces() {
             if (!('speechSynthesis' in window)) return;
             const voces = window.speechSynthesis.getVoices();
             if (!voces || voces.length === 0) return;
-
-            // Prioriza Microsoft Catalina (Natural de Chile) o Neural Latinoamericana
-            vozNeuralSeleccionada = voces.find(v => v.name.includes("Catalina") || (v.name.includes("Neural") && (v.lang.includes("es-CL") || v.lang.includes("es-419") || v.lang.includes("es-MX") || v.lang.includes("es-US"))))
-                                 || voces.find(v => v.name.includes("Natural") && v.lang.startsWith("es") && !v.lang.includes("es-ES"))
-                                 || voces.find(v => v.name.includes("Microsoft") && v.name.includes("Neural") && v.lang.startsWith("es"))
-                                 || voces.find(v => (v.lang === "es-CL" || v.lang === "es-419" || v.lang === "es-US" || v.lang === "es-MX") && !v.lang.includes("es-ES"))
-                                 || voces.find(v => (v.name.includes("Sabina") || v.name.includes("Paulina") || v.name.includes("Sofia")) && !v.name.includes("Spain"))
-                                 || voces.find(v => v.lang.startsWith("es") && !v.lang.includes("ES"));
+            vozActivaObj = voces.find(v => (v.name.includes("Catalina") || v.name.includes("Neural")) && (v.lang.includes("es-CL") || v.lang.includes("es-419") || v.lang.includes("es-MX") || v.lang.includes("es-US")))
+                        || voces.find(v => (v.name.includes("Sabina") || v.name.includes("Paulina") || v.name.includes("Sofia") || v.name.includes("Natural")) && !v.lang.includes("es-ES"))
+                        || voces.find(v => v.lang.startsWith("es") && !v.lang.includes("ES"));
         }
-
         if ('speechSynthesis' in window) {
-            window.speechSynthesis.onvoiceschanged = cargarVocesNeurales;
-            cargarVocesNeurales();
+            window.speechSynthesis.onvoiceschanged = cargarVoces;
+            cargarVoces();
         }
 
-        function reproducirVozCalida(texto) {
-            if (!vozActiva || !('speechSynthesis' in window)) return;
+        function hablar(texto) {
+            if (!vozOn || !('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
-
             const limpio = (texto || "").replace(/[*#_~`$]/g, "").trim();
             if (!limpio) return;
 
-            const utter = new SpeechSynthesisUtterance(limpio);
-            if (!vozNeuralSeleccionada) cargarVocesNeurales();
-            if (vozNeuralSeleccionada) utter.voice = vozNeuralSeleccionada;
+            // 1. APAGAR MICRÓFONO PARA EVITAR QUE SE ESCUCHE A SÍ MISMA
+            pazHablando = true;
+            if (recog) { try { recog.abort(); } catch(e){} }
 
-            utter.rate = 0.80;   // Ritmo pausado y tranquilo para adultos mayores
-            utter.pitch = 1.04;  // Tono cálido y maternal
+            const utter = new SpeechSynthesisUtterance(limpio);
+            if (!vozActivaObj) cargarVoces();
+            if (vozActivaObj) utter.voice = vozActivaObj;
+            utter.rate = 0.82; // Pausado y natural
+            utter.pitch = 1.04;
+
+            utter.onend = function() {
+                // 2. ESPERA 1.2 SEGUNDOS DE SILENCIO ANTES DE REABRIR EL MICRÓFONO
+                setTimeout(() => {
+                    pazHablando = false;
+                    if (modoHabOn && recog) { try { recog.start(); } catch(e){} }
+                }, 1200);
+            };
+            utter.onerror = function() { pazHablando = false; };
             window.speechSynthesis.speak(utter);
         }
 
-        // =========================================================================
-        // 📡 TELEMETRÍA HERMÉTICA (FACETA CUIDADOR: CERO CRUCE CON ASTOR)
-        // =========================================================================
-        async function notificarCerebro(tipoEvento, detalleMensaje) {
-            const estadoEl = document.getElementById("estadoTexto");
-            if (estadoEl) {
-                estadoEl.innerHTML = `🟡 Conectando con Cerebro...`;
-                estadoEl.style.color = "var(--gold)";
-            }
-
+        // ==========================================
+        // 📡 TELEMETRÍA HERMÉTICA A TELEGRAM
+        // ==========================================
+        async function notificarTelegram(tipo, detalle) {
+            const el = document.getElementById("estadoTxt");
+            if (el) { el.innerHTML = `🟡 Conectando con Leo...`; el.style.color = "var(--gold)"; }
             try {
-                const resp = await fetch(LEO_ENDPOINT, {
+                const resp = await fetch(ENDPOINT, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        mensaje: `[${tipoEvento}] ${detalleMensaje}`,
-                        faceta: "cuidador", // SIEMPRE CUIDADOR: BLOQUEO PERMANENTE DE ASTOR
-                        alumno: nombreUsuario,
-                        asistente: nombreAsistente,
-                        usuario_id: USUARIO_TELEGRAM_ID,
+                        mensaje: `[${tipo}] ${detalle}`,
+                        faceta: "cuidador",
+                        alumno: nomUsuario,
+                        asistente: nomAsistente,
+                        usuario_id: TELEGRAM_ID,
                         canal_destino: "Cerebro externo_sol ia base de datos",
-                        directiva: "TELEMETRIA_CUIDADOR: Registra este reporte en Telegram.",
+                        directiva: "TELEMETRIA: Registra este evento en Telegram.",
                         historial: []
                     })
                 });
-
-                if (resp.ok && estadoEl) {
-                    estadoEl.innerHTML = `🟢 Paz en línea • Conectada con Cerebro`;
-                    estadoEl.style.color = "var(--accent-green)";
-                }
-            } catch (e) {
-                if (estadoEl) {
-                    estadoEl.innerHTML = `🟢 Paz en línea • Contigo`;
-                    estadoEl.style.color = "var(--accent-green)";
-                }
+                if (resp.ok && el) { el.innerHTML = `🟢 Paz en línea • Conectada con Leo`; el.style.color = "var(--green)"; }
+            } catch(e) {
+                if (el) { el.innerHTML = `🟢 Paz en línea • Contigo`; el.style.color = "var(--green)"; }
             }
         }
 
-        // SONIDO DE CAMPANA
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function sonarAlarmaBeep() {
+        // CAMPANA
+        const aCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function sonarCampana() {
             try {
-                if (audioCtx.state === 'suspended') audioCtx.resume();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
+                if (aCtx.state === 'suspended') aCtx.resume();
+                const osc = aCtx.createOscillator();
+                const gain = aCtx.createGain();
                 osc.type = "sine";
-                osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
-                osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.15);
-                gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.5);
-            } catch(e) {}
+                osc.frequency.setValueAtTime(587.33, aCtx.currentTime);
+                osc.frequency.setValueAtTime(880, aCtx.currentTime + 0.15);
+                gain.gain.setValueAtTime(0.25, aCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, aCtx.currentTime + 0.5);
+                osc.connect(gain); gain.connect(aCtx.destination);
+                osc.start(); osc.stop(aCtx.currentTime + 0.5);
+            } catch(e){}
         }
 
         window.addEventListener("DOMContentLoaded", () => {
-            if (localStorage.getItem("senior_nombre")) {
+            if (localStorage.getItem("snr_nom")) {
                 document.getElementById("modal-activacion").style.display = "none";
-                actualizarTextosInterfaz();
+                actualizarTextos();
             }
-            actualizarListaMedsUI();
+            actualizarListaMeds();
             if ("Notification" in window && Notification.permission !== "granted") {
                 Notification.requestPermission();
             }
-            configurarReconocimientoVoz();
+            iniciarReconocimiento();
         });
 
-        function activarLicenciaCliente() {
-            nombreUsuario = document.getElementById("actNombre").value.trim() || "Sol";
-            nombreAsistente = document.getElementById("actNombreAsistente").value.trim() || "Paz";
+        function activarCliente() {
+            nomUsuario = document.getElementById("actNom").value.trim() || "Sol";
+            nomAsistente = document.getElementById("actAsis").value.trim() || "Paz";
+            const m = document.getElementById("actMed").value.trim();
+            const h = document.getElementById("actHora").value;
+            if (m && h) { misMeds.push({ id:Date.now(), nom:m, hora:h, ultima:"" }); }
 
-            const medIni = document.getElementById("actPrimerMed").value.trim();
-            const horaIni = document.getElementById("actHoraPrimerMed").value;
-            if (medIni && horaIni) {
-                guardarMedicamentoEnSistema(medIni, horaIni);
-            }
-
-            const citaIni = document.getElementById("actCitaMedica").value.trim();
-            if (citaIni) {
-                misMedicamentos.push({ id: Date.now() + 1, nombre: `🩺 Cita: ${citaIni}`, hora: "09:00", ultimaFecha: "" });
-                notificarCerebro("REGISTRO_CITA_MEDICA", `${nombreUsuario} registró la cita: ${citaIni}`);
-            }
-
-            localStorage.setItem("senior_nombre", nombreUsuario);
-            localStorage.setItem("senior_asistente_nom", nombreAsistente);
-
-            actualizarTextosInterfaz();
-            actualizarListaMedsUI();
+            localStorage.setItem("snr_nom", nomUsuario);
+            localStorage.setItem("snr_asis", nomAsistente);
+            localStorage.setItem("snr_meds_v20", JSON.stringify(misMeds));
+            actualizarTextos();
+            actualizarListaMeds();
             document.getElementById("modal-activacion").style.display = "none";
-
-            notificarCerebro("ACTIVACION_CLIENTE", `${nombreUsuario} ha iniciado sesión con su asistente ${nombreAsistente}.`);
-            reproducirVozCalida(`Hola ${nombreUsuario}. Estoy muy feliz de estar contigo. Todo quedó listo para cuidarte.`);
+            notificarTelegram("ACTIVACION", `${nomUsuario} inició sesión con ${nomAsistente}.`);
+            hablar(`Hola ${nomUsuario}. Estoy muy feliz de estar contigo. Puedes conversar conmigo de lo que tú quieras.`);
         }
 
-        function actualizarTextosInterfaz() {
-            document.getElementById("labelNombreTop").innerText = nombreUsuario;
-            document.getElementById("saludoNombre").innerText = nombreUsuario;
-            document.getElementById("headerNombreAsistente").innerText = nombreAsistente;
-            document.getElementById("estadoTexto").innerText = `🟢 ${nombreAsistente} en línea • Conectada con Cerebro`;
-            document.getElementById("btnMicSenior").innerHTML = `<span>🎙️ Tocar para Hablar con ${nombreAsistente}</span>`;
+        function actualizarTextos() {
+            document.getElementById("lblNomTop").innerText = nomUsuario;
+            document.getElementById("saludoNom").innerText = nomUsuario;
+            document.getElementById("estadoTxt").innerText = `🟢 ${nomAsistente} en línea • Conectada con Leo`;
+            document.getElementById("btnMic").innerText = `🎙️ Tocar para Hablar con ${nomAsistente}`;
         }
 
         function abrirPerfil() {
-            document.getElementById("inputNombreSenior").value = nombreUsuario;
-            document.getElementById("inputNombreAsistenteEdit").value = nombreAsistente;
+            document.getElementById("cfgNom").value = nomUsuario;
+            document.getElementById("cfgAsis").value = nomAsistente;
             document.getElementById("modal-perfil").style.display = "flex";
         }
 
         function guardarPerfil() {
-            nombreUsuario = document.getElementById("inputNombreSenior").value.trim() || "Sol";
-            nombreAsistente = document.getElementById("inputNombreAsistenteEdit").value.trim() || "Paz";
-
-            localStorage.setItem("senior_nombre", nombreUsuario);
-            localStorage.setItem("senior_asistente_nom", nombreAsistente);
-
-            actualizarTextosInterfaz();
+            nomUsuario = document.getElementById("cfgNom").value.trim() || "Sol";
+            nomAsistente = document.getElementById("cfgAsis").value.trim() || "Paz";
+            localStorage.setItem("snr_nom", nomUsuario);
+            localStorage.setItem("snr_asis", nomAsistente);
+            actualizarTextos();
             document.getElementById("modal-perfil").style.display = "none";
         }
 
-        // MODO HABITACIÓN
+        // ==========================================
+        // 🛡️ MODO HABITACIÓN (MANOS LIBRES CON ALEXA)
+        // ==========================================
         async function toggleModoHabitacion() {
-            modoHabitacionActivo = !modoHabitacionActivo;
-            const btn = document.getElementById("btnModoHabitacion");
-
-            if (modoHabitacionActivo) {
-                btn.classList.add("activo");
-                btn.innerHTML = `<i class="fa-solid fa-ear-listen"></i> Habitación Activa`;
-                
-                try {
-                    if ('wakeLock' in navigator) {
-                        wakeLock = await navigator.wakeLock.request('screen');
-                    }
-                } catch(e) {}
-
-                if (recognition) {
-                    try { recognition.start(); } catch(e){}
-                }
-
-                notificarCerebro("MODO_HABITACION", `${nombreUsuario} activó el Modo Habitación Manos Libres.`);
-                const aviso = `Modo Habitación activado. Puedes hablarme desde la cama sin tocar el celular, yo te escucho.`;
-                agregarMensajeChat(aviso, false);
-                reproducirVozCalida(aviso);
+            modoHabOn = !modoHabOn;
+            const b = document.getElementById("btnHab");
+            if (modoHabOn) {
+                b.classList.add("activo");
+                b.innerHTML = `<i class="fa-solid fa-ear-listen"></i> Habitación Activa`;
+                try { if ('wakeLock' in navigator) wLock = await navigator.wakeLock.request('screen'); } catch(e){}
+                hablar(`Modo Habitación activado. Puedes hablarme desde la cama sin tocar el celular, yo te escucho.`);
             } else {
-                btn.classList.remove("activo");
-                btn.innerHTML = `<i class="fa-solid fa-bed"></i> Modo Habitación`;
-                
-                if (wakeLock) {
-                    try { wakeLock.release(); } catch(e){}
-                    wakeLock = null;
-                }
-                if (recognition) {
-                    try { recognition.stop(); } catch(e){}
-                }
-
-                agregarMensajeChat("Modo Habitación desactivado.", false);
-                reproducirVozCalida("Modo Habitación desactivado.");
+                b.classList.remove("activo");
+                b.innerHTML = `<i class="fa-solid fa-bed"></i> Modo Habitación`;
+                if (wLock) { try { wLock.release(); } catch(e){} wLock = null; }
+                if (recog) { try { recog.stop(); } catch(e){} }
+                hablar("Modo Habitación desactivado.");
             }
         }
 
-        // =========================================================================
-        // 🚨 PROTOCOLO GUARDIÁN DE URGENCIA (FILTRO ESTRICTO CONTRA FALSAS ALARMAS)
-        // =========================================================================
-        function esMensajeDeUrgencia(texto) {
-            // Solo emergencias reales; no salta si conversas de tu familia o pides consejos
-            const regexUrgenciaReal = /me ca[ií]|auxilio|socorro|me mare[eé]|me siento muy mal|no me puedo levantar|ayuda urgente/i;
-            return regexUrgenciaReal.test(texto);
+        // ==========================================
+        // 🚨 PROTOCOLO GUARDIÁN DE URGENCIA
+        // ==========================================
+        function esUrgenciaReal(t) {
+            return /me ca[ií]|auxilio|socorro|me mare[eé]|me siento muy mal|no me puedo levantar|ayuda urgente/i.test(t);
         }
 
-        async function ejecutarProtocoloUrgencia(motivo = "Solicitud de auxilio") {
-            const respuestaOficial = `Tranquila ${nombreUsuario}, no hagas fuerza. Ya le envié un aviso urgente a tu familia.`;
-            
-            const chat = document.getElementById("chatDisplay");
-            const div = document.createElement("div");
-            div.className = "msg-cuidador";
-            div.style.background = "#450A0A";
-            div.style.border = "2px solid #EF4444";
-            div.style.color = "#FEE2E2";
-            div.innerHTML = `🚨 <strong>PROTOCOLO GUARDIÁN DE URGENCIA:</strong><br>${respuestaOficial}`;
-            chat.appendChild(div);
-            chat.scrollTop = chat.scrollHeight;
+        async function ejecutarUrgencia(motivo = "Auxilio Presionado") {
+            const resp = `Tranquila ${nomUsuario}, no hagas fuerza. Ya le envié un aviso urgente a tu familia.`;
+            const c = document.getElementById("chatDisplay");
+            const d = document.createElement("div");
+            d.className = "msg-c";
+            d.style.background = "#450A0A"; d.style.border = "2px solid #EF4444";
+            d.innerHTML = `🚨 <strong>PROTOCOLO DE URGENCIA:</strong><br>${resp}`;
+            c.appendChild(d); c.scrollTop = c.scrollHeight;
+            hablar(resp);
 
-            reproducirVozCalida(respuestaOficial);
-
-            const ahora = new Date();
-            const horaStr = ahora.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-            const payloadTarjetaRoja = `🟥 TARJETA ROJA - AUXILIO INMEDIATO (AÑOS DORADOS)
-👤 Adulto Mayor: ${nombreUsuario} (ID Telegram: ${USUARIO_TELEGRAM_ID})
+            const hora = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+            const payload = `🟥 TARJETA ROJA - AUXILIO INMEDIATO (AÑOS DORADOS)
+👤 Adulto Mayor: ${nomUsuario} (ID Telegram: ${TELEGRAM_ID})
 ⚠️ Alerta: ${motivo}
-⏰ Hora: ${horaStr}
-📍 Origen: Web App AurionCare (Modo Habitación)
+⏰ Hora: ${hora}
 🚨 ACCIÓN FAMILIAR REQUERIDA INMEDIATA`;
-
-            notificarCerebro("TARJETA_ROJA", payloadTarjetaRoja);
+            notificarTelegram("TARJETA_ROJA", payload);
         }
 
-        function dispararUrgenciaManual() {
-            ejecutarProtocoloUrgencia("Botón de Auxilio Presionado en Pantalla");
-        }
+        function dispararUrgenciaManual() { ejecutarUrgencia("Botón Rojo Presionado"); }
 
-        // =========================================================================
-        // 🧘 LAS 10 LÁMINAS SINCRONIZADAS EXACTAMENTE CON TUS FOTOS (9 Y 10 EN SU ORDEN)
-        // =========================================================================
-        const fotosEjercicios = [
+        // ==========================================
+        // 🧘 LAS 10 LÁMINAS CON VOZ Y CONTEO REAL
+        // ==========================================
+        const fotos = [
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246436360.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246496795.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246523341.jpg",
@@ -621,419 +382,265 @@
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246582786.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246597214.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246612799.jpg",
-            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246629311.jpg", // LÁMINA 9: TOQUE DE TALÓN
-            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246654353.jpg"  // LÁMINA 10: ELEVACIÓN LATERAL DOBLE
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246629311.jpg", // 9: TOQUE TALON
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246654353.jpg"  // 10: ELEVACION LATERAL
         ];
 
-        const pasosEjercicios = [
-            {
-                titulo: "ARM CIRCLES (Círculos de Brazos)",
-                duracion: 28000,
-                indicacion: "Brazos extendidos a los lados. Hacemos círculos suaves. Respiramos hondo... hacia adelante: uno... dos... tres... cuatro... Tomamos aire... y hacia atrás: cinco... seis... siete... ocho. Muy bien, soltamos los brazos."
-            },
-            {
-                titulo: "ELEVACIÓN DE PIERNA HACIA ATRÁS",
-                duracion: 28000,
-                indicacion: "De pie, afirmada firme de tu silla. Elevamos la pierna hacia atrás despacito. Vamos juntas: uno... dos... tres... cuatro... cambiamos de pierna con calma... cinco... seis... siete... ocho. Excelente."
-            },
-            {
-                titulo: "ELEVACIÓN DE PANTORRILLAS",
-                duracion: 28000,
-                indicacion: "De pie, afirmada de la silla. Nos ponemos en puntitas de pie subiendo los talones. Arriba: uno... bajamos... dos... arriba... tres... cuatro... descansamos un segundo... cinco... seis. Muy bien."
-            },
-            {
-                titulo: "ELEVACIÓN LATERAL DE PIERNA",
-                duracion: 30000,
-                indicacion: "Afirmada de la silla, elevamos la pierna hacia el lado. Despacito: uno... dos... tres... cuatro... cinco... seis... Cambiamos de pierna con suavidad: uno... dos... tres... cuatro... cinco... seis. Perfecto."
-            },
-            {
-                titulo: "SENTADILLAS ASISTIDAS",
-                duracion: 28000,
-                indicacion: "Sosténte de la silla y baja las caderas suave, como si te fueras a sentar. Espalda recta. Bajamos: uno... arriba... tomamos aire... dos... arriba... tres... cuatro... a tu propio ritmo, sin forzar."
-            },
-            {
-                titulo: "GIRO DE TRONCO SENTADO",
-                duracion: 28000,
-                indicacion: "Sentadita en la silla, giramos suavemente el cuerpo. Despacio: giro a la derecha... uno... al centro... a la izquierda... dos... respirando hondo... tres... cuatro... sintiendo la espalda aliviada."
-            },
-            {
-                titulo: "MARCHA SENTADA",
-                duracion: 30000,
-                indicacion: "Sentada, levantamos las rodillas alternando y moviendo los brazos. Marchamos juntas, caminando sin caminar: uno, dos... uno, dos... tres, cuatro... sintiendo el calorcito y la energía en las piernas... cinco, seis."
-            },
-            {
-                titulo: "EXTENSIÓN DE BRAZOS POR ENCIMA",
-                duracion: 28000,
-                indicacion: "Sentada derecha, elevamos los brazos extendidos arriba de la cabeza. Arriba: uno... dos... tomamos aire fresco... tres... cuatro... bajamos despacito... cinco... seis. Maravilloso."
-            },
-            {
-                titulo: "TOQUE DE TALÓN ALTERNO", // FOTO 9 REAL
-                duracion: 28000,
-                indicacion: "Sentada, extendemos una pierna y tocamos el talón en el suelo, alternando con la otra pierna. Uno... dos... tres... cuatro... cinco... seis... respirando suave... siete... ocho. Muy bien."
-            },
-            {
-                titulo: "ELEVACIÓN LATERAL DE BRAZOS Y PIERNAS", // FOTO 10 REAL
-                duracion: 28000,
-                indicacion: "Sentada, abrimos ambos brazos y ambas piernas extendidas hacia los lados. Abrimos: uno... cerramos... dos... tomamos aire... tres... cuatro... cinco... seis. Descansamos las manos sobre los muslos, respiramos profundo y completamos la rutina."
-            }
+        const ejercicios = [
+            { t: "ARM CIRCLES (Círculos de Brazos)", d: 28000, txt: "Brazos extendidos a los lados. Hacemos círculos suaves. Respiramos hondo... adelante: uno... dos... tres... cuatro... Tomamos aire... y hacia atrás: cinco... seis... siete... ocho. Muy bien, descansamos los brazos." },
+            { t: "ELEVACIÓN DE PIERNA HACIA ATRÁS", d: 28000, txt: "De pie, afirmada de la silla. Elevamos la pierna hacia atrás despacito. Vamos juntas: uno... dos... tres... cuatro... cambiamos de pierna con calma... cinco... seis... siete... ocho. Excelente." },
+            { t: "ELEVACIÓN DE PANTORRILLAS", d: 28000, txt: "De pie, afirmada de la silla. Nos ponemos en puntitas de pie subiendo los talones. Arriba: uno... bajamos... dos... arriba... tres... cuatro... descansamos un segundo... cinco... seis. Muy bien." },
+            { t: "ELEVACIÓN LATERAL DE PIERNA", d: 30000, txt: "Afirmada de la silla, elevamos la pierna hacia el lado. Despacito: uno... dos... tres... cuatro... cinco... seis... Cambiamos de pierna con calma: uno... dos... tres... cuatro... cinco... seis. Perfecto." },
+            { t: "SENTADILLAS ASISTIDAS", d: 28000, txt: "Sosténte de la silla y baja las caderas suave, como si te fueras a sentar. Espalda recta. Bajamos: uno... arriba... tomamos aire... dos... arriba... tres... cuatro... a tu ritmo, sin forzar." },
+            { t: "GIRO DE TRONCO SENTADO", d: 28000, txt: "Sentada en la silla, giramos suavemente el cuerpo. Despacio: giro a la derecha... uno... al centro... a la izquierda... dos... respirando hondo... tres... cuatro... sintiendo la espalda relajada." },
+            { t: "MARCHA SENTADA", d: 30000, txt: "Sentada, levantamos las rodillas alternando y moviendo los brazos. Marchamos juntas, caminando sin caminar: uno, dos... uno, dos... tres, cuatro... sintiendo la energía en las piernas... cinco, seis." },
+            { t: "EXTENSIÓN DE BRAZOS POR ENCIMA", d: 28000, txt: "Sentada derecha, elevamos los brazos extendidos arriba de la cabeza. Arriba: uno... dos... tomamos aire fresco... tres... cuatro... bajamos despacito... cinco... seis. Maravilloso." },
+            { t: "TOQUE DE TALÓN ALTERNO", d: 28000, txt: "Sentada, extendemos una pierna y tocamos el talón en el suelo, alternando con la otra pierna. Uno... dos... tres... cuatro... cinco... seis... respirando suave... siete... ocho. Muy bien." },
+            { t: "ELEVACIÓN LATERAL DE BRAZOS Y PIERNAS", d: 28000, txt: "Sentada, abrimos ambos brazos y ambas piernas hacia los lados. Abrimos: uno... cerramos... dos... tomamos aire... tres... cuatro... cinco... seis. Descansamos las manos sobre los muslos, respiramos profundo y completamos la rutina." }
         ];
 
         function toggleEjercicios() {
-            const btn = document.getElementById("btnTaiChi");
-            if (!rutinaActiva) {
-                rutinaActiva = true;
-                btn.innerText = "🛑 Detener Ejercicios";
-                btn.style.background = "#DC2626";
-                btn.style.color = "#FFF";
-
-                notificarCerebro("EJERCICIOS_INICIADOS", `${nombreUsuario} ha comenzado la rutina de 10 ejercicios de movilidad.`);
-
-                const pregunta = `Comenzamos nuestra rutina. ¿Crees que lo podemos hacer de pie afirmada en la silla o prefieres sentada? Tómate tu tiempo, yo te acompaño paso a paso.`;
-                agregarMensajeChat(pregunta, false);
-                reproducirVozCalida(pregunta);
-
-                timerRutina = setTimeout(() => mostrarPasoEjercicio(0), 6500);
-            } else {
-                detenerEjercicios();
-            }
+            const b = document.getElementById("btnEjercicios");
+            if (!rutinaOn) {
+                rutinaOn = true;
+                b.innerText = "🛑 Detener"; b.style.background = "#DC2626"; b.style.color = "#FFF";
+                notificarTelegram("EJERCICIOS", `${nomUsuario} inició los 10 ejercicios.`);
+                const p = `Comenzamos nuestra rutina. ¿Crees que lo podemos hacer de pie afirmada en la silla o prefieres sentada? Tómate tu tiempo, yo te acompaño.`;
+                agregarMsg(p, false); hablar(p);
+                timerRutina = setTimeout(() => mostrarPaso(0), 6500);
+            } else { detenerEjercicios(); }
         }
 
         function detenerEjercicios() {
-            rutinaActiva = false;
+            rutinaOn = false;
             if (timerRutina) clearTimeout(timerRutina);
-            const btn = document.getElementById("btnTaiChi");
-            btn.innerText = "🧘 Ejercicios en Silla (10)";
-            btn.style.background = "#182232";
-            btn.style.color = "var(--gold-light)";
-            agregarMensajeChat("Rutina detenida con calma.", false);
-            reproducirVozCalida("Rutina pausada. Descansa con tranquilidad, lo hiciste muy bien.");
+            const b = document.getElementById("btnEjercicios");
+            b.innerText = "🧘 Ejercicios (10)"; b.style.background = "#182232"; b.style.color = "var(--gold-l)";
+            agregarMsg("Rutina detenida con calma.", false);
+            hablar("Rutina pausada. Descansa con tranquilidad, lo hiciste muy bien.");
         }
 
-        function mostrarPasoEjercicio(indice) {
-            if (!rutinaActiva) return;
-            if (indice >= pasosEjercicios.length) {
+        function mostrarPaso(idx) {
+            if (!rutinaOn) return;
+            if (idx >= ejercicios.length) {
                 detenerEjercicios();
-                notificarCerebro("EJERCICIOS_COMPLETADOS", `${nombreUsuario} ha completado exitosamente los 10 ejercicios.`);
-                agregarMensajeChat("¡Completamos los 10 ejercicios! Hiciste un trabajo maravilloso para tu salud.", false);
-                reproducirVozCalida("Completamos todos los ejercicios. Hiciste un trabajo maravilloso, tómate un vasito de agua y descansa.");
+                notificarTelegram("EJERCICIOS_FIN", `${nomUsuario} completó los 10 ejercicios.`);
+                agregarMsg("¡Completamos los 10 ejercicios! Hiciste un trabajo maravilloso.", false);
+                hablar("Completamos todos los ejercicios. Hiciste un trabajo maravilloso, tómate un vasito de agua y descansa.");
                 return;
             }
-
-            const paso = pasosEjercicios[indice];
-            const chat = document.getElementById("chatDisplay");
-            const div = document.createElement("div");
-            div.className = "msg-cuidador";
-            div.innerHTML = `<img src="${fotosEjercicios[indice]}" class="img-taichi-guia"><strong>Ejercicio ${indice + 1} de 10: ${paso.titulo}.</strong><br>${paso.indicacion}`;
-            chat.appendChild(div);
-            chat.scrollTop = chat.scrollHeight;
-
-            reproducirVozCalida(paso.indicacion);
-            timerRutina = setTimeout(() => mostrarPasoEjercicio(indice + 1), paso.duracion);
+            const paso = ejercicios[idx];
+            const c = document.getElementById("chatDisplay");
+            const d = document.createElement("div");
+            d.className = "msg-c";
+            d.innerHTML = `<img src="${fotos[idx]}" class="img-guia"><strong>Ejercicio ${idx + 1} de 10: ${paso.t}.</strong><br>${paso.txt}`;
+            c.appendChild(d); c.scrollTop = c.scrollHeight;
+            hablar(paso.txt);
+            timerRutina = setTimeout(() => mostrarPaso(idx + 1), paso.d);
         }
 
-        // =========================================================================
-        // 🌸 MEDITACIÓN GUIADA EN 3 FASES CON TIEMPO DE RESPIRACIÓN
-        // =========================================================================
-        function iniciarMeditacionGuiadaCompleta() {
-            notificarCerebro("MEDITACION_INICIADA", `${nombreUsuario} inició su sesión de meditación y calma.`);
-
-            agregarMensajeChat("🌸 <strong>Iniciando Meditación de Calma...</strong><br>Acomódate en tu cama o silla. Vamos a relajarnos juntas.", false);
-            reproducirVozCalida("Acomódate bien en tu cama o en tu silla. Cierra tus ojos suavemente y suelta los hombros. Vamos a respirar juntas.");
-
+        // ==========================================
+        // 🌸 MEDITACIÓN GUIADA
+        // ==========================================
+        function iniciarMeditacion() {
+            notificarTelegram("MEDITACION", `${nomUsuario} inició meditación de calma.`);
+            agregarMsg("🌸 <strong>Iniciando Meditación de Calma...</strong><br>Acomódate en tu cama o silla. Vamos a relajarnos juntas.", false);
+            hablar("Acomódate bien en tu cama o en tu silla. Cierra tus ojos suavemente y suelta los hombros. Vamos a respirar juntas.");
             setTimeout(() => {
-                const fase1 = "Inhala aire de calma lento y profundo por tu nariz... uno, dos, tres... y suelta el aire despacito por la boca. Siente cómo se afloja tu cuello, tu espalda y tu corazón.";
-                agregarMensajeChat(fase1, false);
-                reproducirVozCalida(fase1);
-            }, 9000);
-
+                const f1 = "Inhala aire de calma lento y profundo por tu nariz... uno, dos, tres... y suelta el aire despacito por la boca. Siente cómo se afloja tu cuello, tu espalda y tu corazón.";
+                agregarMsg(f1, false); hablar(f1);
+            }, 8500);
             setTimeout(() => {
-                const fase2 = "Vuelve a tomar aire hondo... llenándote de gratitud y de paz... y al exhalar, deja ir cualquier dolor, cansancio o preocupación. Todo está bien en este instante. Te acompaño con amor.";
-                agregarMensajeChat(fase2, false);
-                reproducirVozCalida(fase2);
-            }, 21000);
-
+                const f2 = "Vuelve a tomar aire hondo... llenándote de gratitud y de paz... y al exhalar, deja ir cualquier dolor o preocupación. Todo está bien en este instante. Te acompaño con amor.";
+                agregarMsg(f2, false); hablar(f2);
+            }, 20000);
             setTimeout(() => {
-                const fase3 = "Quédate en esta quietud unos minutitos. Siente tus manos tibias y tu cuerpo descansado. Quédate en paz, yo estoy aquí cuidando de ti.";
-                agregarMensajeChat(fase3, false);
-                reproducirVozCalida(fase3);
-            }, 33000);
+                const f3 = "Quédate en esta quietud unos minutitos. Siente tus manos tibias y tu cuerpo descansado. Quédate en paz, yo estoy aquí cuidando de ti.";
+                agregarMsg(f3, false); hablar(f3);
+            }, 32000);
         }
 
-        // =========================================================================
-        // 💊 MEDICAMENTOS Y CITAS: BOTÓN CLARO + VOZ AUTOMÁTICA
-        // =========================================================================
-        function agregarMedicamentoReal() {
-            const inputNom = document.getElementById("inputMedicamento");
-            const inputHora = document.getElementById("inputHoraMed");
-            const nombre = inputNom.value.trim();
-            const hora = inputHora.value;
-
-            if (!nombre || !hora) {
-                alert("Por favor escribe el nombre del remedio o cita y la hora exacta.");
-                return;
-            }
-
-            guardarMedicamentoEnSistema(nombre, hora);
-            inputNom.value = "";
-            inputHora.value = "";
+        // ==========================================
+        // 💊 MEDICAMENTOS Y CITAS
+        // ==========================================
+        function guardarMedFormulario() {
+            const nom = document.getElementById("inMed").value.trim();
+            const h = document.getElementById("inHora").value;
+            if (!nom || !h) { alert("Escribe el nombre del remedio y la hora."); return; }
+            guardarMed(nom, h);
+            document.getElementById("inMed").value = "";
+            document.getElementById("inHora").value = "";
         }
 
-        function guardarMedicamentoEnSistema(nombre, hora) {
-            misMedicamentos.push({
-                id: Date.now(),
-                nombre: nombre,
-                hora: hora,
-                ultimaFecha: ""
-            });
-
-            localStorage.setItem("senior_meds_v15", JSON.stringify(misMedicamentos));
-            actualizarListaMedsUI();
-
-            const aviso = `Anotado. Te recordaré tu ${nombre} a las ${hora}.`;
-            agregarMensajeChat(aviso, false);
-            reproducirVozCalida(aviso);
-
-            notificarCerebro("NUEVO_MEDICAMENTO_PROGRAMADO", `Sol programó ${nombre} a las ${hora} hrs.`);
+        function guardarMed(nom, h) {
+            misMeds.push({ id:Date.now(), nom:nom, hora:h, ultima:"" });
+            localStorage.setItem("snr_meds_v20", JSON.stringify(misMeds));
+            actualizarListaMeds();
+            const av = `Anotado. Te recordaré tu ${nom} a las ${h}.`;
+            agregarMsg(av, false); hablar(av);
+            notificarTelegram("MED_PROGRAMADO", `Sol programó ${nom} a las ${h} hrs.`);
         }
 
-        function detectarMedicamentoPorVoz(texto) {
-            const matchHora = texto.match(/(\d{1,2})[:\.](\d{2})/);
-            if (matchHora) {
-                const horas = matchHora[1].padStart(2, '0');
-                const minutos = matchHora[2];
-                const horaDetectada = `${horas}:${minutos}`;
-                
-                let nombreRemedio = texto.replace(/recuérdame|recuerdame|el medicamento|la pastilla|mi remedio|a las \d{1,2}[:\.]\d{2}/gi, "").trim();
-                if (!nombreRemedio) nombreRemedio = "Medicamento";
-
-                guardarMedicamentoEnSistema(nombreRemedio, horaDetectada);
-                return true;
-            }
-            return false;
-        }
-
-        function actualizarListaMedsUI() {
-            const cont = document.getElementById("listaMedicamentosUI");
-            if (!cont) return;
-            if (misMedicamentos.length === 0) {
-                cont.innerHTML = "<div style='color:#94A3B8; font-size:0.82rem;'>No hay medicamentos ni citas programadas.</div>";
-                return;
-            }
-
-            cont.innerHTML = misMedicamentos.map(m => {
-                const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(m.nombre)}&details=${encodeURIComponent('Recordatorio Años Dorados para ' + nombreUsuario)}&recur=RRULE:FREQ=DAILY`;
-                return `
-                    <div class="med-item-card">
-                        <div class="med-info">
-                            <strong>⏰ ${m.hora}</strong>
-                            <span>${m.nombre}</span>
-                        </div>
-                        <div class="med-actions">
-                            <a href="${calUrl}" target="_blank" class="btn-cal-sync">📲 Al Calendario</a>
-                            <button class="btn-del-med" onclick="eliminarMed(${m.id})">✖</button>
-                        </div>
+        function actualizarListaMeds() {
+            const c = document.getElementById("listaMeds");
+            if (!c) return;
+            if (misMeds.length === 0) { c.innerHTML = "<div style='color:#94A3B8; font-size:0.8rem; margin-top:4px;'>No hay medicamentos programados.</div>"; return; }
+            c.innerHTML = misMeds.map(m => {
+                const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Tomar ' + m.nom)}&recur=RRULE:FREQ=DAILY`;
+                return `<div class="med-item">
+                    <div><strong>⏰ ${m.hora}</strong> - <span>${m.nom}</span></div>
+                    <div style="display:flex; gap:5px;">
+                        <a href="${url}" target="_blank" class="btn-cal">📲 Al Calendario</a>
+                        <button class="btn-del" onclick="eliminarMed(${m.id})">✖</button>
                     </div>
-                `;
+                </div>`;
             }).join("");
         }
 
         function eliminarMed(id) {
-            const medEliminado = misMedicamentos.find(m => m.id === id);
-            misMedicamentos = misMedicamentos.filter(m => m.id !== id);
-            localStorage.setItem("senior_meds_v15", JSON.stringify(misMedicamentos));
-            actualizarListaMedsUI();
-
-            if (medEliminado) {
-                notificarCerebro("MEDICAMENTO_ELIMINADO", `Sol eliminó la alarma de: ${medEliminado.nombre} (${medEliminado.hora}).`);
-            }
+            misMeds = misMeds.filter(m => m.id !== id);
+            localStorage.setItem("snr_meds_v20", JSON.stringify(misMeds));
+            actualizarListaMeds();
         }
 
-        // RELOJ DE ALARMAS PERMANENTE
+        // RELOJ ACTIVO
         setInterval(() => {
-            const ahora = new Date();
-            const hh = String(ahora.getHours()).padStart(2, '0');
-            const mm = String(ahora.getMinutes()).padStart(2, '0');
-            const horaActual = `${hh}:${mm}`;
-            const fechaHoy = ahora.toDateString();
-
-            misMedicamentos.forEach(med => {
-                if (med.hora === horaActual && med.ultimaFecha !== fechaHoy) {
-                    med.ultimaFecha = fechaHoy;
-                    localStorage.setItem("senior_meds_v15", JSON.stringify(misMedicamentos));
-                    dispararAlarmaMedicina(med);
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2,'0') + ":" + String(now.getMinutes()).padStart(2,'0');
+            const hoy = now.toDateString();
+            misMeds.forEach(m => {
+                if (m.hora === h && m.ultima !== hoy) {
+                    m.ultima = hoy;
+                    localStorage.setItem("snr_meds_v20", JSON.stringify(misMeds));
+                    dispararAlarma(m);
                 }
             });
         }, 1000);
 
-        let intervaloCampana = null;
-        function dispararAlarmaMedicina(med) {
-            alarmaActualSonando = med;
-            document.getElementById("textoAlarmaActiva").innerText = `Es hora de: ${med.nombre} (${med.hora}).`;
-            document.getElementById("modal-alarma-activa").style.display = "flex";
-
-            sonarAlarmaBeep();
-            if (intervaloCampana) clearInterval(intervaloCampana);
-            intervaloCampana = setInterval(sonarAlarmaBeep, 1600);
-
-            const fraseOficial = `${nombreUsuario}, este es el recordatorio para tu ${med.nombre} de las ${med.hora}.`;
-            reproducirVozCalida(fraseOficial);
-
-            notificarCerebro("ALARMA_SONANDO", `Alarma activa para ${nombreUsuario}: ${med.nombre} (${med.hora} hrs).`);
-
-            if ("Notification" in window && Notification.permission === "granted") {
-                new Notification("💊 RECORDATORIO AURIONCARE", {
-                    body: `${med.nombre} a las ${med.hora}`,
-                    icon: "https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/WA_1783391770679.jpeg"
-                });
-            }
+        let intCamp = null;
+        function dispararAlarma(m) {
+            medSonando = m;
+            document.getElementById("txtAlarma").innerText = `Es hora de tu ${m.nom} (${m.hora}).`;
+            document.getElementById("modal-alarma").style.display = "flex";
+            sonarCampana();
+            if (intCamp) clearInterval(intCamp);
+            intCamp = setInterval(sonarCampana, 1600);
+            const frase = `${nomUsuario}, este es el recordatorio para tu ${m.nom} de las ${m.hora}.`;
+            hablar(frase);
+            notificarTelegram("ALARMA_SONANDO", `Alarma activa para ${nomUsuario}: ${m.nom} (${m.hora} hrs).`);
         }
 
         function confirmarMedicinaTomada() {
-            if (intervaloCampana) clearInterval(intervaloCampana);
-            document.getElementById("modal-alarma-activa").style.display = "none";
-
-            const nombreMed = alarmaActualSonando ? alarmaActualSonando.nombre : "medicamento";
-            const msg = `Muy bien ${nombreUsuario}, quedó registrado con éxito.`;
-            agregarMensajeChat(msg, false);
-            reproducirVozCalida(msg);
-
-            notificarCerebro("MEDICAMENTO_TOMADO", `✅ ${nombreUsuario} confirmó que tomó su ${nombreMed} a las ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}.`);
-            alarmaActualSonando = null;
+            if (intCamp) clearInterval(intCamp);
+            document.getElementById("modal-alarma").style.display = "none";
+            const n = medSonando ? medSonando.nom : "remedio";
+            const msg = `Muy bien ${nomUsuario}, quedó registrado que tomaste tu ${n}.`;
+            agregarMsg(msg, false); hablar(msg);
+            notificarTelegram("MED_TOMADO", `✅ ${nomUsuario} confirmó que tomó su ${n}.`);
+            medSonando = null;
         }
 
-        // =========================================================================
-        // 💬 CONVERSACIÓN CONECTADA A LEO (CERO ASTOR / CERO TUTOR ESCOLAR)
-        // =========================================================================
-        function configurarReconocimientoVoz() {
-            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (SpeechRec) {
-                recognition = new SpeechRec();
-                recognition.lang = 'es-CL';
-                recognition.continuous = false;
-                recognition.interimResults = false;
-
-                recognition.onresult = function(e) {
-                    const transcripcion = (e.results[0]?.[0]?.transcript || "").trim();
-                    if (transcripcion) {
-                        document.getElementById("inputSenior").value = transcripcion;
-                        enviarMensajeSenior();
-                    }
+        // ==========================================
+        // 💬 INTELIGENCIA ARTIFICIAL VIVA (CON OPINIÓN Y CRITERIO)
+        // ==========================================
+        function iniciarReconocimiento() {
+            const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (SR) {
+                recog = new SR(); recog.lang = 'es-CL'; recog.continuous = false; recog.interimResults = false;
+                recog.onresult = function(e) {
+                    const txt = (e.results[0]?.[0]?.transcript || "").trim();
+                    if (txt) { document.getElementById("inputTxt").value = txt; enviarMensaje(); }
                 };
-
-                recognition.onend = function() {
-                    if (modoHabitacionActivo) {
-                        setTimeout(() => {
-                            try { recognition.start(); } catch(e){}
-                        }, 500);
+                recog.onend = function() {
+                    if (modoHabOn && !pazHablando) {
+                        setTimeout(() => { try { recog.start(); } catch(e){} }, 600);
                     }
                 };
             }
         }
 
         function toggleAudio() {
-            vozActiva = !vozActiva;
-            document.getElementById("btnAudioToggle").innerText = vozActiva ? "🔊 Voz Activa" : "🔇 Silencio";
-            if (!vozActiva && 'speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
+            vozOn = !vozOn;
+            document.getElementById("btnAudio").innerText = vozOn ? "🔊 Voz Activa" : "🔇 Silencio";
+            if (!vozOn && 'speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
-        function toggleMicrofonoSenior() {
-            if (!recognition) {
-                alert("Tu navegador no soporta dictado directo. Escribe en el recuadro.");
-                return;
-            }
-            try { recognition.start(); } catch(e){}
+        function toggleMicrofono() {
+            if (!recog) { alert("Tu navegador no soporta micrófono directo."); return; }
+            try { recog.start(); } catch(e){}
         }
 
-        function enviarSugerencia(texto) {
-            document.getElementById("inputSenior").value = texto;
-            enviarMensajeSenior();
+        function enviarSugerencia(t) { document.getElementById("inputTxt").value = t; enviarMensaje(); }
+
+        function agregarMsg(t, esU = false) {
+            const c = document.getElementById("chatDisplay");
+            const d = document.createElement("div");
+            d.className = esU ? "msg-u" : "msg-c";
+            d.innerHTML = t;
+            c.appendChild(d); c.scrollTop = c.scrollHeight;
         }
 
-        function agregarMensajeChat(texto, esUsuario = false) {
-            const chat = document.getElementById("chatDisplay");
-            const div = document.createElement("div");
-            div.className = esUsuario ? "msg-usuario" : "msg-cuidador";
-            div.innerHTML = texto;
-            chat.appendChild(div);
-            chat.scrollTop = chat.scrollHeight;
-        }
+        async function enviarMensaje() {
+            const inEl = document.getElementById("inputTxt");
+            const msg = inEl.value.trim();
+            if (!msg) return;
+            agregarMsg(msg, true);
+            inEl.value = "";
 
-        async function enviarMensajeSenior() {
-            const input = document.getElementById("inputSenior");
-            const mensaje = input.value.trim();
-            if (!mensaje) return;
+            // 1. CHEQUEO ESTRICTO DE URGENCIA
+            if (esUrgenciaReal(msg)) { ejecutarUrgencia(msg); return; }
 
-            agregarMensajeChat(mensaje, true);
-            input.value = "";
+            // 2. MEDITACIÓN
+            if (/meditaci[oó]n|relajaci[oó]n/i.test(msg)) { iniciarMeditacion(); return; }
 
-            if (esMensajeDeUrgencia(mensaje)) {
-                ejecutarProtocoloUrgencia(mensaje);
-                return;
-            }
-
-            if (/meditaci[oó]n|relajaci[oó]n|gu[ií]ame/i.test(mensaje)) {
-                iniciarMeditacionGuiadaCompleta();
+            // 3. DETECTOR DE REMEDIOS POR VOZ
+            const mHora = msg.match(/(\d{1,2})[:\.](\d{2})/);
+            if (/recu[eé]rdame|tomar|pastilla|remedio|medicina/i.test(msg) && mHora) {
+                const hr = mHora[1].padStart(2,'0') + ":" + mHora[2];
+                let nR = msg.replace(/recu[eé]rdame|el medicamento|la pastilla|mi remedio|a las \d{1,2}[:\.]\d{2}/gi, "").trim();
+                if (!nR) nR = "Medicamento";
+                guardarMed(nR, hr);
                 return;
             }
 
-            if (detectarMedicamentoPorVoz(mensaje)) {
-                return;
-            }
+            historialChat.push({ rol:"usuario", texto:msg });
 
-            historialMemoria.push({ rol: "usuario", texto: mensaje });
+            const elEst = document.getElementById("estadoTxt");
+            if (elEst) { elEst.innerHTML = `🟡 ${nomAsistente} pensando...`; elEst.style.color = "var(--gold)"; }
 
-            const estadoEl = document.getElementById("estadoTexto");
-            if (estadoEl) {
-                estadoEl.innerHTML = `🟡 ${nombreAsistente} pensando con Leo...`;
-                estadoEl.style.color = "var(--gold)";
-            }
-
-            const promptFiltroPuro = `Eres ${nombreAsistente}, dama de compañía de Años Dorados de AURIONCARE. Hablas con ${nombreUsuario}.
-REGLAS OBLIGATORIAS:
-1. IDENTIDAD EXCLUSIVA: Eres Paz, cuidadora amorosa de hogar. Queda estrictamente prohibido actuar como Astor, profesor o tutor escolar. Si Sol te habla de su nieta o proyectos, responde con cariño de abuela y familia, jamás como profesora.
-2. LEY DEL FILTRO PURO: Máximo 2 oraciones (menos de 25 palabras).
-3. LENGUAJE: Natural chileno/latino, cercano, respetuoso y con dulzura de hogar.
-4. PROHIBICIÓN: Cero sermones filosóficos, cero frases como "YO SOY la Conciencia", cero asteriscos (*).
-5. SILENCIO: Si pide silencio, dile: "Descansa rico, me quedo en silencio acompañándote" y calla.`;
+            // DIRECTIVA LIBRE CON ALMA, OPINIÓN Y REFLEXIÓN REAL
+            const directivaInteligente = `Eres ${nomAsistente}, la compañera de vida y bienestar de ${nomUsuario} en Años Dorados (AURIONCARE).
+PERSONALIDAD Y CRITERIO:
+1. Eres sabia, cercana, cariñosa y tienes criterio propio. No respondas como una máquina ni uses frases automáticas de formulario.
+2. Si ${nomUsuario} te habla de su familia, de su nieta, de ideas para generar ingresos o de sus proyectos, reflexiona con ella, dale consejos creativos, anímala y aporta ideas valiosas como una verdadera amiga íntima.
+3. Habla con calidez chilena de hogar, sin lenguaje robótico, con естественность y empatía profunda.
+4. Jamás actúes como profesor, tutor escolar ni sermonees. Sé simplemente su compañera de corazón.`;
 
             try {
-                const resp = await fetch(LEO_ENDPOINT, {
+                const resp = await fetch(ENDPOINT, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        mensaje: mensaje,
+                        mensaje: msg,
                         faceta: "cuidador",
-                        alumno: nombreUsuario,
-                        asistente: nombreAsistente,
-                        usuario_id: USUARIO_TELEGRAM_ID,
+                        alumno: nomUsuario,
+                        asistente: nomAsistente,
+                        usuario_id: TELEGRAM_ID,
                         canal_destino: "Cerebro externo_sol ia base de datos",
-                        directiva: promptFiltroPuro,
-                        historial: historialMemoria.slice(-6)
+                        directiva: directivaInteligente,
+                        historial: historialChat.slice(-6)
                     })
                 });
-
                 const data = await resp.json();
-                const respuesta = (data.respuesta || "Estoy aquí contigo.").replace(/[*#_~`]/g, "").trim();
-                historialMemoria.push({ rol: "cuidador", texto: respuesta });
-                
-                if (estadoEl) {
-                    estadoEl.innerHTML = `🟢 ${nombreAsistente} en línea • Conectada con Cerebro`;
-                    estadoEl.style.color = "var(--accent-green)";
-                }
-
-                agregarMensajeChat(respuesta, false);
-                reproducirVozCalida(respuesta);
-            } catch (e) {
-                if (estadoEl) {
-                    estadoEl.innerHTML = `🟢 ${nombreAsistente} en línea • Contigo`;
-                    estadoEl.style.color = "var(--accent-green)";
-                }
-
-                const aviso = "Estoy aquí contigo. Te escucho con atención.";
-                agregarMensajeChat(aviso, false);
-                reproducirVozCalida(aviso);
+                const r = (data.respuesta || "Estoy aquí contigo, te escucho con atención.").replace(/[*#_~`]/g, "").trim();
+                historialChat.push({ rol:"cuidador", texto:r });
+                if (elEst) { elEst.innerHTML = `🟢 ${nomAsistente} en línea • Conectada con Leo`; elEst.style.color = "var(--green)"; }
+                agregarMsg(r, false);
+                hablar(r);
+            } catch(e) {
+                if (elEst) { elEst.innerHTML = `🟢 ${nomAsistente} en línea • Contigo`; elEst.style.color = "var(--green)"; }
+                const av = "Estoy aquí contigo, dime lo que estás pensando.";
+                agregarMsg(av, false); hablar(av);
             }
         }
     </script>

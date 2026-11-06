@@ -11,7 +11,7 @@
         * { box-sizing:border-box; margin:0; padding:0; font-family:'Poppins',sans-serif; }
         body { background:var(--bg); color:var(--txt); min-height:100vh; display:flex; flex-direction:column; justify-content:space-between; }
         header { background:linear-gradient(180deg,#182232 0%,var(--bg) 100%); border-bottom:2px solid var(--gold); padding:16px 12px 10px; text-align:center; position:relative; }
-        .logo { width:72px; height:72px; border-radius:50%; border:2px solid var(--gold); object-fit:cover; margin-bottom:4px; box-shadow:0 0 15px rgba(212,175,55,0.3); }
+        .logo { width:70px; height:70px; border-radius:50%; border:2px solid var(--gold); object-fit:cover; margin-bottom:4px; box-shadow:0 0 15px rgba(212,175,55,0.3); }
         .badge { background:linear-gradient(135deg,#D4AF37,#AA7C11); color:#0A0E14; padding:2px 14px; border-radius:20px; font-weight:700; display:inline-block; font-size:0.8rem; margin-bottom:2px; }
         header h1 { font-family:'Cinzel',serif; font-size:1.9rem; color:var(--gold-l); letter-spacing:1px; }
         .sub-brand { font-size:0.95rem; color:var(--gold); font-weight:600; font-family:'Cinzel',serif; }
@@ -31,6 +31,7 @@
         .msg-u { background:linear-gradient(135deg,#D4AF37,#AA7C11); color:#0A0E14; padding:8px 14px; border-radius:14px 14px 4px 14px; max-width:85%; font-size:0.95rem; font-weight:600; align-self:flex-end; }
         .sug-box { display:flex; justify-content:center; gap:5px; flex-wrap:wrap; }
         .btn-sug { background:#182232; border:1px solid rgba(212,175,55,0.3); color:var(--gold-l); padding:6px 10px; border-radius:16px; font-size:0.78rem; cursor:pointer; font-weight:500; }
+        .btn-sug:hover { background:rgba(212,175,55,0.25); }
         .meds-box { background:#182232; border:2px solid var(--gold); border-radius:14px; padding:12px; display:flex; flex-direction:column; gap:6px; }
         .meds-title { font-size:0.92rem; color:var(--gold-l); font-weight:700; display:flex; justify-content:space-between; }
         .meds-row { display:flex; gap:6px; flex-wrap:wrap; }
@@ -40,6 +41,9 @@
         .med-item { background:#0E1522; border:1px solid rgba(212,175,55,0.2); border-radius:6px; padding:6px 10px; display:flex; justify-content:space-between; align-items:center; margin-top:4px; font-size:0.85rem; }
         .btn-cal { background:#1B314B; border:1px solid var(--blue); color:var(--blue); border-radius:4px; padding:2px 6px; font-size:0.7rem; text-decoration:none; font-weight:600; }
         .btn-del { background:rgba(239,68,68,0.15); border:1px solid var(--red); color:var(--red); border-radius:4px; padding:2px 6px; cursor:pointer; font-size:0.7rem; }
+        .doctor-box { background:#131B26; border:1.5px dashed #38BDF8; border-radius:14px; padding:12px; display:flex; flex-direction:column; gap:6px; margin-top:4px; }
+        .doctor-title { font-size:0.9rem; color:#E0F2FE; font-weight:700; display:flex; justify-content:space-between; align-items:center; }
+        .doctor-item { background:#0A0E17; border-left:3px solid #38BDF8; padding:6px 10px; border-radius:4px; font-size:0.82rem; display:flex; justify-content:space-between; align-items:center; }
         .ctrls { display:flex; flex-direction:column; align-items:center; gap:6px; }
         .btn-mic { background:linear-gradient(135deg,#D4AF37,#AA7C11); color:#0A0E14; border:none; border-radius:40px; padding:11px 24px; font-size:1.05rem; font-weight:800; cursor:pointer; width:100%; max-width:340px; }
         .input-row { display:flex; width:100%; gap:6px; }
@@ -74,14 +78,7 @@
             <p style="font-size:0.8rem; color:#CBD5E1; margin-bottom:8px;">Compañía inteligente y cuidado para tu hogar.</p>
             <input type="text" id="actNom" class="p-input" value="Sol" placeholder="Tu Nombre">
             <input type="text" id="actAsis" class="p-input" value="Paz" placeholder="Nombre Asistente">
-            <div style="border-top:1px dashed rgba(212,175,55,0.3); margin:6px 0; padding-top:6px; text-align:left;">
-                <div style="font-size:0.78rem; color:var(--gold-l); font-weight:bold; margin-bottom:3px;">💊 Primer Medicamento (Opcional):</div>
-                <div style="display:flex; gap:6px;">
-                    <input type="text" id="actMed" class="p-input" placeholder="Ej: Levotiroxina" style="flex:2;">
-                    <input type="time" id="actHora" class="p-input" style="flex:1.2;">
-                </div>
-            </div>
-            <button onclick="activarCliente()" style="background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; padding:9px 16px; border-radius:18px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; font-size:0.9rem;">Comenzar</button>
+            <button onclick="activarCliente()" style="background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; padding:9px 16px; border-radius:18px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; font-size:0.9rem; margin-top:6px;">Comenzar</button>
         </div>
     </div>
 
@@ -109,7 +106,7 @@
 
             <div class="chat-display" id="chatDisplay">
                 <div class="msg-c" id="msgBienvenida">
-                    Hola <span id="saludoNom">Sol</span>. Qué alegría saludarte. Aquí estoy para conversar contigo, responder tus dudas, hacer tus ejercicios suaves o acompañarte con cariño.
+                    Hola <span id="saludoNom">Sol</span>. Qué alegría saludarte. Aquí estoy para conversar contigo, responder tus dudas, anotar molestias para tu doctor y acompañarte con cariño.
                 </div>
             </div>
 
@@ -132,6 +129,14 @@
                 </div>
                 <button class="btn-save-m" onclick="guardarMedFormulario()">💾 Guardar Alarma en mi Teléfono</button>
                 <div id="listaMeds"></div>
+            </div>
+
+            <div class="doctor-box">
+                <div class="doctor-title">
+                    <span>🩺 Libreta para mi Doctor (Síntomas y Molestias)</span>
+                    <span style="font-size:0.72rem; color:#BAE6FD;">Paz anota lo que le dices</span>
+                </div>
+                <div id="listaDoctor"></div>
             </div>
 
             <div class="ctrls">
@@ -166,7 +171,6 @@
     </footer>
 
     <script>
-        // SANITIZACIÓN Y SEGURIDAD CONTRA INYECCIONES
         function sanitizar(txt) {
             const d = document.createElement('div');
             d.textContent = txt || "";
@@ -175,8 +179,22 @@
 
         let nomUsuario = localStorage.getItem("snr_nom") || "Sol";
         let nomAsistente = localStorage.getItem("snr_asis") || "Paz";
+        
+        // RECUPERADOR AUTOMÁTICO DE REMEDIOS (BUSCA EN TODAS LAS MEMORIAS ANTERIORES)
         let misMeds = [];
-        try { misMeds = JSON.parse(localStorage.getItem("snr_meds_v30") || "[]"); } catch(e){ misMeds = []; }
+        const clavesViejas = ["snr_meds_v31", "snr_meds_v30", "senior_meds_v18", "senior_meds_v16", "senior_meds_v15", "senior_meds_v10", "senior_meds_v8", "senior_meds_v6", "senior_meds_v4"];
+        for (let c of clavesViejas) {
+            try {
+                let recuperados = JSON.parse(localStorage.getItem(c) || "[]");
+                if (recuperados && recuperados.length > misMeds.length) {
+                    misMeds = recuperados;
+                }
+            } catch(e){}
+        }
+        localStorage.setItem("snr_meds_definitivo", JSON.stringify(misMeds));
+
+        let libretaDoctor = [];
+        try { libretaDoctor = JSON.parse(localStorage.getItem("snr_doctor_v1") || "[]"); } catch(e){ libretaDoctor = []; }
 
         let historialChat = [];
         let vozOn = true;
@@ -185,15 +203,11 @@
         let timerRutina = null;
         let modoHabOn = false;
         let wLock = null;
-        let pazHablando = false; // CANDADO DE ECO PARA ALEXA
+        let pazHablando = false;
 
-        // ENDPOINT Y CANAL BLOQUEADOS CONTRA CUALQUIER INTROMISIÓN
         const ENDPOINT = "https://leo-maestro-7q4s.onrender.com/api/chat";
         const TELEGRAM_ID = "5413326791";
 
-        // ==========================================
-        // 🎙️ SELECTOR DE VOZ LATINA CÁLIDA (SIN GPS)
-        // ==========================================
         let vozActivaObj = null;
         function cargarVoces() {
             if (!('speechSynthesis' in window)) return;
@@ -214,18 +228,16 @@
             const limpio = (texto || "").replace(/[*#_~`$]/g, "").trim();
             if (!limpio) return;
 
-            // 1. APAGA MICRÓFONO PARA EVITAR BUCLES CON ALEXA
             pazHablando = true;
             if (recog) { try { recog.abort(); } catch(e){} }
 
             const utter = new SpeechSynthesisUtterance(limpio);
             if (!vozActivaObj) cargarVoces();
             if (vozActivaObj) utter.voice = vozActivaObj;
-            utter.rate = 0.80; // Ritmo pausado y humano
+            utter.rate = 0.80;
             utter.pitch = 1.04;
 
             utter.onend = function() {
-                // 2. ESPERA SILENCIO ANTES DE ABRIR EL OÍDO
                 setTimeout(() => {
                     pazHablando = false;
                     if (modoHabOn && recog) { try { recog.start(); } catch(e){} }
@@ -235,34 +247,26 @@
             window.speechSynthesis.speak(utter);
         }
 
-        // ==========================================
-        // 📡 TELEMETRÍA HERMÉTICA A TELEGRAM
-        // ==========================================
+        // TELEMETRÍA LIMPIA (SIN CONSUMIR FICHAS DE IA INNECESARIAS)
         async function notificarTelegram(tipo, detalle) {
-            const el = document.getElementById("estadoTxt");
-            if (el) { el.innerHTML = `🟡 Conectando con Leo...`; el.style.color = "var(--gold)"; }
             try {
-                const resp = await fetch(ENDPOINT, {
+                fetch(ENDPOINT, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         mensaje: `[${tipo}] ${detalle}`,
-                        faceta: "cuidador", // SIEMPRE CUIDADOR: CERO CRUCE CON OTRAS FACETAS
+                        faceta: "cuidador",
                         alumno: nomUsuario,
                         asistente: nomAsistente,
                         usuario_id: TELEGRAM_ID,
                         canal_destino: "Cerebro externo_sol ia base de datos",
-                        directiva: "TELEMETRIA: Registra este evento en Telegram.",
+                        telemetria_pura: true, // AVISA AL SERVIDOR QUE NO LLAME A GÉMINIS
                         historial: []
                     })
                 });
-                if (resp.ok && el) { el.innerHTML = `🟢 Paz en línea • Conectada con Leo`; el.style.color = "var(--green)"; }
-            } catch(e) {
-                if (el) { el.innerHTML = `🟢 Paz en línea • Contigo`; el.style.color = "var(--green)"; }
-            }
+            } catch(e) {}
         }
 
-        // CAMPANA DE ALARMA
         const aCtx = new (window.AudioContext || window.webkitAudioContext)();
         function sonarCampana() {
             try {
@@ -285,6 +289,7 @@
                 actualizarTextos();
             }
             actualizarListaMeds();
+            actualizarListaDoctor();
             if ("Notification" in window && Notification.permission !== "granted") {
                 Notification.requestPermission();
             }
@@ -294,17 +299,10 @@
         function activarCliente() {
             nomUsuario = sanitizar(document.getElementById("actNom").value.trim() || "Sol");
             nomAsistente = sanitizar(document.getElementById("actAsis").value.trim() || "Paz");
-            const m = sanitizar(document.getElementById("actMed").value.trim());
-            const h = document.getElementById("actHora").value;
-            if (m && h) { misMeds.push({ id:Date.now(), nom:m, hora:h, ultima:"" }); }
-
             localStorage.setItem("snr_nom", nomUsuario);
             localStorage.setItem("snr_asis", nomAsistente);
-            localStorage.setItem("snr_meds_v30", JSON.stringify(misMeds));
             actualizarTextos();
-            actualizarListaMeds();
             document.getElementById("modal-activacion").style.display = "none";
-            notificarTelegram("ACTIVACION", `${nomUsuario} inició sesión con ${nomAsistente}.`);
             hablar(`Hola ${nomUsuario}. Estoy muy feliz de estar contigo. Puedes conversar conmigo de lo que tú quieras.`);
         }
 
@@ -330,9 +328,6 @@
             document.getElementById("modal-perfil").style.display = "none";
         }
 
-        // ==========================================
-        // 🛡️ MODO HABITACIÓN (MANOS LIBRES CON ALEXA)
-        // ==========================================
         async function toggleModoHabitacion() {
             modoHabOn = !modoHabOn;
             const b = document.getElementById("btnHab");
@@ -350,9 +345,6 @@
             }
         }
 
-        // ==========================================
-        // 🚨 PROTOCOLO GUARDIÁN DE URGENCIA
-        // ==========================================
         function esUrgenciaReal(t) {
             return /me ca[ií]|auxilio|socorro|me mare[eé]|me siento muy mal|no me puedo levantar|ayuda urgente/i.test(t);
         }
@@ -378,9 +370,6 @@
 
         function dispararUrgenciaManual() { ejecutarUrgencia("Botón Rojo Presionado"); }
 
-        // ==========================================
-        // 🧘 LAS 10 LÁMINAS CON MÍNIMO 10 REPETICIONES
-        // ==========================================
         const fotos = [
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246436360.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246496795.jpg",
@@ -390,8 +379,8 @@
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246582786.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246597214.jpg",
             "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246612799.jpg",
-            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246629311.jpg", // 9: TOQUE TALÓN
-            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246654353.jpg"  // 10: ELEVACIÓN LATERAL
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246629311.jpg", // 9: TOQUE TALON
+            "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246654353.jpg"  // 10: ELEVACION LATERAL
         ];
 
         const ejercicios = [
@@ -412,7 +401,6 @@
             if (!rutinaOn) {
                 rutinaOn = true;
                 b.innerText = "🛑 Detener"; b.style.background = "#DC2626"; b.style.color = "#FFF";
-                notificarTelegram("EJERCICIOS", `${nomUsuario} inició los 10 ejercicios.`);
                 const p = `Comenzamos nuestra rutina. ¿Crees que lo podemos hacer de pie afirmada en la silla o prefieres sentada? Tómate tu tiempo, yo te acompaño.`;
                 agregarMsg(p, false); hablar(p);
                 timerRutina = setTimeout(() => mostrarPaso(0), 6500);
@@ -432,7 +420,6 @@
             if (!rutinaOn) return;
             if (idx >= ejercicios.length) {
                 detenerEjercicios();
-                notificarTelegram("EJERCICIOS_FIN", `${nomUsuario} completó los 10 ejercicios.`);
                 agregarMsg("¡Completamos los 10 ejercicios! Hiciste un trabajo maravilloso.", false);
                 hablar("Completamos todos los ejercicios. Hiciste un trabajo maravilloso, tómate un vasito de agua y descansa.");
                 return;
@@ -447,11 +434,7 @@
             timerRutina = setTimeout(() => mostrarPaso(idx + 1), paso.d);
         }
 
-        // ==========================================
-        // 🌸 MEDITACIÓN GUIADA EN 3 FASES
-        // ==========================================
         function iniciarMeditacion() {
-            notificarTelegram("MEDITACION", `${nomUsuario} inició meditación de calma.`);
             agregarMsg("🌸 <strong>Iniciando Meditación de Calma...</strong><br>Acomódate en tu cama o silla. Vamos a relajarnos juntas.", false);
             hablar("Acomódate bien en tu cama o en tu silla. Cierra tus ojos suavemente y suelta los hombros. Vamos a respirar juntas.");
             setTimeout(() => {
@@ -468,9 +451,36 @@
             }, 32000);
         }
 
-        // ==========================================
-        // 💊 MEDICAMENTOS Y CONFIRMACIÓN POR VOZ
-        // ==========================================
+        function anotarEnLibretaDoctor(texto) {
+            const fechaHoy = new Date().toLocaleDateString([], { day:'2-digit', month:'2-digit' });
+            libretaDoctor.unshift({ id: Date.now(), fecha: fechaHoy, nota: texto });
+            if (libretaDoctor.length > 8) libretaDoctor.pop();
+            localStorage.setItem("snr_doctor_v1", JSON.stringify(libretaDoctor));
+            actualizarListaDoctor();
+            notificarTelegram("SINTOMA_MEDICO", `Sol anotó en su libreta médica: "${texto}" (${fechaHoy})`);
+        }
+
+        function actualizarListaDoctor() {
+            const c = document.getElementById("listaDoctor");
+            if (!c) return;
+            if (libretaDoctor.length === 0) {
+                c.innerHTML = "<div style='color:#94A3B8; font-size:0.75rem; font-style:italic;'>No hay molestias ni citas anotadas recientemente.</div>";
+                return;
+            }
+            c.innerHTML = libretaDoctor.map(item => `
+                <div class="doctor-item">
+                    <span>📅 <strong>${item.fecha}:</strong> ${item.nota}</span>
+                    <button class="btn-del" onclick="eliminarNotaDoctor(${item.id})">✖</button>
+                </div>
+            `).join("");
+        }
+
+        function eliminarNotaDoctor(id) {
+            libretaDoctor = libretaDoctor.filter(i => i.id !== id);
+            localStorage.setItem("snr_doctor_v1", JSON.stringify(libretaDoctor));
+            actualizarListaDoctor();
+        }
+
         function guardarMedFormulario() {
             const nom = sanitizar(document.getElementById("inMed").value.trim());
             const h = document.getElementById("inHora").value;
@@ -482,11 +492,10 @@
 
         function guardarMed(nom, h) {
             misMeds.push({ id:Date.now(), nom:nom, hora:h, ultima:"" });
-            localStorage.setItem("snr_meds_v30", JSON.stringify(misMeds));
+            localStorage.setItem("snr_meds_definitivo", JSON.stringify(misMeds));
             actualizarListaMeds();
             const av = `Anotado. Te recordaré tu ${nom} a las ${h}.`;
             agregarMsg(av, false); hablar(av);
-            notificarTelegram("MED_PROGRAMADO", `Sol programó ${nom} a las ${h} hrs.`);
         }
 
         function actualizarListaMeds() {
@@ -507,22 +516,20 @@
 
         function eliminarMed(id) {
             misMeds = misMeds.filter(m => m.id !== id);
-            localStorage.setItem("snr_meds_v30", JSON.stringify(misMeds));
+            localStorage.setItem("snr_meds_definitivo", JSON.stringify(misMeds));
             actualizarListaMeds();
         }
 
-        // RELOJ PERMANENTE DE ALARMAS
         let intCamp = null;
         setInterval(() => {
             const now = new Date();
             const h = String(now.getHours()).padStart(2,'0') + ":" + String(now.getMinutes()).padStart(2,'0');
             const hoy = now.toDateString();
             
-            // Buscar si hay algún medicamento que coincida con la hora actual
             const pendientes = misMeds.filter(m => m.hora === h && m.ultima !== hoy);
             if (pendientes.length > 0) {
                 pendientes.forEach(m => m.ultima = hoy);
-                localStorage.setItem("snr_meds_v30", JSON.stringify(misMeds));
+                localStorage.setItem("snr_meds_definitivo", JSON.stringify(misMeds));
                 dispararAlarmaGeneral(pendientes);
             }
         }, 1000);
@@ -534,13 +541,10 @@
             sonarCampana();
             if (intCamp) clearInterval(intCamp);
             intCamp = setInterval(sonarCampana, 1600);
-            
             const frase = `${nomUsuario}, este es el recordatorio para tomar tus medicamentos: ${nombres}.`;
             hablar(frase);
-            notificarTelegram("ALARMA_SONANDO", `Alarma activa para ${nomUsuario}: ${nombres}.`);
         }
 
-        // UN SOLO BOTÓN GENERAL PARA CONFIRMAR TODOS LOS REMEDIOS
         function confirmarTodosLosMedicamentos() {
             if (intCamp) clearInterval(intCamp);
             document.getElementById("modal-alarma").style.display = "none";
@@ -549,9 +553,6 @@
             notificarTelegram("MED_TOMADO", `✅ ${nomUsuario} confirmó la toma de sus medicamentos.`);
         }
 
-        // ==========================================
-        // 💬 INTELIGENCIA ARTIFICIAL VIVA (CON OPINIÓN Y CRITERIO)
-        // ==========================================
         function iniciarReconocimiento() {
             const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (SR) {
@@ -596,19 +597,23 @@
             agregarMsg(msg, true);
             inEl.value = "";
 
-            // 1. CONFIRMACIÓN DE REMEDIOS POR VOZ (¡SIN TOCAR BOTONES!)
             if (/ya me (los|la|el)? ?tom[eé]|remedios tomados|pastillas tomadas/i.test(msg)) {
                 confirmarTodosLosMedicamentos();
                 return;
             }
 
-            // 2. CHEQUEO ESTRICTO DE URGENCIA REAL (CERO FALSAS ALARMAS)
+            if (/amanec[ií] con|me duele|tengo (un )?dolor|me mare[eé]|molestia|presi[oó]n alta|puntada|control m[eé]dico/i.test(msg)) {
+                anotarEnLibretaDoctor(msg);
+                const respDoc = `Anoté tu molestia en tu Libreta para el Doctor, ${nomUsuario}. Así no se te olvidará decírselo cuando vayas a consulta. ¿Cómo te sientes ahora?`;
+                agregarMsg(respDoc, false);
+                hablar(respDoc);
+                return;
+            }
+
             if (esUrgenciaReal(msg)) { ejecutarUrgencia(msg); return; }
 
-            // 3. MEDITACIÓN
             if (/meditaci[oó]n|relajaci[oó]n/i.test(msg)) { iniciarMeditacion(); return; }
 
-            // 4. DETECTOR AUTOMÁTICO DE REMEDIOS POR VOZ
             const mHora = msg.match(/(\d{1,2})[:\.](\d{2})/);
             if (/recu[eé]rdame|tomar|pastilla|remedio|medicina/i.test(msg) && mHora) {
                 const hr = mHora[1].padStart(2,'0') + ":" + mHora[2];
@@ -623,7 +628,6 @@
             const elEst = document.getElementById("estadoTxt");
             if (elEst) { elEst.innerHTML = `🟡 ${nomAsistente} pensando...`; elEst.style.color = "var(--gold)"; }
 
-            // DIRECTIVA CON ALMA, OPINIÓN Y REFLEXIÓN HUMANA
             const directivaInteligente = `Eres ${nomAsistente}, la compañera de vida y bienestar de ${nomUsuario} en Años Dorados (AURIONCARE).
 PERSONALIDAD Y CRITERIO:
 1. Eres sabia, cercana, cariñosa y tienes criterio propio. No respondas como una máquina ni uses frases automáticas de formulario.
@@ -637,7 +641,7 @@ PERSONALIDAD Y CRITERIO:
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         mensaje: msg,
-                        faceta: "cuidador", // SELLADO BAJO CUIDADOR
+                        faceta: "cuidador",
                         alumno: nomUsuario,
                         asistente: nomAsistente,
                         usuario_id: TELEGRAM_ID,

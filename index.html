@@ -16,6 +16,7 @@
         header h1 { font-family:'Cinzel',serif; font-size:1.9rem; color:var(--gold-l); letter-spacing:1px; }
         .sub-brand { font-size:0.95rem; color:var(--gold); font-weight:600; font-family:'Cinzel',serif; }
         .btn-cfg { position:absolute; top:12px; right:12px; background:#182333; border:1px solid var(--gold); color:var(--gold-l); border-radius:18px; padding:4px 10px; font-size:0.8rem; cursor:pointer; font-weight:600; }
+        .btn-guia-top { position:absolute; top:12px; left:12px; background:#182333; border:1px solid var(--blue); color:#E0F2FE; border-radius:18px; padding:4px 10px; font-size:0.8rem; cursor:pointer; font-weight:600; }
         .main-container { max-width:800px; width:100%; margin:8px auto 16px; padding:0 10px; flex:1; }
         .cuidador-box { background:var(--card); border:2px solid var(--gold); border-radius:18px; padding:14px; display:flex; flex-direction:column; gap:10px; box-shadow:0 10px 35px rgba(0,0,0,0.7); }
         .top-bar { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; border-bottom:1px solid rgba(212,175,55,0.25); padding-bottom:6px; }
@@ -38,7 +39,8 @@
         .btn-sug { background:#182232; border:1px solid rgba(212,175,55,0.3); color:var(--gold-l); padding:6px 10px; border-radius:16px; font-size:0.78rem; cursor:pointer; font-weight:500; }
         .btn-sug:hover { background:rgba(212,175,55,0.25); }
         .meds-box { background:#182232; border:2px solid var(--gold); border-radius:14px; padding:12px; display:flex; flex-direction:column; gap:6px; }
-        .meds-title { font-size:0.92rem; color:var(--gold-l); font-weight:700; display:flex; justify-content:space-between; }
+        .meds-title { font-size:0.92rem; color:var(--gold-l); font-weight:700; display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px; }
+        .meds-help { font-size:0.74rem; color:#CBD5E1; line-height:1.35; }
         .meds-row { display:flex; gap:6px; flex-wrap:wrap; }
         .input-m { flex:2; min-width:140px; background:#0D131F; border:1px solid rgba(212,175,55,0.4); border-radius:8px; padding:7px 10px; color:#FFF; font-size:0.88rem; outline:none; }
         .time-m { flex:1; min-width:95px; background:#0D131F; border:1px solid rgba(212,175,55,0.4); border-radius:8px; padding:7px 10px; color:#FFF; font-size:0.88rem; outline:none; }
@@ -60,10 +62,11 @@
         #modal-alarma { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(11,15,23,0.96); z-index:1000000; align-items:center; justify-content:center; padding:15px; }
         .al-card { background:#182232; border:3px solid var(--gold); border-radius:18px; padding:20px; max-width:380px; width:100%; text-align:center; }
         .btn-ok { background:linear-gradient(135deg,#25D366,#128C7E); color:#FFF; border:none; padding:12px 20px; border-radius:20px; font-size:1.05rem; font-weight:bold; cursor:pointer; width:100%; margin-top:12px; }
-        #modal-activacion, #modal-perfil { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(11,15,23,0.96); z-index:999999; align-items:center; justify-content:center; padding:15px; }
-        .modal-box { background:#141C28; border:2px solid var(--gold); border-radius:16px; padding:18px; max-width:380px; width:100%; text-align:center; }
+        #modal-activacion, #modal-perfil, #modal-guia { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(11,15,23,0.96); z-index:999999; align-items:center; justify-content:center; padding:15px; }
+        .modal-box { background:#141C28; border:2px solid var(--gold); border-radius:16px; padding:18px; max-width:390px; width:100%; text-align:center; max-height:90vh; overflow-y:auto; }
         .p-input { width:100%; background:#0D131F; border:1px solid var(--gold); border-radius:8px; padding:7px 10px; color:#FFF; margin-bottom:8px; outline:none; font-size:0.88rem; }
         .p-label { display:block; text-align:left; font-size:0.75rem; color:var(--gold-l); margin-bottom:3px; font-weight:600; }
+        .guia-lista { text-align:left; font-size:0.82rem; color:#E2E8F0; line-height:1.45; display:flex; flex-direction:column; gap:8px; margin:10px 0; }
         footer { text-align:center; padding:10px; background:#06090E; color:#94A3B8; font-size:0.78rem; border-top:1px solid rgba(212,175,55,0.2); }
     </style>
 </head>
@@ -78,6 +81,19 @@
         </div>
     </div>
 
+    <div id="modal-guia">
+        <div class="modal-box">
+            <h3 style="color:var(--gold-l); font-family:'Cinzel',serif; margin-bottom:4px;">📖 Guía Fácil de Uso</h3>
+            <div class="guia-lista">
+                <div><strong>1. Alertas y Remedios por Telegram (24/7):</strong><br>Para que el familiar reciba alertas urgentes y recordatorios con voz aunque la página esté cerrada, debe abrir el bot de Leo en Telegram, tocar <em>Iniciar</em> y poner su número de ID en ⚙️ Configuración.</div>
+                <div><strong>2. Alarma en Google Calendar:</strong><br>Escribe el nombre del remedio y la hora, toca <em>Guardar Alarma</em> y luego <em>📲 Al Calendario</em>. Se abrirá Google Calendar ya con la hora exacta diaria: solo toca <strong>Guardar</strong> una vez.</div>
+                <div><strong>3. Ejercicios con Voz (10 láminas):</strong><br>Puedes controlar la rutina hablando con comandos como: <em>"sentada"</em>, <em>"de pie"</em>, <em>"siguiente"</em>, <em>"ya estoy lista"</em>, <em>"repetir"</em> o <em>"detener"</em>.</div>
+                <div><strong>4. Emergencia (Botón Rojo):</strong><br>Si presionas el botón rojo o dices <em>"me caí"</em> o <em>"ayuda"</em>, se calma al adulto mayor y se envía una Alerta Guardiana inmediata a Telegram.</div>
+            </div>
+            <button onclick="cerrarGuia()" style="background:var(--gold); border:none; padding:8px 16px; border-radius:14px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%;">Entendido</button>
+        </div>
+    </div>
+
     <div id="modal-activacion" style="display:flex;">
         <div class="modal-box">
             <span style="font-size:1.8rem; display:block;">✨</span>
@@ -89,8 +105,8 @@
             <input type="text" id="actAsis" class="p-input" value="Paz" placeholder="Nombre Asistente">
             <label class="p-label">Voz del Asistente</label>
             <select id="actVoz" class="p-input">
-                <option value="femenino">👩 Femenina (Aoede • Cálida y Neutra)</option>
-                <option value="masculino">👨 Masculina (Algieba • Suave y Neutra)</option>
+                <option value="femenino">👩 Femenina (Paloma • Cálida y Neutra)</option>
+                <option value="masculino">👨 Masculina (Alonso • Suave y Neutra)</option>
             </select>
             <label class="p-label">ID Telegram del Familiar (para Alertas Urgentes 🚨)</label>
             <input type="text" id="actTgId" class="p-input" value="5413326791" placeholder="Ej: 5413326791">
@@ -99,6 +115,7 @@
     </div>
 
     <header>
+        <button class="btn-guia-top" onclick="abrirGuia()">📖 Guía</button>
         <button class="btn-cfg" onclick="abrirPerfil()">⚙️ <span id="lblNomTop">Sol</span></button>
         <img src="https://raw.githubusercontent.com/terapiasol-ai/Aurion/main/WA_1783391770679.jpeg" alt="Logo" class="logo">
         <br><span class="badge">✨ AÑOS DORADOS</span>
@@ -137,8 +154,9 @@
             <div class="meds-box">
                 <div class="meds-title">
                     <span>💊 Mis Alarmas de Medicamentos</span>
-                    <span style="font-size:0.75rem; color:#CBD5E1;">Exactas y sincronizadas</span>
+                    <span style="font-size:0.75rem; color:#CBD5E1;">Telegram 24/7 + Agenda</span>
                 </div>
+                <div class="meds-help">Escribe tu remedio y la hora, toca <strong>Guardar Alarma</strong> (te avisará por Telegram con voz) y opcionalmente toca <strong>📲 Al Calendario</strong> para agendarlo en Google Calendar.</div>
                 <div class="meds-row">
                     <input type="text" id="inMed" class="input-m" placeholder="Remedio (ej. Vitamina C, Losartán)">
                     <input type="time" id="inHora" class="time-m">
@@ -182,8 +200,8 @@
             <input type="text" id="cfgAsis" class="p-input">
             <label class="p-label">Voz del Asistente</label>
             <select id="cfgVoz" class="p-input">
-                <option value="femenino">👩 Femenina (Aoede • Cálida y Neutra)</option>
-                <option value="masculino">👨 Masculina (Algieba • Suave y Neutra)</option>
+                <option value="femenino">👩 Femenina (Paloma • Cálida y Neutra)</option>
+                <option value="masculino">👨 Masculina (Alonso • Suave y Neutra)</option>
             </select>
             <label class="p-label">ID Telegram del Familiar (Alertas Urgentes)</label>
             <input type="text" id="cfgTgId" class="p-input">
@@ -193,7 +211,7 @@
 
     <footer>
         <p>&copy; 2026 AURIONCARE &bull; Años Dorados &bull; Creación: Sol Sánchez Contreras</p>
-    </footer><script>
+                                                                                                                      </footer><script>
         function sanitizar(txt) {
             const d = document.createElement('div');
             d.textContent = txt || "";
@@ -226,6 +244,7 @@
         let recog = null;
         let micEscuchando = false;
         let rutinaOn = false;
+        let esperandoPosturaEj = false;
         let meditacionOn = false;
         let sesionAudioId = 0;
         let pasoActualEj = 0;
@@ -249,6 +268,9 @@
         function desbloquearAudioMovil() {
             try { if (aCtx && aCtx.state === 'suspended') aCtx.resume(); } catch(e) {}
         }
+
+        function abrirGuia() { document.getElementById("modal-guia").style.display = "flex"; }
+        function cerrarGuia() { document.getElementById("modal-guia").style.display = "none"; }
 
         function cargarVoces() {
             if (!('speechSynthesis' in window)) return;
@@ -280,13 +302,11 @@
         function reproducirBase64(b64, mime, alFinalizar) {
             return new Promise((resolve) => {
                 try {
-                    audioReproductor.src = `data:${mime || "audio/wav"};base64,${b64}`;
+                    audioReproductor.src = `data:${mime || "audio/mpeg"};base64,${b64}`;
                     audioReproductor.onended = () => { alFinalizar(); resolve(true); };
                     audioReproductor.onerror = () => { resolve(false); };
                     const p = audioReproductor.play();
-                    if (p && typeof p.catch === "function") {
-                        p.catch(() => resolve(false));
-                    }
+                    if (p && typeof p.catch === "function") p.catch(() => resolve(false));
                 } catch(e) { resolve(false); }
             });
         }
@@ -302,15 +322,12 @@
                 if (modoHabOn && recog && !micEscuchando) {
                     setTimeout(() => { try { recog.start(); } catch(e) {} }, 600);
                 }
-                if (typeof alTerminar === "function" && miSesion === sesionAudioId) {
-                    alTerminar();
-                }
+                if (typeof alTerminar === "function" && miSesion === sesionAudioId) alTerminar();
             };
 
             if (!vozOn || !limpio) {
                 if (typeof alTerminar === "function") {
-                    const lecturaMs = Math.max(10000, limpio.length * 75);
-                    timerSafety = setTimeout(finalizar, lecturaMs);
+                    timerSafety = setTimeout(finalizar, Math.max(10000, limpio.length * 75));
                 }
                 return;
             }
@@ -340,14 +357,12 @@
                     signal: ctrl.signal
                 });
                 clearTimeout(tOut);
-
                 if (miSesion !== sesionAudioId || !vozOn) return;
-
                 if (resTTS.ok) {
                     const dTts = await resTTS.json();
                     if (dTts.audio_disponible && dTts.audio_base64) {
-                        cacheAudioLocal[claveLocal] = { b64: dTts.audio_base64, mime: dTts.audio_mime || "audio/wav" };
-                        const ok = await reproducirBase64(dTts.audio_base64, dTts.audio_mime || "audio/wav", finalizar);
+                        cacheAudioLocal[claveLocal] = { b64: dTts.audio_base64, mime: dTts.audio_mime || "audio/mpeg" };
+                        const ok = await reproducirBase64(dTts.audio_base64, dTts.audio_mime || "audio/mpeg", finalizar);
                         if (ok) return;
                     }
                 }
@@ -363,21 +378,12 @@
             utter.pitch = vozTipo === "masculino" ? 0.88 : 1.02;
 
             let yaTermino = false;
-            const concluirSeguro = () => {
-                if (yaTermino) return;
-                yaTermino = true;
-                finalizar();
-            };
-
+            const concluirSeguro = () => { if (yaTermino) return; yaTermino = true; finalizar(); };
             utter.onend = concluirSeguro;
             utter.onerror = concluirSeguro;
-
-            const maxEsperarMs = Math.max(14000, limpio.length * 115) + 5000;
-            timerSafety = setTimeout(concluirSeguro, maxEsperarMs);
-
+            timerSafety = setTimeout(concluirSeguro, Math.max(14000, limpio.length * 115) + 5000);
             timerSpeechDelay = setTimeout(() => {
-                if (miSesion !== sesionAudioId || !vozOn) return;
-                window.speechSynthesis.speak(utter);
+                if (miSesion === sesionAudioId && vozOn) window.speechSynthesis.speak(utter);
             }, 70);
         }
 
@@ -394,6 +400,7 @@
                     elEst.innerText = `🟢 ${nomAsistente} en línea • Conectado con Leo IA`;
                     elEst.style.color = "var(--green)";
                 }
+                if (servidorOnline && misMeds.length > 0) sincronizarMedsServidor();
             } catch(e) {
                 servidorOnline = false;
                 if (elEst) {
@@ -413,6 +420,7 @@
                         faceta: "cuidador",
                         alumno: nomUsuario,
                         asistente: nomAsistente,
+                        voz_tipo: vozTipo,
                         usuario_id: telegramFamiliar,
                         canal_destino: "Cerebro externo_sol ia base de datos",
                         telemetria_pura: true,
@@ -420,16 +428,34 @@
                     })
                 });
                 return resp.ok;
-            } catch(e) {
-                return false;
-            }
+            } catch(e) { return false; }
+        }
+
+        async function enviarAccionMed(payloadExtra) {
+            try {
+                await fetch(ENDPOINT, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(Object.assign({
+                        faceta: "cuidador",
+                        alumno: nomUsuario,
+                        voz_tipo: vozTipo,
+                        usuario_id: telegramFamiliar,
+                        tz_offset: new Date().getTimezoneOffset(),
+                        telemetria_pura: true
+                    }, payloadExtra))
+                });
+            } catch(e) {}
+        }
+
+        function sincronizarMedsServidor() {
+            enviarAccionMed({ accion_med: "sincronizar", meds: misMeds });
         }
 
         function sonarCampana() {
             try {
                 if (aCtx.state === 'suspended') aCtx.resume();
-                const osc = aCtx.createOscillator();
-                const gain = aCtx.createGain();
+                const osc = aCtx.createOscillator(), gain = aCtx.createGain();
                 osc.type = "sine";
                 osc.frequency.setValueAtTime(587.33, aCtx.currentTime);
                 osc.frequency.setValueAtTime(880, aCtx.currentTime + 0.15);
@@ -447,9 +473,7 @@
             }
             actualizarListaMeds();
             actualizarListaDoctor();
-            if ("Notification" in window && Notification.permission !== "granted") {
-                Notification.requestPermission();
-            }
+            if ("Notification" in window && Notification.permission !== "granted") Notification.requestPermission();
             iniciarReconocimiento();
             despertarServidor();
         });
@@ -466,6 +490,7 @@
             localStorage.setItem("snr_tg_id", telegramFamiliar);
             actualizarTextos();
             document.getElementById("modal-activacion").style.display = "none";
+            if (misMeds.length > 0) sincronizarMedsServidor();
             hablar(`Hola ${nomUsuario}. Qué alegría estar contigo. Puedes conversar conmigo de lo que tú quieras.`);
         }
 
@@ -499,6 +524,7 @@
             localStorage.setItem("snr_tg_id", telegramFamiliar);
             actualizarTextos();
             document.getElementById("modal-perfil").style.display = "none";
+            if (misMeds.length > 0) sincronizarMedsServidor();
         }
 
         async function toggleModoHabitacion() {
@@ -526,8 +552,7 @@
         async function ejecutarUrgencia(motivo = "Auxilio Presionado") {
             detenerRutinasActivas();
             const resp = `Con calma, ${nomUsuario}, no hagas fuerza. Ya le envié un aviso urgente a tu familia.`;
-            const c = document.getElementById("chatDisplay");
-            const d = document.createElement("div");
+            const c = document.getElementById("chatDisplay"), d = document.createElement("div");
             d.className = "msg-c";
             d.style.background = "#450A0A"; d.style.border = "2px solid #EF4444";
             d.innerHTML = `🚨 <strong>PROTOCOLO DE URGENCIA:</strong><br>${resp}`;
@@ -538,78 +563,27 @@
             const fecha = new Date().toLocaleDateString();
             const payload = `🚨 ¡ALERTA GUARDIANA AURION!\n👤 Adulto Mayor: ${nomUsuario} (Telegram: ${telegramFamiliar})\n💬 Dijo: «${motivo}»\n⏰ Hora: ${hora} - ${fecha}\n📞 Verificar estado del ser querido de inmediato.`;
             const ok = await notificarTelegram("TARJETA_ROJA", payload);
-            if (!ok) {
-                agregarMsg("⚠️ No hubo conexión para enviar la alerta a Telegram. Verifica tu internet.", false);
-            }
+            if (!ok) agregarMsg("⚠️ No hubo conexión para enviar la alerta a Telegram. Verifica tu internet.", false);
         }
 
         function dispararUrgenciaManual() { desbloquearAudioMovil(); ejecutarUrgencia("Botón Rojo de Auxilio Presionado"); }
 
         const rutinaEjercicios = [
-            {
-                t: "CÍRCULOS DE BRAZOS",
-                img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246436360.jpg",
-                txt: "Brazos extendidos a los lados. Hacemos círculos suaves hacia adelante y respiramos hondo... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Tomamos aire y vamos hacia atrás... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Muy bien, descansamos los brazos. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.",
-                pausaMs: 14000
-            },
-            {
-                t: "ELEVACIÓN DE PIERNA HACIA ATRÁS",
-                img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246496795.jpg",
-                txt: "De pie, afirmándote bien de la silla. Elevamos una pierna hacia atrás despacito... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Cambiamos de pierna con calma... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Excelente. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.",
-                pausaMs: 14000
-            },
-            {
-                t: "ELEVACIÓN DE PANTORRILLAS",
-                img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246523341.jpg",
-                txt: "Afirmándote de la silla, subimos despacio los talones quedando en puntitas de pie... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Descansamos un segundo y seguimos... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Muy bien. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.",
-                pausaMs: 14000
-            },
-            {
-                t: "ELEVACIÓN LATERAL DE PIERNA",
-                img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246546773.jpg",
-                txt: "Afirmándote de la silla, elevamos una pierna hacia el lado con suavidad... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Cambiamos al otro lado con calma... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Perfecto. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.",
-                pausaMs: 14000
-            },
-            {
-                t: "SENTADILLAS ASISTIDAS",
-                img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246556359.jpg",
-                txt: "Sostente firme de la silla y baja suave como si fueras a sentarte, con la espalda recta... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Muy bien. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.",
-                pausaMs: 14000
-            },
-            {
-                t: "MARCHA SENTADA",
-                img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246582786.jpg",
-                txt: "Sentada con la espalda cómoda, levantamos las rodillas alternando y moviendo los brazos como caminando en el lugar... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Excelente ritmo. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.",
-                pausaMs: 14000
-            },
-            {
-                t: "GIRO DE TRONCO SENTADO",
-                img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246597214.jpg",
-                txt: "Sentada derecha en la silla, giramos suavemente el tronco hacia un lado y luego hacia el otro... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Sintiendo la espalda más aliviada. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.",
-                pausaMs: 14000
-            },
-            {
-                t: "EXTENSIÓN DE BRAZOS POR ENCIMA",
-                img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246612799.jpg",
-                txt: "Con la espalda derecha, elevamos los brazos extendidos por encima de la cabeza tomando aire... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Bajamos despacito. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.",
-                pausaMs: 14000
-            },
-            {
-                t: "TOQUE DE TALÓN ALTERNO",
-                img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246629311.jpg",
-                txt: "Sentada, extendemos una pierna adelante y tocamos el suelo con el talón, alternando con la otra... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Muy bien. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.",
-                pausaMs: 14000
-            },
-            {
-                t: "ELEVACIÓN LATERAL DE BRAZOS Y PIERNAS",
-                img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246654353.jpg",
-                txt: "Sentada, abrimos suave ambos brazos y ambas piernas hacia los lados... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Descansamos las manos sobre los muslos y respiramos hondo. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.",
-                pausaMs: 12000
-            }
+            { t: "CÍRCULOS DE BRAZOS", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246436360.jpg", txt: "Brazos extendidos a los lados. Hacemos círculos suaves hacia adelante y respiramos hondo... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Tomamos aire y vamos hacia atrás... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Muy bien, descansamos los brazos. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
+            { t: "ELEVACIÓN DE PIERNA HACIA ATRÁS", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246496795.jpg", txt: "De pie, afirmándote bien de la silla. Elevamos una pierna hacia atrás despacito... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Cambiamos de pierna con calma... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Excelente. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
+            { t: "ELEVACIÓN DE PANTORRILLAS", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246523341.jpg", txt: "Afirmándote de la silla, subimos despacio los talones quedando en puntitas de pie... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Descansamos un segundo y seguimos... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Muy bien. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
+            { t: "ELEVACIÓN LATERAL DE PIERNA", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246546773.jpg", txt: "Afirmándote de la silla, elevamos una pierna hacia el lado con suavidad... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Cambiamos al otro lado con calma... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Perfecto. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
+            { t: "SENTADILLAS ASISTIDAS", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246556359.jpg", txt: "Sostente firme de la silla y baja suave como si fueras a sentarte, con la espalda recta... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Muy bien. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
+            { t: "MARCHA SENTADA", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246582786.jpg", txt: "Sentada con la espalda cómoda, levantamos las rodillas alternando y moviendo los brazos como caminando en el lugar... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Excelente ritmo. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
+            { t: "GIRO DE TRONCO SENTADO", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246597214.jpg", txt: "Sentada derecha en la silla, giramos suavemente el tronco hacia un lado y luego hacia el otro... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Sintiendo la espalda más aliviada. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
+            { t: "EXTENSIÓN DE BRAZOS POR ENCIMA", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246612799.jpg", txt: "Con la espalda derecha, elevamos los brazos extendidos por encima de la cabeza tomando aire... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Bajamos despacito. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
+            { t: "TOQUE DE TALÓN ALTERNO", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246629311.jpg", txt: "Sentada, extendemos una pierna adelante y tocamos el suelo con el talón, alternando con la otra... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Muy bien. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
+            { t: "ELEVACIÓN LATERAL DE BRAZOS Y PIERNAS", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246654353.jpg", txt: "Sentada, abrimos suave ambos brazos y ambas piernas hacia los lados... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Descansamos las manos sobre los muslos y respiramos hondo. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 12000 }
         ];
 
         function detenerRutinasActivas() {
             sesionAudioId++;
+            esperandoPosturaEj = false;
             if (timerRutina) { clearTimeout(timerRutina); timerRutina = null; }
             detenerVozActual();
             if (rutinaOn) {
@@ -629,14 +603,15 @@
             if (!rutinaOn) {
                 detenerRutinasActivas();
                 rutinaOn = true;
+                esperandoPosturaEj = true;
                 const miId = ++sesionAudioId;
                 const b = document.getElementById("btnEjercicios");
                 b.innerText = "🛑 Detener"; b.style.background = "#DC2626"; b.style.color = "#FFF";
-                const p = "Comenzamos nuestra rutina. ¿Crees que lo podemos hacer de pie afirmándote en la silla o prefieres sentarte? Tómate tu tiempo, vamos sin apuro.";
+                const p = "Comenzamos nuestra rutina de diez ejercicios. ¿Crees que lo podemos hacer de pie afirmándote en la silla o prefieres sentarte? Tómate tu tiempo, vamos sin apuro.";
                 agregarMsg(p, false);
                 hablar(p, () => {
                     if (!rutinaOn || miId !== sesionAudioId) return;
-                    timerRutina = setTimeout(() => mostrarPaso(0, miId), 4500);
+                    timerRutina = setTimeout(() => mostrarPaso(0, miId), 5500);
                 });
             } else {
                 detenerRutinasActivas();
@@ -656,11 +631,12 @@
             if (!rutinaOn) return;
             if (timerRutina) { clearTimeout(timerRutina); timerRutina = null; }
             const miId = ++sesionAudioId;
-            mostrarPaso(pasoActualEj + 1, miId);
+            mostrarPaso(esperandoPosturaEj ? 0 : pasoActualEj + 1, miId);
         }
 
         function mostrarPaso(idx, miId) {
             if (!rutinaOn || miId !== sesionAudioId) return;
+            esperandoPosturaEj = false;
             if (idx >= rutinaEjercicios.length) {
                 detenerRutinasActivas();
                 agregarMsg("¡Completamos los 10 ejercicios! Hiciste un trabajo maravilloso.", false);
@@ -735,12 +711,7 @@
                 c.innerHTML = "<div style='color:#94A3B8; font-size:0.75rem; font-style:italic;'>No hay molestias ni citas anotadas recientemente.</div>";
                 return;
             }
-            c.innerHTML = libretaDoctor.map(item => `
-                <div class="doctor-item">
-                    <span>📅 <strong>${item.fecha}:</strong> ${item.nota}</span>
-                    <button class="btn-del" onclick="eliminarNotaDoctor(${item.id})">✖</button>
-                </div>
-            `).join("");
+            c.innerHTML = libretaDoctor.map(item => `<div class="doctor-item"><span>📅 <strong>${item.fecha}:</strong> ${item.nota}</span><button class="btn-del" onclick="eliminarNotaDoctor(${item.id})">✖</button></div>`).join("");
         }
 
         function eliminarNotaDoctor(id) {
@@ -759,27 +730,41 @@
         }
 
         function guardarMed(nom, h) {
-            misMeds.push({ id:Date.now(), nom:nom, hora:h, ultima:"" });
+            const nuevo = { id:Date.now(), nom:nom, hora:h, ultima:"" };
+            misMeds.push(nuevo);
             localStorage.setItem("snr_meds_definitivo", JSON.stringify(misMeds));
             actualizarListaMeds();
-            const av = `Anotado. Te recordaré tu ${nom} a las ${h}.`;
+            enviarAccionMed({ accion_med: "guardar", med: nuevo });
+            const av = `Anotado. Te recordaré tu ${nom} a las ${h} por aquí y por Telegram.`;
             agregarMsg(av, false); hablar(av);
+        }
+
+        function urlCalendarioMed(nom, hora) {
+            const now = new Date();
+            const partes = (hora || "09:00").split(":");
+            const hh = parseInt(partes[0] || "9", 10);
+            const mm = parseInt(partes[1] || "0", 10);
+            const y = now.getFullYear();
+            const mo = String(now.getMonth() + 1).padStart(2, "0");
+            const da = String(now.getDate()).padStart(2, "0");
+            const ini = `${y}${mo}${da}T${String(hh).padStart(2,"0")}${String(mm).padStart(2,"0")}00`;
+            const dtFin = new Date(y, now.getMonth(), now.getDate(), hh, mm + 15);
+            const fin = `${dtFin.getFullYear()}${String(dtFin.getMonth()+1).padStart(2,"0")}${String(dtFin.getDate()).padStart(2,"0")}T${String(dtFin.getHours()).padStart(2,"0")}${String(dtFin.getMinutes()).padStart(2,"0")}00`;
+            return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("💊 Tomar " + nom)}&dates=${ini}/${fin}&recur=RRULE:FREQ=DAILY`;
         }
 
         function actualizarListaMeds() {
             const c = document.getElementById("listaMeds");
             if (!c) return;
             if (misMeds.length === 0) { c.innerHTML = "<div style='color:#94A3B8; font-size:0.8rem; margin-top:4px;'>No hay medicamentos programados.</div>"; return; }
-            c.innerHTML = misMeds.map(m => {
-                const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Tomar ' + m.nom)}&recur=RRULE:FREQ=DAILY`;
-                return `<div class="med-item"><div><strong>⏰ ${m.hora}</strong> - <span>${m.nom}</span></div><div style="display:flex; gap:5px;"><a href="${url}" target="_blank" class="btn-cal">📲 Al Calendario</a><button class="btn-del" onclick="eliminarMed(${m.id})">✖</button></div></div>`;
-            }).join("");
+            c.innerHTML = misMeds.map(m => `<div class="med-item"><div><strong>⏰ ${m.hora}</strong> - <span>${m.nom}</span></div><div style="display:flex; gap:5px;"><a href="${urlCalendarioMed(m.nom, m.hora)}" target="_blank" class="btn-cal">📲 Al Calendario</a><button class="btn-del" onclick="eliminarMed(${m.id})">✖</button></div></div>`).join("");
         }
 
         function eliminarMed(id) {
             misMeds = misMeds.filter(m => m.id !== id);
             localStorage.setItem("snr_meds_definitivo", JSON.stringify(misMeds));
             actualizarListaMeds();
+            enviarAccionMed({ accion_med: "eliminar", med_id: String(id) });
         }
 
         let intCamp = null;
@@ -832,22 +817,14 @@
             recog.lang = 'es-419';
             recog.continuous = false;
             recog.interimResults = false;
-            recog.onstart = function() {
-                micEscuchando = true;
-                actualizarBotonMic();
-            };
+            recog.onstart = function() { micEscuchando = true; actualizarBotonMic(); };
             recog.onresult = function(e) {
                 const txt = (e.results[0]?.[0]?.transcript || "").trim();
-                micEscuchando = false;
-                actualizarBotonMic();
-                if (txt) {
-                    document.getElementById("inputTxt").value = txt;
-                    enviarMensaje();
-                }
+                micEscuchando = false; actualizarBotonMic();
+                if (txt) { document.getElementById("inputTxt").value = txt; enviarMensaje(); }
             };
             recog.onerror = function(e) {
-                micEscuchando = false;
-                actualizarBotonMic();
+                micEscuchando = false; actualizarBotonMic();
                 if (e.error === "not-allowed" || e.error === "service-not-allowed") {
                     agregarMsg("🎙️ El micrófono está bloqueado. Actívalo en el candadito de Chrome o abre la página directamente en Google Chrome.", false);
                 } else if (e.error === "audio-capture") {
@@ -857,8 +834,7 @@
                 }
             };
             recog.onend = function() {
-                micEscuchando = false;
-                actualizarBotonMic();
+                micEscuchando = false; actualizarBotonMic();
                 if (modoHabOn && !pazHablando) {
                     setTimeout(() => { try { recog.start(); } catch(e) {} }, 600);
                 }
@@ -873,32 +849,20 @@
 
         function toggleMicrofono() {
             desbloquearAudioMovil();
-            if (!recog) {
-                alert("Tu navegador no permite micrófono directo. Abre esta página en Google Chrome.");
-                return;
-            }
+            if (!recog) { alert("Tu navegador no permite micrófono directo. Abre esta página en Google Chrome."); return; }
             if (micEscuchando) {
                 try { recog.stop(); } catch(e) {}
-                micEscuchando = false;
-                actualizarBotonMic();
-                return;
+                micEscuchando = false; actualizarBotonMic(); return;
             }
             detenerVozActual();
-            try {
-                recog.start();
-            } catch(e) {
+            try { recog.start(); } catch(e) {
                 try { recog.stop(); } catch(err) {}
-                micEscuchando = false;
-                actualizarBotonMic();
+                micEscuchando = false; actualizarBotonMic();
                 alert("Espera un segundo y vuelve a tocar el botón para hablar.");
             }
         }
 
-        function enviarSugerencia(t) {
-            desbloquearAudioMovil();
-            document.getElementById("inputTxt").value = t;
-            enviarMensaje();
-        }
+        function enviarSugerencia(t) { desbloquearAudioMovil(); document.getElementById("inputTxt").value = t; enviarMensaje(); }
 
         function agregarMsg(htmlContenido, esU = false, etiquetaIA = "") {
             const c = document.getElementById("chatDisplay");
@@ -934,10 +898,45 @@
             inEl.value = "";
 
             if (/ya me (los|la|el)? ?tom[eé]|remedios tomados|pastillas tomadas/i.test(msg)) {
-                confirmarTodosLosMedicamentos();
-                return;
+                confirmarTodosLosMedicamentos(); return;
             }
             if (esUrgenciaReal(msg)) { ejecutarUrgencia(msg); return; }
+
+            if (rutinaOn) {
+                if (/detener|parar|pausar|basta|ya no|descansar/i.test(msg)) {
+                    detenerRutinasActivas();
+                    agregarMsg("Rutina pausada con calma.", false);
+                    hablar("Rutina pausada. Descansa con tranquilidad, lo hiciste muy bien.");
+                    return;
+                }
+                if (/repetir|otra vez|de nuevo/i.test(msg)) { repetirEjercicioActual(); return; }
+                if (esperandoPosturaEj && /sentad[oa]|de pie|silla|cama|list[oa]|ya|siguiente|empecemos|comencemos|dale/i.test(msg)) {
+                    if (timerRutina) { clearTimeout(timerRutina); timerRutina = null; }
+                    mostrarPaso(0, sesionAudioId); return;
+                }
+                if (/siguiente|ya estoy list[oa]|estoy list[oa]|list[oa]|ya$|continuar|avanzar|termin[eé]/i.test(msg)) {
+                    siguienteEjercicioManual(); return;
+                }
+            }
+
+            if (meditacionOn && /detener|parar|pausar|basta|terminar/i.test(msg)) {
+                detenerRutinasActivas();
+                agregarMsg("Meditación pausada con suavidad.", false);
+                hablar("Meditación finalizada. Quédate en paz.");
+                return;
+            }
+
+            if (/quiero descansar en silencio|^silencio$/i.test(msg)) {
+                detenerRutinasActivas();
+                const fraseSil = "Descansa con tranquilidad, aquí me quedo en silencio acompañándote.";
+                agregarMsg(fraseSil, false);
+                hablar(fraseSil, () => {
+                    vozOn = false;
+                    document.getElementById("btnAudio").innerText = "🔇 Silencio";
+                });
+                return;
+            }
+
             if (/meditaci[oó]n|relajaci[oó]n/i.test(msg)) { iniciarMeditacion(); return; }
             if (/(hagamos|hacer|iniciar|empezar)?\s*(los )?ejercicios?|rutina/i.test(msg)) {
                 if (!rutinaOn) toggleEjercicios();
@@ -949,8 +948,7 @@
                 const hr = mHora[1].padStart(2,'0') + ":" + mHora[2];
                 let nR = msg.replace(/recu[eé]rdame|el medicamento|la pastilla|mi remedio|a las \d{1,2}[:\.]\d{2}/gi, "").trim();
                 if (!nR) nR = "Medicamento";
-                guardarMed(nR, hr);
-                return;
+                guardarMed(nR, hr); return;
             }
 
             let notaMedicaAgregada = false;
@@ -1007,7 +1005,7 @@
                 agregarMsg(sanitizar(r), false, modeloInfo);
 
                 const audioPrecargado = (data.audio_disponible && data.audio_base64)
-                    ? { b64: data.audio_base64, mime: data.audio_mime || "audio/wav" }
+                    ? { b64: data.audio_base64, mime: data.audio_mime || "audio/mpeg" }
                     : null;
                 hablar(r, null, audioPrecargado);
             } catch(e) {
@@ -1019,4 +1017,4 @@
         }
     </script>
 </body>
-    </html>
+</html>

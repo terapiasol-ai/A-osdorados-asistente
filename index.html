@@ -49,8 +49,9 @@
         .btn-cal { background:#1B314B; border:1px solid var(--blue); color:var(--blue); border-radius:4px; padding:2px 6px; font-size:0.7rem; text-decoration:none; font-weight:600; }
         .btn-del { background:rgba(239,68,68,0.15); border:1px solid var(--red); color:var(--red); border-radius:4px; padding:2px 6px; cursor:pointer; font-size:0.7rem; }
         .doctor-box { background:#131B26; border:1.5px dashed #38BDF8; border-radius:14px; padding:12px; display:flex; flex-direction:column; gap:6px; margin-top:4px; }
-        .doctor-title { font-size:0.9rem; color:#E0F2FE; font-weight:700; display:flex; justify-content:space-between; align-items:center; }
-        .doctor-item { background:#0A0E17; border-left:3px solid #38BDF8; padding:6px 10px; border-radius:4px; font-size:0.82rem; display:flex; justify-content:space-between; align-items:center; }
+        .doctor-title { font-size:0.9rem; color:#E0F2FE; font-weight:700; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; }
+        .btn-boletin { background:linear-gradient(135deg,#0284C7,#0369A1); color:#FFF; border:none; border-radius:12px; padding:6px 12px; font-size:0.78rem; font-weight:700; cursor:pointer; }
+        .doctor-item { background:#0A0E17; border-left:3px solid #38BDF8; padding:6px 10px; border-radius:4px; font-size:0.82rem; display:flex; justify-content:space-between; align-items:center; gap:6px; }
         .ctrls { display:flex; flex-direction:column; align-items:center; gap:6px; }
         .btn-mic { background:linear-gradient(135deg,#D4AF37,#AA7C11); color:#0A0E14; border:none; border-radius:40px; padding:11px 24px; font-size:1.05rem; font-weight:800; cursor:pointer; width:100%; max-width:340px; }
         .btn-mic.escuchando { background:linear-gradient(135deg,#DC2626,#991B1B); color:#FFF; box-shadow:0 0 15px rgba(220,38,38,0.6); }
@@ -58,15 +59,16 @@
         .txt-in { flex:1; background:#0E1420; border:1px solid rgba(212,175,55,0.3); border-radius:20px; padding:8px 14px; color:#FFF; font-size:0.9rem; outline:none; }
         .btn-send { background:var(--gold); border:none; color:#0A0E14; border-radius:50%; width:40px; height:40px; cursor:pointer; font-weight:bold; }
         .card-soporte { background:#141C28; border:2px solid var(--gold); border-radius:14px; padding:12px 14px; margin-top:10px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
-        .btn-tg { background:linear-gradient(135deg,#25D366,#128C7E); color:#FFF; padding:7px 14px; border-radius:20px; text-decoration:none; font-weight:700; font-size:0.82rem; }
+        .btn-tg { background:linear-gradient(135deg,#25D366,#128C7E); color:#FFF; padding:7px 14px; border-radius:20px; text-decoration:none; font-weight:700; font-size:0.82rem; display:inline-block; }
         #modal-alarma { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(11,15,23,0.96); z-index:1000000; align-items:center; justify-content:center; padding:15px; }
         .al-card { background:#182232; border:3px solid var(--gold); border-radius:18px; padding:20px; max-width:380px; width:100%; text-align:center; }
         .btn-ok { background:linear-gradient(135deg,#25D366,#128C7E); color:#FFF; border:none; padding:12px 20px; border-radius:20px; font-size:1.05rem; font-weight:bold; cursor:pointer; width:100%; margin-top:12px; }
-        #modal-activacion, #modal-perfil, #modal-guia { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(11,15,23,0.96); z-index:999999; align-items:center; justify-content:center; padding:15px; }
-        .modal-box { background:#141C28; border:2px solid var(--gold); border-radius:16px; padding:18px; max-width:390px; width:100%; text-align:center; max-height:90vh; overflow-y:auto; }
+        #modal-activacion, #modal-perfil, #modal-guia, #modal-boletin { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(11,15,23,0.96); z-index:999999; align-items:center; justify-content:center; padding:15px; }
+        .modal-box { background:#141C28; border:2px solid var(--gold); border-radius:16px; padding:18px; max-width:410px; width:100%; text-align:center; max-height:90vh; overflow-y:auto; }
         .p-input { width:100%; background:#0D131F; border:1px solid var(--gold); border-radius:8px; padding:7px 10px; color:#FFF; margin-bottom:8px; outline:none; font-size:0.88rem; }
         .p-label { display:block; text-align:left; font-size:0.75rem; color:var(--gold-l); margin-bottom:3px; font-weight:600; }
         .guia-lista { text-align:left; font-size:0.82rem; color:#E2E8F0; line-height:1.45; display:flex; flex-direction:column; gap:8px; margin:10px 0; }
+        .boletin-txt { background:#0A0E17; border:1px solid #38BDF8; border-radius:10px; padding:12px; text-align:left; font-size:0.85rem; color:#F8FAFC; white-space:pre-wrap; line-height:1.5; max-height:48vh; overflow-y:auto; margin:10px 0; }
         footer { text-align:center; padding:10px; background:#06090E; color:#94A3B8; font-size:0.78rem; border-top:1px solid rgba(212,175,55,0.2); }
     </style>
 </head>
@@ -85,12 +87,26 @@
         <div class="modal-box">
             <h3 style="color:var(--gold-l); font-family:'Cinzel',serif; margin-bottom:4px;">📖 Guía Fácil de Uso</h3>
             <div class="guia-lista">
-                <div><strong>1. Alertas y Remedios por Telegram (24/7):</strong><br>Para que el familiar reciba alertas urgentes y recordatorios con voz aunque la página esté cerrada, debe abrir el bot de Leo en Telegram, tocar <em>Iniciar</em> y poner su número de ID en ⚙️ Configuración.</div>
-                <div><strong>2. Alarma en Google Calendar:</strong><br>Escribe el nombre del remedio y la hora, toca <em>Guardar Alarma</em> y luego <em>📲 Al Calendario</em>. Se abrirá Google Calendar ya con la hora exacta diaria: solo toca <strong>Guardar</strong> una vez.</div>
-                <div><strong>3. Ejercicios con Voz (10 láminas):</strong><br>Puedes controlar la rutina hablando con comandos como: <em>"sentada"</em>, <em>"de pie"</em>, <em>"siguiente"</em>, <em>"ya estoy lista"</em>, <em>"repetir"</em> o <em>"detener"</em>.</div>
-                <div><strong>4. Emergencia (Botón Rojo):</strong><br>Si presionas el botón rojo o dices <em>"me caí"</em> o <em>"ayuda"</em>, se calma al adulto mayor y se envía una Alerta Guardiana inmediata a Telegram.</div>
+                <div><strong>1. Alertas y Remedios por Telegram (24/7):</strong><br>Para recibir alertas urgentes y recordatorios con voz aunque la página esté cerrada, abre el bot de Leo en Telegram, toca <em>Iniciar</em> y pon el ID de Telegram del familiar en ⚙️ Configuración.</div>
+                <div><strong>2. Alarma en Google Calendar:</strong><br>Escribe el remedio y la hora, toca <em>Guardar Alarma</em> y luego <em>📲 Al Calendario</em>. Se abrirá Google Calendar ya con la hora exacta diaria: solo toca <strong>Guardar</strong> una vez.</div>
+                <div><strong>3. Ejercicios con Voz (10 láminas):</strong><br>Controla la rutina diciendo: <em>"sentada"</em>, <em>"de pie"</em>, <em>"siguiente"</em>, <em>"ya estoy lista"</em>, <em>"repetir"</em> o <em>"detener"</em>.</div>
+                <div><strong>4. Boletín para el Médico:</strong><br>Todo síntoma que dictes durante el mes queda guardado en la Libreta Azul. El día de consulta toca <em>📄 Boletín del Mes</em> para mostrarlo al doctor o enviarlo a Telegram.</div>
+                <div><strong>5. Servicio Mensual (30 días):</strong><br>Al igual que la luz o el agua, es un servicio continuo de pago anticipado. Renueva cada 30 días en <em>Contactar a Sol-AI</em>.</div>
             </div>
             <button onclick="cerrarGuia()" style="background:var(--gold); border:none; padding:8px 16px; border-radius:14px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%;">Entendido</button>
+        </div>
+    </div>
+
+    <div id="modal-boletin">
+        <div class="modal-box">
+            <h3 style="color:#BAE6FD; font-family:'Cinzel',serif; margin-bottom:2px;">🩺 Boletín Médico del Mes</h3>
+            <p style="font-size:0.78rem; color:#CBD5E1;">Resumen listo para mostrar en tu consulta médica</p>
+            <div id="contenidoBoletin" class="boletin-txt"></div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                <button onclick="copiarBoletin()" style="flex:1; background:var(--gold); border:none; padding:8px; border-radius:12px; font-weight:bold; cursor:pointer; color:#0A0E14;">📋 Copiar</button>
+                <button onclick="enviarBoletinTelegram()" style="flex:1; background:#25D366; border:none; padding:8px; border-radius:12px; font-weight:bold; cursor:pointer; color:#FFF;">📲 Enviar a Telegram</button>
+            </div>
+            <button onclick="cerrarBoletin()" style="background:#1E293B; border:1px solid #475569; padding:7px; border-radius:12px; cursor:pointer; color:#E2E8F0; width:100%; margin-top:8px;">Cerrar</button>
         </div>
     </div>
 
@@ -110,6 +126,8 @@
             </select>
             <label class="p-label">ID Telegram del Familiar (para Alertas Urgentes 🚨)</label>
             <input type="text" id="actTgId" class="p-input" value="5413326791" placeholder="Ej: 5413326791">
+            <label class="p-label">Código de Suscripción Mensual (Clientes Etsy)</label>
+            <input type="text" id="actCod" class="p-input" value="" placeholder="Ej: AUR-20261216-XXXX">
             <button onclick="activarCliente()" style="background:linear-gradient(135deg,#D4AF37,#AA7C11); border:none; padding:9px 16px; border-radius:18px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; font-size:0.9rem; margin-top:6px;">Comenzar</button>
         </div>
     </div>
@@ -167,8 +185,8 @@
 
             <div class="doctor-box">
                 <div class="doctor-title">
-                    <span>🩺 Libreta para mi Doctor (Síntomas y Molestias)</span>
-                    <span style="font-size:0.72rem; color:#BAE6FD;">Tu asistente anota lo que le dices</span>
+                    <span>🩺 Libreta para mi Doctor (Todo el Mes)</span>
+                    <button class="btn-boletin" onclick="abrirBoletinDoctor()">📄 Boletín del Mes</button>
                 </div>
                 <div id="listaDoctor"></div>
             </div>
@@ -185,7 +203,7 @@
         <div class="card-soporte">
             <div>
                 <strong style="color:var(--gold-l); font-size:0.92rem;">🛠️ Administración & Soporte • Sol-AI</strong>
-                <div style="color:#CBD5E1; font-size:0.78rem;">Consultas de suscripción, pagos y asistencia</div>
+                <div style="color:#CBD5E1; font-size:0.78rem;">Consultas de suscripción, renovaciones y asistencia</div>
             </div>
             <a href="https://t.me/Solsanchez_bot" target="_blank" class="btn-tg"><i class="fa-brands fa-telegram"></i> Contactar a Sol-AI</a>
         </div>
@@ -205,13 +223,15 @@
             </select>
             <label class="p-label">ID Telegram del Familiar (Alertas Urgentes)</label>
             <input type="text" id="cfgTgId" class="p-input">
+            <label class="p-label">Código de Suscripción Mensual</label>
+            <input type="text" id="cfgCod" class="p-input" placeholder="Ej: AUR-20261216-XXXX">
             <button onclick="guardarPerfil()" style="background:var(--gold); border:none; padding:8px 16px; border-radius:14px; font-weight:bold; cursor:pointer; color:#0A0E14; width:100%; margin-top:4px;">Guardar</button>
         </div>
     </div>
 
     <footer>
         <p>&copy; 2026 AURIONCARE &bull; Años Dorados &bull; Creación: Sol Sánchez Contreras</p>
-                                                                                                                      </footer><script>
+    </footer><script>
         function sanitizar(txt) {
             const d = document.createElement('div');
             d.textContent = txt || "";
@@ -222,6 +242,7 @@
         let nomAsistente = localStorage.getItem("snr_asis") || "Paz";
         let vozTipo = localStorage.getItem("snr_voz_tipo") || "femenino";
         let telegramFamiliar = localStorage.getItem("snr_tg_id") || "5413326791";
+        let codigoSuscripcion = localStorage.getItem("snr_codigo_susc") || "";
 
         let misMeds = [];
         try { misMeds = JSON.parse(localStorage.getItem("snr_meds_definitivo") || "[]"); } catch(e) { misMeds = []; }
@@ -237,12 +258,19 @@
         }
 
         let libretaDoctor = [];
-        try { libretaDoctor = JSON.parse(localStorage.getItem("snr_doctor_v1") || "[]"); } catch(e) { libretaDoctor = []; }
+        try {
+            const ahoraMs = Date.now();
+            const limite35Dias = 35 * 86400000;
+            libretaDoctor = JSON.parse(localStorage.getItem("snr_doctor_v1") || "[]")
+                .filter(i => !i.ts || (ahoraMs - i.ts) <= limite35Dias);
+            localStorage.setItem("snr_doctor_v1", JSON.stringify(libretaDoctor));
+        } catch(e) { libretaDoctor = []; }
 
         let historialChat = [];
         let vozOn = true;
         let recog = null;
         let micEscuchando = false;
+        let dictandoLibreta = false;
         let rutinaOn = false;
         let esperandoPosturaEj = false;
         let meditacionOn = false;
@@ -353,7 +381,7 @@
                 const resTTS = await fetch(TTS_ENDPOINT, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ texto: limpio, voz_tipo: vozTipo }),
+                    body: JSON.stringify({ texto: limpio, voz_tipo: vozTipo, usuario_id: telegramFamiliar, codigo_suscripcion: codigoSuscripcion }),
                     signal: ctrl.signal
                 });
                 clearTimeout(tOut);
@@ -422,6 +450,7 @@
                         asistente: nomAsistente,
                         voz_tipo: vozTipo,
                         usuario_id: telegramFamiliar,
+                        codigo_suscripcion: codigoSuscripcion,
                         canal_destino: "Cerebro externo_sol ia base de datos",
                         telemetria_pura: true,
                         historial: []
@@ -441,6 +470,7 @@
                         alumno: nomUsuario,
                         voz_tipo: vozTipo,
                         usuario_id: telegramFamiliar,
+                        codigo_suscripcion: codigoSuscripcion,
                         tz_offset: new Date().getTimezoneOffset(),
                         telemetria_pura: true
                     }, payloadExtra))
@@ -484,10 +514,12 @@
             nomAsistente = sanitizar(document.getElementById("actAsis").value.trim() || "Paz");
             vozTipo = document.getElementById("actVoz").value === "masculino" ? "masculino" : "femenino";
             telegramFamiliar = sanitizar(document.getElementById("actTgId").value.trim() || "5413326791");
+            codigoSuscripcion = sanitizar(document.getElementById("actCod").value.trim().toUpperCase());
             localStorage.setItem("snr_nom", nomUsuario);
             localStorage.setItem("snr_asis", nomAsistente);
             localStorage.setItem("snr_voz_tipo", vozTipo);
             localStorage.setItem("snr_tg_id", telegramFamiliar);
+            localStorage.setItem("snr_codigo_susc", codigoSuscripcion);
             actualizarTextos();
             document.getElementById("modal-activacion").style.display = "none";
             if (misMeds.length > 0) sincronizarMedsServidor();
@@ -510,6 +542,7 @@
             document.getElementById("cfgAsis").value = nomAsistente;
             document.getElementById("cfgVoz").value = vozTipo;
             document.getElementById("cfgTgId").value = telegramFamiliar;
+            document.getElementById("cfgCod").value = codigoSuscripcion;
             document.getElementById("modal-perfil").style.display = "flex";
         }
 
@@ -518,10 +551,12 @@
             nomAsistente = sanitizar(document.getElementById("cfgAsis").value.trim() || "Paz");
             vozTipo = document.getElementById("cfgVoz").value === "masculino" ? "masculino" : "femenino";
             telegramFamiliar = sanitizar(document.getElementById("cfgTgId").value.trim() || "5413326791");
+            codigoSuscripcion = sanitizar(document.getElementById("cfgCod").value.trim().toUpperCase());
             localStorage.setItem("snr_nom", nomUsuario);
             localStorage.setItem("snr_asis", nomAsistente);
             localStorage.setItem("snr_voz_tipo", vozTipo);
             localStorage.setItem("snr_tg_id", telegramFamiliar);
+            localStorage.setItem("snr_codigo_susc", codigoSuscripcion);
             actualizarTextos();
             document.getElementById("modal-perfil").style.display = "none";
             if (misMeds.length > 0) sincronizarMedsServidor();
@@ -571,7 +606,7 @@
         const rutinaEjercicios = [
             { t: "CÍRCULOS DE BRAZOS", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246436360.jpg", txt: "Brazos extendidos a los lados. Hacemos círculos suaves hacia adelante y respiramos hondo... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Tomamos aire y vamos hacia atrás... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Muy bien, descansamos los brazos. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
             { t: "ELEVACIÓN DE PIERNA HACIA ATRÁS", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246496795.jpg", txt: "De pie, afirmándote bien de la silla. Elevamos una pierna hacia atrás despacito... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Cambiamos de pierna con calma... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Excelente. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
-            { t: "ELEVACIÓN DE PANTORRILLAS", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246523341.jpg", txt: "Afirmándote de la silla, subimos despacio los talones quedando en puntitas de pie... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Descansamos un segundo y seguimos... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Muy bien. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
+            { t: "ELEVACIÓN DE PANTORRILLAS", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246523341.jpg", txt: "De pie, afirmándote bien de la silla. Subimos despacio a puntitas de pie... mantenemos arriba... y bajamos lentamente los talones hasta tocar el suelo... Uno... ... Nuevamente, puntitas de pie, mantenemos... y bajamos muy lento hasta el talón... Dos... ... Subimos, mantenemos... y bajamos lento hasta apoyar el talón... Tres... ... Puntitas arriba... bajamos lentamente al suelo... Cuatro... ... Subimos... y bajamos despacio hasta el talón... Cinco... ... Descansamos un segundo y seguimos... ... Puntitas de pie, mantenemos... y bajamos lento al suelo... Seis... ... Subimos... bajamos lento hasta el talón... Siete... ... Puntitas arriba... bajamos despacio... Ocho... ... Subimos, mantenemos... y bajamos lento al suelo... Nueve... ... Última vez: puntitas de pie... mantenemos... y bajamos muy lento hasta apoyar los talones... Diez. Muy bien para tu circulación. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
             { t: "ELEVACIÓN LATERAL DE PIERNA", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246546773.jpg", txt: "Afirmándote de la silla, elevamos una pierna hacia el lado con suavidad... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Cambiamos al otro lado con calma... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Perfecto. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
             { t: "SENTADILLAS ASISTIDAS", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246556359.jpg", txt: "Sostente firme de la silla y baja suave como si fueras a sentarte, con la espalda recta... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Muy bien. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
             { t: "MARCHA SENTADA", img: "https://raw.githubusercontent.com/terapiasol-ai/A-osdorados-asistente/main/1791246582786.jpg", txt: "Sentada con la espalda cómoda, levantamos las rodillas alternando y moviendo los brazos como caminando en el lugar... ... Uno... ... Dos... ... Tres... ... Cuatro... ... Cinco... ... Seis... ... Siete... ... Ocho... ... Nueve... ... Diez. Excelente ritmo. Si te sientes en condiciones de volver a repetir este ejercicio, hazlo por diez veces más a tu ritmo.", pausaMs: 14000 },
@@ -696,28 +731,65 @@
         }
 
         function anotarEnLibretaDoctor(texto) {
-            const fechaHoy = new Date().toLocaleDateString([], { day:'2-digit', month:'2-digit' });
-            libretaDoctor.unshift({ id: Date.now(), fecha: fechaHoy, nota: sanitizar(texto) });
-            if (libretaDoctor.length > 8) libretaDoctor.pop();
+            const ahora = new Date();
+            const fechaHoy = ahora.toLocaleDateString([], { day:'2-digit', month:'2-digit', year:'numeric' });
+            const horaHoy = ahora.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+            const limpio = sanitizar(texto);
+            if (libretaDoctor.length > 0 && libretaDoctor[0].nota === limpio && libretaDoctor[0].ts && (Date.now() - libretaDoctor[0].ts) < 15000) return;
+            libretaDoctor.unshift({ id: Date.now(), ts: Date.now(), fecha: fechaHoy, hora: horaHoy, nota: limpio });
+            if (libretaDoctor.length > 100) libretaDoctor.pop();
             localStorage.setItem("snr_doctor_v1", JSON.stringify(libretaDoctor));
             actualizarListaDoctor();
-            notificarTelegram("SINTOMA_MEDICO", `${nomUsuario} anotó en su libreta médica: "${texto}" (${fechaHoy})`);
+            notificarTelegram("SINTOMA_MEDICO", `🩺 ${nomUsuario} anotó en su libreta médica (${fechaHoy} ${horaHoy}): "${texto}"`);
         }
 
         function actualizarListaDoctor() {
             const c = document.getElementById("listaDoctor");
             if (!c) return;
             if (libretaDoctor.length === 0) {
-                c.innerHTML = "<div style='color:#94A3B8; font-size:0.75rem; font-style:italic;'>No hay molestias ni citas anotadas recientemente.</div>";
+                c.innerHTML = "<div style='color:#94A3B8; font-size:0.75rem; font-style:italic;'>No hay molestias ni citas anotadas este mes.</div>";
                 return;
             }
-            c.innerHTML = libretaDoctor.map(item => `<div class="doctor-item"><span>📅 <strong>${item.fecha}:</strong> ${item.nota}</span><button class="btn-del" onclick="eliminarNotaDoctor(${item.id})">✖</button></div>`).join("");
+            c.innerHTML = libretaDoctor.map(item => `<div class="doctor-item"><span>📅 <strong>${item.fecha}${item.hora ? " " + item.hora : ""}:</strong> ${item.nota}</span><button class="btn-del" onclick="eliminarNotaDoctor(${item.id})">✖</button></div>`).join("");
         }
 
         function eliminarNotaDoctor(id) {
             libretaDoctor = libretaDoctor.filter(i => i.id !== id);
             localStorage.setItem("snr_doctor_v1", JSON.stringify(libretaDoctor));
             actualizarListaDoctor();
+        }
+
+        function construirTextoBoletin() {
+            const hoyStr = new Date().toLocaleDateString([], { day:'2-digit', month:'2-digit', year:'numeric' });
+            if (libretaDoctor.length === 0) {
+                return `🩺 BOLETÍN MÉDICO DEL MES • AURIONCARE\n👤 Paciente: ${nomUsuario}\n📅 Fecha de emisión: ${hoyStr}\n\nNo hay síntomas ni molestias registradas durante este mes.`;
+            }
+            const cronologico = libretaDoctor.slice().reverse();
+            const lineas = cronologico.map((item, idx) => `${idx + 1}. [${item.fecha}${item.hora ? " - " + item.hora : ""}] ${item.nota.replace(/&quot;/g, '"').replace(/&amp;/g, '&')}`);
+            return `🩺 BOLETÍN MÉDICO DEL MES • AURIONCARE\n👤 Paciente: ${nomUsuario}\n📅 Fecha de emisión: ${hoyStr}\n📋 Total registros: ${cronologico.length}\n\nDETALLE PARA EL DOCTOR:\n${lineas.join("\n")}`;
+        }
+
+        function abrirBoletinDoctor() {
+            document.getElementById("contenidoBoletin").innerText = construirTextoBoletin();
+            document.getElementById("modal-boletin").style.display = "flex";
+        }
+        function cerrarBoletin() { document.getElementById("modal-boletin").style.display = "none"; }
+
+        async function copiarBoletin() {
+            const txt = construirTextoBoletin();
+            try {
+                await navigator.clipboard.writeText(txt);
+                alert("Boletín copiado. Ya puedes pegarlo en WhatsApp o Notas.");
+            } catch(e) {
+                alert("Selecciona el texto del boletín para copiarlo.");
+            }
+        }
+
+        async function enviarBoletinTelegram() {
+            const txt = construirTextoBoletin();
+            const ok = await notificarTelegram("BOLETIN_MEDICO", txt);
+            if (ok) alert("Boletín Médico enviado a tu Telegram.");
+            else alert("No hubo conexión para enviar el boletín a Telegram.");
         }
 
         function guardarMedFormulario() {
@@ -902,6 +974,17 @@
             }
             if (esUrgenciaReal(msg)) { ejecutarUrgencia(msg); return; }
 
+            if (/bolet[ií]n|resumen m[eé]dico|resumen para el (doctor|m[eé]dico)|qu[eé] (?:es lo que )?llevamos (?:en la libreta|hasta ahora)/i.test(msg)) {
+                dictandoLibreta = false;
+                abrirBoletinDoctor();
+                const resumenVoz = libretaDoctor.length === 0
+                    ? "Aún no tienes molestias anotadas este mes en tu libreta médica."
+                    : `Llevamos ${libretaDoctor.length} anotaciones para tu doctor. Ya abrí tu boletín en la pantalla para que lo revises o lo envíes a Telegram.`;
+                agregarMsg(`📄 ${resumenVoz}`, false);
+                hablar(resumenVoz);
+                return;
+            }
+
             if (rutinaOn) {
                 if (/detener|parar|pausar|basta|ya no|descansar/i.test(msg)) {
                     detenerRutinasActivas();
@@ -951,11 +1034,17 @@
                 guardarMed(nR, hr); return;
             }
 
+            if (/libreta.*(doctor|m[eé]dic)|anota.*libreta|para mi doctor/i.test(msg)) dictandoLibreta = true;
+            if (/^(gracias|listo|eso es todo|hasta aqu[ií]|te aviso)/i.test(msg) || /te aviso/i.test(msg)) dictandoLibreta = false;
+
+            const esSintomaExplicito = /amanezco con|amanec[ií] con|me duele|tengo (un )?dolor|molestia|inapetente|sin apetito|boca amarga|me arde|me pica|me cuesta dormir|insomnio|presi[oó]n (alta|baja)|puntada|control m[eé]dico|dolor de|an[oó]talo/i.test(msg);
+            const esFraseSoloLibreta = /libreta|doctor|m[eé]dico|gracias|te aviso|llevamos|hasta ahora/i.test(msg);
+
             let notaMedicaAgregada = false;
-            if (/amanec[ií] con|me duele|tengo (un )?dolor|molestia|presi[oó]n alta|puntada|control m[eé]dico/i.test(msg)) {
+            if (esSintomaExplicito || (dictandoLibreta && !esFraseSoloLibreta && msg.length > 3)) {
                 anotarEnLibretaDoctor(msg);
                 notaMedicaAgregada = true;
-                agregarMsg("🩺 <em>Guardado automáticamente en tu Libreta para el Doctor.</em>", false);
+                agregarMsg("🩺 <em>Guardado en tu Libreta del Mes para el Doctor.</em>", false);
             }
 
             historialChat.push({ rol:"usuario", texto:msg });
@@ -985,6 +1074,7 @@
                         voz_tipo: vozTipo,
                         audio: vozOn,
                         usuario_id: telegramFamiliar,
+                        codigo_suscripcion: codigoSuscripcion,
                         canal_destino: "Cerebro externo_sol ia base de datos",
                         directiva: directivaInteligente,
                         historial: historialChat.slice(-6)
@@ -993,9 +1083,23 @@
                 quitarPensandoIA();
                 if (!resp.ok) throw new Error("HTTP " + resp.status);
                 const data = await resp.json();
+
+                if (data.suscripcion_vencida) {
+                    detenerRutinasActivas();
+                    const msgVenc = sanitizar(data.respuesta || "Tu suscripción mensual venció. Renueva para continuar.");
+                    agregarMsg(`🔒 <strong>Suscripción Mensual:</strong><br>${msgVenc}<div class="ej-ctrls" style="margin-top:10px;"><a href="https://t.me/Solsanchez_bot" target="_blank" class="btn-tg">💳 Renovar con Sol-AI</a><button class="btn-ej-mini" onclick="abrirPerfil()">🔑 Ingresar Código</button></div>`, false);
+                    hablar(msgVenc);
+                    return;
+                }
+
                 if (!data.respuesta) throw new Error("Respuesta vacía del servidor");
 
                 const r = data.respuesta.replace(/[*#_~`]/g, "").trim();
+                if (!notaMedicaAgregada && !esFraseSoloLibreta && /he anotado|anotado.*libreta|sumado.*libreta|registrado.*libreta/i.test(r)) {
+                    anotarEnLibretaDoctor(msg);
+                    agregarMsg("🩺 <em>Guardado automáticamente en tu Libreta del Mes para el Doctor.</em>", false);
+                }
+
                 const vozInfo = data.audio_voz ? ` • 🔊 ${data.audio_voz}` : "";
                 const modeloInfo = (data.modelo ? `Leo IA (${data.modelo})` : "Leo IA • Gemini") + vozInfo;
                 servidorOnline = true;
